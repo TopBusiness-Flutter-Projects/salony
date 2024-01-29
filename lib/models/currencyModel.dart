@@ -9,9 +9,11 @@ class Currency {
     try {
       currency_id = json['currency_id'] != null ? json['currency_id'] : null;
       currency = json['currency'] != null ? json['currency'] : null;
-      currency_sign = json['currency_sign'] != null ? json['currency_sign'] : null;
+      currency_sign =
+          json['currency_sign'] != null ? json['currency_sign'] : null;
     } catch (e) {
-      print("Exception - currencyModel.dart - Currency.fromJson():" + e.toString());
+      print("Exception - currencyModel.dart - Currency.fromJson():" +
+          e.toString());
     }
   }
 }

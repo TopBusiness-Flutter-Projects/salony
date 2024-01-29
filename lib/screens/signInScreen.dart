@@ -229,36 +229,35 @@ class _SignInScreenState extends BaseRouteState {
                         style: Theme.of(context).primaryTextTheme.subtitle1),
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 10),
-                      height: 50,
-                      width: double.infinity,
-                      child: TextButton(
-                          onPressed: () async {
-                            FocusScope.of(context).unfocus();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => AddPhoneScreen(
-                                      a: widget.analytics, o: widget.observer)),
-                            );
-                            PermissionStatus permissionStatus =
-                                await Permission.phone.status;
-                            if (!permissionStatus.isGranted) {
-                              permissionStatus =
-                                  await Permission.phone.request();
-                            }
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.phone_outlined),
-                              Text(AppLocalizations.of(context)!
-                                  .btn_connect_with_phone_number),
-                              Icon(
-                                Icons.phone,
-                                color: Colors.transparent,
-                              ),
-                            ],
-                          ))),
+                    margin: EdgeInsets.only(top: 10),
+                    height: 50,
+                    width: double.infinity,
+                    child: TextButton(
+                        onPressed: () async {
+                          FocusScope.of(context).unfocus();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AddPhoneScreen(
+                                  a: widget.analytics, o: widget.observer)));
+                          PermissionStatus permissionStatus =
+                              await Permission.phone.status;
+                          if (!permissionStatus.isGranted) {
+                            permissionStatus = await Permission.phone.request();
+                          }
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(Icons.phone_outlined),
+                            Text(AppLocalizations.of(context)!
+                                .btn_connect_with_phone_number),
+                            Icon(
+                              Icons.phone,
+                              color: Colors.transparent,
+                            ),
+                          ],
+                        )),
+                  ),
+
                   Platform.isIOS
                       ? Container(
                           height: 50,
@@ -293,6 +292,7 @@ class _SignInScreenState extends BaseRouteState {
                                 ],
                               )))
                       : SizedBox(),
+
                   Container(
                       height: 50,
                       width: double.infinity,
@@ -416,9 +416,30 @@ class _SignInScreenState extends BaseRouteState {
         bool isConnected = await br.checkConnectivity();
         if (isConnected) {
           showOnlyLoaderDialog();
+
           await apiHelper!.loginWithEmail(_user).then((result) async {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
             if (result != null) {
+              print("result.status000000");
+
               if (result.status == "1") {
+                print("result.status");
                 global.user = result.recordList;
                 global.sp.setString(
                     'currentUser', json.encode(global.user!.toJson()));
@@ -444,11 +465,13 @@ class _SignInScreenState extends BaseRouteState {
                   }
                 });
               } else {
+                print('aaaaaaaaaaaaaaaaaaaaaaaaaaa ${result.status}');
+
                 hideLoader();
                 showSnackBar(
                     key: _scaffoldKey, snackBarMessage: '${result.message}');
               }
-            }
+            } else {}
           });
         } else {
           showNetworkErrorSnackBar(_scaffoldKey);

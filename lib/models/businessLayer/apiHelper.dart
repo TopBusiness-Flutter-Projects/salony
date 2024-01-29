@@ -424,7 +424,9 @@ class APIHelper {
   dynamic getAPIResult<T>(final response, T recordList) {
     try {
       dynamic result;
+
       result = APIResult.fromJson(json.decode(response.body), recordList);
+      print(response);
       return result;
     } catch (e) {
       print("Exception - getAPIResult():" + e.toString());
@@ -1062,6 +1064,7 @@ class APIHelper {
           json.decode(response.body)["status"] == "1") {
         recordList = CurrentUser.fromJson(json.decode(response.body)["data"]);
         recordList.token = json.decode(response.body)["token"];
+        print(recordList.token);
       } else {
         recordList = null;
       }
@@ -1076,7 +1079,11 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}login_with_email"),
         headers: await global.getApiHeaders(false),
-        body: json.encode(user),
+        body: json.encode({
+          "user_email": user.user_email,
+          "user_password": user.user_password,
+          "device_id": user.device_id
+        }),
       );
 
       dynamic recordList;
@@ -1086,11 +1093,14 @@ class APIHelper {
         recordList =
             CurrentUser.fromJson(json.decode(response.body)["data"]["user"]);
         recordList.cart_count =
-            json.decode(response.body)['data']["cart_count"];
-        recordList.token = json.decode(response.body)["token"];
+            json.decode(response.body)['data']['cart_count'];
+        recordList.token = json.decode(response.body)['token'];
+        recordList.status = json.decode(response.body)['status'];
       } else {
         recordList = null;
       }
+
+      print(".....${response.body}");
       return getAPIResult(response, recordList);
     } catch (e) {
       print("Exception - loginWithEmail(): " + e.toString());

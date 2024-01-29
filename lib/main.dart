@@ -27,7 +27,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     List<FirebaseApp> firebase = Firebase.apps;
     for (FirebaseApp appd in firebase) {
       if (appd.name == 'Salony') {
-
         app = appd;
         break;
       }
