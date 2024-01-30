@@ -5,6 +5,7 @@ import 'package:app/models/businessLayer/global.dart' as global;
 class CurrentUser {
   int? id;
   String? user_phone;
+  String? status;
   String? name;
   String? firstname;
   String? lastname;
@@ -53,6 +54,8 @@ class CurrentUser {
       wallet_credits = json['wallet_credits'] != null
           ? int.parse('${json['wallet_credits']}')
           : null;
+      status = json['status'] != null ? json['status'] : null;
+
       rewards =
           json['rewards'] != null ? int.parse('${json['rewards']}') : null;
       phone_verified = json['phone_verified'] != null &&
@@ -81,6 +84,7 @@ class CurrentUser {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'status': status != null ? status : null,
         'user_phone':
             user_phone != null && user_phone!.isNotEmpty ? user_phone : null,
         'user_name':

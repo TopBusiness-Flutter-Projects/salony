@@ -417,24 +417,10 @@ class _SignInScreenState extends BaseRouteState {
         if (isConnected) {
           showOnlyLoaderDialog();
 
-          await apiHelper!.loginWithEmail(_user).then((result) async {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
+          await apiHelper!
+              .loginWithEmail(
+                  _cEmail.text, _cPassword.text, global.appDeviceId ?? '0')
+              .then((result) async {
             if (result != null) {
               print("result.status000000");
 

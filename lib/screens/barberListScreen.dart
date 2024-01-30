@@ -33,12 +33,15 @@ class _BarberListScreenState extends BaseRouteState {
       },
       child: Scaffold(
           appBar: AppBar(
-            title: Text('Popular Barbers', style: AppBarTheme.of(context).titleTextStyle),
+            title: Text('Popular Barbers',
+                style: AppBarTheme.of(context).titleTextStyle),
             actions: [
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SearchScreen(1, a: widget.analytics, o: widget.observer)),
+                      MaterialPageRoute(
+                          builder: (context) => SearchScreen(1,
+                              a: widget.analytics, o: widget.observer)),
                     );
                   },
                   icon: Icon(Icons.search))
@@ -52,14 +55,20 @@ class _BarberListScreenState extends BaseRouteState {
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
+                            padding: const EdgeInsets.only(
+                                top: 8, bottom: 8, left: 13, right: 13),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
-                              overlayColor: MaterialStateProperty.all(Colors.transparent),
+                              overlayColor:
+                                  MaterialStateProperty.all(Colors.transparent),
                               onTap: () {
                                 Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) => BarberDetailScreen(_popularBarbersList[index].staff_id, a: widget.analytics, o: widget.observer)),
+                                  MaterialPageRoute(
+                                      builder: (context) => BarberDetailScreen(
+                                          _popularBarbersList[index].staff_id,
+                                          a: widget.analytics,
+                                          o: widget.observer)),
                                 );
                               },
                               child: Card(
@@ -82,32 +91,50 @@ class _BarberListScreenState extends BaseRouteState {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         CachedNetworkImage(
-                                          imageUrl: global.baseUrlForImage + _popularBarbersList[index].staff_image!,
-                                          imageBuilder: (context, imageProvider) => CircleAvatar(radius: 30, backgroundImage: imageProvider),
-                                          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                          imageUrl: global.baseUrlForImage +
+                                              _popularBarbersList[index]
+                                                  .staff_image!,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  CircleAvatar(
+                                                      radius: 30,
+                                                      backgroundImage:
+                                                          imageProvider),
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
                                         Expanded(
                                           child: Padding(
-                                            padding: global.isRTL ? EdgeInsets.only(right: 18) : EdgeInsets.only(left: 18),
+                                            padding: global.isRTL
+                                                ? EdgeInsets.only(right: 18)
+                                                : EdgeInsets.only(left: 18),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Text(
                                                   '${_popularBarbersList[index].staff_name}',
-                                                  style: Theme.of(context).primaryTextTheme.subtitle2,
+                                                  style: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .subtitle2,
                                                 ),
                                                 SizedBox(
                                                   height: 5,
                                                 ),
                                                 Text(
                                                   '${_popularBarbersList[index].vendor_name}',
-                                                  style: Theme.of(context).primaryTextTheme.subtitle1,
+                                                  style: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .subtitle1,
                                                 ),
                                               ],
                                             ),
@@ -157,7 +184,9 @@ class _BarberListScreenState extends BaseRouteState {
           } else {
             pageNumber++;
           }
-          await apiHelper!.getPopularBarbersList(global.lat, global.lng, pageNumber, '').then((result) {
+          await apiHelper!
+              .getPopularBarbersList(global.lat, global.lng, pageNumber, '')
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<PopularBarbers> _tList = result.recordList;
@@ -180,7 +209,8 @@ class _BarberListScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - barberListScreen.dart - _getServices():" + e.toString());
+      print(
+          "Exception - barberListScreen.dart - _getServices():" + e.toString());
     }
   }
 
@@ -188,7 +218,9 @@ class _BarberListScreenState extends BaseRouteState {
     try {
       await _getPopularBarbers();
       _scrollController.addListener(() async {
-        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_isMoreDataLoaded) {
+        if (_scrollController.position.pixels ==
+                _scrollController.position.maxScrollExtent &&
+            !_isMoreDataLoaded) {
           setState(() {
             _isMoreDataLoaded = true;
           });
@@ -230,12 +262,16 @@ class _BarberListScreenState extends BaseRouteState {
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 220,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 120,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                         ],
                       )

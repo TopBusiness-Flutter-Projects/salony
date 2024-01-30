@@ -33,12 +33,15 @@ class _ServiceListScreenState extends BaseRouteState {
       },
       child: Scaffold(
           appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.lbl_services, style: AppBarTheme.of(context).titleTextStyle),
+            title: Text(AppLocalizations.of(context)!.lbl_services,
+                style: AppBarTheme.of(context).titleTextStyle),
             actions: [
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SearchScreen(3, a: widget.analytics, o: widget.observer)),
+                      MaterialPageRoute(
+                          builder: (context) => SearchScreen(3,
+                              a: widget.analytics, o: widget.observer)),
                     );
                   },
                   icon: Icon(Icons.search))
@@ -53,19 +56,23 @@ class _ServiceListScreenState extends BaseRouteState {
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
+                            padding: const EdgeInsets.only(
+                                top: 8, bottom: 8, left: 13, right: 13),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
-                              overlayColor: MaterialStateProperty.all(Colors.transparent),
+                              overlayColor:
+                                  MaterialStateProperty.all(Colors.transparent),
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) => ServiceDetailScreen(
-                                            serviceName: _serviceList[index].service_name,
+                                            serviceName: _serviceList[index]
+                                                .service_name,
                                             a: widget.analytics,
                                             o: widget.observer,
-                                            serviceImage: _serviceList[index].service_image,
+                                            serviceImage: _serviceList[index]
+                                                .service_image,
                                           )),
                                 );
                               },
@@ -74,30 +81,49 @@ class _ServiceListScreenState extends BaseRouteState {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         CachedNetworkImage(
-                                          imageUrl: global.baseUrlForImage + _serviceList[index].service_image!,
-                                          imageBuilder: (context, imageProvider) => Container(
+                                          imageUrl: global.baseUrlForImage +
+                                              _serviceList[index]
+                                                  .service_image!,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
                                             height: 85,
                                             width: 125,
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                image: DecorationImage(
+                                                    fit: BoxFit.contain,
+                                                    image: imageProvider)),
                                           ),
-                                          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
                                         Expanded(
                                           child: Padding(
-                                            padding: global.isRTL ? EdgeInsets.only(right: 18) : EdgeInsets.only(left: 18),
+                                            padding: global.isRTL
+                                                ? EdgeInsets.only(right: 18)
+                                                : EdgeInsets.only(left: 18),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Text(
                                                   '${_serviceList[index].service_name}',
-                                                  style: Theme.of(context).primaryTextTheme.subtitle2,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  style: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .subtitle2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   maxLines: 2,
                                                 ),
                                               ],
@@ -106,7 +132,8 @@ class _ServiceListScreenState extends BaseRouteState {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Icon(Icons.keyboard_arrow_right),
+                                          child:
+                                              Icon(Icons.keyboard_arrow_right),
                                         )
                                       ],
                                     ),
@@ -118,7 +145,8 @@ class _ServiceListScreenState extends BaseRouteState {
                     )
                   : Center(
                       child: Text(
-                        AppLocalizations.of(context)!.txt_service_will_shown_here,
+                        AppLocalizations.of(context)!
+                            .txt_service_will_shown_here,
                         style: Theme.of(context).primaryTextTheme.subtitle2,
                       ),
                     )
@@ -146,7 +174,9 @@ class _ServiceListScreenState extends BaseRouteState {
           } else {
             pageNumber++;
           }
-          await apiHelper!.getServices(global.lat, global.lng, pageNumber).then((result) {
+          await apiHelper!
+              .getServices(global.lat, global.lng, pageNumber)
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<Service> _tList = result.recordList;
@@ -169,7 +199,8 @@ class _ServiceListScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - serviceListScreen.dart - _getServices():" + e.toString());
+      print("Exception - serviceListScreen.dart - _getServices():" +
+          e.toString());
     }
   }
 
@@ -177,7 +208,9 @@ class _ServiceListScreenState extends BaseRouteState {
     try {
       await _getServices();
       _scrollController.addListener(() async {
-        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_isMoreDataLoaded) {
+        if (_scrollController.position.pixels ==
+                _scrollController.position.maxScrollExtent &&
+            !_isMoreDataLoaded) {
           setState(() {
             _isMoreDataLoaded = true;
           });
@@ -220,12 +253,16 @@ class _ServiceListScreenState extends BaseRouteState {
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 220,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 120,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                         ],
                       )

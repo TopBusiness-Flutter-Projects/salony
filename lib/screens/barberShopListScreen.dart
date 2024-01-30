@@ -38,121 +38,172 @@ class _BarberShopListScreenState extends BaseRouteState {
         body: SafeArea(
           child: _isDataLoaded
               ? _barberShopList.length > 0
-              ? ListView.builder(
-            controller: _scrollController,
-            physics: ClampingScrollPhysics(),
-            itemCount: _barberShopList.length,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => BarberShopDescriptionScreen(_barberShopList[index].vendor_id, a: widget.analytics, o: widget.observer)),
-                    );
-                  },
-                  child: Card(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: global.baseUrlForImage + _barberShopList[index].vendor_logo!,
-                          imageBuilder: (context, imageProvider) => Container(
-                            height: 85,
-                            width: 100,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
-                          ),
-                          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) => Container(
-                            height: 85,
-                            width: 100,
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                            child: Center(child: Text(AppLocalizations.of(context)!.txt_no_image_availa)),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            isThreeLine: true,
-                            title: Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Text(
-                                '${_barberShopList[index].vendor_name}',
-                                style: Theme.of(context).primaryTextTheme.bodyText1,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on_outlined,
-                                      size: 20,
+                  ? ListView.builder(
+                      controller: _scrollController,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: _barberShopList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              top: 8, bottom: 8, left: 13, right: 13),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            overlayColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BarberShopDescriptionScreen(
+                                            _barberShopList[index].vendor_id,
+                                            a: widget.analytics,
+                                            o: widget.observer)),
+                              );
+                            },
+                            child: Card(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: global.baseUrlForImage +
+                                        _barberShopList[index].vendor_logo!,
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      height: 85,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                              fit: BoxFit.contain,
+                                              image: imageProvider)),
                                     ),
-                                    Expanded(
-                                      child: Text(
-                                        _barberShopList[index].vendor_loc != null && _barberShopList[index].vendor_loc != "" ? '${_barberShopList[index].vendor_loc}' : 'Location not provided',
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context).primaryTextTheme.bodyText2,
+                                    placeholder: (context, url) => Center(
+                                        child: CircularProgressIndicator()),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                      height: 85,
+                                      width: 100,
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Center(
+                                          child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .txt_no_image_availa)),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ListTile(
+                                      isThreeLine: true,
+                                      title: Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          '${_barberShopList[index].vendor_name}',
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .bodyText1,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.location_on_outlined,
+                                                size: 20,
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  _barberShopList[index]
+                                                                  .vendor_loc !=
+                                                              null &&
+                                                          _barberShopList[index]
+                                                                  .vendor_loc !=
+                                                              ""
+                                                      ? '${_barberShopList[index].vendor_loc}'
+                                                      : 'Location not provided',
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .bodyText2,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          if (_barberShopList[index].rating !=
+                                              null)
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                      '${_barberShopList[index].rating}',
+                                                      style: Theme.of(context)
+                                                          .primaryTextTheme
+                                                          .bodyText1),
+                                                  _barberShopList[index]
+                                                              .rating !=
+                                                          null
+                                                      ? RatingBar.builder(
+                                                          initialRating:
+                                                              _barberShopList[
+                                                                      index]
+                                                                  .rating!,
+                                                          minRating: 0,
+                                                          direction:
+                                                              Axis.horizontal,
+                                                          allowHalfRating: true,
+                                                          itemCount: 5,
+                                                          itemSize: 8,
+                                                          itemPadding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      0),
+                                                          itemBuilder:
+                                                              (context, _) =>
+                                                                  Icon(
+                                                            Icons.star,
+                                                            color: Colors.amber,
+                                                          ),
+                                                          ignoreGestures: true,
+                                                          updateOnDrag: false,
+                                                          onRatingUpdate:
+                                                              (rating) {},
+                                                        )
+                                                      : SizedBox()
+                                                ],
+                                              ),
+                                            )
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                                if (_barberShopList[index].rating != null)
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text('${_barberShopList[index].rating}', style: Theme.of(context).primaryTextTheme.bodyText1),
-                                        _barberShopList[index].rating != null
-                                            ? RatingBar.builder(
-                                          initialRating: _barberShopList[index].rating!,
-                                          minRating: 0,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemSize: 8,
-                                          itemPadding: EdgeInsets.symmetric(horizontal: 0),
-                                          itemBuilder: (context, _) => Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                          ),
-                                          ignoreGestures: true,
-                                          updateOnDrag: false,
-                                          onRatingUpdate: (rating) {
-
-                                          },
-                                        )
-                                            : SizedBox()
-                                      ],
-                                    ),
-                                  )
-                              ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          )
-              : Center(
-            child: Text(
-              AppLocalizations.of(context)!.txt_near_by_barbershop_list_will_shown_here,
-              style: Theme.of(context).primaryTextTheme.subtitle2,
-              textAlign: TextAlign.center,
-            ),
-          )
+                        );
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        AppLocalizations.of(context)!
+                            .txt_near_by_barbershop_list_will_shown_here,
+                        style: Theme.of(context).primaryTextTheme.subtitle2,
+                        textAlign: TextAlign.center,
+                      ),
+                    )
               : _shimmer(),
         ),
       ),
@@ -184,7 +235,9 @@ class _BarberShopListScreenState extends BaseRouteState {
           } else {
             pageNumber++;
           }
-          await apiHelper!.getNearByBarberShops(global.lat, global.lng, pageNumber).then((result) {
+          await apiHelper!
+              .getNearByBarberShops(global.lat, global.lng, pageNumber)
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<BarberShop> _tList = result.recordList;
@@ -207,7 +260,8 @@ class _BarberShopListScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - barberShopListScreen.dart - _getNearByBarberShops():" + e.toString());
+      print("Exception - barberShopListScreen.dart - _getNearByBarberShops():" +
+          e.toString());
     }
   }
 
@@ -215,7 +269,9 @@ class _BarberShopListScreenState extends BaseRouteState {
     try {
       await _getNearByBarberShops();
       _scrollController.addListener(() async {
-        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_isMoreDataLoaded) {
+        if (_scrollController.position.pixels ==
+                _scrollController.position.maxScrollExtent &&
+            !_isMoreDataLoaded) {
           setState(() {
             _isMoreDataLoaded = true;
           });
@@ -258,12 +314,16 @@ class _BarberShopListScreenState extends BaseRouteState {
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 220,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 120,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                         ],
                       )

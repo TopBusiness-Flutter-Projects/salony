@@ -56,327 +56,429 @@ class _HomeScreenState extends BaseRouteState {
       },
       child: Scaffold(
           body: SafeArea(
-            child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _isBannerDataLoaded
-                    ? Container(
-                        padding: EdgeInsets.only(top: 20),
-                        height: MediaQuery.of(context).size.height * 0.40,
-                        decoration: BoxDecoration(color: Color(0xFF171D2C), borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 13, right: 13),
-                              child: Row(
-                                children: [
-                                  (global.user?.image != null && global.user?.image != "")
-                                      ? CircleAvatar(
-                                          radius: 26,
-                                          backgroundColor: Color(0xFFFA692C),
-                                          child: CachedNetworkImage(
-                                            imageUrl: global.baseUrlForImage + global.user!.image!,
-                                            imageBuilder: (context, imageProvider) => CircleAvatar(radius: 24, backgroundImage: imageProvider),
-                                            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                            errorWidget: (context, url, error) => CircleAvatar(
-                                              radius: 24,
-                                              child: Icon(Icons.person),
-                                              backgroundColor: Colors.white,
-                                            ),
-                                          ))
-                                      : CircleAvatar(
-                                          radius: 24,
-                                          child: Icon(Icons.person),
-                                          backgroundColor: Colors.white,
-                                        ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: global.isRTL ? EdgeInsets.only(right: 10) : EdgeInsets.only(left: 10),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(global.user?.id == null || global.user?.name == '' ? AppLocalizations.of(context)!.txt_sign_up_to_continue : '${global.user!.name}', style: Theme.of(context).primaryTextTheme.displayLarge),
-                                          SizedBox(
-                                            height: 5,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _isBannerDataLoaded
+                  ? Container(
+                      padding: EdgeInsets.only(top: 20),
+                      height: MediaQuery.of(context).size.height * 0.40,
+                      decoration: BoxDecoration(
+                          color: Color(0xFF171D2C),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15))),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 13, right: 13),
+                            child: Row(
+                              children: [
+                                (global.user?.image != null &&
+                                        global.user?.image != "")
+                                    ? CircleAvatar(
+                                        radius: 26,
+                                        backgroundColor: Color(0xFFFA692C),
+                                        child: CachedNetworkImage(
+                                          imageUrl: global.baseUrlForImage +
+                                              global.user!.image!,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  CircleAvatar(
+                                                      radius: 24,
+                                                      backgroundImage:
+                                                          imageProvider),
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              CircleAvatar(
+                                            radius: 24,
+                                            child: Icon(Icons.person),
+                                            backgroundColor: Colors.white,
                                           ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) => BottomNavigationWidget(
-                                                          a: widget.analytics,
-                                                          o: widget.observer,
-                                                          screenId: 1,
-                                                        )),
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  Icons.location_on_outlined,
-                                                  size: 17,
-                                                ),
-                                                SizedBox(
-                                                  width: 130,
-                                                  child: Text(
-                                                    global.currentLocation,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: Theme.of(context).primaryTextTheme.displayMedium,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                        ))
+                                    : CircleAvatar(
+                                        radius: 24,
+                                        child: Icon(Icons.person),
+                                        backgroundColor: Colors.white,
                                       ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: global.isRTL
+                                        ? EdgeInsets.only(right: 10)
+                                        : EdgeInsets.only(left: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                            global.user?.id == null ||
+                                                    global.user?.name == ''
+                                                ? AppLocalizations.of(context)!
+                                                    .txt_sign_up_to_continue
+                                                : '${global.user!.name}',
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .displayLarge),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BottomNavigationWidget(
+                                                        a: widget.analytics,
+                                                        o: widget.observer,
+                                                        screenId: 1,
+                                                      )),
+                                            );
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Icons.location_on_outlined,
+                                                size: 17,
+                                              ),
+                                              SizedBox(
+                                                width: 130,
+                                                child: Text(
+                                                  global.currentLocation,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .displayMedium,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  IconButton(
-                                      padding: EdgeInsets.all(0),
-                                      alignment: global.isRTL ? Alignment.centerLeft : Alignment.centerRight,
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(builder: (context) => SearchScreen(0, a: widget.analytics, o: widget.observer)),
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Icons.search,
-                                        size: 22,
-                                      )),
-                                  IconButton(
-                                      padding: EdgeInsets.all(0),
-                                      alignment: global.isRTL ? Alignment.centerLeft : Alignment.centerRight,
-                                      onPressed: () {
-                                        global.user!.id == null
-                                            ? Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) => SignInScreen(
+                                ),
+                                IconButton(
+                                    padding: EdgeInsets.all(0),
+                                    alignment: global.isRTL
+                                        ? Alignment.centerLeft
+                                        : Alignment.centerRight,
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => SearchScreen(
+                                                0,
+                                                a: widget.analytics,
+                                                o: widget.observer)),
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.search,
+                                      size: 22,
+                                    )),
+                                IconButton(
+                                    padding: EdgeInsets.all(0),
+                                    alignment: global.isRTL
+                                        ? Alignment.centerLeft
+                                        : Alignment.centerRight,
+                                    onPressed: () {
+                                      global.user!.id == null
+                                          ? Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SignInScreen(
+                                                        a: widget.analytics,
+                                                        o: widget.observer,
+                                                      )),
+                                            )
+                                          : Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      NotificationScreen(
                                                           a: widget.analytics,
-                                                          o: widget.observer,
-                                                        )),
-                                              )
-                                            : Navigator.of(context).push(
-                                                MaterialPageRoute(builder: (context) => NotificationScreen(a: widget.analytics, o: widget.observer)),
-                                              );
-                                      },
-                                      icon: Icon(
-                                        Icons.notifications,
-                                        size: 22,
-                                      ))
-                                ],
-                              ),
+                                                          o: widget.observer)),
+                                            );
+                                    },
+                                    icon: Icon(
+                                      Icons.notifications,
+                                      size: 22,
+                                    ))
+                              ],
                             ),
-                            _bannerList!.length > 0
-                                ? CarouselSlider(
-                                    items: _items(),
-                                    carouselController: _carouselController,
-                                    options: CarouselOptions(
-                                        height: MediaQuery.of(context).size.height * 0.25,
-                                        aspectRatio: 1,
-                                        viewportFraction: 0.93,
-                                        initialPage: _currentIndex,
-                                        enableInfiniteScroll: true,
-                                        reverse: false,
-                                        autoPlay: true,
-                                        autoPlayInterval: Duration(seconds: 3),
-                                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                                        autoPlayCurve: Curves.fastOutSlowIn,
-                                        enlargeCenterPage: true,
-                                        scrollDirection: Axis.horizontal,
-                                        onPageChanged: (index, _) {
-                                          _currentIndex = index;
-                                          setState(() {});
-                                        }))
-                                : SizedBox(
-                                    height: MediaQuery.of(context).size.height * 0.25,
-                                    child: Center(
-                                        child: Text(
-                                      AppLocalizations.of(context)!.txt_no_saloon_are_available_at_your_location,
-                                      style: Theme.of(context).primaryTextTheme.displayMedium,
-                                    ))),
-                            _isBannerDataLoaded
-                                ? _bannerList!.length > 0
-                                    ? DotsIndicator(
-                                        dotsCount: _bannerList!.length,
-                                        position: _currentIndex,
-                                        onTap: (i) {
-                                          _currentIndex = i.toInt();
-                                          _carouselController!.animateToPage(_currentIndex, duration: Duration(microseconds: 1), curve: Curves.easeInOut);
-                                        },
-                                        decorator: DotsDecorator(
-                                          activeSize: const Size(6, 6),
-                                          size: const Size(6, 6),
-                                          activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
-                                          activeColor: Theme.of(context).primaryColor,
-                                          color: Theme.of(context).primaryColorLight,
-                                        ),
-                                      )
-                                    : SizedBox()
-                                : SizedBox()
-                          ],
-                        ),
-                      )
-                    : _shimmer1(),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, left: 13, right: 13),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(AppLocalizations.of(context)!.lbl_services, style: Theme.of(context).primaryTextTheme.titleLarge),
-                      InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          overlayColor: MaterialStateProperty.all(Colors.transparent),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ServiceListScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
-                                      )),
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context)!.lbl_see_services, style: Theme.of(context).primaryTextTheme.headlineSmall))
-                    ],
-                  ),
+                          ),
+                          _bannerList!.length > 0
+                              ? CarouselSlider(
+                                  items: _items(),
+                                  carouselController: _carouselController,
+                                  options: CarouselOptions(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.25,
+                                      aspectRatio: 1,
+                                      viewportFraction: 0.93,
+                                      initialPage: _currentIndex,
+                                      enableInfiniteScroll: true,
+                                      reverse: false,
+                                      autoPlay: true,
+                                      autoPlayInterval: Duration(seconds: 3),
+                                      autoPlayAnimationDuration:
+                                          Duration(milliseconds: 800),
+                                      autoPlayCurve: Curves.fastOutSlowIn,
+                                      enlargeCenterPage: true,
+                                      scrollDirection: Axis.horizontal,
+                                      onPageChanged: (index, _) {
+                                        _currentIndex = index;
+                                        setState(() {});
+                                      }))
+                              : SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.25,
+                                  child: Center(
+                                      child: Text(
+                                    AppLocalizations.of(context)!
+                                        .txt_no_saloon_are_available_at_your_location,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .displayMedium,
+                                  ))),
+                          _isBannerDataLoaded
+                              ? _bannerList!.length > 0
+                                  ? DotsIndicator(
+                                      dotsCount: _bannerList!.length,
+                                      position: _currentIndex,
+                                      onTap: (i) {
+                                        print('ssssssss');
+                                        _currentIndex = i.toInt();
+                                        _carouselController!.animateToPage(
+                                            _currentIndex,
+                                            duration: Duration(microseconds: 1),
+                                            curve: Curves.easeInOut);
+                                      },
+                                      decorator: DotsDecorator(
+                                        activeSize: const Size(6, 6),
+                                        size: const Size(6, 6),
+                                        activeShape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(50.0))),
+                                        activeColor:
+                                            Theme.of(context).primaryColor,
+                                        color:
+                                            Theme.of(context).primaryColorLight,
+                                      ),
+                                    )
+                                  : SizedBox()
+                              : SizedBox()
+                        ],
+                      ),
+                    )
+                  : _shimmer1(),
+              Padding(
+                padding: EdgeInsets.only(top: 20, left: 13, right: 13),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(AppLocalizations.of(context)!.lbl_services,
+                        style: Theme.of(context).primaryTextTheme.titleLarge),
+                    InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ServiceListScreen(
+                                      a: widget.analytics,
+                                      o: widget.observer,
+                                    )),
+                          );
+                        },
+                        child: Text(
+                            AppLocalizations.of(context)!.lbl_see_services,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineSmall))
+                  ],
                 ),
-                SizedBox(
-                    height: 60,
-                    child: _isServicesDataLoaded
-                        ? _serviceList!.length > 0
-                            ? _services()
-                            : Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    AppLocalizations.of(context)!.txt_no_service_available_at_your_location,
-                                    style: Theme.of(context).primaryTextTheme.titleMedium,
-                                  ),
-                                ),
-                              )
-                        : _shimmer2()),
-                Padding(
-                  padding: EdgeInsets.only(top: 18, left: 13, right: 13),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(AppLocalizations.of(context)!.lbl_recommended_barbershop, style: Theme.of(context).primaryTextTheme.titleLarge),
-                      InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          overlayColor: MaterialStateProperty.all(Colors.transparent),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => BarberShopListScreen(a: widget.analytics, o: widget.observer)),
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context)!.lbl_see_more, style: Theme.of(context).primaryTextTheme.headlineSmall))
-                    ],
-                  ),
-                ),
-                SizedBox(
-                    height: 156,
-                    child: _isBarberShopDataLoaded
-                        ? _barberShopList!.length > 0
-                            ? _recommendedBarbershop()
-                            : Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    AppLocalizations.of(context)!.txt_no_barbershop_are_available_at_your_location,
-                                    style: Theme.of(context).primaryTextTheme.titleMedium,
-                                  ),
-                                ),
-                              )
-                        : _shimmer3()),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, left: 13, right: 13),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(AppLocalizations.of(context)!.lbl_popular_barbers, style: Theme.of(context).primaryTextTheme.titleLarge),
-                      InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          overlayColor: MaterialStateProperty.all(Colors.transparent),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => BarberListScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
-                                      )),
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context)!.lbl_see_more, style: Theme.of(context).primaryTextTheme.headlineSmall)),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                    height: 120,
-                    child: _isBarbersDataLoaded
-                        ? _popularBarbersList!.length > 0
-                            ? Align(alignment: global.isRTL ? Alignment.centerRight : Alignment.centerLeft, child: _popularBarbers())
-                            : Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    AppLocalizations.of(context)!.txt_no_barbers_are_available_at_your_location,
-                                    style: Theme.of(context).primaryTextTheme.titleMedium,
-                                  ),
-                                ),
-                              )
-                        : _shimmer4()),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, left: 13, right: 13),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(AppLocalizations.of(context)!.lbl_products, style: Theme.of(context).primaryTextTheme.titleLarge),
-                      InkWell(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          overlayColor: MaterialStateProperty.all(Colors.transparent),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ProductListScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
-                                      )),
-                            );
-                          },
-                          child: Text(AppLocalizations.of(context)!.lbl_see_more, style: Theme.of(context).primaryTextTheme.headlineSmall)),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 160,
-                  child: _isProductsLoaded
-                      ? _productList!.length > 0
-                          ? _products()
+              ),
+              SizedBox(
+                  height: 60,
+                  child: _isServicesDataLoaded
+                      ? _serviceList!.length > 0
+                          ? _services()
                           : Padding(
                               padding: const EdgeInsets.only(left: 15),
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  AppLocalizations.of(context)!.txt_nothing_is_yet_to_see_here,
-                                  style: Theme.of(context).primaryTextTheme.titleMedium,
+                                  AppLocalizations.of(context)!
+                                      .txt_no_service_available_at_your_location,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .titleMedium,
                                 ),
                               ),
                             )
-                      : _shimmer3(),
+                      : _shimmer2()),
+              //recommended BarberShop
+              Padding(
+                padding: EdgeInsets.only(top: 18, left: 13, right: 13),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        AppLocalizations.of(context)!
+                            .lbl_recommended_barbershop,
+                        style: Theme.of(context).primaryTextTheme.titleLarge),
+                    InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => BarberShopListScreen(
+                                    a: widget.analytics, o: widget.observer)),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context)!.lbl_see_more,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineSmall))
+                  ],
                 ),
-              ],
-            ),
-      ),
-          )),
+              ),
+              SizedBox(
+                  height: 156,
+                  child: _isBarberShopDataLoaded
+                      ? _barberShopList!.length > 0
+                          ? _recommendedBarbershop()
+                          : Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .txt_no_barbershop_are_available_at_your_location,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .titleMedium,
+                                ),
+                              ),
+                            )
+                      : _shimmer3()),
+
+              //popular Barbers
+              Padding(
+                padding: EdgeInsets.only(top: 20, left: 13, right: 13),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(AppLocalizations.of(context)!.lbl_popular_barbers,
+                        style: Theme.of(context).primaryTextTheme.titleLarge),
+                    InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => BarberListScreen(
+                                      a: widget.analytics,
+                                      o: widget.observer,
+                                    )),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context)!.lbl_see_more,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineSmall)),
+                  ],
+                ),
+              ),
+              SizedBox(
+                  height: 120,
+                  child: _isBarbersDataLoaded
+                      ? _popularBarbersList!.length > 0
+                          ? Align(
+                              alignment: global.isRTL
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: _popularBarbers())
+                          : Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .txt_no_barbers_are_available_at_your_location,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .titleMedium,
+                                ),
+                              ),
+                            )
+                      : _shimmer4()),
+              Padding(
+                padding: EdgeInsets.only(top: 20, left: 13, right: 13),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(AppLocalizations.of(context)!.lbl_products,
+                        style: Theme.of(context).primaryTextTheme.titleLarge),
+                    InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ProductListScreen(
+                                      a: widget.analytics,
+                                      o: widget.observer,
+                                    )),
+                          );
+                        },
+                        child: Text(AppLocalizations.of(context)!.lbl_see_more,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineSmall)),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 160,
+                child: _isProductsLoaded
+                    ? _productList!.length > 0
+                        ? _products()
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .txt_nothing_is_yet_to_see_here,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .titleMedium,
+                              ),
+                            ),
+                          )
+                    : _shimmer3(),
+              ),
+            ],
+          ),
+        ),
+      )),
     );
   }
 
@@ -420,7 +522,9 @@ class _HomeScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.getNearByBanners(global.lat, global.lng).then((result) {
+        await apiHelper!
+            .getNearByBanners() //global.lat, global.lng
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               _bannerList = result.recordList;
@@ -433,7 +537,8 @@ class _HomeScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - homeScreen.dart - _getNearByBanners():" + e.toString());
+      print(
+          "Exception - homeScreen.dart - _getNearByBanners():" + e.toString());
     }
   }
 
@@ -441,7 +546,9 @@ class _HomeScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.getNearByBarberShops(global.lat, global.lng, 1).then((result) {
+        await apiHelper!
+            .getNearByBarberShops(global.lat, global.lng, 1)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               _barberShopList = result.recordList;
@@ -454,7 +561,8 @@ class _HomeScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - homeScreen.dart - _getNearByBarberShops():" + e.toString());
+      print("Exception - homeScreen.dart - _getNearByBarberShops():" +
+          e.toString());
     }
   }
 
@@ -462,7 +570,9 @@ class _HomeScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.getPopularBarbersList(global.lat, global.lng, 1, null).then((result) {
+        await apiHelper!
+            .getPopularBarbersList(global.lat, global.lng, 1, null)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               _popularBarbersList = result.recordList;
@@ -483,7 +593,9 @@ class _HomeScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.getProducts(global.lat, global.lng, 1, '').then((result) {
+        await apiHelper!
+            .getProducts(global.lat, global.lng, 1, '')
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               _productList = result.recordList;
@@ -541,7 +653,7 @@ class _HomeScreenState extends BaseRouteState {
             Navigator.of(context).push(
               MaterialPageRoute(
                   builder: (context) => BarberShopDescriptionScreen(
-                        int.parse(_bannerList![i].vendor_id!),
+                        int.parse(_bannerList![i].vendor_id ?? '1'),
                         a: widget.analytics,
                         o: widget.observer,
                       )),
@@ -549,7 +661,8 @@ class _HomeScreenState extends BaseRouteState {
           },
           child: _bannerList![i].banner_image != "N/A"
               ? CachedNetworkImage(
-                  imageUrl: global.baseUrlForImage + _bannerList![i].banner_image!,
+                  imageUrl:
+                      global.baseUrlForImage + _bannerList![i].banner_image!,
                   imageBuilder: (context, imageProvider) => Container(
                     margin: EdgeInsets.only(
                       top: 18,
@@ -557,24 +670,30 @@ class _HomeScreenState extends BaseRouteState {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
                     ),
                   ),
-                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) =>
+                      Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => Container(
-                    margin: EdgeInsets.only(top: 18, bottom: 10, left: 15, right: 15),
+                    margin: EdgeInsets.only(
+                        top: 18, bottom: 10, left: 15, right: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Text(AppLocalizations.of(context)!.txt_no_image_availa),
+                    child:
+                        Text(AppLocalizations.of(context)!.txt_no_image_availa),
                   ),
                 )
               : Container(
-                  margin: EdgeInsets.only(top: 18, bottom: 10, left: 15, right: 15),
+                  margin:
+                      EdgeInsets.only(top: 18, bottom: 10, left: 15, right: 15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Text(AppLocalizations.of(context)!.txt_no_image_availa),
+                  child:
+                      Text(AppLocalizations.of(context)!.txt_no_image_availa),
                 ),
         ));
       }
@@ -601,7 +720,11 @@ class _HomeScreenState extends BaseRouteState {
               overlayColor: MaterialStateProperty.all(Colors.transparent),
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => BarberDetailScreen(_popularBarbersList![index].staff_id, a: widget.analytics, o: widget.observer)),
+                  MaterialPageRoute(
+                      builder: (context) => BarberDetailScreen(
+                          _popularBarbersList![index].staff_id,
+                          a: widget.analytics,
+                          o: widget.observer)),
                 );
               },
               child: Padding(
@@ -614,9 +737,12 @@ class _HomeScreenState extends BaseRouteState {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CachedNetworkImage(
-                        imageUrl: global.baseUrlForImage + _popularBarbersList![index].staff_image!,
-                        imageBuilder: (context, imageProvider) => CircleAvatar(radius: 35, backgroundImage: imageProvider),
-                        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                        imageUrl: global.baseUrlForImage +
+                            _popularBarbersList![index].staff_image!,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                            radius: 35, backgroundImage: imageProvider),
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => CircleAvatar(
                           radius: 35,
                           child: Icon(Icons.person),
@@ -655,11 +781,21 @@ class _HomeScreenState extends BaseRouteState {
                 overlayColor: MaterialStateProperty.all(Colors.transparent),
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ProductDetailScreen(_productList![index].id, a: widget.analytics, o: widget.observer, isShowGoCartBtn: _productList![index].cart_qty != null && _productList![index].cart_qty! > 0 ? true : false)),
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                            _productList![index].id,
+                            a: widget.analytics,
+                            o: widget.observer,
+                            isShowGoCartBtn:
+                                _productList![index].cart_qty != null &&
+                                        _productList![index].cart_qty! > 0
+                                    ? true
+                                    : false)),
                   );
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 7, right: 7, bottom: 3, top: 5),
+                  padding: const EdgeInsets.only(
+                      left: 7, right: 7, bottom: 3, top: 5),
                   child: SizedBox(
                     width: 110,
                     child: Card(
@@ -668,11 +804,16 @@ class _HomeScreenState extends BaseRouteState {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CachedNetworkImage(
-                            imageUrl: global.baseUrlForImage + _productList![index].product_image!,
+                            imageUrl: global.baseUrlForImage +
+                                _productList![index].product_image!,
                             imageBuilder: (context, imageProvider) => Container(
                                 width: 110,
                                 height: 110,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: imageProvider)),
                                 child: Align(
                                   alignment: Alignment.topRight,
                                   child: IconButton(
@@ -682,34 +823,56 @@ class _HomeScreenState extends BaseRouteState {
                                         if (global.user!.id == null) {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
-                                                builder: (context) => SignInScreen(
+                                                builder: (context) =>
+                                                    SignInScreen(
                                                       a: widget.analytics,
                                                       o: widget.observer,
                                                     )),
                                           );
                                         } else {
                                           bool? _isFav;
-                                          _isFav = await _addToFavorite(_productList![index].id);
-                                          if (_isFav! && _productList![index].isFavourite != null) {
-                                            _productList![index].isFavourite = !_productList![index].isFavourite!;
+                                          _isFav = await _addToFavorite(
+                                              _productList![index].id);
+                                          if (_isFav! &&
+                                              _productList![index]
+                                                      .isFavourite !=
+                                                  null) {
+                                            _productList![index].isFavourite =
+                                                !_productList![index]
+                                                    .isFavourite!;
                                           }
                                         }
                                         setState(() {});
                                       },
                                       icon: Icon(
-                                        _productList![index].isFavourite != null && _productList![index].isFavourite! ? Icons.favorite : Icons.favorite_outline,
-                                        color: _productList![index].isFavourite != null && _productList![index].isFavourite! ? Color(0xFFFA692C) : Colors.white,
+                                        _productList![index].isFavourite !=
+                                                    null &&
+                                                _productList![index]
+                                                    .isFavourite!
+                                            ? Icons.favorite
+                                            : Icons.favorite_outline,
+                                        color:
+                                            _productList![index].isFavourite !=
+                                                        null &&
+                                                    _productList![index]
+                                                        .isFavourite!
+                                                ? Color(0xFFFA692C)
+                                                : Colors.white,
                                         size: 20,
                                       )),
                                 )),
-                            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
                             errorWidget: (context, url, error) => Container(
                                 width: 110,
                                 height: 110,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10)),
                                 child: Text(
                                   "No image",
-                                  style: Theme.of(context).primaryTextTheme.titleMedium,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .titleMedium,
                                 )),
                           ),
                           Padding(
@@ -718,7 +881,8 @@ class _HomeScreenState extends BaseRouteState {
                               '${_productList![index].product_name}',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).primaryTextTheme.bodyLarge,
+                              style:
+                                  Theme.of(context).primaryTextTheme.bodyLarge,
                             ),
                           ),
                         ],
@@ -748,42 +912,65 @@ class _HomeScreenState extends BaseRouteState {
                 overlayColor: MaterialStateProperty.all(Colors.transparent),
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => BarberShopDescriptionScreen(_barberShopList![index].vendor_id, a: widget.analytics, o: widget.observer)),
+                    MaterialPageRoute(
+                        builder: (context) => BarberShopDescriptionScreen(
+                            _barberShopList![index].vendor_id,
+                            a: widget.analytics,
+                            o: widget.observer)),
                   );
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 7, right: 7, bottom: 2, top: 5),
+                  padding: const EdgeInsets.only(
+                      left: 7, right: 7, bottom: 2, top: 5),
                   child: Card(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CachedNetworkImage(
-                          imageUrl: global.baseUrlForImage + _barberShopList![index].vendor_logo!,
+                          imageUrl: global.baseUrlForImage +
+                              _barberShopList![index].vendor_logo!,
                           imageBuilder: (context, imageProvider) => Container(
                             width: 180,
                             height: 80,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                    fit: BoxFit.contain, image: imageProvider)),
                           ),
-                          placeholder: (context, url) => SizedBox(width: 180, height: 80, child: Center(child: CircularProgressIndicator())),
+                          placeholder: (context, url) => SizedBox(
+                              width: 180,
+                              height: 80,
+                              child:
+                                  Center(child: CircularProgressIndicator())),
                           errorWidget: (context, url, error) => Container(
                             width: 180,
                             height: 80,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                            child: Center(child: Text(AppLocalizations.of(context)!.txt_no_image_availa)),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                                child: Text(AppLocalizations.of(context)!
+                                    .txt_no_image_availa)),
                           ),
                         ),
                         SizedBox(
                           width: 180,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 7, right: 7, bottom: 5, top: 5),
+                            padding: EdgeInsets.only(
+                                left: 7, right: 7, bottom: 5, top: 5),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                     child: Padding(
                                   padding: const EdgeInsets.only(left: 3),
-                                  child: Text('${_barberShopList![index].vendor_name}', style: Theme.of(context).primaryTextTheme.bodyLarge, overflow: TextOverflow.ellipsis, maxLines: 1),
+                                  child: Text(
+                                      '${_barberShopList![index].vendor_name}',
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .bodyLarge,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1),
                                 )),
                               ],
                             ),
@@ -792,7 +979,9 @@ class _HomeScreenState extends BaseRouteState {
                         SizedBox(
                           width: 180,
                           child: Padding(
-                            padding: global.isRTL ? EdgeInsets.only(right: 7) : EdgeInsets.only(left: 7),
+                            padding: global.isRTL
+                                ? EdgeInsets.only(right: 7)
+                                : EdgeInsets.only(left: 7),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -807,7 +996,9 @@ class _HomeScreenState extends BaseRouteState {
                                   child: Text(
                                     '${_barberShopList![index].vendor_loc}',
                                     overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .bodyMedium,
                                     maxLines: 1,
                                   ),
                                 ),
@@ -821,15 +1012,20 @@ class _HomeScreenState extends BaseRouteState {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text('${_barberShopList![index].rating}', style: Theme.of(context).primaryTextTheme.bodyMedium),
+                                    Text('${_barberShopList![index].rating}',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .bodyMedium),
                                     RatingBar.builder(
-                                      initialRating: _barberShopList![index].rating!,
+                                      initialRating:
+                                          _barberShopList![index].rating!,
                                       minRating: 0,
                                       direction: Axis.horizontal,
                                       allowHalfRating: true,
                                       itemCount: 5,
                                       itemSize: 8,
-                                      itemPadding: EdgeInsets.symmetric(horizontal: 0),
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 0),
                                       itemBuilder: (context, _) => Icon(
                                         Icons.star,
                                         color: Colors.amber,
@@ -872,23 +1068,34 @@ class _HomeScreenState extends BaseRouteState {
                 overlayColor: MaterialStateProperty.all(Colors.transparent),
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ServiceDetailScreen(serviceName: _serviceList![index].service_name, a: widget.analytics, o: widget.observer, serviceImage: _serviceList![index].service_image)),
+                    MaterialPageRoute(
+                        builder: (context) => ServiceDetailScreen(
+                            serviceName: _serviceList![index].service_name,
+                            a: widget.analytics,
+                            o: widget.observer,
+                            serviceImage: _serviceList![index].service_image)),
                   );
                 },
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     CachedNetworkImage(
-                      imageUrl: global.baseUrlForImage + _serviceList![index].service_image!,
+                      imageUrl: global.baseUrlForImage +
+                          _serviceList![index].service_image!,
                       imageBuilder: (context, imageProvider) => Card(
                         margin: EdgeInsets.only(left: 4, right: 4, bottom: 4),
                         child: Container(
                           width: 120,
                           height: 50,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                fit: BoxFit.cover, image: imageProvider),
+                          ),
                         ),
                       ),
-                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                      placeholder: (context, url) =>
+                          Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => Container(
                         margin: EdgeInsets.only(left: 4, right: 4, bottom: 4),
                         width: 120,
@@ -896,7 +1103,8 @@ class _HomeScreenState extends BaseRouteState {
                         child: Card(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Text(AppLocalizations.of(context)!.lbl_no_image),
+                            child: Text(
+                                AppLocalizations.of(context)!.lbl_no_image),
                           ),
                         ),
                       ),
@@ -913,7 +1121,13 @@ class _HomeScreenState extends BaseRouteState {
                         ),
                       ),
                     ),
-                    Center(child: Text('${_serviceList![index].service_name}', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w400)))
+                    Center(
+                        child: Text('${_serviceList![index].service_name}',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400)))
                   ],
                 ),
               );

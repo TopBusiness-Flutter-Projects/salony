@@ -422,11 +422,15 @@ class APIHelper {
   }
 
   dynamic getAPIResult<T>(final response, T recordList) {
+    print('..................................');
+
     try {
       dynamic result;
-
+      print('..................................');
       result = APIResult.fromJson(json.decode(response.body), recordList);
-      print(response);
+      print(response.body);
+      print(result);
+      print('..................................');
       return result;
     } catch (e) {
       print("Exception - getAPIResult():" + e.toString());
@@ -438,7 +442,10 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}barber_desc"),
         headers: await global.getApiHeaders(false),
-        body: json.encode({"staff_id": staff_id, "lang": global.languageCode}),
+        body: json.encode({
+          "staff_id": staff_id,
+          // "lang": global.languageCode,
+        }),
       );
 
       dynamic recordList;
@@ -456,17 +463,18 @@ class APIHelper {
     }
   }
 
-  Future<dynamic> getBarberShopDescription(
-      int? vendor_id, String? lat, String? lng) async {
+  Future<dynamic> getBarberShopDescription(String? lat, String? lng,
+      {int? vendor_id = 1}) async {
     try {
+      print("${global.baseUrl}salon_desc : $vendor_id");
       final response = await http.post(
-        Uri.parse("${global.baseUrl}salon_desc"),
+        Uri.parse('${global.baseUrl}salon_desc'),
         headers: await global.getApiHeaders(false),
         body: json.encode({
           "vendor_id": vendor_id,
-          "lat": lat,
-          "lng": lng,
-          "lang": global.languageCode
+          // "lat": lat,
+          // "lng": lng,
+          // "lang": 'EN'
         }),
       );
       print(response.body);
@@ -659,15 +667,15 @@ class APIHelper {
     }
   }
 
-  Future<dynamic> getNearByBanners(String? lat, String? lng) async {
+  Future<dynamic> getNearByBanners() async {
     try {
       final response = await http.post(
         Uri.parse("${global.baseUrl}getnearbanner"),
         headers: await global.getApiHeaders(false),
-        body: json.encode({
-          "lat": lat,
-          "lng": lng,
-        }),
+        // body: json.encode({
+        //   "lat": lat,
+        //   "lng": lng,
+        // }),
       );
 
       dynamic recordList;
@@ -791,10 +799,10 @@ class APIHelper {
             "${global.baseUrl}popular_barber?page=${pageNumber.toString()}"),
         headers: await global.getApiHeaders(false),
         body: json.encode({
-          "lat": lat,
-          "lng": lng,
+          // "lat": lat,
+          // "lng": lng,
           "searchstring": searchstring,
-          "lang": global.languageCode,
+          // "lang": global.languageCode,
         }),
       );
 
@@ -807,6 +815,8 @@ class APIHelper {
       } else {
         recordList = null;
       }
+      print(response.body);
+      print('000000000000000000000000000000000000000');
       return getAPIResult(response, recordList);
     } catch (e) {
       print("Exception - getPopularBarbersList(): " + e.toString());
@@ -821,7 +831,7 @@ class APIHelper {
         body: json.encode({
           "product_id": product_id,
           "user_id": global.user!.id,
-          "lang": global.languageCode
+          // "lang": global.languageCode
         }),
       );
 
@@ -871,11 +881,11 @@ class APIHelper {
             "${global.baseUrl}salon_products?page=${pageNumber.toString()}"),
         headers: await global.getApiHeaders(false),
         body: json.encode({
-          "lat": lat,
-          "lng": lng,
+          // "lat": lat,
+          // "lng": lng,
           "user_id": global.user!.id,
           "searchstring": searchstring,
-          "lang": global.languageCode
+          // "lang": global.languageCode
         }),
       );
 
@@ -978,7 +988,7 @@ class APIHelper {
           "lat": lat,
           "lng": lng,
           "searchstring": searchstring,
-          "lang": global.languageCode
+          // "lang": global.languageCode
         }),
       );
 
@@ -1074,29 +1084,42 @@ class APIHelper {
     }
   }
 
-  Future<dynamic> loginWithEmail(CurrentUser user) async {
+  Future<dynamic> loginWithEmail(
+      String email, String password, String deviceId) async {
     try {
       final response = await http.post(
         Uri.parse("${global.baseUrl}login_with_email"),
         headers: await global.getApiHeaders(false),
         body: json.encode({
-          "user_email": user.user_email,
-          "user_password": user.user_password,
-          "device_id": user.device_id
+          "user_email": email,
+          "user_password": password,
+          "device_id": deviceId
         }),
       );
-
+      print(json.decode(response.body)["data"]);
       dynamic recordList;
       if (response.statusCode == 200 &&
           json.decode(response.body) != null &&
           json.decode(response.body)["data"] != null) {
+        print(response.body);
+        print(response.statusCode);
+        print(json.decode(response.body));
+        print(response.statusCode);
+        print(json.decode(response.body)['status']);
+        print(response.statusCode);
+        print(CurrentUser.fromJson(json.decode(response.body)["data"]["user"])
+            .email);
         recordList =
             CurrentUser.fromJson(json.decode(response.body)["data"]["user"]);
         recordList.cart_count =
             json.decode(response.body)['data']['cart_count'];
         recordList.token = json.decode(response.body)['token'];
         recordList.status = json.decode(response.body)['status'];
+        // print("recordList.status");
+        // print(recordList.status);
+        // print(json.decode(response.body)['status']);
       } else {
+        print("object");
         recordList = null;
       }
 
