@@ -15,10 +15,12 @@ class ProductDetailScreen extends BaseRoute {
   final bool? isShowGoCartBtn;
   final int? productId;
 
-  ProductDetailScreen(this.productId, {a, o, this.isShowGoCartBtn}) : super(a: a, o: o, r: 'ProductDetailScreen');
+  ProductDetailScreen(this.productId, {a, o, this.isShowGoCartBtn})
+      : super(a: a, o: o, r: 'ProductDetailScreen');
 
   @override
-  _ProductDetailScreenState createState() => new _ProductDetailScreenState(this.productId, this.isShowGoCartBtn);
+  _ProductDetailScreenState createState() =>
+      new _ProductDetailScreenState(this.productId, this.isShowGoCartBtn);
 }
 
 class _ProductDetailScreenState extends BaseRouteState {
@@ -42,139 +44,177 @@ class _ProductDetailScreenState extends BaseRouteState {
           appBar: AppBar(),
           body: _isDataLoaded
               ? SingleChildScrollView(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
-                    CachedNetworkImage(
-                      imageUrl: global.baseUrlForImage + _productDetail!.product_image!,
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: global.baseUrlForImage +
+                              (_productDetail?.product_image ?? ''),
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            height: MediaQuery.of(context).size.height * 0.24,
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () async {
+                                          if (global.user!.id == null) {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SignInScreen(
+                                                        a: widget.analytics,
+                                                        o: widget.observer,
+                                                      )),
+                                            );
+                                          } else {
+                                            bool? _isFav;
+                                            _isFav = await _addToFavorite(
+                                                _productDetail!.id);
+                                            if (_isFav!) {
+                                              _productDetail!.isFavourite =
+                                                  !_productDetail!.isFavourite;
+                                            }
+                                          }
+                                          setState(() {});
+                                        },
+                                        icon: Icon(
+                                          _productDetail!.isFavourite
+                                              ? Icons.favorite
+                                              : Icons.favorite_outline,
+                                          color: _productDetail!.isFavourite
+                                              ? Color(0xFFFA692C)
+                                              : Colors.white,
+                                        ))
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      left: 8, bottom: 4, top: 4),
+                                  color: Colors.black.withOpacity(0.5),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "${_productDetail?.product_name}",
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .displayLarge,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          placeholder: (context, url) =>
+                              Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => Container(
+                            decoration: BoxDecoration(),
+                            height: MediaQuery.of(context).size.height * 0.24,
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    BackButton(
+                                      color: Colors.white,
+                                    ),
+                                    IconButton(
+                                        onPressed: () async {
+                                          if (global.user!.id == null) {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SignInScreen(
+                                                        a: widget.analytics,
+                                                        o: widget.observer,
+                                                      )),
+                                            );
+                                          } else {
+                                            bool? _isFav;
+                                            _isFav = await _addToFavorite(
+                                                _productDetail!.id);
+                                            if (_isFav!) {
+                                              _productDetail!.isFavourite =
+                                                  !_productDetail!.isFavourite;
+                                            }
+                                          }
+                                          setState(() {});
+                                        },
+                                        icon: Icon(
+                                          _productDetail!.isFavourite
+                                              ? Icons.favorite
+                                              : Icons.favorite_outline,
+                                          color: _productDetail!.isFavourite
+                                              ? Color(0xFFFA692C)
+                                              : Colors.white,
+                                        ))
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      left: 8, bottom: 4, top: 4),
+                                  color: Colors.black.withOpacity(0.5),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "${_productDetail!.product_name}",
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .displayLarge,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.24,
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: () async {
-                                      if (global.user!.id == null) {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) => SignInScreen(
-                                                    a: widget.analytics,
-                                                    o: widget.observer,
-                                                  )),
-                                        );
-                                      } else {
-                                        bool? _isFav;
-                                        _isFav = await _addToFavorite(_productDetail!.id);
-                                        if (_isFav!) {
-                                          _productDetail!.isFavourite = !_productDetail!.isFavourite;
-                                        }
-                                      }
-                                      setState(() {});
-                                    },
-                                    icon: Icon(
-                                      _productDetail!.isFavourite ? Icons.favorite : Icons.favorite_outline,
-                                      color: _productDetail!.isFavourite ? Color(0xFFFA692C) : Colors.white,
-                                    ))
-                              ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 8, bottom: 4, top: 4),
-                              color: Colors.black.withOpacity(0.5),
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "${_productDetail?.product_name}",
-                                style: Theme.of(context).primaryTextTheme.displayLarge,
-                              ),
-                            ),
-                          ],
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
+                          child: Text(
+                              AppLocalizations.of(context)!.lbl_description,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleLarge),
                         ),
-                      ),
-                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => Container(
-                        decoration: BoxDecoration(),
-                        height: MediaQuery.of(context).size.height * 0.24,
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                BackButton(
-                                  color: Colors.white,
-                                ),
-                                IconButton(
-                                    onPressed: () async {
-                                      if (global.user!.id == null) {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) => SignInScreen(
-                                                    a: widget.analytics,
-                                                    o: widget.observer,
-                                                  )),
-                                        );
-                                      } else {
-                                        bool? _isFav;
-                                        _isFav = await _addToFavorite(_productDetail!.id);
-                                        if (_isFav!) {
-                                          _productDetail!.isFavourite = !_productDetail!.isFavourite;
-                                        }
-                                      }
-                                      setState(() {});
-                                    },
-                                    icon: Icon(
-                                      _productDetail!.isFavourite ? Icons.favorite : Icons.favorite_outline,
-                                      color: _productDetail!.isFavourite ? Color(0xFFFA692C) : Colors.white,
-                                    ))
-                              ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 8, bottom: 4, top: 4),
-                              color: Colors.black.withOpacity(0.5),
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "${_productDetail!.product_name}",
-                                style: Theme.of(context).primaryTextTheme.displayLarge,
-                              ),
-                            ),
-                          ],
+                        Padding(
+                            padding:
+                                EdgeInsets.only(left: 10, top: 5, right: 10),
+                            child: Html(
+                              data: _productDetail?.description,
+                              style: {
+                                'body': Style(textAlign: TextAlign.justify),
+                              },
+                            )),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 10, left: 10, right: 10),
+                          child: Text(AppLocalizations.of(context)!.lbl_price,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleLarge),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: Text(AppLocalizations.of(context)!.lbl_description, style: Theme.of(context).primaryTextTheme.titleLarge),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(left: 10, top: 5, right: 10),
-                        child: Html(
-                          data: _productDetail?.description,
-                          style: {
-                            'body': Style(textAlign: TextAlign.justify),
-                          },
-                        )),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: Text(AppLocalizations.of(context)!.lbl_price, style: Theme.of(context).primaryTextTheme.titleLarge),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, top: 2, right: 10),
-                      child: Text(
-                        '${global.currency.currency_sign}${_productDetail!.price}',
-                        style: Theme.of(context).primaryTextTheme.titleMedium,
-                      ),
-                    ),
-                  ]),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10, top: 2, right: 10),
+                          child: Text(
+                            '${global.currency.currency_sign}${_productDetail!.price}',
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
+                          ),
+                        ),
+                      ]),
                 )
               : _shimmer(),
           bottomNavigationBar: Padding(
@@ -194,7 +234,10 @@ class _ProductDetailScreenState extends BaseRouteState {
                             )
                           : isShowGoCartBtn!
                               ? Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) => CartScreen(a: widget.analytics, o: widget.observer)),
+                                  MaterialPageRoute(
+                                      builder: (context) => CartScreen(
+                                          a: widget.analytics,
+                                          o: widget.observer)),
                                 )
                               : await _addToCart(1, _productDetail!.id);
                     },
@@ -205,7 +248,9 @@ class _ProductDetailScreenState extends BaseRouteState {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: Text(isShowGoCartBtn! ? AppLocalizations.of(context)!.lbl_go_to_cart : AppLocalizations.of(context)!.lbl_add_to_cart),
+                          child: Text(isShowGoCartBtn!
+                              ? AppLocalizations.of(context)!.lbl_go_to_cart
+                              : AppLocalizations.of(context)!.lbl_add_to_cart),
                         ),
                       ],
                     )),
@@ -231,12 +276,16 @@ class _ProductDetailScreenState extends BaseRouteState {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
         showOnlyLoaderDialog();
-        await apiHelper!.addToCart(global.user!.id, id, quantity).then((result) {
+        await apiHelper!
+            .addToCart(global.user!.id, id, quantity)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               hideLoader();
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => CartScreen(a: widget.analytics, o: widget.observer)),
+                MaterialPageRoute(
+                    builder: (context) =>
+                        CartScreen(a: widget.analytics, o: widget.observer)),
               );
               setState(() {});
             } else {}
@@ -246,7 +295,8 @@ class _ProductDetailScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - ProductListScreen.dart - _addToCart():" + e.toString());
+      print(
+          "Exception - ProductListScreen.dart - _addToCart():" + e.toString());
     }
   }
 
@@ -272,7 +322,8 @@ class _ProductDetailScreenState extends BaseRouteState {
       }
       return _isFav;
     } catch (e) {
-      print("Exception - ProductListScreen.dart - _addToFavorite():" + e.toString());
+      print("Exception - ProductListScreen.dart - _addToFavorite():" +
+          e.toString());
       return null;
     }
   }
@@ -286,7 +337,8 @@ class _ProductDetailScreenState extends BaseRouteState {
             if (result.status == "1") {
               _productDetail = result.recordList;
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+              showSnackBar(
+                  key: _scaffoldKey, snackBarMessage: '${result.message}');
             }
           }
         });
@@ -294,7 +346,8 @@ class _ProductDetailScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - productDetailScreen.dart - _getProductDetails():" + e.toString());
+      print("Exception - productDetailScreen.dart - _getProductDetails():" +
+          e.toString());
     }
   }
 

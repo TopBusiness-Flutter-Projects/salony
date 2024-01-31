@@ -16,9 +16,11 @@ import 'package:shimmer/shimmer.dart';
 
 class BookAppointmentScreen extends BaseRoute {
   final int? vendorId;
-  BookAppointmentScreen(this.vendorId, {a, o}) : super(a: a, o: o, r: 'BookAppointmentScreen');
+  BookAppointmentScreen(this.vendorId, {a, o})
+      : super(a: a, o: o, r: 'BookAppointmentScreen');
   @override
-  _BookAppointmentScreenState createState() => new _BookAppointmentScreenState(this.vendorId);
+  _BookAppointmentScreenState createState() =>
+      new _BookAppointmentScreenState(this.vendorId);
 }
 
 class _BookAppointmentScreenState extends BaseRouteState {
@@ -55,7 +57,12 @@ class _BookAppointmentScreenState extends BaseRouteState {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _appointmentList = [AppLocalizations.of(context)!.lbl_choose_service, AppLocalizations.of(context)!.lbl_appointment, AppLocalizations.of(context)!.lbl_summary, AppLocalizations.of(context)!.lbl_payment];
+    List<String> _appointmentList = [
+      AppLocalizations.of(context)!.lbl_choose_service,
+      AppLocalizations.of(context)!.lbl_appointment,
+      AppLocalizations.of(context)!.lbl_summary,
+      AppLocalizations.of(context)!.lbl_payment
+    ];
 
     return WillPopScope(
       onWillPop: () async {
@@ -73,7 +80,9 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 ? null
                 : IconButton(
                     onPressed: () {
-                      _pageController!.animateToPage(_currentIndex - 1, duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+                      _pageController!.animateToPage(_currentIndex - 1,
+                          duration: Duration(seconds: 1),
+                          curve: Curves.fastOutSlowIn);
                       if (_currentIndex == 0) {
                         step1Done = false;
                       }
@@ -91,125 +100,172 @@ class _BookAppointmentScreenState extends BaseRouteState {
           ),
           bottomNavigationBar: _isDataLoaded
               ? BottomAppBar(
-                color: Color(0xFF171D2C),
-                child: SizedBox(
-                  height: _currentIndex == 3 ? 55 : 60,
-                  width: double.infinity,
-                  child: _currentIndex == 3
-                      ? Card(
-                    color: Color(0xFF3E424D),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 15),
-                          child: Align(
-                            alignment: global.isRTL ? Alignment.centerLeft : Alignment.centerRight,
-                            child: Text(
-                              AppLocalizations.of(context)!.txt_swipe_to_confirm_your_booking,
-                              style: Theme.of(context).primaryTextTheme.titleMedium,
+                  color: Color(0xFF171D2C),
+                  child: SizedBox(
+                    height: _currentIndex == 3 ? 55 : 60,
+                    width: double.infinity,
+                    child: _currentIndex == 3
+                        ? Card(
+                            color: Color(0xFF3E424D),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: Align(
+                                    alignment: global.isRTL
+                                        ? Alignment.centerLeft
+                                        : Alignment.centerRight,
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                              ?.txt_swipe_to_confirm_your_booking ??
+                                          '',
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .titleMedium,
+                                    ),
+                                  ),
+                                ),
+                                Dismissible(
+                                  background: Card(
+                                    elevation: 0,
+                                    color: Color(0xFFFA692C),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(0)),
+                                  ),
+                                  key: Key(_currentIndex.toString()),
+                                  onDismissed: (_) {},
+                                  confirmDismiss: (_) async {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PaymentGatewayScreen(
+                                                a: widget.analytics,
+                                                o: widget.observer,
+                                                bookNowDetails: _bookNowDetails,
+                                                screenId: 1,
+                                              )),
+                                    );
+                                    return true;
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              color: Color(0xFFFA692C),
+                                              borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(10),
+                                                  bottomRight:
+                                                      Radius.circular(10))),
+                                          width: 60,
+                                          height: 55,
+                                          child: Icon(
+                                            MdiIcons.scissorsCutting,
+                                            color: Colors.white,
+                                            size: 20.0,
+                                          )),
+                                      SizedBox()
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : ListTile(
+                            tileColor: Colors.transparent,
+                            title: RichText(
+                                text: TextSpan(
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .titleMedium,
+                                    children: [
+                                  TextSpan(
+                                      text: AppLocalizations.of(context)
+                                              ?.lbl_total_cost ??
+                                          ''),
+                                  TextSpan(
+                                      text:
+                                          '${global.currency.currency_sign}${_getTotalCost()}')
+                                ])),
+                            trailing: SizedBox(
+                              width: 120,
+                              height: 35,
+                              child: TextButton(
+                                onPressed: () async {
+                                  if (_currentIndex == 3) {
+                                    return null;
+                                  } else {
+                                    if (_currentIndex == 0) {
+                                      if (_selectedServiceType.length == 0) {
+                                        showSnackBar(
+                                            key: _scaffoldKey,
+                                            snackBarMessage: AppLocalizations
+                                                    .of(context)!
+                                                .txt_please_select_atleast_one_service_to_procceed);
+                                      } else {
+                                        _pageController!.animateToPage(
+                                            _currentIndex + 1,
+                                            duration: Duration(seconds: 1),
+                                            curve: Curves.fastOutSlowIn);
+                                      }
+
+                                      step1Done = true;
+                                    }
+                                    if (_currentIndex == 1) {
+                                      if (selectedTimeSlot == '') {
+                                        showSnackBar(
+                                            key: _scaffoldKey,
+                                            snackBarMessage: AppLocalizations
+                                                    .of(context)!
+                                                .txt_please_select_timeslot_to_procceed);
+                                      } else {
+                                        _pageController!.animateToPage(
+                                            _currentIndex + 1,
+                                            duration: Duration(seconds: 1),
+                                            curve: Curves.fastOutSlowIn);
+
+                                        for (int i = 0;
+                                            i <
+                                                _bookingAppointment!
+                                                    .barber.length;
+                                            i++) {
+                                          if (_bookingAppointment!
+                                                  .barber[i].staff_id ==
+                                              _bookingAppointment!.staff_id) {
+                                            barberName = _bookingAppointment!
+                                                .barber[i].staff_name;
+                                          }
+                                        }
+                                        step2Done = true;
+                                      }
+                                    }
+                                    if (_currentIndex == 2) {
+                                      _pageController!.animateToPage(
+                                          _currentIndex + 1,
+                                          duration: Duration(seconds: 1),
+                                          curve: Curves.fastOutSlowIn);
+                                      step3Done = true;
+                                      await _bookNow();
+                                    }
+                                    setState(() {});
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                        AppLocalizations.of(context)!.lbl_next),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        Dismissible(
-                          background: Card(
-                            elevation: 0,
-                            color: Color(0xFFFA692C),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                          ),
-                          key: Key(_currentIndex.toString()),
-                          onDismissed: (_) {
-                          },
-                          confirmDismiss: (_) async {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => PaymentGatewayScreen(
-                                    a: widget.analytics,
-                                    o: widget.observer,
-                                    bookNowDetails: _bookNowDetails,
-                                    screenId: 1,
-                                  )),
-                            );
-                            return true;
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                  decoration: BoxDecoration(color: Color(0xFFFA692C), borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
-                                  width: 60,
-                                  height: 55,
-                                  child: Icon(
-                                    MdiIcons.scissorsCutting,
-                                    color: Colors.white,
-                                    size: 20.0,
-                                  )),
-                              SizedBox()
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                      : ListTile(
-                    tileColor: Colors.transparent,
-                    title: RichText(
-                        text: TextSpan(style: Theme.of(context).primaryTextTheme.titleMedium, children: [
-                          TextSpan(text: AppLocalizations.of(context)!.lbl_total_cost),
-                          TextSpan(text: '${global.currency.currency_sign}${_getTotalCost()}')
-                        ])),
-                    trailing: SizedBox(
-                      width: 120,
-                      height: 35,
-                      child: TextButton(
-                        onPressed: () async {
-                          if (_currentIndex == 3) {
-                            return null;
-                          } else {
-                            if (_currentIndex == 0) {
-                              if (_selectedServiceType.length == 0) {
-                                showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_please_select_atleast_one_service_to_procceed);
-                              } else {
-                                _pageController!.animateToPage(_currentIndex + 1, duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-                              }
-
-                              step1Done = true;
-                            }
-                            if (_currentIndex == 1) {
-                              if (selectedTimeSlot == '') {
-                                showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_please_select_timeslot_to_procceed);
-                              } else {
-                                _pageController!.animateToPage(_currentIndex + 1, duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-
-                                for (int i = 0; i < _bookingAppointment!.barber.length; i++) {
-                                  if (_bookingAppointment!.barber[i].staff_id == _bookingAppointment!.staff_id) {
-                                    barberName = _bookingAppointment!.barber[i].staff_name;
-                                  }
-                                }
-                                step2Done = true;
-                              }
-                            }
-                            if (_currentIndex == 2) {
-                              _pageController!.animateToPage(_currentIndex + 1, duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-                              step3Done = true;
-                              await _bookNow();
-                            }
-                            setState(() {});
-                          }
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(AppLocalizations.of(context)!.lbl_next),
-                          ],
-                        ),
-                      ),
-                    ),
                   ),
-                ),
-              )
+                )
               : null,
           body: _isDataLoaded
               ? (_bookingAppointment?.services.length ?? 0) > 0
@@ -218,7 +274,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.75,
                           height: 20,
-                          margin: EdgeInsets.only(left: 10, right: 10, bottom: 0, top: 10),
+                          margin: EdgeInsets.only(
+                              left: 10, right: 10, bottom: 0, top: 10),
                           child: Center(
                             child: ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
@@ -227,21 +284,42 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (BuildContext context, int i) {
-                                  return Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
-                                    Icon(
-                                      Icons.circle,
-                                      size: 15,
-                                      color: (i == _currentIndex) || (i == 0 && step1Done) || (i == 1 && step2Done) || (i == 2 && step3Done) ? Colors.red : Colors.grey,
-                                    ),
-                                    i == 3
-                                        ? SizedBox()
-                                        : Container(
-                                            height: 2,
-                                            color: (i == _currentIndex - 1) || (i == 1 - 1 && step2Done) || ((i == 2 - 1 && step3Done)) ? Colors.red : Colors.black,
-                                            width: MediaQuery.of(context).size.width * 0.75 / 4,
-                                            margin: EdgeInsets.all(0),
-                                          ),
-                                  ]);
+                                  return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.circle,
+                                          size: 15,
+                                          color: (i == _currentIndex) ||
+                                                  (i == 0 && step1Done) ||
+                                                  (i == 1 && step2Done) ||
+                                                  (i == 2 && step3Done)
+                                              ? Colors.red
+                                              : Colors.grey,
+                                        ),
+                                        i == 3
+                                            ? SizedBox()
+                                            : Container(
+                                                height: 2,
+                                                color:
+                                                    (i == _currentIndex - 1) ||
+                                                            (i == 1 - 1 &&
+                                                                step2Done) ||
+                                                            ((i == 2 - 1 &&
+                                                                step3Done))
+                                                        ? Colors.red
+                                                        : Colors.black,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.75 /
+                                                    4,
+                                                margin: EdgeInsets.all(0),
+                                              ),
+                                      ]);
                                 }),
                           ),
                         ),
@@ -258,8 +336,18 @@ class _BookAppointmentScreenState extends BaseRouteState {
                               itemBuilder: (BuildContext context, int j) {
                                 return Container(
                                   alignment: Alignment.center,
-                                  width: (MediaQuery.of(context).size.width) / 4.3,
-                                  child: Text('${_appointmentList[j]}', style: TextStyle(fontSize: j == _currentIndex ? 10.5 : 9.5, color: j == _currentIndex ? Color(0xFF171D2C) : Color(0xFF898A8D), fontWeight: j == _currentIndex ? FontWeight.w600 : FontWeight.w400)),
+                                  width:
+                                      (MediaQuery.of(context).size.width) / 4.3,
+                                  child: Text('${_appointmentList[j]}',
+                                      style: TextStyle(
+                                          fontSize:
+                                              j == _currentIndex ? 10.5 : 9.5,
+                                          color: j == _currentIndex
+                                              ? Color(0xFF171D2C)
+                                              : Color(0xFF898A8D),
+                                          fontWeight: j == _currentIndex
+                                              ? FontWeight.w600
+                                              : FontWeight.w400)),
                                 );
                               },
                             ),
@@ -272,7 +360,9 @@ class _BookAppointmentScreenState extends BaseRouteState {
                             onPageChanged: (index) {
                               _currentIndex = index;
                               double currentIndex = _currentIndex.toDouble();
-                              _scrollController!.animateTo(currentIndex, duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+                              _scrollController!.animateTo(currentIndex,
+                                  duration: Duration(seconds: 1),
+                                  curve: Curves.fastOutSlowIn);
                               setState(() {});
                             },
                             children: [
@@ -287,7 +377,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
                     )
                   : Center(
                       child: Text(
-                        AppLocalizations.of(context)!.txt_nothing_is_yet_to_see_here,
+                        AppLocalizations.of(context)!
+                            .txt_nothing_is_yet_to_see_here,
                         style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                     )
@@ -300,7 +391,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
     super.initState();
 
     _tabController = new TabController(length: 2, vsync: this);
-    _scrollController = new ScrollController(initialScrollOffset: _currentIndex.toDouble());
+    _scrollController =
+        new ScrollController(initialScrollOffset: _currentIndex.toDouble());
     _pageController = new PageController(initialPage: _currentIndex);
     _pageController!.addListener(() {});
     _init();
@@ -311,35 +403,52 @@ class _BookAppointmentScreenState extends BaseRouteState {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
         type == "coupon"
-            ? await apiHelper!.applyRewardsAndCoupons(_bookNowDetails!.cart_id, "coupon", coupon_code: selectedCouponCode).then((result) {
+            ? await apiHelper!
+                .applyRewardsAndCoupons(_bookNowDetails!.cart_id, "coupon",
+                    coupon_code: selectedCouponCode)
+                .then((result) {
                 if (result != null) {
                   if (result.status == "1") {
                     _applyRewardsOrCoupons = result.recordList;
                     _bookNowDetails!.reward_discount = '${0}';
-                    _bookNowDetails!.reward_discount = _applyRewardsOrCoupons!.reward_discount;
-                    _bookNowDetails!.coupon_discount = _applyRewardsOrCoupons!.coupon_discount;
-                    _bookNowDetails!.total_price = _applyRewardsOrCoupons!.total_price;
-                    _bookNowDetails!.rem_price = _applyRewardsOrCoupons!.rem_price;
+                    _bookNowDetails!.reward_discount =
+                        _applyRewardsOrCoupons!.reward_discount;
+                    _bookNowDetails!.coupon_discount =
+                        _applyRewardsOrCoupons!.coupon_discount;
+                    _bookNowDetails!.total_price =
+                        _applyRewardsOrCoupons!.total_price;
+                    _bookNowDetails!.rem_price =
+                        _applyRewardsOrCoupons!.rem_price;
 
                     setState(() {});
                   } else {
-                    showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+                    showSnackBar(
+                        key: _scaffoldKey,
+                        snackBarMessage: result.message.toString());
                   }
                 }
               })
-            : await apiHelper!.applyRewardsAndCoupons(_bookNowDetails!.cart_id, "rewards").then((result) {
+            : await apiHelper!
+                .applyRewardsAndCoupons(_bookNowDetails!.cart_id, "rewards")
+                .then((result) {
                 if (result != null) {
                   if (result.status == "1") {
                     _applyRewardsOrCoupons = result.recordList;
                     _applyRewardsOrCoupons!.coupon_discount = '${0}';
-                    _bookNowDetails!.coupon_discount = _applyRewardsOrCoupons!.coupon_discount;
-                    _bookNowDetails!.total_price = _applyRewardsOrCoupons!.total_price;
-                    _bookNowDetails!.rem_price = _applyRewardsOrCoupons!.rem_price;
-                    _bookNowDetails!.reward_discount = _applyRewardsOrCoupons!.reward_discount;
+                    _bookNowDetails!.coupon_discount =
+                        _applyRewardsOrCoupons!.coupon_discount;
+                    _bookNowDetails!.total_price =
+                        _applyRewardsOrCoupons!.total_price;
+                    _bookNowDetails!.rem_price =
+                        _applyRewardsOrCoupons!.rem_price;
+                    _bookNowDetails!.reward_discount =
+                        _applyRewardsOrCoupons!.reward_discount;
 
                     setState(() {});
                   } else {
-                    showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+                    showSnackBar(
+                        key: _scaffoldKey,
+                        snackBarMessage: result.message.toString());
                   }
                 }
               });
@@ -347,7 +456,9 @@ class _BookAppointmentScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - bookAppointmentScreen.dart - _applyRewardsAndCoupons():" + e.toString());
+      print(
+          "Exception - bookAppointmentScreen.dart - _applyRewardsAndCoupons():" +
+              e.toString());
     }
   }
 
@@ -380,7 +491,11 @@ class _BookAppointmentScreenState extends BaseRouteState {
                     child: Center(
                       child: Text(
                         DateFormat('MMMM').format(DateTime.now()),
-                        style: TextStyle(color: Theme.of(context).primaryTextTheme.headlineMedium!.color),
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .headlineMedium!
+                                .color),
                       ),
                     ),
                   ),
@@ -404,13 +519,15 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 dateTextStyle: Theme.of(context).primaryTextTheme.titleSmall!,
                 dayTextStyle: Theme.of(context).primaryTextTheme.titleMedium!,
                 monthTextStyle: Theme.of(context).primaryTextTheme.bodyLarge!,
-                initialSelectedDate: DateTime.parse(_bookingAppointment!.selected_date!),
+                initialSelectedDate:
+                    DateTime.parse(_bookingAppointment!.selected_date!),
                 selectionColor: Color(0xFFFA692C),
                 selectedTextColor: Colors.white,
                 daysCount: 10,
                 onDateChange: (date) {
                   setState(() {
-                    _bookingAppointment!.selected_date = DateFormat('yyyy-MM-dd').format(date);
+                    _bookingAppointment!.selected_date =
+                        DateFormat('yyyy-MM-dd').format(date);
                     selectedDate = date;
                     _getTimeSlot();
                   });
@@ -421,7 +538,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
           Container(
             child: GridView.count(
               physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
+              padding:
+                  EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
               shrinkWrap: true,
               crossAxisCount: 4,
               childAspectRatio: 5 / 3,
@@ -430,18 +548,27 @@ class _BookAppointmentScreenState extends BaseRouteState {
               children: List.generate(
                   _bookingAppointment!.time_slot!.length,
                   (index) => GestureDetector(
-                        onTap: _bookingAppointment!.time_slot![index].availibility == true
+                        onTap: _bookingAppointment!
+                                    .time_slot![index].availibility ==
+                                true
                             ? () {
-                                selectedTimeSlot = _bookingAppointment!.time_slot![index].timeslot;
+                                selectedTimeSlot = _bookingAppointment!
+                                    .time_slot![index].timeslot;
 
                                 setState(() {});
                               }
                             : null,
                         child: Card(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                          color: selectedTimeSlot != '' && selectedTimeSlot == _bookingAppointment!.time_slot![index].timeslot
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)),
+                          color: selectedTimeSlot != '' &&
+                                  selectedTimeSlot ==
+                                      _bookingAppointment!
+                                          .time_slot![index].timeslot
                               ? Color(0xFFFA692C)
-                              : _bookingAppointment!.time_slot![index].availibility == true
+                              : _bookingAppointment!
+                                          .time_slot![index].availibility ==
+                                      true
                                   ? Color(0xFFDADADA)
                                   : Colors.white,
                           child: Center(
@@ -449,11 +576,24 @@ class _BookAppointmentScreenState extends BaseRouteState {
                             padding: const EdgeInsets.all(4),
                             child: Text(
                               _bookingAppointment!.time_slot![index].timeslot!,
-                              style: selectedTimeSlot != '' && selectedTimeSlot == _bookingAppointment!.time_slot![index].timeslot
-                                  ? TextStyle(fontSize: 13, color: Colors.white, fontWeight: FontWeight.w400)
-                                  : _bookingAppointment!.time_slot![index].availibility == true
-                                      ? Theme.of(context).primaryTextTheme.bodyMedium
-                                      : TextStyle(fontSize: 13, color: Colors.grey.withOpacity(0.5), fontWeight: FontWeight.w400),
+                              style: selectedTimeSlot != '' &&
+                                      selectedTimeSlot ==
+                                          _bookingAppointment!
+                                              .time_slot![index].timeslot
+                                  ? TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400)
+                                  : _bookingAppointment!
+                                              .time_slot![index].availibility ==
+                                          true
+                                      ? Theme.of(context)
+                                          .primaryTextTheme
+                                          .bodyMedium
+                                      : TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.grey.withOpacity(0.5),
+                                          fontWeight: FontWeight.w400),
                             ),
                           )),
                         ),
@@ -470,7 +610,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
                     height: 15,
                     width: 15,
                     child: Card(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
                       color: Color(0xFFDADADA),
                     )),
                 Padding(
@@ -500,14 +641,16 @@ class _BookAppointmentScreenState extends BaseRouteState {
           SizedBox(
             height: 80,
             child: ListView.builder(
-                padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 scrollDirection: Axis.horizontal,
                 itemCount: _bookingAppointment!.barber.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () async {
-                      _bookingAppointment!.staff_id = _bookingAppointment!.barber[index].staff_id;
+                      _bookingAppointment!.staff_id =
+                          _bookingAppointment!.barber[index].staff_id;
                       await _getTimeSlot();
                     },
                     child: Padding(
@@ -530,24 +673,40 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                     bottomLeft: Radius.circular(30),
                                   ),
                           ),
-                          color: _bookingAppointment!.staff_id == _bookingAppointment!.barber[index].staff_id ? Color(0xFFFA692C) : Colors.white,
+                          color: _bookingAppointment!.staff_id ==
+                                  _bookingAppointment!.barber[index].staff_id
+                              ? Color(0xFFFA692C)
+                              : Colors.white,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CachedNetworkImage(
-                                imageUrl: global.baseUrlForImage + _bookingAppointment!.barber[index].staff_image!,
-                                imageBuilder: (context, imageProvider) => CircleAvatar(
+                                imageUrl: global.baseUrlForImage +
+                                    _bookingAppointment!
+                                        .barber[index].staff_image!,
+                                imageBuilder: (context, imageProvider) =>
+                                    CircleAvatar(
                                   radius: 30,
                                   backgroundImage: imageProvider,
                                 ),
-                                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                placeholder: (context, url) =>
+                                    Center(child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   '${_bookingAppointment!.barber[index].staff_name}',
-                                  style: _bookingAppointment!.staff_id == _bookingAppointment!.barber[index].staff_id ? Theme.of(context).primaryTextTheme.labelSmall : Theme.of(context).primaryTextTheme.titleSmall,
+                                  style: _bookingAppointment!.staff_id ==
+                                          _bookingAppointment!
+                                              .barber[index].staff_id
+                                      ? Theme.of(context)
+                                          .primaryTextTheme
+                                          .labelSmall
+                                      : Theme.of(context)
+                                          .primaryTextTheme
+                                          .titleSmall,
                                 ),
                               )
                             ],
@@ -572,7 +731,9 @@ class _BookAppointmentScreenState extends BaseRouteState {
             if (result.status == "1") {
               _bookingAppointment = result.recordList;
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage: result.message.toString());
             }
           }
         });
@@ -580,7 +741,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - bookAppointmentScreen.dart - _bookAppointment():" + e.toString());
+      print("Exception - bookAppointmentScreen.dart - _bookAppointment():" +
+          e.toString());
     }
   }
 
@@ -604,7 +766,9 @@ class _BookAppointmentScreenState extends BaseRouteState {
 
               setState(() {});
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage: result.message.toString());
             }
           }
         });
@@ -612,7 +776,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - bookAppointmentScreen.dart - _bookNow():" + e.toString());
+      print("Exception - bookAppointmentScreen.dart - _bookNow():" +
+          e.toString());
     }
   }
 
@@ -621,9 +786,12 @@ class _BookAppointmentScreenState extends BaseRouteState {
         itemCount: _bookingAppointment!.services.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
             child: Card(
-              shape: RoundedRectangleBorder(side: BorderSide(color: Colors.grey[400]!, width: 0.5), borderRadius: BorderRadius.circular(3)),
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.grey[400]!, width: 0.5),
+                  borderRadius: BorderRadius.circular(3)),
               color: Color(0xFFEEEEEE),
               child: ExpansionTile(
                 initiallyExpanded: true,
@@ -634,17 +802,21 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 collapsedTextColor: Color(0xFFF543520),
                 iconColor: Color(0xFF565656),
                 collapsedIconColor: Color(0xFF565656),
-                title: Text("${_bookingAppointment!.services[index].service_name}", style: Theme.of(context).primaryTextTheme.titleSmall),
+                title: Text(
+                    "${_bookingAppointment!.services[index].service_name}",
+                    style: Theme.of(context).primaryTextTheme.titleSmall),
                 children: [
                   ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: _bookingAppointment!.services[index].service_type.length,
+                      itemCount: _bookingAppointment!
+                          .services[index].service_type.length,
                       itemBuilder: (BuildContext context, int i) {
                         int? hr;
-                   
-                        hr = _bookingAppointment!.services[index].service_type[i].time;
-                     
+
+                        hr = _bookingAppointment!
+                            .services[index].service_type[i].time;
+
                         return Column(
                           children: [
                             Padding(
@@ -654,14 +826,17 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                 child: ListTile(
                                   tileColor: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: Colors.grey[100]!, width: 0.5),
+                                    side: BorderSide(
+                                        color: Colors.grey[100]!, width: 0.5),
                                   ),
                                   title: Padding(
                                     padding: const EdgeInsets.only(left: 0),
                                     child: Text(
                                       '${_bookingAppointment!.services[index].service_type[i].varient}',
                                       textAlign: TextAlign.justify,
-                                      style: Theme.of(context).primaryTextTheme.titleMedium,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .titleMedium,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                     ),
@@ -670,28 +845,60 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Container(alignment: Alignment.centerRight, width: 65, child: Text('$hr m', style: TextStyle(fontSize: 12, color: Color(0xFF898A8D), fontWeight: FontWeight.w400))),
+                                      Container(
+                                          alignment: Alignment.centerRight,
+                                          width: 65,
+                                          child: Text('$hr m',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xFF898A8D),
+                                                  fontWeight:
+                                                      FontWeight.w400))),
                                       VerticalDivider(
                                         color: Color(0xFF898A8D),
                                         indent: 13,
                                         endIndent: 13,
                                         thickness: 1,
                                       ),
-                                      Container(width: 50, child: Text(' ${global.currency.currency_sign}${_bookingAppointment!.services[index].service_type[i].price}', style: TextStyle(fontSize: 12, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w400))),
+                                      Container(
+                                          width: 50,
+                                          child: Text(
+                                              ' ${global.currency.currency_sign}${_bookingAppointment!.services[index].service_type[i].price}',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  fontWeight:
+                                                      FontWeight.w400))),
                                       IconButton(
                                           iconSize: 20,
                                           padding: EdgeInsets.all(0),
                                           onPressed: () {
-                                            if (_selectedServiceType.contains(_bookingAppointment!.services[index].service_type[i])) {
-                                              _selectedServiceType.remove(_bookingAppointment!.services[index].service_type[i]);
+                                            if (_selectedServiceType.contains(
+                                                _bookingAppointment!
+                                                    .services[index]
+                                                    .service_type[i])) {
+                                              _selectedServiceType.remove(
+                                                  _bookingAppointment!
+                                                      .services[index]
+                                                      .service_type[i]);
                                             } else {
-                                              _selectedServiceType.add(_bookingAppointment!.services[index].service_type[i]);
+                                              _selectedServiceType.add(
+                                                  _bookingAppointment!
+                                                      .services[index]
+                                                      .service_type[i]);
                                             }
                                             setState(() {});
                                           },
-                                          color: Theme.of(context).colorScheme.secondary,
-                                          icon: _selectedServiceType.contains(_bookingAppointment!.services[index].service_type[i]) ? Icon(Icons.circle) : Icon(Icons.circle_outlined)
-                                      ),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                          icon: _selectedServiceType.contains(
+                                                  _bookingAppointment!
+                                                      .services[index]
+                                                      .service_type[i])
+                                              ? Icon(Icons.circle)
+                                              : Icon(Icons.circle_outlined)),
                                     ],
                                   ),
                                 ),
@@ -727,7 +934,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - bookAppointmentScreen.dart - _getCouponsList():" + e.toString());
+      print("Exception - bookAppointmentScreen.dart - _getCouponsList():" +
+          e.toString());
     }
   }
 
@@ -735,14 +943,19 @@ class _BookAppointmentScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.getTimeSLot(_bookingAppointment!.selected_date, _bookingAppointment!.staff_id, _bookingAppointment!.vendor_id).then((result) {
+        await apiHelper!
+            .getTimeSLot(_bookingAppointment!.selected_date,
+                _bookingAppointment!.staff_id, _bookingAppointment!.vendor_id)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               _bookingAppointment!.time_slot = result.recordList;
               selectedTimeSlot = '';
               setState(() {});
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage: result.message.toString());
             }
           }
         });
@@ -750,7 +963,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - bookAppointmentScreen.dart - _getTimeSlot():" + e.toString());
+      print("Exception - bookAppointmentScreen.dart - _getTimeSlot():" +
+          e.toString());
     }
   }
 
@@ -786,7 +1000,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
                         indicatorSize: TabBarIndicatorSize.tab,
                         indicatorWeight: 0.1,
                         indicatorColor: Colors.transparent,
-                        labelPadding: EdgeInsets.only(left: 0.5, right: 0.5, top: 0, bottom: 0),
+                        labelPadding: EdgeInsets.only(
+                            left: 0.5, right: 0.5, top: 0, bottom: 0),
                         onTap: (index) {
                           _tabController!.animateTo(index);
                           _tabController!.addListener(() {});
@@ -798,16 +1013,44 @@ class _BookAppointmentScreenState extends BaseRouteState {
                               height: double.infinity,
                               width: double.infinity,
                               child: Card(
-                                  color: _tabController!.index == 0 ? Colors.white : Color(0xFFDADADA),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
-                                  child: Center(child: Text(AppLocalizations.of(context)!.lbl_rewards, style: _tabController!.index == 0 ? Theme.of(context).primaryTextTheme.headlineSmall : Theme.of(context).primaryTextTheme.titleSmall)))),
+                                  color: _tabController!.index == 0
+                                      ? Colors.white
+                                      : Color(0xFFDADADA),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(2)),
+                                  child: Center(
+                                      child: Text(
+                                          AppLocalizations.of(context)!
+                                              .lbl_rewards,
+                                          style:
+                                              _tabController!.index == 0
+                                                  ? Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .headlineSmall
+                                                  : Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .titleSmall)))),
                           SizedBox(
                               height: double.infinity,
                               width: double.infinity,
                               child: Card(
-                                  color: _tabController!.index == 1 ? Colors.white : Color(0xFFDADADA),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
-                                  child: Center(child: Text(AppLocalizations.of(context)!.lbl_coupons, style: _tabController!.index == 1 ? Theme.of(context).primaryTextTheme.headlineSmall : Theme.of(context).primaryTextTheme.titleSmall)))),
+                                  color: _tabController!.index == 1
+                                      ? Colors.white
+                                      : Color(0xFFDADADA),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(2)),
+                                  child: Center(
+                                      child: Text(
+                                          AppLocalizations.of(context)!
+                                              .lbl_coupons,
+                                          style:
+                                              _tabController!.index == 1
+                                                  ? Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .headlineSmall
+                                                  : Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .titleSmall)))),
                         ]),
                   ),
                 ),
@@ -818,107 +1061,154 @@ class _BookAppointmentScreenState extends BaseRouteState {
                     child: DefaultTabController(
                       initialIndex: _initialIndex,
                       length: 2,
-                      child: TabBarView(physics: NeverScrollableScrollPhysics(), controller: _tabController, children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                      child: TabBarView(
+                          physics: NeverScrollableScrollPhysics(),
+                          controller: _tabController,
                           children: [
-                            Text(
-                              '${global.user!.rewards}',
-                              style: Theme.of(context).primaryTextTheme.headlineMedium,
-                            ),
-                            Row(
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  MdiIcons.wallet,
-                                  size: 18,
-                                ),
                                 Text(
-                                  AppLocalizations.of(context)!.txt_available_reward_points,
-                                  style: Theme.of(context).primaryTextTheme.titleSmall,
+                                  '${global.user!.rewards}',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headlineMedium,
                                 ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      MdiIcons.wallet,
+                                      size: 18,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .txt_available_reward_points,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .titleSmall,
+                                    ),
+                                  ],
+                                ),
+                                global.user!.rewards != null &&
+                                        global.user!.rewards != 0
+                                    ? TextButton(
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .lbl_apply),
+                                        onPressed: () async {
+                                          await _applyRewardsAndCoupons(
+                                              AppLocalizations.of(context)!
+                                                  .lbl_rewards);
+                                        },
+                                      )
+                                    : SizedBox()
                               ],
                             ),
-                            global.user!.rewards != null && global.user!.rewards != 0
-                                ? TextButton(
-                                    child: Text(AppLocalizations.of(context)!.lbl_apply),
-                                    onPressed: () async {
-                                      await _applyRewardsAndCoupons(AppLocalizations.of(context)!.lbl_rewards);
-                                    },
-                                  )
-                                : SizedBox()
-                          ],
-                        ),
-                        Center(
-                            child: _couponsList!.length > 0
-                                ? ListView.separated(
-                                    itemCount: _couponsList!.length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return ListTile(
-                                        title: Text('${_couponsList![index].coupon_name}'),
-                                        subtitle: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              '${_couponsList![index].coupon_description}',
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            Text(AppLocalizations.of(context)!.lbl_validity + ' : ${DateFormat('dd MMM yy').format(_couponsList![index].start_date!)} - ${DateFormat('dd MMM yy').format(_couponsList![index].end_date!)}')
-                                          ],
-                                        ),
-                                        trailing: GestureDetector(
-                                          onTap: () async {
-                                            if (selectedCouponCode == _couponsList![index].coupon_code) {
-                                              selectedCouponCode = null;
-                                            } else {
-                                              selectedCouponCode = _couponsList![index].coupon_code;
-                                              await _applyRewardsAndCoupons("coupon");
-                                            }
-                                            setState(() {});
-                                          },
-                                          child: selectedCouponCode == _couponsList![index].coupon_code
-                                              ? SizedBox(
-                                                  height: 33,
-                                                  child: Card(
-                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                                    color: Theme.of(context).primaryColor,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.all(5),
-                                                      child: Text('${_couponsList![index].coupon_code}'),
-                                                    ),
-                                                  ),
-                                                )
-                                              : SizedBox(
-                                                  height: 40,
-                                                  child: FDottedLine(
-                                                    color: Theme.of(context).primaryColor,
-                                                    dottedLength: 4,
-                                                    space: 2,
-                                                    corner: FDottedLineCorner.all(5),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.all(5),
-                                                      child: Text('${_couponsList![index].coupon_code}'),
-                                                    ),
-                                                  ),
+                            Center(
+                                child: _couponsList!.length > 0
+                                    ? ListView.separated(
+                                        itemCount: _couponsList!.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return ListTile(
+                                            title: Text(
+                                                '${_couponsList![index].coupon_name}'),
+                                            subtitle: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '${_couponsList![index].coupon_description}',
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
-                                        ),
-                                      );
-                                    },
-                                    separatorBuilder: (BuildContext context, int index) {
-                                      return Divider(
-                                        indent: 15,
-                                        endIndent: 15,
-                                        color: Theme.of(context).primaryColor,
-                                      );
-                                    },
-                                  )
-                                : Text(
-                                    AppLocalizations.of(context)!.txt_no_coupons_available,
-                                    style: Theme.of(context).primaryTextTheme.titleSmall,
-                                  )),
-                      ]),
+                                                Text(AppLocalizations.of(
+                                                            context)!
+                                                        .lbl_validity +
+                                                    ' : ${DateFormat('dd MMM yy').format(_couponsList![index].start_date!)} - ${DateFormat('dd MMM yy').format(_couponsList![index].end_date!)}')
+                                              ],
+                                            ),
+                                            trailing: GestureDetector(
+                                              onTap: () async {
+                                                if (selectedCouponCode ==
+                                                    _couponsList![index]
+                                                        .coupon_code) {
+                                                  selectedCouponCode = null;
+                                                } else {
+                                                  selectedCouponCode =
+                                                      _couponsList![index]
+                                                          .coupon_code;
+                                                  await _applyRewardsAndCoupons(
+                                                      "coupon");
+                                                }
+                                                setState(() {});
+                                              },
+                                              child: selectedCouponCode ==
+                                                      _couponsList![index]
+                                                          .coupon_code
+                                                  ? SizedBox(
+                                                      height: 33,
+                                                      child: Card(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5)),
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                          child: Text(
+                                                              '${_couponsList![index].coupon_code}'),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : SizedBox(
+                                                      height: 40,
+                                                      child: FDottedLine(
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                        dottedLength: 4,
+                                                        space: 2,
+                                                        corner:
+                                                            FDottedLineCorner
+                                                                .all(5),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                          child: Text(
+                                                              '${_couponsList![index].coupon_code}'),
+                                                        ),
+                                                      ),
+                                                    ),
+                                            ),
+                                          );
+                                        },
+                                        separatorBuilder:
+                                            (BuildContext context, int index) {
+                                          return Divider(
+                                            indent: 15,
+                                            endIndent: 15,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          );
+                                        },
+                                      )
+                                    : Text(
+                                        AppLocalizations.of(context)!
+                                            .txt_no_coupons_available,
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .titleSmall,
+                                      )),
+                          ]),
                     ),
                   ),
                 ),
@@ -928,41 +1218,60 @@ class _BookAppointmentScreenState extends BaseRouteState {
                   color: Theme.of(context).primaryColor,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+                  padding: const EdgeInsets.only(
+                      left: 15, right: 15, top: 15, bottom: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppLocalizations.of(context)!.lbl_price_details, style: Theme.of(context).primaryTextTheme.titleLarge),
+                      Text(AppLocalizations.of(context)!.lbl_price_details,
+                          style: Theme.of(context).primaryTextTheme.titleLarge),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppLocalizations.of(context)!.lbl_total_cost, style: Theme.of(context).primaryTextTheme.titleMedium),
+                      Text(AppLocalizations.of(context)!.lbl_total_cost,
+                          style:
+                              Theme.of(context).primaryTextTheme.titleMedium),
                       Text('${global.currency.currency_sign}${_getTotalCost()}')
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppLocalizations.of(context)!.lbl_rewards + " ", style: Theme.of(context).primaryTextTheme.titleMedium),
-                      Text(_bookNowDetails!.reward_discount != null ? '${global.currency.currency_sign}${_bookNowDetails!.reward_discount}' : '${global.currency.currency_sign}0', style: Theme.of(context).primaryTextTheme.titleSmall)
+                      Text(AppLocalizations.of(context)!.lbl_rewards + " ",
+                          style:
+                              Theme.of(context).primaryTextTheme.titleMedium),
+                      Text(
+                          _bookNowDetails!.reward_discount != null
+                              ? '${global.currency.currency_sign}${_bookNowDetails!.reward_discount}'
+                              : '${global.currency.currency_sign}0',
+                          style: Theme.of(context).primaryTextTheme.titleSmall)
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(AppLocalizations.of(context)!.lbl_coupons + " ", style: Theme.of(context).primaryTextTheme.titleMedium),
-                      Text(_bookNowDetails!.coupon_discount != null ? "${global.currency.currency_sign}${_applyRewardsOrCoupons!.coupon_discount}" : "${global.currency.currency_sign}0", style: Theme.of(context).primaryTextTheme.titleSmall)
+                      Text(AppLocalizations.of(context)!.lbl_coupons + " ",
+                          style:
+                              Theme.of(context).primaryTextTheme.titleMedium),
+                      Text(
+                          _bookNowDetails!.coupon_discount != null
+                              ? "${global.currency.currency_sign}${_applyRewardsOrCoupons!.coupon_discount}"
+                              : "${global.currency.currency_sign}0",
+                          style: Theme.of(context).primaryTextTheme.titleSmall)
                     ],
                   ),
                 ),
@@ -972,10 +1281,17 @@ class _BookAppointmentScreenState extends BaseRouteState {
                   color: Theme.of(context).primaryColor,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+                  padding: const EdgeInsets.only(
+                      left: 15, right: 15, bottom: 5, top: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(AppLocalizations.of(context)!.lbl_total_amount, style: Theme.of(context).primaryTextTheme.titleLarge), Text('${global.currency.currency_sign}${_bookNowDetails!.rem_price}', style: Theme.of(context).primaryTextTheme.titleLarge)],
+                    children: [
+                      Text(AppLocalizations.of(context)!.lbl_total_amount,
+                          style: Theme.of(context).primaryTextTheme.titleLarge),
+                      Text(
+                          '${global.currency.currency_sign}${_bookNowDetails!.rem_price}',
+                          style: Theme.of(context).primaryTextTheme.titleLarge)
+                    ],
                   ),
                 ),
               ],
@@ -1000,22 +1316,26 @@ class _BookAppointmentScreenState extends BaseRouteState {
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 120,
                     height: 40,
-                    child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                    child: Card(
+                        margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 220,
                     height: 40,
-                    child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                    child: Card(
+                        margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 220,
                     height: 40,
-                    child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                    child: Card(
+                        margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 200,
                     height: 40,
-                    child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                    child: Card(
+                        margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
                   ),
                   SizedBox(
                     height: 20,
@@ -1057,7 +1377,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 color: Theme.of(context).primaryColor,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+                padding: const EdgeInsets.only(
+                    left: 15, right: 15, top: 15, bottom: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -1129,7 +1450,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 color: Theme.of(context).primaryColor,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+                padding: const EdgeInsets.only(
+                    left: 15, right: 15, bottom: 5, top: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -1169,11 +1491,13 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 right: 10,
               ),
               leading: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
                 child: Icon(Icons.alarm, size: 15),
               ),
               title: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
                 child: Text(
                     AppLocalizations.of(context)!.lbl_picking_time +
                         ' : ${DateFormat('dd MMM yy').format(
@@ -1182,8 +1506,10 @@ class _BookAppointmentScreenState extends BaseRouteState {
                     style: Theme.of(context).primaryTextTheme.labelLarge),
               ),
               trailing: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 0),
-                child: Text('', style: Theme.of(context).primaryTextTheme.bodyMedium),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 0),
+                child: Text('',
+                    style: Theme.of(context).primaryTextTheme.bodyMedium),
               )),
           ListTile(
             horizontalTitleGap: 0,
@@ -1193,12 +1519,17 @@ class _BookAppointmentScreenState extends BaseRouteState {
               right: 10,
             ),
             leading: Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
+              padding:
+                  const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
               child: Icon(MdiIcons.scissorsCutting, size: 15),
             ),
             title: Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
-              child: Text(AppLocalizations.of(context)!.lbl_barbershop + ' : ${_bookingAppointment!.salon_name}', style: Theme.of(context).primaryTextTheme.labelLarge),
+              padding:
+                  const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
+              child: Text(
+                  AppLocalizations.of(context)!.lbl_barbershop +
+                      ' : ${_bookingAppointment!.salon_name}',
+                  style: Theme.of(context).primaryTextTheme.labelLarge),
             ),
           ),
           ListTile(
@@ -1209,16 +1540,23 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 right: 10,
               ),
               leading: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
                 child: Icon(Icons.phone_enabled, size: 15),
               ),
               title: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
-                child: Text(AppLocalizations.of(context)!.lbl_services + ' : ${list.join(",")} ', style: Theme.of(context).primaryTextTheme.labelLarge),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
+                child: Text(
+                    AppLocalizations.of(context)!.lbl_services +
+                        ' : ${list.join(",")} ',
+                    style: Theme.of(context).primaryTextTheme.labelLarge),
               ),
               trailing: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 0),
-                child: Text('', style: Theme.of(context).primaryTextTheme.bodyMedium),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 0),
+                child: Text('',
+                    style: Theme.of(context).primaryTextTheme.bodyMedium),
               )),
           ListTile(
             horizontalTitleGap: 0,
@@ -1228,12 +1566,17 @@ class _BookAppointmentScreenState extends BaseRouteState {
               right: 10,
             ),
             leading: Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
+              padding:
+                  const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
               child: Icon(Icons.location_on_outlined, size: 15),
             ),
             title: Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
-              child: Text(AppLocalizations.of(context)!.lbl_location + ': ${_bookingAppointment!.vendor_loc}', style: Theme.of(context).primaryTextTheme.labelLarge),
+              padding:
+                  const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
+              child: Text(
+                  AppLocalizations.of(context)!.lbl_location +
+                      ': ${_bookingAppointment!.vendor_loc}',
+                  style: Theme.of(context).primaryTextTheme.labelLarge),
             ),
           ),
           ListTile(
@@ -1244,16 +1587,22 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 right: 10,
               ),
               leading: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
                 child: Icon(Icons.male, size: 15),
               ),
               title: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
-                child: Text(AppLocalizations.of(context)!.lbl_barber + ': $barberName ', style: Theme.of(context).primaryTextTheme.labelLarge),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
+                child: Text(
+                    AppLocalizations.of(context)!.lbl_barber + ': $barberName ',
+                    style: Theme.of(context).primaryTextTheme.labelLarge),
               ),
               trailing: Padding(
-                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 0),
-                child: Text('', style: Theme.of(context).primaryTextTheme.bodyMedium),
+                padding:
+                    const EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 0),
+                child: Text('',
+                    style: Theme.of(context).primaryTextTheme.bodyMedium),
               )),
         ],
       ),

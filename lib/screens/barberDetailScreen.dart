@@ -13,10 +13,12 @@ import 'package:shimmer/shimmer.dart';
 class BarberDetailScreen extends BaseRoute {
   final int? staffId;
 
-  BarberDetailScreen(this.staffId, {a, o}) : super(a: a, o: o, r: 'BarberDetailScreen');
+  BarberDetailScreen(this.staffId, {a, o})
+      : super(a: a, o: o, r: 'BarberDetailScreen');
 
   @override
-  _BarberDetailScreenState createState() => new _BarberDetailScreenState(this.staffId);
+  _BarberDetailScreenState createState() =>
+      new _BarberDetailScreenState(this.staffId);
 }
 
 class _BarberDetailScreenState extends BaseRouteState {
@@ -35,10 +37,10 @@ class _BarberDetailScreenState extends BaseRouteState {
         return true;
       },
       child: Scaffold(
-          body: SafeArea(
-            child: _isDataLoaded
-                ? SingleChildScrollView(
-                child: Padding(
+        body: SafeArea(
+          child: _isDataLoaded
+              ? SingleChildScrollView(
+                  child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -54,13 +56,20 @@ class _BarberDetailScreenState extends BaseRouteState {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: global.baseUrlForImage + _barberDetails!.vendor_logo!,
-                                  imageBuilder: (context, imageProvider) => Container(
+                                  imageUrl: global.baseUrlForImage +
+                                      (_barberDetails?.vendor_logo ?? ''),
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
                                     height: 130,
-                                    decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: imageProvider)),
                                   ),
-                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                  placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
                                 SizedBox(
                                   height: 70,
@@ -70,70 +79,75 @@ class _BarberDetailScreenState extends BaseRouteState {
                           ),
                           global.isRTL
                               ? Positioned(
-                            right: 8,
-                            top: 20,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.black26,
-                                  child: Center(
-                                    child: Icon(
-                                      MdiIcons.chevronRight,
-                                      color: Colors.white,
+                                  right: 8,
+                                  top: 20,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.black26,
+                                        child: Center(
+                                          child: Icon(
+                                            MdiIcons.chevronRight,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          )
+                                )
                               : Positioned(
-                            left: 8,
-                            top: 20,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.black26,
-                                  child: Center(
-                                    child: Icon(
-                                      MdiIcons.chevronLeft,
-                                      color: Colors.white,
+                                  left: 8,
+                                  top: 20,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.black26,
+                                        child: Center(
+                                          child: Icon(
+                                            MdiIcons.chevronLeft,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
                           Positioned(
                             top: 70,
                             child: CircleAvatar(
                               radius: 60,
                               backgroundColor: Color(0xFFFA692C),
                               child: CachedNetworkImage(
-                                imageUrl: global.baseUrlForImage + _barberDetails!.staff_image!,
-                                imageBuilder: (context, imageProvider) => CircleAvatar(
+                                imageUrl: global.baseUrlForImage +
+                                    (_barberDetails?.staff_image ?? ''),
+                                imageBuilder: (context, imageProvider) =>
+                                    CircleAvatar(
                                   radius: 57,
                                   backgroundImage: imageProvider,
                                 ),
-                                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                placeholder: (context, url) =>
+                                    Center(child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
                               ),
                             ),
                           )
                         ],
                       ),
-                      Text('${_barberDetails!.staff_name}', style: Theme.of(context).primaryTextTheme.titleSmall),
+                      Text('${_barberDetails?.staff_name ?? ''}',
+                          style: Theme.of(context).primaryTextTheme.titleSmall),
                       Text(
-                        '${_barberDetails!.salon_name}',
+                        '${_barberDetails?.salon_name ?? ''}',
                         style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       RatingBar.builder(
@@ -150,14 +164,16 @@ class _BarberDetailScreenState extends BaseRouteState {
                         ),
                         ignoreGestures: true,
                         updateOnDrag: false,
-                        onRatingUpdate: (rating) {
-
-                        },
+                        onRatingUpdate: (rating) {},
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
                         child: ListTile(
-                          title: Text(AppLocalizations.of(context)!.lbl_about_me, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)?.lbl_about_me ?? '',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Padding(
                             padding: EdgeInsets.only(top: 6.0),
                             child: Column(
@@ -166,7 +182,7 @@ class _BarberDetailScreenState extends BaseRouteState {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${_barberDetails!.staff_description}',
+                                  '${_barberDetails?.staff_description ?? ''}',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
@@ -178,23 +194,38 @@ class _BarberDetailScreenState extends BaseRouteState {
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
                         child: ListTile(
-                          title: Text(AppLocalizations.of(context)!.lbl_opening_hours, style: Theme.of(context).primaryTextTheme.titleSmall),
-                          subtitle: Padding(padding: EdgeInsets.only(top: 6.0), child: _weekTimeSlotWidget()),
+                          title: Text(
+                              AppLocalizations.of(context)?.lbl_opening_hours ??
+                                  '',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
+                          subtitle: Padding(
+                              padding: EdgeInsets.only(top: 6.0),
+                              child: _weekTimeSlotWidget()),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(),
                         child: ListTile(
-                            title: Text('Type', style: Theme.of(context).primaryTextTheme.titleSmall),
+                            title: Text('Type',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .titleSmall),
                             subtitle: Text(
                               '$vendorType',
-                              style: Theme.of(context).primaryTextTheme.titleMedium,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleMedium,
                             )),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
                         child: ListTile(
-                          title: Text(AppLocalizations.of(context)!.lbl_address, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(AppLocalizations.of(context)!.lbl_address,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Container(
                             width: MediaQuery.of(context).size.width,
                             padding: EdgeInsets.only(top: 6.0),
@@ -213,7 +244,9 @@ class _BarberDetailScreenState extends BaseRouteState {
                                 Expanded(
                                   child: Text(
                                     "${_barberDetails!.vendor_loc}",
-                                    style: Theme.of(context).primaryTextTheme.titleMedium,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .titleMedium,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -225,104 +258,182 @@ class _BarberDetailScreenState extends BaseRouteState {
                       ),
                       _barberDetails!.review.length > 0
                           ? Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: ListTile(
-                          title: Text(AppLocalizations.of(context)!.lbl_Reviews, style: Theme.of(context).primaryTextTheme.titleSmall),
-                          subtitle: Padding(
-                            padding: EdgeInsets.only(top: 6.0),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount: _barberDetails!.review.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Card(
-                                        margin: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 1),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
+                              padding: EdgeInsets.only(top: 10.0),
+                              child: ListTile(
+                                title: Text(
+                                    AppLocalizations.of(context)!.lbl_Reviews,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .titleSmall),
+                                subtitle: Padding(
+                                  padding: EdgeInsets.only(top: 6.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount:
+                                            _barberDetails!.review.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Card(
+                                              margin: const EdgeInsets.only(
+                                                  left: 10,
+                                                  right: 10,
+                                                  top: 5,
+                                                  bottom: 5),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
                                                   children: [
-                                                    CachedNetworkImage(
-                                                      imageUrl: global.baseUrlForImage + _barberDetails!.review[index].image!,
-                                                      imageBuilder: (context, imageProvider) => CircleAvatar(
-                                                        radius: 30,
-                                                        backgroundColor: Colors.yellow,
-                                                        backgroundImage: imageProvider,
-                                                      ),
-                                                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                                      errorWidget: (context, url, error) => CircleAvatar(radius: 30, child: Icon(Icons.people)),
-                                                    ),
                                                     Padding(
-                                                      padding: const EdgeInsets.only(left: 15),
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 1),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
                                                         children: [
-                                                          Text(
-                                                            '${_barberDetails!.review[index].name}',
-                                                            style: Theme.of(context).primaryTextTheme.titleSmall,
+                                                          CachedNetworkImage(
+                                                            imageUrl: global
+                                                                    .baseUrlForImage +
+                                                                _barberDetails!
+                                                                    .review[
+                                                                        index]
+                                                                    .image!,
+                                                            imageBuilder: (context,
+                                                                    imageProvider) =>
+                                                                CircleAvatar(
+                                                              radius: 30,
+                                                              backgroundColor:
+                                                                  Colors.yellow,
+                                                              backgroundImage:
+                                                                  imageProvider,
+                                                            ),
+                                                            placeholder: (context,
+                                                                    url) =>
+                                                                Center(
+                                                                    child:
+                                                                        CircularProgressIndicator()),
+                                                            errorWidget: (context,
+                                                                    url,
+                                                                    error) =>
+                                                                CircleAvatar(
+                                                                    radius: 30,
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .people)),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                br.calculateDurationDiff(_barberDetails!.review[index].created_at)!,
-                                                                style: Theme.of(context).primaryTextTheme.titleMedium,
-                                                              ),
-                                                              Padding(
-                                                                padding: const EdgeInsets.only(left: 10),
-                                                                child: RatingBar.builder(
-                                                                  initialRating: _barberDetails!.review[index].rating.toDouble(),
-                                                                  minRating: 1,
-                                                                  direction: Axis.horizontal,
-                                                                  allowHalfRating: true,
-                                                                  itemCount: 5,
-                                                                  itemSize: 15,
-                                                                  itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                                                                  itemBuilder: (context, _) => Icon(
-                                                                    Icons.star,
-                                                                    color: Colors.amber,
-                                                                  ),
-                                                                  ignoreGestures: true,
-                                                                  updateOnDrag: false,
-                                                                  onRatingUpdate: (rating) {
-
-                                                                  },
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    left: 15),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  '${_barberDetails!.review[index].name}',
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .primaryTextTheme
+                                                                      .titleSmall,
                                                                 ),
-                                                              ),
-                                                            ],
+                                                                Row(
+                                                                  children: [
+                                                                    Text(
+                                                                      br.calculateDurationDiff(_barberDetails!
+                                                                          .review[
+                                                                              index]
+                                                                          .created_at)!,
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .primaryTextTheme
+                                                                          .titleMedium,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          left:
+                                                                              10),
+                                                                      child: RatingBar
+                                                                          .builder(
+                                                                        initialRating: _barberDetails!
+                                                                            .review[index]
+                                                                            .rating
+                                                                            .toDouble(),
+                                                                        minRating:
+                                                                            1,
+                                                                        direction:
+                                                                            Axis.horizontal,
+                                                                        allowHalfRating:
+                                                                            true,
+                                                                        itemCount:
+                                                                            5,
+                                                                        itemSize:
+                                                                            15,
+                                                                        itemPadding:
+                                                                            EdgeInsets.symmetric(horizontal: 1.0),
+                                                                        itemBuilder:
+                                                                            (context, _) =>
+                                                                                Icon(
+                                                                          Icons
+                                                                              .star,
+                                                                          color:
+                                                                              Colors.amber,
+                                                                        ),
+                                                                        ignoreGestures:
+                                                                            true,
+                                                                        updateOnDrag:
+                                                                            false,
+                                                                        onRatingUpdate:
+                                                                            (rating) {},
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
                                                     ),
+                                                    Text(
+                                                      _barberDetails!
+                                                                  .review[index]
+                                                                  .description ==
+                                                              null
+                                                          ? ''
+                                                          : '${_barberDetails!.review[index].description}',
+                                                      textAlign:
+                                                          TextAlign.justify,
+                                                      style: Theme.of(context)
+                                                          .primaryTextTheme
+                                                          .titleMedium,
+                                                    ),
                                                   ],
                                                 ),
-                                              ),
-                                              Text(
-                                                _barberDetails!.review[index].description == null ? '' : '${_barberDetails!.review[index].description}',
-                                                textAlign: TextAlign.justify,
-                                                style: Theme.of(context).primaryTextTheme.titleMedium,
-                                              ),
-                                            ],
-                                          ),
-                                        ));
-                                  }),
-                            ),
-                          ),
-                        ),
-                      )
+                                              ));
+                                        }),
+                                  ),
+                                ),
+                              ),
+                            )
                           : SizedBox(),
                       Row(
                         children: [
                           Padding(
-                            padding: global.isRTL ? EdgeInsets.only(right: 10) : EdgeInsets.only(left: 10),
+                            padding: global.isRTL
+                                ? EdgeInsets.only(right: 10)
+                                : EdgeInsets.only(left: 10),
                             child: Text(
                               '${_barberDetails!.rating}',
-                              style: Theme.of(context).primaryTextTheme.bodySmall,
+                              style:
+                                  Theme.of(context).primaryTextTheme.bodySmall,
                             ),
                           ),
                           Padding(
@@ -335,36 +446,44 @@ class _BarberDetailScreenState extends BaseRouteState {
                                     top: 10,
                                     left: 15,
                                   ),
-                                  child: Text(AppLocalizations.of(context)!.lbl_overall_rating, style: Theme.of(context).primaryTextTheme.titleLarge),
+                                  child: Text(
+                                      AppLocalizations.of(context)!
+                                          .lbl_overall_rating,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .titleLarge),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 2),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 2),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       RatingBar.builder(
-                                        initialRating: _barberDetails!.rating.toDouble(),
+                                        initialRating:
+                                            _barberDetails!.rating.toDouble(),
                                         minRating: 1,
                                         direction: Axis.horizontal,
                                         allowHalfRating: true,
                                         itemCount: 5,
                                         itemSize: 15,
-                                        itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                                        itemPadding: EdgeInsets.symmetric(
+                                            horizontal: 1.0),
                                         itemBuilder: (context, _) => Icon(
                                           Icons.star,
                                           color: Colors.amber,
                                         ),
                                         ignoreGestures: true,
                                         updateOnDrag: false,
-                                        onRatingUpdate: (rating) {
-
-                                        },
+                                        onRatingUpdate: (rating) {},
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 2),
                                         child: Text(
                                           'Good(${_barberDetails!.review.length})',
-                                          style: Theme.of(context).primaryTextTheme.titleMedium,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .titleMedium,
                                         ),
                                       )
                                     ],
@@ -378,8 +497,8 @@ class _BarberDetailScreenState extends BaseRouteState {
                     ],
                   ),
                 ))
-                : _shimmer(),
-          ),
+              : _shimmer(),
+        ),
       ),
     );
   }
@@ -404,7 +523,9 @@ class _BarberDetailScreenState extends BaseRouteState {
             if (result.status == "1") {
               _barberDetails = result.recordList;
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage: result.message.toString());
             }
           }
         });
@@ -412,7 +533,8 @@ class _BarberDetailScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - barberDetailScreen.dart - _getBarbersDescription():" + e.toString());
+      print("Exception - barberDetailScreen.dart - _getBarbersDescription():" +
+          e.toString());
     }
   }
 
@@ -477,7 +599,10 @@ class _BarberDetailScreenState extends BaseRouteState {
                     child: Card(margin: EdgeInsets.all(4)),
                   ),
                   ListTile(
-                    title: Container(width: MediaQuery.of(context).size.width * 0.5, height: 45, child: Card()),
+                    title: Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: 45,
+                        child: Card()),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: ListView.builder(
@@ -496,14 +621,16 @@ class _BarberDetailScreenState extends BaseRouteState {
                                       child: Card(),
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width * 0.5,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
                                       height: 30,
                                       child: Card(margin: EdgeInsets.all(8)),
                                     )
                                   ],
                                 ),
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.2,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
                                   height: 30,
                                   child: Card(margin: EdgeInsets.all(8)),
                                 )
@@ -520,7 +647,10 @@ class _BarberDetailScreenState extends BaseRouteState {
                       CircleAvatar(
                         radius: 25,
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.5, height: 40, child: Card()),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: 40,
+                          child: Card()),
                     ],
                   ),
                 ],
@@ -568,7 +698,8 @@ class _BarberDetailScreenState extends BaseRouteState {
             );
           });
     } catch (e) {
-      print("Exception - barberDetailScreen.dart - _weekTimeSlotWidget():" + e.toString());
+      print("Exception - barberDetailScreen.dart - _weekTimeSlotWidget():" +
+          e.toString());
     }
   }
 }

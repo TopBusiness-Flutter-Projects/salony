@@ -80,7 +80,8 @@ class _ProductListScreenState extends BaseRouteState {
                             showBadge: true,
                             badgeContent: Text(
                               '${global.user?.cart_count}',
-                              style: TextStyle(color: Colors.white, fontSize: 15),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             ),
                             child: GestureDetector(
                               onTap: () {
@@ -111,7 +112,8 @@ class _ProductListScreenState extends BaseRouteState {
                     )
                   : Center(
                       child: Text(
-                        AppLocalizations.of(context)!.txt_product_will_shown_here,
+                        AppLocalizations.of(context)!
+                            .txt_product_will_shown_here,
                         style: Theme.of(context).primaryTextTheme.subtitle2,
                       ),
                     )
@@ -144,7 +146,10 @@ class _ProductListScreenState extends BaseRouteState {
                       _productList[index].id,
                       a: widget.analytics,
                       o: widget.observer,
-                      isShowGoCartBtn: _productList[index].cart_qty != null && (_productList[index].cart_qty ?? 0) > 0 ? true : false,
+                      isShowGoCartBtn: _productList[index].cart_qty != null &&
+                              (_productList[index].cart_qty ?? 0) > 0
+                          ? true
+                          : false,
                     )),
           );
         },
@@ -155,11 +160,18 @@ class _ProductListScreenState extends BaseRouteState {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               _productList[index].product_image != null
                   ? CachedNetworkImage(
-                      imageUrl: global.baseUrlForImage + _productList[index].product_image!,
+                      imageUrl: global.baseUrlForImage +
+                          _productList[index].product_image!,
                       imageBuilder: (context, imageProvider) => Container(
-                        height: (((MediaQuery.of(context).size.width / 2) - 15) * 1.4) * 0.55,
+                        height:
+                            (((MediaQuery.of(context).size.width / 2) - 15) *
+                                    1.4) *
+                                0.55,
                         margin: EdgeInsets.only(bottom: 5),
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                fit: BoxFit.cover, image: imageProvider)),
                         alignment: Alignment.topRight,
                         child: IconButton(
                             onPressed: () async {
@@ -172,25 +184,33 @@ class _ProductListScreenState extends BaseRouteState {
                                           )),
                                 );
                               } else {
-                                _isFav = await _addToFavorite(_productList[index].id);
+                                _isFav = await _addToFavorite(
+                                    _productList[index].id);
                                 if (_isFav ?? false) {
-                                  _productList[index].isFavourite = !_productList[index].isFavourite!;
+                                  _productList[index].isFavourite =
+                                      !_productList[index].isFavourite!;
                                 }
                               }
                               setState(() {});
                             },
                             icon: Icon(
-                              _productList[index].isFavourite! ? Icons.favorite : Icons.favorite_outline,
-                              color: _productList[index].isFavourite! ? Color(0xFFFA692C) : Colors.white,
+                              _productList[index].isFavourite!
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline,
+                              color: _productList[index].isFavourite!
+                                  ? Color(0xFFFA692C)
+                                  : Colors.white,
                             )),
                       ),
-                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                      placeholder: (context, url) =>
+                          Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     )
                   : Container(
                       width: 110,
                       height: 110,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)),
                       child: Text(
                         AppLocalizations.of(context)!.lbl_no_image,
                         style: Theme.of(context).primaryTextTheme.subtitle1,
@@ -220,12 +240,16 @@ class _ProductListScreenState extends BaseRouteState {
                         '${_productList[index].quantity}',
                         style: Theme.of(context).primaryTextTheme.subtitle1,
                       ),
-                      Text('${global.currency.currency_sign} ${_productList[index].price}', style: Theme.of(context).primaryTextTheme.subtitle1)
+                      Text(
+                          '${global.currency.currency_sign} ${_productList[index].price}',
+                          style: Theme.of(context).primaryTextTheme.subtitle1)
                     ],
                   ),
                 ),
               ),
-              _productList[index].cart_qty == null || (_productList[index].cart_qty != null && _productList[index].cart_qty == 0)
+              _productList[index].cart_qty == null ||
+                      (_productList[index].cart_qty != null &&
+                          _productList[index].cart_qty == 0)
                   ? GestureDetector(
                       onTap: () async {
                         if (global.user!.id == null) {
@@ -241,11 +265,14 @@ class _ProductListScreenState extends BaseRouteState {
 
                           int _qty = 1;
 
-                          bool isSuccess = await _addToCart(_qty, _productList[index].id);
+                          bool isSuccess =
+                              await _addToCart(_qty, _productList[index].id);
                           if (isSuccess) {
                             _productList[index].cart_qty = 1;
-                            if (global.user != null && global.user?.cart_count != null) {
-                              global.user?.cart_count = global.user!.cart_count! + 1;
+                            if (global.user != null &&
+                                global.user?.cart_count != null) {
+                              global.user?.cart_count =
+                                  global.user!.cart_count! + 1;
                             }
                           }
                           hideLoader();
@@ -261,10 +288,15 @@ class _ProductListScreenState extends BaseRouteState {
                           children: [
                             Icon(
                               Icons.shopping_cart_outlined,
-                              color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+                              color: Theme.of(context)
+                                  .floatingActionButtonTheme
+                                  .backgroundColor,
                               size: 16,
                             ),
-                            Text(AppLocalizations.of(context)!.lbl_add_to_cart, style: Theme.of(context).primaryTextTheme.subtitle1)
+                            Text(AppLocalizations.of(context)!.lbl_add_to_cart,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .subtitle1)
                           ],
                         ),
                       ),
@@ -281,17 +313,22 @@ class _ProductListScreenState extends BaseRouteState {
                                 onPressed: () async {
                                   showOnlyLoaderDialog();
                                   if (_productList[index].cart_qty == 1) {
-                                    bool isSuccess = await _delFromCart(_productList[index].id);
+                                    bool isSuccess = await _delFromCart(
+                                        _productList[index].id);
                                     if (isSuccess) {
                                       _productList[index].cart_qty = 0;
                                     }
                                     _productList[index].cart_qty = 0;
                                   } else {
-                                    int _qty = _productList[index].cart_qty! - 1;
+                                    int _qty =
+                                        _productList[index].cart_qty! - 1;
 
-                                    bool isSuccess = await _addToCart(_qty, _productList[index].id);
-                                    if (isSuccess && _productList[index].cart_qty != null) {
-                                      _productList[index].cart_qty = _productList[index].cart_qty! - 1;
+                                    bool isSuccess = await _addToCart(
+                                        _qty, _productList[index].id);
+                                    if (isSuccess &&
+                                        _productList[index].cart_qty != null) {
+                                      _productList[index].cart_qty =
+                                          _productList[index].cart_qty! - 1;
                                     }
                                   }
                                   hideLoader();
@@ -314,8 +351,10 @@ class _ProductListScreenState extends BaseRouteState {
                             height: 20,
                             width: 20,
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1.0, color: Color(0xFFFA692C)),
-                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                              border: Border.all(
+                                  width: 1.0, color: Color(0xFFFA692C)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
                             ),
                             child: Center(
                               child: Text(
@@ -335,13 +374,14 @@ class _ProductListScreenState extends BaseRouteState {
                                 onPressed: () async {
                                   showOnlyLoaderDialog();
                                   if (_productList[index].cart_qty != null) {
-                                    int _qty = _productList[index].cart_qty! +
-                                        1;
+                                    int _qty =
+                                        _productList[index].cart_qty! + 1;
 
                                     bool isSuccess = await _addToCart(
                                         _qty, _productList[index].id);
                                     if (isSuccess) {
-                                      _productList[index].cart_qty = _productList[index].cart_qty! + 1;
+                                      _productList[index].cart_qty =
+                                          _productList[index].cart_qty! + 1;
                                     }
                                     hideLoader();
 
@@ -369,7 +409,9 @@ class _ProductListScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.addToCart(global.user!.id, id, quantity).then((result) {
+        await apiHelper!
+            .addToCart(global.user!.id, id, quantity)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               _isSucessfullyAdded = true;
@@ -382,7 +424,8 @@ class _ProductListScreenState extends BaseRouteState {
       }
       return _isSucessfullyAdded;
     } catch (e) {
-      print("Exception - productListScreen.dart - _addToCart():" + e.toString());
+      print(
+          "Exception - productListScreen.dart - _addToCart():" + e.toString());
       return _isSucessfullyAdded;
     }
   }
@@ -409,7 +452,8 @@ class _ProductListScreenState extends BaseRouteState {
       }
       return _isFav;
     } catch (e) {
-      print("Exception - productListScreen.dart - _addToFavorite():" + e.toString());
+      print("Exception - productListScreen.dart - _addToFavorite():" +
+          e.toString());
       return null;
     }
   }
@@ -435,7 +479,8 @@ class _ProductListScreenState extends BaseRouteState {
       }
       return _isDeletedSuccessfully;
     } catch (e) {
-      print("Exception - productListScreen.dart - _delFromCart():" + e.toString());
+      print("Exception - productListScreen.dart - _delFromCart():" +
+          e.toString());
       return _isDeletedSuccessfully;
     }
   }
@@ -454,7 +499,9 @@ class _ProductListScreenState extends BaseRouteState {
           } else {
             pageNumber++;
           }
-          await apiHelper!.getProducts(global.lat, global.lng, pageNumber, '').then((result) {
+          await apiHelper!
+              .getProducts(global.lat, global.lng, pageNumber, '')
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<Product> _tList = result.recordList;
@@ -475,7 +522,8 @@ class _ProductListScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - productListScreen.dart - _getProducts():" + e.toString());
+      print("Exception - productListScreen.dart - _getProducts():" +
+          e.toString());
     }
   }
 
@@ -483,7 +531,9 @@ class _ProductListScreenState extends BaseRouteState {
     try {
       await _getProducts();
       _scrollController.addListener(() async {
-        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_isMoreDataLoaded) {
+        if (_scrollController.position.pixels ==
+                _scrollController.position.maxScrollExtent &&
+            !_isMoreDataLoaded) {
           setState(() {
             _isMoreDataLoaded = true;
           });
@@ -521,7 +571,8 @@ class _ProductListScreenState extends BaseRouteState {
             children: List.generate(
                 8,
                 (index) => SizedBox(
-                      child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                      child: Card(
+                          margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
                     )),
           )),
     );
