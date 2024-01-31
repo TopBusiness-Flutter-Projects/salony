@@ -59,61 +59,89 @@ class _SignInScreenState extends BaseRouteState {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.txt_welcome_back,
-                        style: Theme.of(context).primaryTextTheme.headline4,
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //     '',
+                  //       style: Theme.of(context).primaryTextTheme.headline4,
+                  //     ),
+                  //     ElevatedButton(
+                  //         style: ButtonStyle(
+                  //             elevation: MaterialStateProperty.all(0),
+                  //             backgroundColor: MaterialStateProperty.all(
+                  //                 Colors.transparent)),
+                  //         onPressed: () async {
+                  //           showOnlyLoaderDialog();
+                  //           await getCurrentPosition().then((_) async {
+                  //             if (global.lat != null && global.lng != null) {
+                  //               global.user = new CurrentUser();
+                  //               hideLoader();
+                  //               Navigator.of(context).push(
+                  //                 MaterialPageRoute(
+                  //                     builder: (context) =>
+                  //                         ChooseLanguageScreen(
+                  //                           a: widget.analytics,
+                  //                           o: widget.observer,
+                  //                         )),
+                  //               );
+                  //             } else {
+                  //               hideLoader();
+                  //               showSnackBar(
+                  //                   key: _scaffoldKey,
+                  //                   snackBarMessage: AppLocalizations.of(
+                  //                           context)!
+                  //                       .txt_please_enablet_location_permission_to_use_app);
+                  //             }
+                  //           });
+                  //         },
+                  //         child: Text(
+                  //           AppLocalizations.of(context)!.lbl_skip,
+                  //           style: Theme.of(context).primaryTextTheme.headline5,
+                  //         ))
+                  //   ],
+                  // ),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      ' تسجيل الدخول ',
+                      style: TextStyle(
+                        color: Color(0xFF164863),
+                        fontSize: 18,
+                        fontFamily: 'Cairo',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
                       ),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              elevation: MaterialStateProperty.all(0),
-                              backgroundColor: MaterialStateProperty.all(
-                                  Colors.transparent)),
-                          onPressed: () async {
-                            showOnlyLoaderDialog();
-                            await getCurrentPosition().then((_) async {
-                              if (global.lat != null && global.lng != null) {
-                                global.user = new CurrentUser();
-                                hideLoader();
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ChooseLanguageScreen(
-                                            a: widget.analytics,
-                                            o: widget.observer,
-                                          )),
-                                );
-                              } else {
-                                hideLoader();
-                                showSnackBar(
-                                    key: _scaffoldKey,
-                                    snackBarMessage: AppLocalizations.of(
-                                            context)!
-                                        .txt_please_enablet_location_permission_to_use_app);
-                              }
-                            });
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.lbl_skip,
-                            style: Theme.of(context).primaryTextTheme.headline5,
-                          ))
-                    ],
+                    )
                   ),
-                  Text(
-                    AppLocalizations.of(context)!.txt_sigin_to_continue,
-                    style: Theme.of(context).primaryTextTheme.headline3,
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'يمكنك تسجيل الدخول الان',
+                      style: TextStyle(
+                        color: Color(0xFF164863),
+                        fontSize: 18,
+                        fontFamily: 'Cairo',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
+                    ),
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 60),
                       height: 50,
                       child: TextFormField(
-                        textAlign: TextAlign.start,
+                        textAlign: TextAlign.end,
                         autofocus: false,
                         cursorColor: Color(0xFFFA692C),
                         enabled: true,
-                        style: Theme.of(context).primaryTextTheme.headline6,
+                        style: TextStyle(
+                          color: Color(0xFFA6A6A6),
+                          fontSize: 16,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
                         controller: _cEmail,
                         focusNode: _fEmail,
                         keyboardType: TextInputType.emailAddress,
@@ -121,17 +149,23 @@ class _SignInScreenState extends BaseRouteState {
                           _fPassword.requestFocus();
                         },
                         decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!.hnt_email),
+                            hintText:'رقم الجوال'),
                       )),
                   Container(
                       height: 50,
                       margin: EdgeInsets.only(top: 15),
                       child: TextFormField(
-                        textAlign: TextAlign.start,
+                        textAlign: TextAlign.end,
                         autofocus: false,
                         cursorColor: Color(0xFFFA692C),
                         enabled: true,
-                        style: Theme.of(context).primaryTextTheme.headline6,
+                        style:TextStyle(
+                          color: Color(0xFFA6A6A6),
+                          fontSize: 16,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
                         controller: _cPassword,
                         focusNode: _fPassword,
                         obscureText: !_isPasswordVisible,
@@ -139,7 +173,7 @@ class _SignInScreenState extends BaseRouteState {
                           FocusScope.of(context).unfocus();
                         },
                         decoration: InputDecoration(
-                            suffixIcon: IconButton(
+                            prefixIcon: IconButton(
                               icon: Icon(
                                   _isPasswordVisible
                                       ? Icons.visibility
@@ -151,7 +185,7 @@ class _SignInScreenState extends BaseRouteState {
                               },
                             ),
                             hintText:
-                                AppLocalizations.of(context)!.hnt_password),
+                          'كلمة المرور'),
                       )),
                   Padding(
                     padding: const EdgeInsets.only(top: 15),
@@ -159,37 +193,7 @@ class _SignInScreenState extends BaseRouteState {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                            onTap: () {
-                              FocusScope.of(context).unfocus();
 
-                              if (_isRemember) {
-                                global.sp.remove('isRememberMeEmail');
-                              }
-                              _isRemember = !_isRemember;
-                              setState(() {});
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.check_circle,
-                                  size: 20,
-                                  color: _isRemember
-                                      ? Color(0xFFFA692C)
-                                      : Color(0xFF898A8D),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .lbl_remember_me,
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .subtitle1,
-                                  ),
-                                )
-                              ],
-                            )),
                         GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(
@@ -199,12 +203,17 @@ class _SignInScreenState extends BaseRouteState {
                                         o: widget.observer)),
                               );
                             },
-                            child: Text(
-                                AppLocalizations.of(context)!
-                                    .lbl_forgot_password,
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline5))
+                            child:Text(
+                              'نسيت كلمة المرور',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                color: Color(0xFFF36D86),
+                                fontSize: 16,
+                                fontFamily: 'Cairo',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ))
                       ],
                     ),
                   ),
@@ -213,169 +222,244 @@ class _SignInScreenState extends BaseRouteState {
                       height: 50,
                       width: double.infinity,
                       child: TextButton(
+                        style: ButtonStyle(
+                          alignment: Alignment.center
+                        ),
                         onPressed: () {
                           FocusScope.of(context).unfocus();
                           _loginWithEmail();
                         },
-                        child: Text(AppLocalizations.of(context)!.btn_sign_in),
-                      )),
+                        child: SizedBox(
 
-                  ///a
-                  Padding(
-                    padding: const EdgeInsets.only(top: 60),
-                    child: Text(
-                        AppLocalizations.of(context)!
-                            .txt_or_Connect_with_social_account,
-                        style: Theme.of(context).primaryTextTheme.subtitle1),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    height: 50,
-                    width: double.infinity,
-                    child: TextButton(
-                        onPressed: () async {
-                          FocusScope.of(context).unfocus();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AddPhoneScreen(
-                                  a: widget.analytics, o: widget.observer)));
-                          PermissionStatus permissionStatus =
-                              await Permission.phone.status;
-                          if (!permissionStatus.isGranted) {
-                            permissionStatus = await Permission.phone.request();
-                          }
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(Icons.phone_outlined),
-                            Text(AppLocalizations.of(context)!
-                                .btn_connect_with_phone_number),
-                            Icon(
-                              Icons.phone,
-                              color: Colors.transparent,
+                          child: Text(
+                            'تسجيل الدخول',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Cairo',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
                             ),
-                          ],
-                        )),
-                  ),
+                          ),
+                        ),
+                      )),
+                  // GestureDetector(
+                  //     onTap: () {
+                  //       FocusScope.of(context).unfocus();
+                  //
+                  //       if (_isRemember) {
+                  //         global.sp.remove('isRememberMeEmail');
+                  //       }
+                  //       _isRemember = !_isRemember;
+                  //       setState(() {});
+                  //     },
+                  //     child: Row(
+                  //       children: [
+                  //         Icon(
+                  //           Icons.check_circle,
+                  //           size: 20,
+                  //           color: _isRemember
+                  //               ? Color(0xFFFA692C)
+                  //               : Color(0xFF898A8D),
+                  //         ),
+                  //         Padding(
+                  //           padding: const EdgeInsets.only(left: 5),
+                  //           child: Text(
+                  //             AppLocalizations.of(context)!
+                  //                 .lbl_remember_me,
+                  //             style: Theme.of(context)
+                  //                 .primaryTextTheme
+                  //                 .subtitle1,
+                  //           ),
+                  //         )
+                  //       ],
+                  //     )),
+                  ///a
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 60),
+                  //   child: Text(
+                  //       AppLocalizations.of(context)!
+                  //           .txt_or_Connect_with_social_account,
+                  //       style: Theme.of(context).primaryTextTheme.subtitle1),
+                  // ),
+                  // Container(
+                  //   margin: EdgeInsets.only(top: 10),
+                  //   height: 50,
+                  //   width: double.infinity,
+                  //   child: TextButton(
+                  //       onPressed: () async {
+                  //         FocusScope.of(context).unfocus();
+                  //         Navigator.of(context).push(MaterialPageRoute(
+                  //             builder: (context) => AddPhoneScreen(
+                  //                 a: widget.analytics, o: widget.observer)));
+                  //         PermissionStatus permissionStatus =
+                  //             await Permission.phone.status;
+                  //         if (!permissionStatus.isGranted) {
+                  //           permissionStatus = await Permission.phone.request();
+                  //         }
+                  //       },
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //         children: [
+                  //           Icon(Icons.phone_outlined),
+                  //           Text(AppLocalizations.of(context)!
+                  //               .btn_connect_with_phone_number),
+                  //           Icon(
+                  //             Icons.phone,
+                  //             color: Colors.transparent,
+                  //           ),
+                  //         ],
+                  //       )),
+                  // ),
+                  //
+                  // Platform.isIOS
+                  //     ? Container(
+                  //         height: 50,
+                  //         width: double.infinity,
+                  //         margin: EdgeInsets.only(top: 10),
+                  //         child: TextButton(
+                  //             style: ButtonStyle(
+                  //                 textStyle: MaterialStateProperty.all(
+                  //                     TextStyle(
+                  //                         fontSize: 15,
+                  //                         color: Colors.white,
+                  //                         letterSpacing: 1,
+                  //                         fontWeight: FontWeight.w400)),
+                  //                 backgroundColor: MaterialStateProperty.all(
+                  //                   Colors.black,
+                  //                 )),
+                  //             onPressed: () {
+                  //               _signInWithApple();
+                  //             },
+                  //             child: Row(
+                  //               mainAxisAlignment:
+                  //                   MainAxisAlignment.spaceEvenly,
+                  //               children: [
+                  //                 Padding(
+                  //                     padding: EdgeInsets.only(right: 5),
+                  //                     child: Icon(MdiIcons.apple)),
+                  //                 Text('Sign in with Apple'),
+                  //                 Icon(
+                  //                   MdiIcons.apple,
+                  //                   color: Colors.transparent,
+                  //                 ),
+                  //               ],
+                  //             )))
+                  //     : SizedBox(),
 
-                  Platform.isIOS
-                      ? Container(
-                          height: 50,
-                          width: double.infinity,
-                          margin: EdgeInsets.only(top: 10),
-                          child: TextButton(
-                              style: ButtonStyle(
-                                  textStyle: MaterialStateProperty.all(
-                                      TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.white,
-                                          letterSpacing: 1,
-                                          fontWeight: FontWeight.w400)),
-                                  backgroundColor: MaterialStateProperty.all(
-                                    Colors.black,
-                                  )),
-                              onPressed: () {
-                                _signInWithApple();
+                  // Container(
+                  //     height: 50,
+                  //     width: double.infinity,
+                  //     margin: EdgeInsets.only(top: 10),
+                  //     child: TextButton(
+                  //         style: ButtonStyle(
+                  //             textStyle: MaterialStateProperty.all(TextStyle(
+                  //                 fontSize: 15,
+                  //                 color: Colors.white,
+                  //                 letterSpacing: 1,
+                  //                 fontWeight: FontWeight.w400)),
+                  //             backgroundColor:
+                  //                 MaterialStateProperty.all(Color(0xFF3B5999))),
+                  //         onPressed: () {
+                  //           FocusScope.of(context).unfocus();
+                  //           _signInWithFacebook();
+                  //         },
+                  //         child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //           children: [
+                  //             Icon(FontAwesomeIcons.facebook),
+                  //             Text(AppLocalizations.of(context)!
+                  //                 .btn_sign_in_with_facebook),
+                  //             Icon(
+                  //               MdiIcons.facebook,
+                  //               color: Colors.transparent,
+                  //             ),
+                  //           ],
+                  //         ))),
+                  // Container(
+                  //     height: 50,
+                  //     width: double.infinity,
+                  //     margin: EdgeInsets.only(top: 10),
+                  //     child: TextButton(
+                  //         style: ButtonStyle(
+                  //             textStyle: MaterialStateProperty.all(TextStyle(
+                  //                 fontSize: 15,
+                  //                 color: Colors.white,
+                  //                 letterSpacing: 1,
+                  //                 fontWeight: FontWeight.w400)),
+                  //             backgroundColor:
+                  //                 MaterialStateProperty.all(Color(0xFFE94235))),
+                  //         onPressed: () {
+                  //           FocusScope.of(context).unfocus();
+                  //           _signInWithGoogle();
+                  //         },
+                  //         child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //           children: [
+                  //             Icon(MdiIcons.google),
+                  //             Text(AppLocalizations.of(context)!
+                  //                 .btn_sign_in_with_google),
+                  //             Icon(
+                  //               Icons.facebook_outlined,
+                  //               color: Colors.transparent,
+                  //             ),
+                  //           ],
+                  //         ))),
+
+                  Padding(
+                      padding:  EdgeInsets.only(top: MediaQuery.of(context).size.width/3.5, bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUpScreen(
+                                          a: widget.analytics, o: widget.observer)),
+                                );
                               },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.only(right: 5),
-                                      child: Icon(MdiIcons.apple)),
-                                  Text('Sign in with Apple'),
-                                  Icon(
-                                    MdiIcons.apple,
-                                    color: Colors.transparent,
-                                  ),
-                                ],
-                              )))
-                      : SizedBox(),
+                              child: Text(' انشاء حساب',
+                                style: TextStyle(
+                                  color: Color(0xFFF36D86),
+                                  fontSize: 18,
+                                  fontFamily: 'Cairo',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),)), Text(' ليس لديك حساب معنا ؟',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontFamily: 'Cairo',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),),
 
-                  Container(
-                      height: 50,
-                      width: double.infinity,
-                      margin: EdgeInsets.only(top: 10),
-                      child: TextButton(
-                          style: ButtonStyle(
-                              textStyle: MaterialStateProperty.all(TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.w400)),
-                              backgroundColor:
-                                  MaterialStateProperty.all(Color(0xFF3B5999))),
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            _signInWithFacebook();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(FontAwesomeIcons.facebook),
-                              Text(AppLocalizations.of(context)!
-                                  .btn_sign_in_with_facebook),
-                              Icon(
-                                MdiIcons.facebook,
-                                color: Colors.transparent,
-                              ),
-                            ],
-                          ))),
-                  Container(
-                      height: 50,
-                      width: double.infinity,
-                      margin: EdgeInsets.only(top: 10),
-                      child: TextButton(
-                          style: ButtonStyle(
-                              textStyle: MaterialStateProperty.all(TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.w400)),
-                              backgroundColor:
-                                  MaterialStateProperty.all(Color(0xFFE94235))),
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            _signInWithGoogle();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(MdiIcons.google),
-                              Text(AppLocalizations.of(context)!
-                                  .btn_sign_in_with_google),
-                              Icon(
-                                Icons.facebook_outlined,
-                                color: Colors.transparent,
-                              ),
-                            ],
-                          ))),
+                        ],
+                      )),
                 ],
               ),
             ),
           ),
         ),
-        bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(AppLocalizations.of(context)!.txt_you_dont_have_an_account,
-                    style: Theme.of(context).primaryTextTheme.subtitle1),
-                GestureDetector(
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => SignUpScreen(
-                                a: widget.analytics, o: widget.observer)),
-                      );
-                    },
-                    child: Text(AppLocalizations.of(context)!.lbl_sign_up,
-                        style: Theme.of(context).primaryTextTheme.headline5))
-              ],
-            )),
+        bottomSheet:  Container(height:  MediaQuery.of(context).size.width /6,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  bottom:
+                  15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+
+                child: Image.asset('assets/images/top.png',
+                    width: MediaQuery.of(context).size.width /3),
+              ),
+            ),
+          ),
+        ),
       )),
     );
   }

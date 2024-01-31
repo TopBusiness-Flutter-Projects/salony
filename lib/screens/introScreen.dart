@@ -15,9 +15,9 @@ class _IntroScreenState extends BaseRouteState {
   PageController? _pageController;
   int _currentIndex = 0;
   List<String> _imageUrl = [
-    'assets/intro_1.png',
-    'assets/intro_2.png',
-    'assets/intro_3.png',
+    'assets/images/on1.png',
+    'assets/images/on2.png',
+    'assets/images/on3.png',
   ];
 
   _IntroScreenState() : super();
@@ -25,9 +25,18 @@ class _IntroScreenState extends BaseRouteState {
   @override
   Widget build(BuildContext context) {
     List<IntroSH> _titles = [
-      IntroSH(heading: 'Discover & book local beauty professionals',title: 'A convenient way to browse professionals & book appointments at a time that works for you straight from your calendar.'),
-      IntroSH(heading: 'Professional barber specialists',title: 'Ready for Your Next Haircut? When you get your hair cut with one of these barbers, it’s more than a cut, it’s an experience.'),
-      IntroSH(heading: 'Find saloons Nearby',title: 'professionals can do anything! From fades to designs, this is the place you want to get your haircut!')
+      IntroSH(
+          heading: 'حمل التطبيق',
+          title:
+              'طريقة ملائمة لتصفح المحترفين وحجز المواعيد في الوقت الذي يناسبك مباشرةً من التقويم الخاص بك.'),
+      IntroSH(
+          heading: 'حمل التطبيق',
+          title:
+              'هل أنت مستعد لقص شعرك القادم؟ عندما تقوم بقص شعرك مع أحد هؤلاء الحلاقين، فهذا أكثر من مجرد قص، إنها تجربة.'),
+      IntroSH(
+          heading: 'حمل التطبيق',
+          title:
+              'يمكن للمحترفين أن يفعلوا أي شيء! من التدرج إلى التصاميم، هذا هو المكان الذي تريد أن تحصل فيه على قصة شعرك!')
     ];
 
     return WillPopScope(
@@ -59,7 +68,7 @@ class _IntroScreenState extends BaseRouteState {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.height * 0.31),
+                            bottom:        MediaQuery.of(context).size.width/1.5),
                         child: Align(
                           alignment: Alignment.bottomCenter,
                           child: DotsIndicator(
@@ -72,8 +81,8 @@ class _IntroScreenState extends BaseRouteState {
                                   curve: Curves.easeInOut);
                             },
                             decorator: DotsDecorator(
-                              activeSize: const Size(30, 10),
-                              size: const Size(17, 10),
+                              activeSize: const Size(30, 8),
+                              size: const Size(12, 8),
                               activeShape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50.0))),
@@ -97,31 +106,37 @@ class _IntroScreenState extends BaseRouteState {
                                         topLeft: Radius.circular(30),
                                         topRight: Radius.circular(30))),
                                 height:
-                                    MediaQuery.of(context).size.height * 0.3,
+                                    MediaQuery.of(context).size.width/1.5,
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 16, top: 10),
-                                      child: Text(
-                                        _titles[index].heading!,
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .titleSmall,
+                                    Flexible(
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 0, top: 10),
+                                        child: Text(
+                                          _titles[index].heading!,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'cairo'),
+                                        ),
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 10, left: 10, right: 10),
+                                          top: 5, left: 20, right: 20),
                                       child: Text(
                                         _titles[index].title!,
                                         textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .subtitle1,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w100,
+                                            fontFamily: 'cairo'
+                                        ),
                                       ),
                                     ),
                                     index == 0 || index == 1
@@ -155,7 +170,12 @@ class _IntroScreenState extends BaseRouteState {
                                                                 .easeInOut);
                                                   },
                                                   child: Text(
-                                                    'Next',
+                                                    'التالي',
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontFamily: 'Cairo',
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -181,11 +201,14 @@ class _IntroScreenState extends BaseRouteState {
                                                     );
                                                   },
                                                   child: Text(
-                                                    AppLocalizations.of(context)!
-                                                        .lbl_skip,
-                                                    style: Theme.of(context)
-                                                        .primaryTextTheme
-                                                        .subtitle2,
+                                                    'تخطي',
+                                                    style: TextStyle(
+                                                      color: Color(0xFF515151),
+                                                      fontSize: 15,
+                                                      fontFamily: 'Cairo',
+                                                      fontWeight: FontWeight.w600,
+                                                      height: 0.10,
+                                                    )
                                                   ))
                                             ],
                                           )
@@ -201,9 +224,25 @@ class _IntroScreenState extends BaseRouteState {
                                               );
                                             },
                                             child: Text(
-                                              'Get Started',
+                                              'ابدا الان',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontFamily: 'Cairo',
+                                                fontWeight: FontWeight.w400,
+                                                height: 0,
+                                              ),
                                             ),
                                           ),
+
+                                    Padding(
+                                      padding: const EdgeInsets.all(0),
+                                      child: Align(
+                                        alignment: Alignment.bottomCenter,
+
+                                        child: Image.asset('assets/images/top.png',
+                                            width: MediaQuery.of(context).size.width /3),
+                                      ),
+                                    )
                                   ],
                                 ),
                               );

@@ -15,19 +15,19 @@ Map<int, Color> color = {
 };
 ThemeData nativeTheme() {
   return ThemeData(
-    textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFFFA692C), selectionHandleColor: Color(0xFFFA692C)),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFFF36D86), selectionHandleColor: Color(0xFFF36D86)),
     splashFactory: NoSplash.splashFactory,
-    primaryColor: Color(0xFFFA692C),
+    primaryColor: Color(0xFFF36D86),
     primaryColorLight: Color(0xFF898A8D), // Color(0xFF66d5ff),
-    primaryColorDark: Color(0xFFFA692C),
-    primaryIconTheme: IconThemeData(color: Color(0xFFFA692C)),
+    primaryColorDark: Color(0xFFF36D86),
+    primaryIconTheme: IconThemeData(color: Color(0xFFF36D86)),
     cardColor: Colors.white,
     primaryTextTheme: TextTheme(
       displayLarge: TextStyle(fontSize: 17, color: Colors.white, fontWeight: FontWeight.w500), // listtile title white
       displayMedium: TextStyle(color: Colors.white70, fontSize: 11), // listtile subtitle white
       displaySmall: TextStyle(fontSize: 14, color: Color(0xFF171D2C), fontWeight: FontWeight.w500), // signup / signin
       headlineMedium: TextStyle(fontSize: 30, color: Color(0xFF171D2C), letterSpacing: -0.5, fontWeight: FontWeight.bold), // signup && sign in
-      headlineSmall: TextStyle(fontSize: 15, color: Color(0xFFFA692C), fontWeight: FontWeight.w400), // - homeScreen - orange
+      headlineSmall: TextStyle(fontSize: 15, color: Color(0xFFF36D86), fontWeight: FontWeight.w400), // - homeScreen - orange
       titleLarge: TextStyle(fontSize: 15, color: Color(0xFF171D2C), fontWeight: FontWeight.w600), //-  home Screen
       titleMedium: TextStyle(fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w400), // listtile subtitle
       titleSmall: TextStyle(fontSize: 14, color: Color(0xFF565656), fontWeight: FontWeight.w600), // Listtile title
@@ -45,21 +45,21 @@ ThemeData nativeTheme() {
     ),
     scaffoldBackgroundColor: Colors.white,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Color(0xFFFA692C),
+      backgroundColor: Color(0xFFF36D86),
     ),
     dialogTheme: DialogTheme(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
       backgroundColor: Colors.grey[100],
-      titleTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFA692C)),
+      titleTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF36D86)),
     ),
     fontFamily: 'Poppins',
     dividerColor: Colors.transparent,
     buttonTheme: ButtonThemeData(
       textTheme: ButtonTextTheme.primary,
       height: 50,
-      buttonColor: Color(0xFFFA692C),
+      buttonColor: Color(0xFFF36D86),
       focusColor: Colors.transparent,
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
@@ -103,7 +103,7 @@ ThemeData nativeTheme() {
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Color(0xFFFA692C)),
+        borderSide: BorderSide(color: Color(0xFFF36D86)),
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       filled: true,
@@ -112,7 +112,7 @@ ThemeData nativeTheme() {
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Color(0xFF171D2C),
-      selectedIconTheme: IconThemeData(color: Color(0xFFFA692C), size: 26),
+      selectedIconTheme: IconThemeData(color: Color(0xFFF36D86), size: 26),
       unselectedIconTheme: IconThemeData(color: Color(0xFF898A8D), size: 26),
     ),
     appBarTheme: AppBarTheme(
@@ -129,7 +129,7 @@ ThemeData nativeTheme() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          Color(0xFFFA692C),
+          Color(0xFFF36D86),
         ),
         textStyle: MaterialStateProperty.all(TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w400)),
       ),
@@ -137,7 +137,7 @@ ThemeData nativeTheme() {
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
       padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-      backgroundColor: MaterialStateProperty.all(Color(0xFFFA692C)),
+      backgroundColor: MaterialStateProperty.all(Color(0xFFF36D86)),
       shadowColor: MaterialStateProperty.all(Colors.white),
       foregroundColor: MaterialStateProperty.all(Colors.white),
       shape: MaterialStateProperty.all(RoundedRectangleBorder(
