@@ -30,69 +30,77 @@ class _SplashScreenState extends BaseRouteState {
       onWillPop: () {
         return exitAppDialog().then((value) => value as bool);
       },
-      child:
-        Scaffold(
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.asset(
-                'assets/splash.jpg',
+      child: Scaffold(
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              'assets/splash.jpg',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.high,
+            ),
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+              child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                fit: BoxFit.cover,
-                filterQuality: FilterQuality.high,
+                color: Colors.black.withOpacity(0.5),
               ),
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Colors.black.withOpacity(0.5),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 70,
-                        backgroundImage: AssetImage(
-                          'assets/logo_splash.png',
-                        ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundImage: AssetImage(
+                        'assets/logo_splash.png',
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text(
-                          AppLocalizations.of(context)!.lbl_gofresha,
-                          style: TextStyle(color: Colors.white, fontSize: 22),
-                        ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Text(
+                        AppLocalizations.of(context)!.lbl_gofresha,
+                        style: TextStyle(color: Colors.white, fontSize: 22),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 70, left: 10, right: 10),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(style: TextStyle(color: Colors.white, fontSize: 18), children: [
-                        TextSpan(text: AppLocalizations.of(context)!.txt_welcome_to),
-                        TextSpan(
-                          text: AppLocalizations.of(context)!.lbl_gofresha,
-                          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18),
-                        ),
-                        TextSpan(text: AppLocalizations.of(context)!.txt_app, style: TextStyle(color: Colors.white, fontSize: 18))
-                      ])),
-                ),
-              )
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 70, left: 10, right: 10),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        children: [
+                          TextSpan(
+                              text:
+                                  AppLocalizations.of(context)!.txt_welcome_to),
+                          TextSpan(
+                            text: AppLocalizations.of(context)!.lbl_gofresha,
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 18),
+                          ),
+                          TextSpan(
+                              text: AppLocalizations.of(context)!.txt_app,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18))
+                        ])),
+              ),
+            )
+          ],
         ),
-      );
+      ),
+    );
   }
 
   void init() async {
@@ -127,27 +135,31 @@ class _SplashScreenState extends BaseRouteState {
 
       if (isConnected) {
         if (global.sp.getString('currentUser') != null) {
-          global.user = CurrentUser.fromJson(json.decode(global.sp.getString("currentUser")!));
+          global.user = CurrentUser.fromJson(
+              json.decode(global.sp.getString("currentUser")!));
           await getCurrentPosition().then((_) async {
             if (global.lat != null && global.lng != null) {
               setState(() {});
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => BottomNavigationWidget(
-                    a: widget.analytics,
-                    o: widget.observer,
-                  )));
+                        a: widget.analytics,
+                        o: widget.observer,
+                      )));
             } else {
               hideLoader();
-              showSnackBar(key: _scaffoldKey, snackBarMessage: 'Please enable location permission to use this App');
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage:
+                      'Please enable location permission to use this App');
             }
           });
         } else {
           await getCurrentPosition();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => IntroScreen(
-                a: widget.analytics,
-                o: widget.observer,
-              )));
+                    a: widget.analytics,
+                    o: widget.observer,
+                  )));
         }
       } else {
         showNetworkErrorSnackBar(_scaffoldKey);
@@ -162,6 +174,7 @@ class _SplashScreenState extends BaseRouteState {
     super.initState();
     init();
   }
+  //done
 
   _getCurrency() async {
     try {
@@ -191,14 +204,14 @@ class _SplashScreenState extends BaseRouteState {
         await apiHelper!.getMapGateway().then((result) {
           if (result != null) {
             if ('${result.status}' == '1') {
-              if('${result.recordList.data.googleMap}'=='1'){
+              if ('${result.recordList.data.googleMap}' == '1') {
                 global.isGoogleMap = true;
-                apiHelper!.getGoogleMap().then((valRes){
+                apiHelper!.getGoogleMap().then((valRes) {
                   global.mapGBoxModel = valRes.recordList;
                 });
-              } else if('${result.recordList.data.mapbox}'=='1'){
+              } else if ('${result.recordList.data.mapbox}' == '1') {
                 global.isGoogleMap = false;
-                apiHelper!.getMapBox().then((valRes){
+                apiHelper!.getMapBox().then((valRes) {
                   global.mapBoxModel = valRes.recordList;
                 });
               }
