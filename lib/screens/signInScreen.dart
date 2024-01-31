@@ -102,18 +102,17 @@ class _SignInScreenState extends BaseRouteState {
                   //   ],
                   // ),
                   Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      ' تسجيل الدخول ',
-                      style: TextStyle(
-                        color: Color(0xFF164863),
-                        fontSize: 18,
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    )
-                  ),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        ' تسجيل الدخول ',
+                        style: TextStyle(
+                          color: Color(0xFF164863),
+                          fontSize: 18,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w700,
+                          height: 0,
+                        ),
+                      )),
                   Container(
                     alignment: Alignment.centerRight,
                     child: Text(
@@ -148,8 +147,7 @@ class _SignInScreenState extends BaseRouteState {
                         onEditingComplete: () {
                           _fPassword.requestFocus();
                         },
-                        decoration: InputDecoration(
-                            hintText:'رقم الجوال'),
+                        decoration: InputDecoration(hintText: 'رقم الجوال'),
                       )),
                   Container(
                       height: 50,
@@ -159,7 +157,7 @@ class _SignInScreenState extends BaseRouteState {
                         autofocus: false,
                         cursorColor: Color(0xFFFA692C),
                         enabled: true,
-                        style:TextStyle(
+                        style: TextStyle(
                           color: Color(0xFFA6A6A6),
                           fontSize: 16,
                           fontFamily: 'Cairo',
@@ -184,8 +182,7 @@ class _SignInScreenState extends BaseRouteState {
                                 setState(() {});
                               },
                             ),
-                            hintText:
-                          'كلمة المرور'),
+                            hintText: 'كلمة المرور'),
                       )),
                   Padding(
                     padding: const EdgeInsets.only(top: 15),
@@ -193,7 +190,6 @@ class _SignInScreenState extends BaseRouteState {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-
                         GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(
@@ -203,7 +199,7 @@ class _SignInScreenState extends BaseRouteState {
                                         o: widget.observer)),
                               );
                             },
-                            child:Text(
+                            child: Text(
                               'نسيت كلمة المرور',
                               textAlign: TextAlign.right,
                               style: TextStyle(
@@ -222,15 +218,12 @@ class _SignInScreenState extends BaseRouteState {
                       height: 50,
                       width: double.infinity,
                       child: TextButton(
-                        style: ButtonStyle(
-                          alignment: Alignment.center
-                        ),
+                        style: ButtonStyle(alignment: Alignment.center),
                         onPressed: () {
                           FocusScope.of(context).unfocus();
                           _loginWithEmail();
                         },
                         child: SizedBox(
-
                           child: Text(
                             'تسجيل الدخول',
                             textAlign: TextAlign.center,
@@ -408,7 +401,9 @@ class _SignInScreenState extends BaseRouteState {
                   //         ))),
 
                   Padding(
-                      padding:  EdgeInsets.only(top: MediaQuery.of(context).size.width/3.5, bottom: 20),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.width / 3.5,
+                          bottom: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -418,25 +413,30 @@ class _SignInScreenState extends BaseRouteState {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) => SignUpScreen(
-                                          a: widget.analytics, o: widget.observer)),
+                                          a: widget.analytics,
+                                          o: widget.observer)),
                                 );
                               },
-                              child: Text(' انشاء حساب',
+                              child: Text(
+                                ' انشاء حساب',
                                 style: TextStyle(
                                   color: Color(0xFFF36D86),
                                   fontSize: 18,
                                   fontFamily: 'Cairo',
                                   fontWeight: FontWeight.w400,
                                   height: 0,
-                                ),)), Text(' ليس لديك حساب معنا ؟',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontFamily: 'Cairo',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
-                              ),),
-
+                                ),
+                              )),
+                          Text(
+                            ' ليس لديك حساب معنا ؟',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Cairo',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                            ),
+                          ),
                         ],
                       )),
                 ],
@@ -444,18 +444,16 @@ class _SignInScreenState extends BaseRouteState {
             ),
           ),
         ),
-        bottomSheet:  Container(height:  MediaQuery.of(context).size.width /6,
+        bottomSheet: Container(
+          height: MediaQuery.of(context).size.width / 6,
           child: Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom:
-                  15),
+              padding: const EdgeInsets.only(bottom: 15),
               child: Align(
                 alignment: Alignment.bottomCenter,
-
                 child: Image.asset('assets/images/top.png',
-                    width: MediaQuery.of(context).size.width /3),
+                    width: MediaQuery.of(context).size.width / 3),
               ),
             ),
           ),
