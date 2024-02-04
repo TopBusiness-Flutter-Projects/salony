@@ -33,6 +33,8 @@ import 'package:app/models/termsAndConditionModel.dart';
 import 'package:app/models/timeSlotModel.dart';
 import 'package:app/models/userModel.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 class APIHelper {
@@ -1226,7 +1228,7 @@ class APIHelper {
     }
   }
 
-  Future<dynamic> signUp(CurrentUser user) async {
+  Future<dynamic> signUp(CurrentUser user, BuildContext context) async {
     try {
       Response response;
       var dio = Dio();
@@ -1258,11 +1260,15 @@ class APIHelper {
       dynamic recordList;
       if (response.statusCode == 200) {
         recordList = CurrentUser.fromJson(response.data['data']);
+        print(response.data['data'].toString());
       } else {
         recordList = null;
       }
       return getDioResult(response, recordList);
     } catch (e) {
+      Navigator.pop(context);
+      print('${e.toString()}');
+      Fluttertoast.showToast(msg: 'المستخدم موجود بالفعل');
       print("Exception - signUp(): " + e.toString());
     }
   }

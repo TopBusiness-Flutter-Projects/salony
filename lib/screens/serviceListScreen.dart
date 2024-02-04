@@ -49,7 +49,12 @@ class _ServiceListScreenState extends BaseRouteState {
           ),
           body: _isDataLoaded
               ? _serviceList.length > 0
-                  ? ListView.builder(
+                  ? GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 3 / 2.5,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 10),
                       controller: _scrollController,
                       physics: ClampingScrollPhysics(),
                       itemCount: _serviceList.length,
@@ -77,65 +82,83 @@ class _ServiceListScreenState extends BaseRouteState {
                                 );
                               },
                               child: Card(
+                                elevation: 0,
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        CachedNetworkImage(
-                                          imageUrl: global.baseUrlForImage +
-                                              _serviceList[index]
-                                                  .service_image!,
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            height: 85,
-                                            width: 125,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                    fit: BoxFit.contain,
-                                                    image: imageProvider)),
-                                          ),
-                                          placeholder: (context, url) => Center(
-                                              child:
-                                                  CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) =>
-                                              Icon(Icons.error),
+                                    Flexible(
+                                      fit: FlexFit.tight,
+                                      child: CachedNetworkImage(
+                                        imageUrl: global.baseUrlForImage +
+                                            _serviceList[index].service_image!,
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          // height: 85,
+                                          // width: 125,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: imageProvider)),
                                         ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: global.isRTL
-                                                ? EdgeInsets.only(right: 18)
-                                                : EdgeInsets.only(left: 18),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  '${_serviceList[index].service_name}',
-                                                  style: Theme.of(context)
-                                                      .primaryTextTheme
-                                                      .subtitle2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 2,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:
-                                              Icon(Icons.keyboard_arrow_right),
-                                        )
-                                      ],
+                                        placeholder: (context, url) => Center(
+                                            child: CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                    ),
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceAround,
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    //   children: [
+                                    //     // Expanded(
+                                    //     //   child: Padding(
+                                    //     //     padding: global.isRTL
+                                    //     //         ? EdgeInsets.only(right: 18)
+                                    //     //         : EdgeInsets.only(left: 18),
+                                    //     //     child: Column(
+                                    //     //       crossAxisAlignment:
+                                    //     //           CrossAxisAlignment.start,
+                                    //     //       mainAxisSize: MainAxisSize.min,
+                                    //     //       children: [
+                                    //     //         Text(
+                                    //     //           '${_serviceList[index].service_name}',
+                                    //     //           style: TextStyle(
+                                    //     //             color: Colors.black,
+                                    //     //             fontSize: 20,
+                                    //     //             fontFamily: 'Cairo',
+                                    //     //             fontWeight: FontWeight.w200,
+                                    //     //             height: 0,
+                                    //     //           ),
+                                    //     //           overflow:
+                                    //     //               TextOverflow.ellipsis,
+                                    //     //           maxLines: 2,
+                                    //     //         ),
+                                    //     //       ],
+                                    //     //     ),
+                                    //     //   ),
+                                    //     // ),
+                                    //     // Padding(
+                                    //     //   padding: const EdgeInsets.all(8.0),
+                                    //     //   child:
+                                    //     //       Icon(Icons.keyboard_arrow_right),
+                                    //     // )
+                                    //   ],
+                                    // ),
+                                    Text(
+                                      '${_serviceList[index].service_name}',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontFamily: 'Cairo',
+                                        fontWeight: FontWeight.w200,
+                                        height: 0,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
                                     ),
                                   ],
                                 ),

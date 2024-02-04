@@ -54,431 +54,485 @@ class _HomeScreenState extends BaseRouteState {
       onWillPop: () async {
         return false;
       },
-      child: Scaffold(
-          body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _isBannerDataLoaded
-                  ? Container(
-                      padding: EdgeInsets.only(top: 20),
-                      height: MediaQuery.of(context).size.height * 0.40,
-                      decoration: BoxDecoration(
-                          color: Color(0xFF171D2C),
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15))),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 13, right: 13),
-                            child: Row(
-                              children: [
-                                (global.user?.image != null &&
-                                        global.user?.image != "")
-                                    ? CircleAvatar(
-                                        radius: 26,
-                                        backgroundColor: Color(0xFFFA692C),
-                                        child: CachedNetworkImage(
-                                          imageUrl: global.baseUrlForImage +
-                                              global.user!.image!,
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  CircleAvatar(
-                                                      radius: 24,
-                                                      backgroundImage:
-                                                          imageProvider),
-                                          placeholder: (context, url) => Center(
-                                              child:
-                                                  CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) =>
-                                              CircleAvatar(
-                                            radius: 24,
-                                            child: Icon(Icons.person),
-                                            backgroundColor: Colors.white,
-                                          ),
-                                        ))
-                                    : CircleAvatar(
-                                        radius: 24,
-                                        child: Icon(Icons.person),
-                                        backgroundColor: Colors.white,
-                                      ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: global.isRTL
-                                        ? EdgeInsets.only(right: 10)
-                                        : EdgeInsets.only(left: 10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          //
+          await _init();
+        },
+        child: Scaffold(
+            body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _isBannerDataLoaded
+                    ? Container(
+                        padding: EdgeInsets.only(top: 20),
+                        height: MediaQuery.of(context).size.height * 0.40,
+                        decoration: BoxDecoration(
+                            // color: Color(0xFF171D2C),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(15),
+                                bottomRight: Radius.circular(15))),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 13, right: 13),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  (global.user?.image != null &&
+                                          global.user?.image != "")
+                                      ? CircleAvatar(
+                                          radius: 26,
+                                          backgroundColor:
+                                              Color.fromARGB(255, 0, 0, 0),
+                                          child: CachedNetworkImage(
+                                            imageUrl: global.baseUrlForImage +
+                                                global.user!.image!,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    CircleAvatar(
+                                                        radius: 24,
+                                                        backgroundImage:
+                                                            imageProvider),
+                                            placeholder: (context, url) => Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    CircleAvatar(
+                                              radius: 24,
+                                              child: Icon(Icons.person),
+                                              backgroundColor: Colors.black,
+                                            ),
+                                          ))
+                                      : CircleAvatar(
+                                          radius: 24,
+                                          child: Image.asset(
+                                              'assets/images/logo_person.png'),
+                                          backgroundColor: Colors.white,
+                                        ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: global.isRTL
+                                          ? EdgeInsets.only(right: 10)
+                                          : EdgeInsets.only(left: 10),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('مرحباً ',
+                                              style: TextStyle(
+                                                  color: Color(0xff747474),
+                                                  fontSize: 18,
+                                                  fontFamily: 'Cairo',
+                                                  fontWeight: FontWeight.w400,
+                                                  height: 0,
+                                                  overflow: TextOverflow.clip)),
+                                          Text(
                                             global.user?.id == null ||
                                                     global.user?.name == ''
                                                 ? AppLocalizations.of(context)!
                                                     .txt_sign_up_to_continue
                                                 : '${global.user!.name}',
-                                            style: Theme.of(context)
-                                                .primaryTextTheme
-                                                .displayLarge),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      BottomNavigationWidget(
-                                                        a: widget.analytics,
-                                                        o: widget.observer,
-                                                        screenId: 1,
-                                                      )),
-                                            );
-                                          },
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on_outlined,
-                                                size: 17,
-                                              ),
-                                              SizedBox(
-                                                width: 130,
-                                                child: Text(
-                                                  global.currentLocation,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: Theme.of(context)
-                                                      .primaryTextTheme
-                                                      .displayMedium,
-                                                ),
-                                              ),
-                                            ],
+                                            style: TextStyle(
+                                              color: Color(0xff747474),
+                                              fontSize: 18,
+                                              fontFamily: 'Cairo',
+                                              overflow: TextOverflow.clip,
+                                              fontWeight: FontWeight.w400,
+                                              height: 0,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          // SizedBox(
+                                          //   height: 5,
+                                          // ),
+                                          // GestureDetector(
+                                          //   onTap: () {
+                                          //     Navigator.of(context).push(
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               BottomNavigationWidget(
+                                          //                 a: widget.analytics,
+                                          //                 o: widget.observer,
+                                          //                 screenId: 1,
+                                          //               )),
+                                          //     );
+                                          //   },
+                                          //   child: Row(
+                                          //     mainAxisAlignment:
+                                          //         MainAxisAlignment.start,
+                                          //     mainAxisSize: MainAxisSize.min,
+                                          //     children: [
+                                          //       Icon(
+                                          //         Icons.location_on_outlined,
+                                          //         size: 17,
+                                          //       ),
+                                          //       SizedBox(
+                                          //         width: 130,
+                                          //         child: Text(
+                                          //           global.currentLocation,
+                                          //           overflow:
+                                          //               TextOverflow.ellipsis,
+                                          //           style: Theme.of(context)
+                                          //               .primaryTextTheme
+                                          //               .displayMedium,
+                                          //         ),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                IconButton(
-                                    padding: EdgeInsets.all(0),
-                                    alignment: global.isRTL
-                                        ? Alignment.centerLeft
-                                        : Alignment.centerRight,
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) => SearchScreen(
-                                                0,
-                                                a: widget.analytics,
-                                                o: widget.observer)),
-                                      );
-                                    },
-                                    icon: Icon(
-                                      Icons.search,
-                                      size: 22,
-                                    )),
-                                IconButton(
-                                    padding: EdgeInsets.all(0),
-                                    alignment: global.isRTL
-                                        ? Alignment.centerLeft
-                                        : Alignment.centerRight,
-                                    onPressed: () {
-                                      global.user!.id == null
-                                          ? Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      SignInScreen(
-                                                        a: widget.analytics,
-                                                        o: widget.observer,
-                                                      )),
-                                            )
-                                          : Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      NotificationScreen(
-                                                          a: widget.analytics,
-                                                          o: widget.observer)),
-                                            );
-                                    },
-                                    icon: Icon(
-                                      Icons.notifications,
-                                      size: 22,
-                                    ))
-                              ],
+                                  // IconButton(
+                                  //     padding: EdgeInsets.all(0),
+                                  //     alignment: global.isRTL
+                                  //         ? Alignment.centerLeft
+                                  //         : Alignment.centerRight,
+                                  //     onPressed: () {
+                                  //       Navigator.of(context).push(
+                                  //         MaterialPageRoute(
+                                  //             builder: (context) => SearchScreen(
+                                  //                 0,
+                                  //                 a: widget.analytics,
+                                  //                 o: widget.observer)),
+                                  //       );
+                                  //     },
+                                  //     icon: Icon(
+                                  //       Icons.search,
+                                  //       size: 22,
+                                  //     )),
+                                  // IconButton(
+                                  //     padding: EdgeInsets.all(0),
+                                  //     alignment: global.isRTL
+                                  //         ? Alignment.centerLeft
+                                  //         : Alignment.centerRight,
+                                  //     onPressed: () {
+                                  //       global.user!.id == null
+                                  //           ? Navigator.of(context).push(
+                                  //               MaterialPageRoute(
+                                  //                   builder: (context) =>
+                                  //                       SignInScreen(
+                                  //                         a: widget.analytics,
+                                  //                         o: widget.observer,
+                                  //                       )),
+                                  //             )
+                                  //           : Navigator.of(context).push(
+                                  //               MaterialPageRoute(
+                                  //                   builder: (context) =>
+                                  //                       NotificationScreen(
+                                  //                           a: widget.analytics,
+                                  //                           o: widget.observer)),
+                                  //             );
+                                  //     },
+                                  //     icon: Icon(
+                                  //       Icons.notifications,
+                                  //       size: 22,
+                                  //     ))
+                                ],
+                              ),
                             ),
-                          ),
-                          _bannerList!.length > 0
-                              ? CarouselSlider(
-                                  items: _items(),
-                                  carouselController: _carouselController,
-                                  options: CarouselOptions(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.25,
-                                      aspectRatio: 1,
-                                      viewportFraction: 0.93,
-                                      initialPage: _currentIndex,
-                                      enableInfiniteScroll: true,
-                                      reverse: false,
-                                      autoPlay: true,
-                                      autoPlayInterval: Duration(seconds: 3),
-                                      autoPlayAnimationDuration:
-                                          Duration(milliseconds: 800),
-                                      autoPlayCurve: Curves.fastOutSlowIn,
-                                      enlargeCenterPage: true,
-                                      scrollDirection: Axis.horizontal,
-                                      onPageChanged: (index, _) {
-                                        _currentIndex = index;
-                                        setState(() {});
-                                      }))
-                              : SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.25,
-                                  child: Center(
-                                      child: Text(
+                            _bannerList!.length > 0
+                                ? CarouselSlider(
+                                    items: _items(),
+                                    carouselController: _carouselController,
+                                    options: CarouselOptions(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.25,
+                                        aspectRatio: 1,
+                                        viewportFraction: 0.93,
+                                        initialPage: _currentIndex,
+                                        enableInfiniteScroll: true,
+                                        reverse: false,
+                                        autoPlay: true,
+                                        autoPlayInterval: Duration(seconds: 3),
+                                        autoPlayAnimationDuration:
+                                            Duration(milliseconds: 800),
+                                        autoPlayCurve: Curves.fastOutSlowIn,
+                                        enlargeCenterPage: true,
+                                        scrollDirection: Axis.horizontal,
+                                        onPageChanged: (index, _) {
+                                          _currentIndex = index;
+                                          setState(() {});
+                                        }))
+                                : SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.25,
+                                    child: Center(
+                                        child: Text(
+                                      AppLocalizations.of(context)!
+                                          .txt_no_saloon_are_available_at_your_location,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .displayMedium,
+                                    ))),
+                            _isBannerDataLoaded
+                                ? _bannerList!.length > 0
+                                    ? DotsIndicator(
+                                        dotsCount: _bannerList!.length,
+                                        position: _currentIndex,
+                                        onTap: (i) {
+                                          print('ssssssss');
+                                          _currentIndex = i.toInt();
+                                          _carouselController!.animateToPage(
+                                              _currentIndex,
+                                              duration:
+                                                  Duration(microseconds: 1),
+                                              curve: Curves.easeInOut);
+                                        },
+                                        decorator: DotsDecorator(
+                                          activeSize: const Size(8, 8),
+                                          size: const Size(8, 8),
+                                          activeShape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(50.0))),
+                                          activeColor: Color(0xffF36D86),
+                                          color: Theme.of(context)
+                                              .primaryColorLight,
+                                        ),
+                                      )
+                                    : SizedBox()
+                                : SizedBox()
+                          ],
+                        ),
+                      )
+                    : _shimmer1(),
+                Padding(
+                  padding: EdgeInsets.only(top: 0, left: 13, right: 13),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'الخدامات',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      ),
+                      InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ServiceListScreen(
+                                        a: widget.analytics,
+                                        o: widget.observer,
+                                      )),
+                            );
+                          },
+                          child: Text(
+                            'الكل',
+                            style: TextStyle(
+                              color: Color(0xffF36D86),
+                              fontSize: 18,
+                              fontFamily: 'Cairo',
+                              fontWeight: FontWeight.w200,
+                              height: 0,
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+                SizedBox(
+                    // height: 60,
+                    child: _isServicesDataLoaded
+                        ? _serviceList!.length > 0
+                            ? _services()
+                            : Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
                                     AppLocalizations.of(context)!
-                                        .txt_no_saloon_are_available_at_your_location,
+                                        .txt_no_service_available_at_your_location,
                                     style: Theme.of(context)
                                         .primaryTextTheme
-                                        .displayMedium,
-                                  ))),
-                          _isBannerDataLoaded
-                              ? _bannerList!.length > 0
-                                  ? DotsIndicator(
-                                      dotsCount: _bannerList!.length,
-                                      position: _currentIndex,
-                                      onTap: (i) {
-                                        print('ssssssss');
-                                        _currentIndex = i.toInt();
-                                        _carouselController!.animateToPage(
-                                            _currentIndex,
-                                            duration: Duration(microseconds: 1),
-                                            curve: Curves.easeInOut);
-                                      },
-                                      decorator: DotsDecorator(
-                                        activeSize: const Size(6, 6),
-                                        size: const Size(6, 6),
-                                        activeShape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(50.0))),
-                                        activeColor:
-                                            Theme.of(context).primaryColor,
-                                        color:
-                                            Theme.of(context).primaryColorLight,
-                                      ),
-                                    )
-                                  : SizedBox()
-                              : SizedBox()
-                        ],
-                      ),
-                    )
-                  : _shimmer1(),
-              Padding(
-                padding: EdgeInsets.only(top: 20, left: 13, right: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(AppLocalizations.of(context)!.lbl_services,
-                        style: Theme.of(context).primaryTextTheme.titleLarge),
-                    InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => ServiceListScreen(
-                                      a: widget.analytics,
-                                      o: widget.observer,
-                                    )),
-                          );
-                        },
-                        child: Text(
-                            AppLocalizations.of(context)!.lbl_see_services,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .headlineSmall))
-                  ],
-                ),
-              ),
-              SizedBox(
-                  height: 60,
-                  child: _isServicesDataLoaded
-                      ? _serviceList!.length > 0
-                          ? _services()
-                          : Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  AppLocalizations.of(context)!
-                                      .txt_no_service_available_at_your_location,
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .titleMedium,
+                                        .titleMedium,
+                                  ),
                                 ),
-                              ),
-                            )
-                      : _shimmer2()),
-              //recommended BarberShop
-              Padding(
-                padding: EdgeInsets.only(top: 18, left: 13, right: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                        AppLocalizations.of(context)!
-                            .lbl_recommended_barbershop,
-                        style: Theme.of(context).primaryTextTheme.titleLarge),
-                    InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => BarberShopListScreen(
-                                    a: widget.analytics, o: widget.observer)),
-                          );
-                        },
-                        child: Text(AppLocalizations.of(context)!.lbl_see_more,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .headlineSmall))
-                  ],
-                ),
-              ),
-              SizedBox(
-                  height: 156,
-                  child: _isBarberShopDataLoaded
-                      ? _barberShopList!.length > 0
-                          ? _recommendedBarbershop()
-                          : Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  AppLocalizations.of(context)!
-                                      .txt_no_barbershop_are_available_at_your_location,
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .titleMedium,
-                                ),
-                              ),
-                            )
-                      : _shimmer3()),
+                              )
+                        : _shimmer2()),
+                //recommended BarberShop
+                // Padding(
+                //   padding: EdgeInsets.only(top: 18, left: 13, right: 13),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(
+                //           AppLocalizations.of(context)!
+                //               .lbl_recommended_barbershop,
+                //           style: Theme.of(context).primaryTextTheme.titleLarge),
+                //       InkWell(
+                //           splashColor: Colors.transparent,
+                //           highlightColor: Colors.transparent,
+                //           overlayColor:
+                //               MaterialStateProperty.all(Colors.transparent),
+                //           onTap: () {
+                //             Navigator.of(context).push(
+                //               MaterialPageRoute(
+                //                   builder: (context) => BarberShopListScreen(
+                //                       a: widget.analytics, o: widget.observer)),
+                //             );
+                //           },
+                //           child: Text(AppLocalizations.of(context)!.lbl_see_more,
+                //               style: Theme.of(context)
+                //                   .primaryTextTheme
+                //                   .headlineSmall))
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(
+                //     height: 156,
+                //     child: _isBarberShopDataLoaded
+                //         ? _barberShopList!.length > 0
+                //             ? _recommendedBarbershop()
+                //             : Padding(
+                //                 padding: const EdgeInsets.only(left: 15),
+                //                 child: Align(
+                //                   alignment: Alignment.centerLeft,
+                //                   child: Text(
+                //                     AppLocalizations.of(context)!
+                //                         .txt_no_barbershop_are_available_at_your_location,
+                //                     style: Theme.of(context)
+                //                         .primaryTextTheme
+                //                         .titleMedium,
+                //                   ),
+                //                 ),
+                //               )
+                //         : _shimmer3()),
 
-              //popular Barbers
-              Padding(
-                padding: EdgeInsets.only(top: 20, left: 13, right: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(AppLocalizations.of(context)!.lbl_popular_barbers,
-                        style: Theme.of(context).primaryTextTheme.titleLarge),
-                    InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => BarberListScreen(
-                                      a: widget.analytics,
-                                      o: widget.observer,
-                                    )),
-                          );
-                        },
-                        child: Text(AppLocalizations.of(context)!.lbl_see_more,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .headlineSmall)),
-                  ],
+                // //popular Barbers
+                // Padding(
+                //   padding: EdgeInsets.only(top: 20, left: 13, right: 13),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(AppLocalizations.of(context)!.lbl_popular_barbers,
+                //           style: Theme.of(context).primaryTextTheme.titleLarge),
+                //       InkWell(
+                //           splashColor: Colors.transparent,
+                //           highlightColor: Colors.transparent,
+                //           overlayColor:
+                //               MaterialStateProperty.all(Colors.transparent),
+                //           onTap: () {
+                //             Navigator.of(context).push(
+                //               MaterialPageRoute(
+                //                   builder: (context) => BarberListScreen(
+                //                         a: widget.analytics,
+                //                         o: widget.observer,
+                //                       )),
+                //             );
+                //           },
+                //           child: Text(AppLocalizations.of(context)!.lbl_see_more,
+                //               style: Theme.of(context)
+                //                   .primaryTextTheme
+                //                   .headlineSmall)),
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(
+                //     height: 120,
+                //     child: _isBarbersDataLoaded
+                //         ? _popularBarbersList!.length > 0
+                //             ? Align(
+                //                 alignment: global.isRTL
+                //                     ? Alignment.centerRight
+                //                     : Alignment.centerLeft,
+                //                 child: _popularBarbers())
+                //             : Padding(
+                //                 padding: const EdgeInsets.only(left: 15),
+                //                 child: Align(
+                //                   alignment: Alignment.centerLeft,
+                //                   child: Text(
+                //                     AppLocalizations.of(context)!
+                //                         .txt_no_barbers_are_available_at_your_location,
+                //                     style: Theme.of(context)
+                //                         .primaryTextTheme
+                //                         .titleMedium,
+                //                   ),
+                //                 ),
+                //               )
+                //         : _shimmer4()),
+
+                Padding(
+                  padding: EdgeInsets.only(top: 20, left: 13, right: 13),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'المنتجات',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      ),
+                      InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ProductListScreen(
+                                        a: widget.analytics,
+                                        o: widget.observer,
+                                      )),
+                            );
+                          },
+                          child: Text(
+                            'الكل',
+                            style: TextStyle(
+                                color: Color(0xffF36D86),
+                                fontSize: 18,
+                                fontFamily: 'Cairo',
+                                fontWeight: FontWeight.w200,
+                                height: 0),
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                  height: 120,
-                  child: _isBarbersDataLoaded
-                      ? _popularBarbersList!.length > 0
-                          ? Align(
-                              alignment: global.isRTL
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: _popularBarbers())
+                SizedBox(
+                  // height: 160,
+                  child: _isProductsLoaded
+                      ? _productList!.length > 0
+                          ? _products()
                           : Padding(
                               padding: const EdgeInsets.only(left: 15),
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   AppLocalizations.of(context)!
-                                      .txt_no_barbers_are_available_at_your_location,
+                                      .txt_nothing_is_yet_to_see_here,
                                   style: Theme.of(context)
                                       .primaryTextTheme
                                       .titleMedium,
                                 ),
                               ),
                             )
-                      : _shimmer4()),
-              Padding(
-                padding: EdgeInsets.only(top: 20, left: 13, right: 13),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(AppLocalizations.of(context)!.lbl_products,
-                        style: Theme.of(context).primaryTextTheme.titleLarge),
-                    InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => ProductListScreen(
-                                      a: widget.analytics,
-                                      o: widget.observer,
-                                    )),
-                          );
-                        },
-                        child: Text(AppLocalizations.of(context)!.lbl_see_more,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .headlineSmall)),
-                  ],
+                      : _shimmer3(),
                 ),
-              ),
-              SizedBox(
-                height: 160,
-                child: _isProductsLoaded
-                    ? _productList!.length > 0
-                        ? _products()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                AppLocalizations.of(context)!
-                                    .txt_nothing_is_yet_to_see_here,
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .titleMedium,
-                              ),
-                            ),
-                          )
-                    : _shimmer3(),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 
@@ -770,110 +824,126 @@ class _HomeScreenState extends BaseRouteState {
       padding: const EdgeInsets.only(left: 7, right: 7),
       child: Align(
         alignment: global.isRTL ? Alignment.centerRight : Alignment.centerLeft,
-        child: ListView.builder(
+        child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3 / 2.5,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 10),
             itemCount: _productList!.length,
             shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            // scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 overlayColor: MaterialStateProperty.all(Colors.transparent),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => ProductDetailScreen(
-                            _productList![index].id,
-                            a: widget.analytics,
-                            o: widget.observer,
-                            isShowGoCartBtn:
-                                _productList![index].cart_qty != null &&
-                                        _productList![index].cart_qty! > 0
-                                    ? true
-                                    : false)),
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProductDetailScreen(
+                          _productList![index].id,
+                          a: widget.analytics,
+                          o: widget.observer,
+                          isShowGoCartBtn:
+                              _productList![index].cart_qty != null &&
+                                      _productList![index].cart_qty! > 0
+                                  ? true
+                                  : false)));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 7, right: 7, bottom: 3, top: 5),
+                      left: 2, right: 2, bottom: 2, top: 2),
                   child: SizedBox(
                     width: 110,
                     child: Card(
+                      elevation: 0,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CachedNetworkImage(
-                            imageUrl: global.baseUrlForImage +
-                                _productList![index].product_image!,
-                            imageBuilder: (context, imageProvider) => Container(
-                                width: 110,
-                                height: 110,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: imageProvider)),
-                                child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: IconButton(
-                                      alignment: Alignment.topRight,
-                                      padding: EdgeInsets.all(4),
-                                      onPressed: () async {
-                                        if (global.user!.id == null) {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SignInScreen(
-                                                      a: widget.analytics,
-                                                      o: widget.observer,
-                                                    )),
-                                          );
-                                        } else {
-                                          bool? _isFav;
-                                          _isFav = await _addToFavorite(
-                                              _productList![index].id);
-                                          if (_isFav! &&
-                                              _productList![index]
-                                                      .isFavourite !=
-                                                  null) {
-                                            _productList![index].isFavourite =
-                                                !_productList![index]
-                                                    .isFavourite!;
-                                          }
-                                        }
-                                        setState(() {});
-                                      },
-                                      icon: Icon(
-                                        _productList![index].isFavourite !=
-                                                    null &&
-                                                _productList![index]
-                                                    .isFavourite!
-                                            ? Icons.favorite
-                                            : Icons.favorite_outline,
-                                        color:
-                                            _productList![index].isFavourite !=
-                                                        null &&
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Card(
+                              child: CachedNetworkImage(
+                                imageUrl: global.baseUrlForImage +
+                                    _productList![index].product_image!,
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                        // width: 110,
+                                        // height: 110,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(2),
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: imageProvider)),
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: IconButton(
+                                              alignment: Alignment.topRight,
+                                              padding: EdgeInsets.all(4),
+                                              onPressed: () async {
+                                                if (global.user!.id == null) {
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SignInScreen(
+                                                              a: widget
+                                                                  .analytics,
+                                                              o: widget
+                                                                  .observer,
+                                                            )),
+                                                  );
+                                                } else {
+                                                  bool? _isFav;
+                                                  _isFav = await _addToFavorite(
+                                                      _productList![index].id);
+                                                  if (_isFav! &&
+                                                      _productList![index]
+                                                              .isFavourite !=
+                                                          null) {
                                                     _productList![index]
-                                                        .isFavourite!
-                                                ? Color(0xFFFA692C)
-                                                : Colors.white,
-                                        size: 20,
-                                      )),
-                                )),
-                            placeholder: (context, url) =>
-                                Center(child: CircularProgressIndicator()),
-                            errorWidget: (context, url, error) => Container(
-                                width: 110,
-                                height: 110,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Text(
-                                  "No image",
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .titleMedium,
-                                )),
+                                                            .isFavourite =
+                                                        !_productList![index]
+                                                            .isFavourite!;
+                                                  }
+                                                }
+                                                setState(() {});
+                                              },
+                                              icon: Icon(
+                                                _productList![index]
+                                                                .isFavourite !=
+                                                            null &&
+                                                        _productList![index]
+                                                            .isFavourite!
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_outline,
+                                                color: _productList![index]
+                                                                .isFavourite !=
+                                                            null &&
+                                                        _productList![index]
+                                                            .isFavourite!
+                                                    ? Color(0xffF36D86)
+                                                    : Colors.white,
+                                                size: 20,
+                                              )),
+                                        )),
+                                placeholder: (context, url) =>
+                                    Center(child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) => Container(
+                                    // width: 110,
+                                    // height: 110,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(2)),
+                                    child: Text(
+                                      "No image",
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .titleMedium,
+                                    )),
+                              ),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(5),
@@ -1053,82 +1123,102 @@ class _HomeScreenState extends BaseRouteState {
       padding: EdgeInsets.only(
         left: 7,
         right: 7,
-        top: 1,
+        top: 7,
       ),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: ListView.builder(
+        child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3 / 2.5,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 10),
             itemCount: _serviceList!.length,
             shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+
+            // scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                overlayColor: MaterialStateProperty.all(Colors.transparent),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => ServiceDetailScreen(
-                            serviceName: _serviceList![index].service_name,
-                            a: widget.analytics,
-                            o: widget.observer,
-                            serviceImage: _serviceList![index].service_image)),
-                  );
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: global.baseUrlForImage +
-                          _serviceList![index].service_image!,
-                      imageBuilder: (context, imageProvider) => Card(
-                        margin: EdgeInsets.only(left: 4, right: 4, bottom: 4),
-                        child: Container(
-                          width: 120,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                fit: BoxFit.cover, image: imageProvider),
+              return Container(
+                // color: Colors.red,
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => ServiceDetailScreen(
+                              serviceName: _serviceList![index].service_name,
+                              a: widget.analytics,
+                              o: widget.observer,
+                              serviceImage:
+                                  _serviceList![index].service_image)),
+                    );
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        fit: FlexFit.tight,
+                        child: CachedNetworkImage(
+                          imageUrl: global.baseUrlForImage +
+                              _serviceList![index].service_image!,
+                          imageBuilder: (context, imageProvider) => Card(
+                            // margin:
+                            //     EdgeInsets.only(left: 4, right: 4, bottom: 4),
+                            child: Container(
+                              // width: 120,
+                              // height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover, image: imageProvider),
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) =>
+                              Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => Container(
+                            margin:
+                                EdgeInsets.only(left: 4, right: 4, bottom: 4),
+                            width: 120,
+                            height: 50,
+                            child: Card(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Text(
+                                    AppLocalizations.of(context)!.lbl_no_image),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                      placeholder: (context, url) =>
-                          Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => Container(
-                        margin: EdgeInsets.only(left: 4, right: 4, bottom: 4),
-                        width: 120,
-                        height: 50,
-                        child: Card(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Text(
-                                AppLocalizations.of(context)!.lbl_no_image),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Opacity(
-                      opacity: 0.5,
-                      child: Container(
-                        margin: EdgeInsets.only(left: 4, right: 4, bottom: 4),
-                        width: 120,
-                        height: 50,
-                        decoration: BoxDecoration(
+                      // Opacity(
+                      //   opacity: 0.5,
+                      //   child: Container(
+                      //     margin: EdgeInsets.only(left: 4, right: 4, bottom: 4),
+                      //     width: 120,
+                      //     height: 50,
+                      //     decoration: BoxDecoration(
+                      //       color: Colors.black,
+                      //       borderRadius: BorderRadius.circular(10),
+                      //     ),
+                      //   ),
+                      // ),
+                      Text(
+                        '${_serviceList![index].service_name}',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
                           color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
+                          fontSize: 18,
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w200,
+                          height: 0,
                         ),
-                      ),
-                    ),
-                    Center(
-                        child: Text('${_serviceList![index].service_name}',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400)))
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               );
             }),

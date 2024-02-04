@@ -72,13 +72,15 @@ class _SearchScreenState extends BaseRouteState {
         initialIndex: _currentIndex,
         child: Scaffold(
             appBar: AppBar(
-              title: Text(AppLocalizations.of(context)!.lbl_search, style: AppBarTheme.of(context).titleTextStyle),
+              title: Text(AppLocalizations.of(context)!.lbl_search,
+                  style: AppBarTheme.of(context).titleTextStyle),
             ),
             body: Column(
               children: [
                 Container(
                   height: 45,
-                  margin: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
+                  margin: const EdgeInsets.only(
+                      top: 8, bottom: 8, left: 13, right: 13),
                   child: Card(
                     child: TextFormField(
                       textAlign: TextAlign.start,
@@ -106,7 +108,9 @@ class _SearchScreenState extends BaseRouteState {
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search,
-                          color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+                          color: Theme.of(context)
+                              .floatingActionButtonTheme
+                              .backgroundColor,
                         ),
                         suffixIcon: GestureDetector(
                           onTap: () async {
@@ -116,7 +120,9 @@ class _SearchScreenState extends BaseRouteState {
                           },
                           child: Container(
                             width: 50,
-                            decoration: BoxDecoration(color: Color(0xFFFA692C), borderRadius: BorderRadius.circular(5)),
+                            decoration: BoxDecoration(
+                                color: Color(0xFFFA692C),
+                                borderRadius: BorderRadius.circular(5)),
                             child: Icon(
                               Icons.arrow_circle_down_outlined,
                               color: Colors.white,
@@ -153,7 +159,12 @@ class _SearchScreenState extends BaseRouteState {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 15),
-                    child: TabBarView(controller: _tabController, children: [_barberShopView(), _barbersList(), _productListWidget(), _servicesList()]),
+                    child: TabBarView(controller: _tabController, children: [
+                      _barberShopView(),
+                      _barbersList(),
+                      _productListWidget(),
+                      _servicesList()
+                    ]),
                   ),
                 )
               ],
@@ -173,7 +184,8 @@ class _SearchScreenState extends BaseRouteState {
   void initState() {
     super.initState();
     _currentIndex = index;
-    _tabController = new TabController(initialIndex: _currentIndex, length: 4, vsync: this);
+    _tabController =
+        new TabController(initialIndex: _currentIndex, length: 4, vsync: this);
     _tabController!.addListener(_tabControllerListener);
     _init();
   }
@@ -192,11 +204,16 @@ class _SearchScreenState extends BaseRouteState {
                     overlayColor: MaterialStateProperty.all(Colors.transparent),
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => BarberShopDescriptionScreen(_barberShopList[index].vendor_id, a: widget.analytics, o: widget.observer)),
+                        MaterialPageRoute(
+                            builder: (context) => BarberShopDescriptionScreen(
+                                _barberShopList[index].vendor_id,
+                                a: widget.analytics,
+                                o: widget.observer)),
                       );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
+                      padding: const EdgeInsets.only(
+                          top: 8, bottom: 8, left: 13, right: 13),
                       child: Card(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -206,26 +223,39 @@ class _SearchScreenState extends BaseRouteState {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: global.baseUrlForImage + _barberShopList[index].vendor_logo!,
-                                  imageBuilder: (context, imageProvider) => Container(
+                                  imageUrl: global.baseUrlForImage +
+                                      _barberShopList[index].vendor_logo!,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
                                     height: 85,
                                     width: 125,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: imageProvider)),
                                   ),
-                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                  placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: global.isRTL ? EdgeInsets.only(right: 8) : EdgeInsets.only(left: 8),
+                                    padding: global.isRTL
+                                        ? EdgeInsets.only(right: 8)
+                                        : EdgeInsets.only(left: 8),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
                                           '${_barberShopList[index].vendor_name}',
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).primaryTextTheme.bodyLarge,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .bodyLarge,
                                         ),
                                         SizedBox(
                                           height: 5,
@@ -233,7 +263,9 @@ class _SearchScreenState extends BaseRouteState {
                                         Text(
                                           '${_barberShopList[index].vendor_loc}',
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .bodyMedium,
                                         ),
                                       ],
                                     ),
@@ -267,14 +299,20 @@ class _SearchScreenState extends BaseRouteState {
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
+                    padding: const EdgeInsets.only(
+                        top: 8, bottom: 8, left: 13, right: 13),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
-                      overlayColor: MaterialStateProperty.all(Colors.transparent),
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => BarberDetailScreen(_popularBarbersList[index].staff_id, a: widget.analytics, o: widget.observer)),
+                          MaterialPageRoute(
+                              builder: (context) => BarberDetailScreen(
+                                  _popularBarbersList[index].staff_id,
+                                  a: widget.analytics,
+                                  o: widget.observer)),
                         );
                       },
                       child: Card(
@@ -301,28 +339,42 @@ class _SearchScreenState extends BaseRouteState {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: global.baseUrlForImage + _popularBarbersList[index].staff_image!,
-                                  imageBuilder: (context, imageProvider) => CircleAvatar(radius: 30, backgroundImage: imageProvider),
-                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                  imageUrl: global.baseUrlForImage +
+                                      _popularBarbersList[index].staff_image!,
+                                  imageBuilder: (context, imageProvider) =>
+                                      CircleAvatar(
+                                          radius: 30,
+                                          backgroundImage: imageProvider),
+                                  placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: global.isRTL ? EdgeInsets.only(right: 18) : EdgeInsets.only(left: 18),
+                                    padding: global.isRTL
+                                        ? EdgeInsets.only(right: 18)
+                                        : EdgeInsets.only(left: 18),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
                                           '${_popularBarbersList[index].staff_name}',
-                                          style: Theme.of(context).primaryTextTheme.titleSmall,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .titleSmall,
                                         ),
                                         SizedBox(
                                           height: 5,
                                         ),
                                         Text(
-                                          AppLocalizations.of(context)!.txt_specialist_in_hair_style,
-                                          style: Theme.of(context).primaryTextTheme.titleMedium,
+                                          AppLocalizations.of(context)!
+                                              .txt_specialist_in_hair_style,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .titleMedium,
                                         ),
                                       ],
                                     ),
@@ -360,7 +412,11 @@ class _SearchScreenState extends BaseRouteState {
           } else {
             pageNumberBarberShop++;
           }
-          await apiHelper!.getNearByBarberShops(global.lat, global.lng, pageNumberBarberShop, searchstring: searchString).then((result) {
+          await apiHelper!
+              .getNearByBarberShops(
+                  global.lat, global.lng, pageNumberBarberShop,
+                  searchstring: searchString)
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<BarberShop> _tList = result.recordList;
@@ -380,7 +436,8 @@ class _SearchScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - searchScreen.dart - _getNearByBarberShops():" + e.toString());
+      print("Exception - searchScreen.dart - _getNearByBarberShops():" +
+          e.toString());
     }
   }
 
@@ -398,7 +455,10 @@ class _SearchScreenState extends BaseRouteState {
           } else {
             pageNumberBarbers++;
           }
-          await apiHelper!.getPopularBarbersList(global.lat, global.lng, pageNumberBarbers, searchString).then((result) {
+          await apiHelper!
+              .getPopularBarbersList(
+                  global.lat, global.lng, pageNumberBarbers, searchString)
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<PopularBarbers> _tList = result.recordList;
@@ -418,7 +478,8 @@ class _SearchScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - searchScreen.dart - _getPopularBarbers():" + e.toString());
+      print("Exception - searchScreen.dart - _getPopularBarbers():" +
+          e.toString());
     }
   }
 
@@ -436,7 +497,10 @@ class _SearchScreenState extends BaseRouteState {
           } else {
             pageNumberProducts++;
           }
-          await apiHelper!.getProducts(global.lat, global.lng, pageNumberProducts, searchString).then((result) {
+          await apiHelper!
+              .getProducts(
+                  global.lat, global.lng, pageNumberProducts, searchString)
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<Product> _tList = result.recordList;
@@ -474,7 +538,10 @@ class _SearchScreenState extends BaseRouteState {
           } else {
             pageNumberServices++;
           }
-          await apiHelper!.getServices(global.lat, global.lng, pageNumberServices, searchstring: searchString).then((result) {
+          await apiHelper!
+              .getServices(global.lat, global.lng, pageNumberServices,
+                  searchstring: searchString)
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<Service> _tList = result.recordList;
@@ -503,7 +570,9 @@ class _SearchScreenState extends BaseRouteState {
       await _searchData();
 
       _scrollControllerBarberShop.addListener(() async {
-        if (_scrollControllerBarberShop.position.pixels == _scrollControllerBarberShop.position.maxScrollExtent && !_isBarberShopMoreDataLoaded) {
+        if (_scrollControllerBarberShop.position.pixels ==
+                _scrollControllerBarberShop.position.maxScrollExtent &&
+            !_isBarberShopMoreDataLoaded) {
           setState(() {
             _isBarberShopMoreDataLoaded = true;
           });
@@ -517,7 +586,9 @@ class _SearchScreenState extends BaseRouteState {
       setState(() {});
 
       _scrollControllerBarbers.addListener(() async {
-        if (_scrollControllerBarbers.position.pixels == _scrollControllerBarbers.position.maxScrollExtent && !_isBarbersMoreDataLoaded) {
+        if (_scrollControllerBarbers.position.pixels ==
+                _scrollControllerBarbers.position.maxScrollExtent &&
+            !_isBarbersMoreDataLoaded) {
           setState(() {
             _isBarbersMoreDataLoaded = true;
           });
@@ -531,7 +602,9 @@ class _SearchScreenState extends BaseRouteState {
       setState(() {});
 
       _scrollControllerProducts.addListener(() async {
-        if (_scrollControllerProducts.position.pixels == _scrollControllerProducts.position.maxScrollExtent && !_isProductsMoreDataLoaded) {
+        if (_scrollControllerProducts.position.pixels ==
+                _scrollControllerProducts.position.maxScrollExtent &&
+            !_isProductsMoreDataLoaded) {
           setState(() {
             _isProductsMoreDataLoaded = true;
           });
@@ -545,7 +618,9 @@ class _SearchScreenState extends BaseRouteState {
       setState(() {});
 
       _scrollControllerServices.addListener(() async {
-        if (_scrollControllerServices.position.pixels == _scrollControllerServices.position.maxScrollExtent && !_isServicesMoreDataLoaded) {
+        if (_scrollControllerServices.position.pixels ==
+                _scrollControllerServices.position.maxScrollExtent &&
+            !_isServicesMoreDataLoaded) {
           setState(() {
             _isServicesMoreDataLoaded = true;
           });
@@ -580,12 +655,17 @@ class _SearchScreenState extends BaseRouteState {
                                   _productList[index].id,
                                   a: widget.analytics,
                                   o: widget.observer,
-                                  isShowGoCartBtn: _productList[index].cart_qty != null && _productList[index].cart_qty! > 0 ? true : false,
+                                  isShowGoCartBtn:
+                                      _productList[index].cart_qty != null &&
+                                              _productList[index].cart_qty! > 0
+                                          ? true
+                                          : false,
                                 )),
                       );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
+                      padding: const EdgeInsets.only(
+                          top: 8, bottom: 8, left: 13, right: 13),
                       child: Card(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -595,26 +675,39 @@ class _SearchScreenState extends BaseRouteState {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: global.baseUrlForImage + _productList[index].product_image!,
-                                  imageBuilder: (context, imageProvider) => Container(
+                                  imageUrl: global.baseUrlForImage +
+                                      _productList[index].product_image!,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
                                     height: 85,
                                     width: 125,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: imageProvider)),
                                   ),
-                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                  placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: global.isRTL ? EdgeInsets.only(right: 18) : EdgeInsets.only(left: 18),
+                                    padding: global.isRTL
+                                        ? EdgeInsets.only(right: 18)
+                                        : EdgeInsets.only(left: 18),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
                                           '${_productList[index].product_name}',
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).primaryTextTheme.bodyLarge,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .bodyLarge,
                                         ),
                                         SizedBox(
                                           height: 5,
@@ -622,7 +715,9 @@ class _SearchScreenState extends BaseRouteState {
                                         Text(
                                           '${_productList[index].description}',
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .bodyMedium,
                                         ),
                                       ],
                                     ),
@@ -696,11 +791,18 @@ class _SearchScreenState extends BaseRouteState {
                     highlightColor: Colors.transparent,
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ServiceDetailScreen(serviceName: _serviceList[index].service_name, a: widget.analytics, o: widget.observer, serviceImage: _serviceList[index].service_image)),
+                        MaterialPageRoute(
+                            builder: (context) => ServiceDetailScreen(
+                                serviceName: _serviceList[index].service_name,
+                                a: widget.analytics,
+                                o: widget.observer,
+                                serviceImage:
+                                    _serviceList[index].service_image)),
                       );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
+                      padding: const EdgeInsets.only(
+                          top: 8, bottom: 8, left: 13, right: 13),
                       child: Card(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -710,26 +812,39 @@ class _SearchScreenState extends BaseRouteState {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: global.baseUrlForImage + _serviceList[index].service_image!,
-                                  imageBuilder: (context, imageProvider) => Container(
+                                  imageUrl: global.baseUrlForImage +
+                                      _serviceList[index].service_image!,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
                                     height: 85,
                                     width: 125,
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: imageProvider)),
                                   ),
-                                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                  placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: global.isRTL ? EdgeInsets.only(right: 18) : EdgeInsets.only(left: 18),
+                                    padding: global.isRTL
+                                        ? EdgeInsets.only(right: 18)
+                                        : EdgeInsets.only(left: 18),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
                                           '${_serviceList[index].service_name}',
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).primaryTextTheme.bodyLarge,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .bodyLarge,
                                         ),
                                         SizedBox(
                                           height: 5,
@@ -783,12 +898,16 @@ class _SearchScreenState extends BaseRouteState {
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 220,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 120,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                         ],
                       )
@@ -829,12 +948,16 @@ class _SearchScreenState extends BaseRouteState {
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 220,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 120,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                         ],
                       )
@@ -856,7 +979,8 @@ class _SearchScreenState extends BaseRouteState {
         _currentIndex = _tabController!.index;
       });
     } catch (e) {
-      print("Exception - searchScreen.dart - _tabControllerListener():" + e.toString());
+      print("Exception - searchScreen.dart - _tabControllerListener():" +
+          e.toString());
     }
   }
 }

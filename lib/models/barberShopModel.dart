@@ -37,20 +37,34 @@ class BarberShop {
       lng = json['lng'] != null ? json['lng'] : null;
       opening_time = json['opening_time'] != null ? json['opening_time'] : null;
       closing_time = json['closing_time'] != null ? json['closing_time'] : null;
-      vendor_id = json['vendor_id'] != null ? int.parse('${json['vendor_id']}') : null;
-      delivery_range = json['delivery_range'] != null ? int.parse('${json['delivery_range']}') : null;
-      shop_type = json['shop_type'] != null ? int.parse('${json['shop_type']}') : null;
-      distance = json['distance'] != null ? double.parse(json['distance'].toString()) : null;
+      vendor_id =
+          json['vendor_id'] != null ? int.parse('${json['vendor_id']}') : null;
+      delivery_range = json['delivery_range'] != null
+          ? int.parse('${json['delivery_range']}')
+          : null;
+      shop_type =
+          json['shop_type'] != null ? int.parse('${json['shop_type']}') : null;
+      distance = json['distance'] != null
+          ? double.parse(json['distance'].toString())
+          : null;
 
-      rating = json['rating'] != null ? double.parse(json['rating'].toString()) : null;
+      rating = json['rating'] != null
+          ? double.parse(json['rating'].toString())
+          : null;
       description = json['description'] != null ? json['description'] : null;
 
-      phone_verified = json['phone_verified'] != null ? int.parse('${json['phone_verified']}') : null;
-      online_status = json['online_status'] != null ? json['online_status'] : null;
+      phone_verified = json['phone_verified'] != null
+          ? int.parse('${json['phone_verified']}')
+          : null;
+      online_status =
+          json['online_status'] != null ? json['online_status'] : null;
 
-      products = json['products'] != null && json['products'] != [] ? List<Product>.from(json['products'].map((x) => Product.fromJson(x))) : [];
+      products = json['products'] != null && json['products'] != []
+          ? List<Product>.from(json['products'].map((x) => Product.fromJson(x)))
+          : [];
     } catch (e) {
-      print("Exception - barberShopModel.dart - BarberShop.fromJson():" + e.toString());
+      print("Exception - barberShopModel.dart - BarberShop.fromJson():" +
+          e.toString());
     }
   }
 

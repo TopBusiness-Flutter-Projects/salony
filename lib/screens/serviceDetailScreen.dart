@@ -170,6 +170,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.min,
+                                                  //
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {

@@ -114,7 +114,7 @@ class _ProductListScreenState extends BaseRouteState {
                       child: Text(
                         AppLocalizations.of(context)!
                             .txt_product_will_shown_here,
-                        style: Theme.of(context).primaryTextTheme.subtitle2,
+                        style: Theme.of(context).primaryTextTheme.titleSmall,
                       ),
                     )
               : _shimmer()),
@@ -552,6 +552,7 @@ class _ProductListScreenState extends BaseRouteState {
 
   _productListWidget() {
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
         child: Wrap(spacing: 12, runSpacing: 12, children: _addProductList()),

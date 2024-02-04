@@ -437,7 +437,6 @@ class _SignUpScreenState extends BaseRouteState {
     super.initState();
     _fillData();
   }
-  
 
   _fillData() {
     _cEmail.text = email != null ? email! : '';
@@ -548,7 +547,7 @@ class _SignUpScreenState extends BaseRouteState {
         bool isConnected = await br.checkConnectivity();
         if (isConnected) {
           showOnlyLoaderDialog();
-          await apiHelper!.signUp(_user).then((result) async {
+          await apiHelper!.signUp(_user, context).then((result) async {
             if (result != null) {
               if (result.status == "1") {
                 hideLoader();
