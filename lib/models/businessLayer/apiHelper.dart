@@ -1090,11 +1090,8 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}login_with_email"),
         headers: await global.getApiHeaders(false),
-        body: json.encode({
-          "user_email": email,
-          "user_password": password,
-          "device_id": deviceId
-        }),
+        body: json.encode(
+            {"user_phone": email, "password": password, "device_id": deviceId}),
       );
       print(json.decode(response.body)["data"]);
       dynamic recordList;
@@ -1233,22 +1230,28 @@ class APIHelper {
     try {
       Response response;
       var dio = Dio();
-      var formData = FormData.fromMap({
-        'user_name': user.user_name,
-        'user_email': user.user_email,
-        'user_phone': user.user_phone,
-        'user_password': user.user_password,
-        'device_id': global.appDeviceId,
-        'referral_code': user.referral_code != null ? user.referral_code : null,
-        'fb_id': user.fb_id != null ? user.fb_id : null,
-        'user_image': user.user_image != null
-            ? await MultipartFile.fromFile(user.user_image!.path.toString())
-            : null,
-        'apple_id': user.apple_id != null ? user.apple_id : null
-      });
+      // var formData = FormData.fromMap({
+      //   'user_name': user.user_name,
+      //   // 'user_email': user.user_email,
+      //   'user_phone': user.user_phone,
+      //   'password': user.user_password,
+      //   'device_id': global.appDeviceId,
+      //   // 'referral_code': user.referral_code != null ? user.referral_code : null,
+      //   'fb_id': user.fb_id != null ? user.fb_id : null,
+      //   // 'user_image': user.user_image != null
+      //   //     ? await MultipartFile.fromFile(user.user_image!.path.toString())
+      //   //     : null,
+      //   // 'apple_id': user.apple_id != null ? user.apple_id : null
+      // });
 
       response = await dio.post('${global.baseUrl}signup',
-          data: formData,
+          data: json.encode({
+            'user_name': user.user_name,
+            'user_phone': user.user_phone,
+            'password': user.user_password,
+            'device_id': global.appDeviceId,
+            'fb_id': user.fb_id != null ? user.fb_id : null,
+          }),
           options: Options(
             headers: await global.getApiHeaders(false),
           ));

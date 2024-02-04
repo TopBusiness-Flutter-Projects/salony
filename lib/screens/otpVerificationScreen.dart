@@ -19,9 +19,14 @@ class OTPVerificationScreen extends BaseRoute {
   final int? screenId;
   final String? verificationId;
   final String? phoneNumberOrEmail;
-  OTPVerificationScreen({a, o, this.screenId, this.verificationId, this.phoneNumberOrEmail}) : super(a: a, o: o, r: 'OTPVerificationScreen');
+  OTPVerificationScreen(
+      {a, o, this.screenId, this.verificationId, this.phoneNumberOrEmail})
+      : super(a: a, o: o, r: 'OTPVerificationScreen');
   @override
-  _OTPVerificationScreenState createState() => new _OTPVerificationScreenState(screenId: screenId, verificationId: verificationId, phoneNumberOrEmail: this.phoneNumberOrEmail);
+  _OTPVerificationScreenState createState() => new _OTPVerificationScreenState(
+      screenId: screenId,
+      verificationId: verificationId,
+      phoneNumberOrEmail: this.phoneNumberOrEmail);
 }
 
 class _OTPVerificationScreenState extends BaseRouteState {
@@ -34,7 +39,9 @@ class _OTPVerificationScreenState extends BaseRouteState {
   String? status;
   int? screenId;
   late BusinessRule br;
-  _OTPVerificationScreenState({this.screenId, this.verificationId, this.phoneNumberOrEmail}) : super();
+  _OTPVerificationScreenState(
+      {this.screenId, this.verificationId, this.phoneNumberOrEmail})
+      : super();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +58,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
         body: screenId == 2
             ? SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),
+                  padding: const EdgeInsets.only(
+                      top: 0, bottom: 0, left: 10, right: 10),
                   child: Column(
                     children: [
                       Text(
@@ -67,8 +75,16 @@ class _OTPVerificationScreenState extends BaseRouteState {
                       ),
                       PinFieldAutoFill(
                         key: Key("1"),
-                        decoration:
-                            BoxLooseDecoration(textStyle: TextStyle(fontSize: 20, color: Colors.black), strokeColorBuilder: FixedColorBuilder(Colors.transparent), bgColorBuilder: FixedColorBuilder(Colors.grey[100]!), hintText: '••••••', hintTextStyle: TextStyle(fontSize: 70, color: Colors.black)),
+                        decoration: BoxLooseDecoration(
+                            textStyle:
+                                TextStyle(fontSize: 20, color: Colors.black),
+                            strokeColorBuilder:
+                                FixedColorBuilder(Colors.transparent),
+                            bgColorBuilder:
+                                FixedColorBuilder(Colors.grey[100]!),
+                            hintText: '••••••',
+                            hintTextStyle:
+                                TextStyle(fontSize: 70, color: Colors.black)),
                         currentCode: _cCode.text,
                         controller: _cCode,
                         codeLength: 6,
@@ -104,45 +120,78 @@ class _OTPVerificationScreenState extends BaseRouteState {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('By tapping verification code above, you agree ', style: Theme.of(context).primaryTextTheme.subtitle1),
+                                Text(
+                                    'By tapping verification code above, you agree ',
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .subtitle1),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('to the ', style: Theme.of(context).primaryTextTheme.subtitle1),
+                                    Text('to the ',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle1),
                                     InkWell(
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
-                                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                        overlayColor: MaterialStateProperty.all(
+                                            Colors.transparent),
                                         onTap: () {
                                           Navigator.of(context).push(
-                                            MaterialPageRoute(builder: (context) => TermsOfServices(a: widget.analytics, o: widget.observer)),
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TermsOfServices(
+                                                        a: widget.analytics,
+                                                        o: widget.observer)),
                                           );
                                         },
-                                        child: Text('Terms of Services,', style: Theme.of(context).primaryTextTheme.subtitle2)),
+                                        child: Text('Terms of Services,',
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .subtitle2)),
                                     InkWell(
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
-                                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                        overlayColor: MaterialStateProperty.all(
+                                            Colors.transparent),
                                         onTap: () {
                                           Navigator.of(context).push(
-                                            MaterialPageRoute(builder: (context) => PrivacyAndPolicy(a: widget.analytics, o: widget.observer)),
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PrivacyAndPolicy(
+                                                        a: widget.analytics,
+                                                        o: widget.observer)),
                                           );
                                         },
-                                        child: Text('  privacy policy', style: Theme.of(context).primaryTextTheme.subtitle2)),
-                                    Text(' and', style: Theme.of(context).primaryTextTheme.subtitle1),
+                                        child: Text('  privacy policy',
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .subtitle2)),
+                                    Text(' and',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle1),
                                   ],
                                 ),
                                 InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
-                                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                    overlayColor: MaterialStateProperty.all(
+                                        Colors.transparent),
                                     onTap: () {
                                       Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) => CookiesPolicy(a: widget.analytics, o: widget.observer)),
+                                        MaterialPageRoute(
+                                            builder: (context) => CookiesPolicy(
+                                                a: widget.analytics,
+                                                o: widget.observer)),
                                       );
                                     },
-                                    child: Text(' cookies policy.', style: Theme.of(context).primaryTextTheme.subtitle2))
+                                    child: Text(' cookies policy.',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle2))
                               ],
                             ),
                           ))
@@ -152,7 +201,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
               )
             : SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),
+                  padding: const EdgeInsets.only(
+                      top: 0, bottom: 0, left: 10, right: 10),
                   child: Column(
                     children: [
                       Text(
@@ -168,8 +218,16 @@ class _OTPVerificationScreenState extends BaseRouteState {
                       ),
                       PinFieldAutoFill(
                         key: Key("1"),
-                        decoration:
-                            BoxLooseDecoration(textStyle: TextStyle(fontSize: 20, color: Colors.black), strokeColorBuilder: FixedColorBuilder(Colors.transparent), bgColorBuilder: FixedColorBuilder(Colors.grey[100]!), hintText: '••••••', hintTextStyle: TextStyle(fontSize: 70, color: Colors.black)),
+                        decoration: BoxLooseDecoration(
+                            textStyle:
+                                TextStyle(fontSize: 20, color: Colors.black),
+                            strokeColorBuilder:
+                                FixedColorBuilder(Colors.transparent),
+                            bgColorBuilder:
+                                FixedColorBuilder(Colors.grey[100]!),
+                            hintText: '••••••',
+                            hintTextStyle:
+                                TextStyle(fontSize: 70, color: Colors.black)),
                         currentCode: _cCode.text,
                         controller: _cCode,
                         codeLength: 6,
@@ -194,7 +252,13 @@ class _OTPVerificationScreenState extends BaseRouteState {
                               onTap: () async {
                                 await _getOTP(phoneNumberOrEmail);
                               },
-                              child: Text(_seconds != 0 ? 'Resend code 0:$_seconds' : 'Resend OTP', style: Theme.of(context).primaryTextTheme.headline5))),
+                              child: Text(
+                                  _seconds != 0
+                                      ? 'Resend code 0:$_seconds'
+                                      : 'Resend OTP',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline5))),
                       Container(
                           height: 50,
                           width: double.infinity,
@@ -212,45 +276,78 @@ class _OTPVerificationScreenState extends BaseRouteState {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('By tapping verification code above, you agree ', style: Theme.of(context).primaryTextTheme.subtitle1),
+                                Text(
+                                    'By tapping verification code above, you agree ',
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .subtitle1),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('to the ', style: Theme.of(context).primaryTextTheme.subtitle1),
+                                    Text('to the ',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle1),
                                     InkWell(
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
-                                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                        overlayColor: MaterialStateProperty.all(
+                                            Colors.transparent),
                                         onTap: () {
                                           Navigator.of(context).push(
-                                            MaterialPageRoute(builder: (context) => TermsOfServices(a: widget.analytics, o: widget.observer)),
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TermsOfServices(
+                                                        a: widget.analytics,
+                                                        o: widget.observer)),
                                           );
                                         },
-                                        child: Text('Terms of Services,', style: Theme.of(context).primaryTextTheme.subtitle2)),
+                                        child: Text('Terms of Services,',
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .subtitle2)),
                                     InkWell(
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
-                                        overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                        overlayColor: MaterialStateProperty.all(
+                                            Colors.transparent),
                                         onTap: () {
                                           Navigator.of(context).push(
-                                            MaterialPageRoute(builder: (context) => PrivacyAndPolicy(a: widget.analytics, o: widget.observer)),
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PrivacyAndPolicy(
+                                                        a: widget.analytics,
+                                                        o: widget.observer)),
                                           );
                                         },
-                                        child: Text('  privacy policy', style: Theme.of(context).primaryTextTheme.subtitle2)),
-                                    Text(' and', style: Theme.of(context).primaryTextTheme.subtitle1),
+                                        child: Text('  privacy policy',
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .subtitle2)),
+                                    Text(' and',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle1),
                                   ],
                                 ),
                                 InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
-                                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                                    overlayColor: MaterialStateProperty.all(
+                                        Colors.transparent),
                                     onTap: () {
                                       Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) => CookiesPolicy(a: widget.analytics, o: widget.observer)),
+                                        MaterialPageRoute(
+                                            builder: (context) => CookiesPolicy(
+                                                a: widget.analytics,
+                                                o: widget.observer)),
                                       );
                                     },
-                                    child: Text(' cookies policy.', style: Theme.of(context).primaryTextTheme.subtitle2))
+                                    child: Text(' cookies policy.',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle2))
                               ],
                             ),
                           ))
@@ -271,7 +368,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
   @override
   void initState() {
     super.initState();
-    OTPInteractor().getAppSignature()
+    OTPInteractor()
+        .getAppSignature()
         //ignore: avoid_print
         .then((value) => print('signature - $value'));
     _cCode = OTPTextEditController(
@@ -315,14 +413,16 @@ class _OTPVerificationScreenState extends BaseRouteState {
 
       setState(() {});
     } catch (e) {
-      print("Exception - otpVerificationScreen.dart - startTimer():" + e.toString());
+      print("Exception - otpVerificationScreen.dart - startTimer():" +
+          e.toString());
     }
   }
 
   Future _checkOTP(String otp) async {
     try {
       FirebaseAuth auth = FirebaseAuth.instance;
-      var _credential = PhoneAuthProvider.credential(verificationId: verificationId!, smsCode: otp.trim());
+      var _credential = PhoneAuthProvider.credential(
+          verificationId: verificationId!, smsCode: otp.trim());
       showOnlyLoaderDialog();
       await auth.signInWithCredential(_credential).then((result) {
         status = 'success';
@@ -338,7 +438,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
         hideLoader();
       });
     } catch (e) {
-      print("Exception - otpVerificationScreen.dart - _checkOTP():" + e.toString());
+      print("Exception - otpVerificationScreen.dart - _checkOTP():" +
+          e.toString());
     }
   }
 
@@ -347,10 +448,12 @@ class _OTPVerificationScreenState extends BaseRouteState {
       if (_cCode.text.length == 6) {
         await _checkOTP(_cCode.text);
       } else {
-        showSnackBar(key: _scaffoldKey, snackBarMessage: 'Please enter 6 digit otp');
+        showSnackBar(
+            key: _scaffoldKey, snackBarMessage: 'Please enter 6 digit otp');
       }
     } catch (e) {
-      print("Exception - otpVerificationScreen.dart - _checkSecurityPin() : " + e.toString());
+      print("Exception - otpVerificationScreen.dart - _checkSecurityPin() : " +
+          e.toString());
     }
   }
 
@@ -375,7 +478,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
         },
       );
     } catch (e) {
-      print("Exception - otpVerificationScreen.dart - _getOTP():" + e.toString());
+      print(
+          "Exception - otpVerificationScreen.dart - _getOTP():" + e.toString());
       return null;
     }
   }
@@ -392,7 +496,9 @@ class _OTPVerificationScreenState extends BaseRouteState {
     try {
       if (_cCode.text.length == 6) {
         showOnlyLoaderDialog();
-        await apiHelper!.verifyOtpForgotPassword(phoneNumberOrEmail, _cCode.text).then((result) {
+        await apiHelper!
+            .verifyOtpForgotPassword(phoneNumberOrEmail, _cCode.text)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               hideLoader();
@@ -406,16 +512,20 @@ class _OTPVerificationScreenState extends BaseRouteState {
               );
             } else {
               hideLoader();
-              showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+              showSnackBar(
+                  key: _scaffoldKey, snackBarMessage: '${result.message}');
               setState(() {});
             }
           }
         });
       } else {
-        showSnackBar(key: _scaffoldKey, snackBarMessage: 'Please enter 6 digit OTP');
+        showSnackBar(
+            key: _scaffoldKey, snackBarMessage: 'Please enter 6 digit OTP');
       }
     } catch (e) {
-      print("Exception - otpVerificationScreen.dart - _verifyForgotPasswordOtp():" + e.toString());
+      print(
+          "Exception - otpVerificationScreen.dart - _verifyForgotPasswordOtp():" +
+              e.toString());
     }
   }
 
@@ -425,11 +535,15 @@ class _OTPVerificationScreenState extends BaseRouteState {
       if (isConnected) {
         if (screenId == 1) {
           showOnlyLoaderDialog();
-          await apiHelper!.verifyOtpAfterLogin(phoneNumberOrEmail, _status, global.appDeviceId).then((result) async {
+          await apiHelper!
+              .verifyOtpAfterLogin(
+                  phoneNumberOrEmail, _status, global.appDeviceId)
+              .then((result) async {
             if (result != null) {
               if (result.status == "1") {
                 global.user = result.recordList;
-                global.sp.setString('currentUser', json.encode(global.user!.toJson()));
+                global.sp.setString(
+                    'currentUser', json.encode(global.user!.toJson()));
 
                 await getCurrentPosition().then((_) async {
                   if (global.lat != null && global.lng != null) {
@@ -443,12 +557,16 @@ class _OTPVerificationScreenState extends BaseRouteState {
                     );
                   } else {
                     hideLoader();
-                    showSnackBar(key: _scaffoldKey, snackBarMessage: 'Please enable location permission to use this App');
+                    showSnackBar(
+                        key: _scaffoldKey,
+                        snackBarMessage:
+                            'Please enable location permission to use this App');
                   }
                 });
               } else {
                 hideLoader();
-                showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+                showSnackBar(
+                    key: _scaffoldKey, snackBarMessage: '${result.message}');
               }
             } else {
               hideLoader();
@@ -456,26 +574,36 @@ class _OTPVerificationScreenState extends BaseRouteState {
           }).catchError((e) {});
         } else {
           showOnlyLoaderDialog();
-          await apiHelper!.verifyOtpAfterRegistration(phoneNumberOrEmail, _status, null, global.appDeviceId).then((result) async {
+          await apiHelper!
+              .verifyOtpAfterRegistration(
+                  phoneNumberOrEmail, _status, null, global.appDeviceId)
+              .then((result) async {
             if (result != null) {
               if (result.status == "1") {
                 global.user = result.recordList;
-                global.sp.setString('currentUser', json.encode(global.user!.toJson()));
+                global.sp.setString(
+                    'currentUser', json.encode(global.user!.toJson()));
 
                 await getCurrentPosition().then((_) async {
                   if (global.lat != null && global.lng != null) {
                     hideLoader();
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ExploreScreen(a: widget.analytics, o: widget.observer)),
+                      MaterialPageRoute(
+                          builder: (context) => ExploreScreen(
+                              a: widget.analytics, o: widget.observer)),
                     );
                   } else {
                     hideLoader();
-                    showSnackBar(key: _scaffoldKey, snackBarMessage: 'Please enable location permission to use this App');
+                    showSnackBar(
+                        key: _scaffoldKey,
+                        snackBarMessage:
+                            'Please enable location permission to use this App');
                   }
                 });
               } else {
                 hideLoader();
-                showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+                showSnackBar(
+                    key: _scaffoldKey, snackBarMessage: '${result.message}');
               }
             } else {
               hideLoader();
@@ -486,7 +614,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - otpVerificationScreen.dart - _verifyOtp():" + e.toString());
+      print("Exception - otpVerificationScreen.dart - _verifyOtp():" +
+          e.toString());
     }
   }
 }

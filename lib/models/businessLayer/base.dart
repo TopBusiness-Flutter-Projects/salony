@@ -22,7 +22,8 @@ class Base extends StatefulWidget {
   BaseState createState() => BaseState();
 }
 
-class BaseState extends State<Base> with TickerProviderStateMixin, WidgetsBindingObserver {
+class BaseState extends State<Base>
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   bool bannerAdLoaded = false;
   late Position _currentPosition;
 
@@ -105,7 +106,8 @@ class BaseState extends State<Base> with TickerProviderStateMixin, WidgetsBindin
 
   getAddressFromLatLng() async {
     try {
-      List<Placemark> placemarks = await placemarkFromCoordinates(_currentPosition.latitude, _currentPosition.longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
 
       Placemark place = placemarks[0];
 
@@ -119,14 +121,15 @@ class BaseState extends State<Base> with TickerProviderStateMixin, WidgetsBindin
 
   getCurrentLocation() async {
     try {
-      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
 
       global.lat = position.latitude.toString();
       global.lng = position.longitude.toString();
       _currentPosition = position;
       await getAddressFromLatLng();
       setState(() {});
-    } catch(e) {
+    } catch (e) {
       print("Exception -  base.dart - getCurrentLocation():" + e.toString());
     }
   }
@@ -135,10 +138,12 @@ class BaseState extends State<Base> with TickerProviderStateMixin, WidgetsBindin
     try {
       if (Platform.isIOS) {
         LocationPermission s = await Geolocator.checkPermission();
-        if (s == LocationPermission.denied || s == LocationPermission.deniedForever) {
+        if (s == LocationPermission.denied ||
+            s == LocationPermission.deniedForever) {
           s = await Geolocator.requestPermission();
         }
-        if (s != LocationPermission.denied || s != LocationPermission.deniedForever) {
+        if (s != LocationPermission.denied ||
+            s != LocationPermission.deniedForever) {
           await getCurrentLocation();
         }
       } else {
@@ -216,7 +221,8 @@ class BaseState extends State<Base> with TickerProviderStateMixin, WidgetsBindin
         backgroundColor: Colors.grey,
       ));
     } catch (e) {
-      print("Exception -  base.dart - showNetworkErrorSnackBar():" + e.toString());
+      print("Exception -  base.dart - showNetworkErrorSnackBar():" +
+          e.toString());
     }
   }
 

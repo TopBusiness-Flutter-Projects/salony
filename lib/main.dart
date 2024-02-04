@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:app/Theme/nativeTheme.dart';
+import 'package:app/firebase_options.dart';
 import 'package:app/l10n/l10n.dart';
 import 'package:app/provider/local_provider.dart';
 import 'package:app/screens/splashScreen.dart';
@@ -43,8 +44,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = new MyHttpOverrides();
+
   try {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+        // options: DefaultFirebaseOptions.currentPlatform,
+        );
   } catch (e) {
     print("Can't initialize Firebase: $e");
   } finally {
