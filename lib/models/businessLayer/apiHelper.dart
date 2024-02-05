@@ -113,7 +113,7 @@ class APIHelper {
         headers: await global.getApiHeaders(true),
         body: json.encode({"user_id": user_id, "product_id": product_id}),
       );
-
+      print({"user_id": user_id, "product_id": product_id});
       dynamic recordList;
       if (response.statusCode == 200 &&
           json.decode(response.body)["status"] == "1") {
@@ -595,8 +595,13 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}show_fav"),
         headers: await global.getApiHeaders(true),
-        body: json.encode({"user_id": user_id, "lang": global.languageCode}),
+        body: json.encode({
+          "user_id": user_id,
+          // "lang": global.languageCode,
+        }),
       );
+      print(
+          "${global.baseUrl}show_fav : $user_id :: ${global.languageCode} :: ${response.body.toString()}");
 
       dynamic recordList;
       if (response.statusCode == 200 &&
@@ -987,8 +992,8 @@ class APIHelper {
         Uri.parse("${global.baseUrl}services?page=${pageNumber.toString()}"),
         headers: await global.getApiHeaders(false),
         body: json.encode({
-          "lat": lat,
-          "lng": lng,
+          // "lat": lat,
+          // "lng": lng,
           "searchstring": searchstring,
           // "lang": global.languageCode
         }),

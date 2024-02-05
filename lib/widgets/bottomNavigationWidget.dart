@@ -11,10 +11,12 @@ import 'package:flutter/services.dart';
 class BottomNavigationWidget extends BaseRoute {
   final int? screenId;
 
-  BottomNavigationWidget({a, o, this.screenId}) : super(a: a, o: o, r: 'BottomNavigationWidget');
+  BottomNavigationWidget({a, o, this.screenId})
+      : super(a: a, o: o, r: 'BottomNavigationWidget');
 
   @override
-  _BottomNavigationWidgetState createState() => new _BottomNavigationWidgetState(screenId: screenId);
+  _BottomNavigationWidgetState createState() =>
+      new _BottomNavigationWidgetState(screenId: screenId);
 }
 
 class _BottomNavigationWidgetState extends BaseRouteState {
@@ -50,7 +52,8 @@ class _BottomNavigationWidgetState extends BaseRouteState {
             notchMargin: 2,
             shape: CircularNotchedRectangle(),
             child: ClipRRect(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15), topRight: Radius.circular(15)),
               child: SizedBox(
                 height: 60,
                 child: BottomNavigationBar(
@@ -69,41 +72,51 @@ class _BottomNavigationWidgetState extends BaseRouteState {
                       icon: Icon(Icons.home_outlined),
                       tooltip: 'Home',
                     ),
-                    BottomNavigationBarItem(
-                        label: '',
-                        tooltip: 'Location',
-                        icon: Padding(
-                          padding: global.isRTL ? EdgeInsets.only(left: 15) : EdgeInsets.only(right: 15),
-                          child: Icon(Icons.location_on_outlined),
-                        )),
+                    // BottomNavigationBarItem(
+                    //     label: '',
+                    //     tooltip: 'Location',
+                    //     icon: Padding(
+                    //       padding: global.isRTL
+                    //           ? EdgeInsets.only(left: 15)
+                    //           : EdgeInsets.only(right: 15),
+                    //       child: Icon(Icons.location_on_outlined),
+                    //     )),
                     BottomNavigationBarItem(
                         label: '',
                         tooltip: 'Favorite',
                         icon: Padding(
-                          padding: global.isRTL ? EdgeInsets.only(right: 15) : EdgeInsets.only(left: 15),
+                          padding: global.isRTL
+                              ? EdgeInsets.only(right: 15)
+                              : EdgeInsets.only(left: 15),
                           child: Icon(Icons.favorite_outline_outlined),
                         )),
-                    BottomNavigationBarItem(label: '', icon: Icon(Icons.person_outline), tooltip: 'Profile')
+                    BottomNavigationBarItem(
+                        label: '',
+                        icon: Icon(Icons.person_outline),
+                        tooltip: 'Profile')
                   ],
                 ),
               ),
             )),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: CircleAvatar(
-          radius: 23,
-          backgroundColor: Colors.white,
-          child: FloatingActionButton(
-            elevation: 0,
-            mini: true,
-            backgroundColor: Color(0xFFFA692C),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => BarberShopListScreen(a: widget.analytics, o: widget.observer)),
-              );
-            },
-            child: Icon(Icons.calendar_today_rounded),
-          ),
-        ),
+
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton: CircleAvatar(
+        //   radius: 23,
+        //   backgroundColor: Colors.white,
+        //   child: FloatingActionButton(
+        //     elevation: 0,
+        //     mini: true,
+        //     backgroundColor: Color(0xFFFA692C),
+        //     onPressed: () {
+        //       Navigator.of(context).push(
+        //         MaterialPageRoute(
+        //             builder: (context) => BarberShopListScreen(
+        //                 a: widget.analytics, o: widget.observer)),
+        //       );
+        //     },
+        //     child: Icon(Icons.calendar_today_rounded),
+        //   ),
+        // ),
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.dark,
           child: screens().elementAt(_currentIndex!),
@@ -114,11 +127,11 @@ class _BottomNavigationWidgetState extends BaseRouteState {
 
   List<Widget> screens() => [
         HomeScreen(a: widget.analytics, o: widget.observer),
-        LocationScreen(
-          a: widget.analytics,
-          o: widget.observer,
-          screenId: locationIndex,
-        ),
+        // LocationScreen(
+        //   a: widget.analytics,
+        //   o: widget.observer,
+        //   screenId: locationIndex,
+        // ),
         FavouritesScreen(a: widget.analytics, o: widget.observer),
         ProfileScreen(a: widget.analytics, o: widget.observer)
       ];

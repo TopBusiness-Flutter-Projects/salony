@@ -50,6 +50,7 @@ Future<Map<String, String>> getApiHeaders(bool authorizationRequired) async {
       CurrentUser currentUser =
           CurrentUser.fromJson(json.decode(sp.getString("currentUser")!));
       apiHeader.addAll({"Authorization": "Bearer" + currentUser.token!});
+      print('token ${currentUser.token}');
     }
   }
   apiHeader.addAll({"Content-Type": "application/json"});
