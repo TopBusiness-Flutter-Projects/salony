@@ -544,7 +544,10 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}couponlist"),
         headers: await global.getApiHeaders(true),
-        body: json.encode({"cart_id": cart_id, "lang": global.languageCode}),
+        body: json.encode({
+          "cart_id": cart_id,
+          // "lang": global.languageCode,
+        }),
       );
 
       dynamic recordList;

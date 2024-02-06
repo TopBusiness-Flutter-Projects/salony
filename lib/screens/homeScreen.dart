@@ -33,11 +33,11 @@ class _HomeScreenState extends BaseRouteState {
   List<Product>? _productList = [];
   CarouselController? _carouselController;
   int _currentIndex = 0;
-  bool _isBannerDataLoaded = false;
-  bool _isServicesDataLoaded = false;
+  bool _isBannerDataLoaded = true;
+  bool _isServicesDataLoaded = true;
   bool _isBarberShopDataLoaded = false;
   bool _isBarbersDataLoaded = false;
-  bool _isProductsLoaded = false;
+  bool _isProductsLoaded = true;
 
   _HomeScreenState() : super();
 

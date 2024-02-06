@@ -1,4 +1,4 @@
-package com.gofresha.app;
+package com.topbusiness.salony;
 
 import io.flutter.embedding.android.FlutterActivity;
 

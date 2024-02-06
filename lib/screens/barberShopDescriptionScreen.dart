@@ -399,38 +399,36 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                   bottomNavigationBar: _isDataLoaded &&
                           (_currentIndex == 0 || _currentIndex == 1) &&
                           _barberShopDesc!.services.length > 0
-                      ? SafeArea(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {
-                                    global.user?.id == null
-                                        ? Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SignInScreen(
-                                                      a: widget.analytics,
-                                                      o: widget.observer,
-                                                    )),
-                                          )
-                                        : Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BookAppointmentScreen(
-                                                      vendorId,
-                                                      a: widget.analytics,
-                                                      o: widget.observer,
-                                                    )),
-                                          );
-                                  },
-                                  child: Text(_currentIndex == 0
-                                      ? AppLocalizations.of(context)!
-                                          .lbl_book_appointment
-                                      : AppLocalizations.of(context)!
-                                          .lbl_book_now)),
-                            ],
-                          ),
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  global.user?.id == null
+                                      ? Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SignInScreen(
+                                                    a: widget.analytics,
+                                                    o: widget.observer,
+                                                  )),
+                                        )
+                                      : Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookAppointmentScreen(
+                                                    vendorId,
+                                                    a: widget.analytics,
+                                                    o: widget.observer,
+                                                  )),
+                                        );
+                                },
+                                child: Text(_currentIndex == 0
+                                    ? AppLocalizations.of(context)!
+                                        .lbl_book_appointment
+                                    : AppLocalizations.of(context)!
+                                        .lbl_book_now)),
+                          ],
                         )
                       : null))
           : Scaffold(

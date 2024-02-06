@@ -916,6 +916,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
 
   _getCouponsList(String? cartId) async {
     try {
+      print(".........$cartId");
+
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
         await apiHelper!.getCouponsList(cartId).then((result) {

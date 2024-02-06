@@ -84,7 +84,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                   ? EdgeInsets.only(
                                                       right: 8, top: 20)
                                                   : EdgeInsets.only(
-                                                      left: 8, top: 20),
+                                                      right: 8, top: 20),
                                               child: GestureDetector(
                                                 onTap: () {
                                                   Navigator.of(context).pop();
@@ -112,12 +112,13 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                           ],
                                         ),
                                         ListTile(
-                                          title: Text(
-                                            '$serviceName',
-                                            style: Theme.of(context)
-                                                .primaryTextTheme
-                                                .displayLarge,
-                                          ),
+                                          title: Text('$serviceName',
+                                              style: TextStyle(
+                                                fontFamily: 'cairo',
+                                                fontSize: 18,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                              )),
                                         )
                                       ],
                                     )
@@ -281,10 +282,17 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                       left: 6),
                                                               child: Text(
                                                                 '${_barberShopList![index].vendor_name}',
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .primaryTextTheme
-                                                                    .titleSmall,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'cairo',
+                                                                  fontSize: 18,
+                                                                  // color: Colors
+                                                                  //     .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
                                                               ),
                                                             ),
                                                             Row(
@@ -292,11 +300,16 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                   MainAxisSize
                                                                       .min,
                                                               children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .location_on_outlined,
-                                                                  size: 20,
-                                                                ),
+                                                                _barberShopList?[index]
+                                                                            .vendor_loc ==
+                                                                        null
+                                                                    ? Container()
+                                                                    : Icon(
+                                                                        Icons
+                                                                            .location_on_outlined,
+                                                                        size:
+                                                                            20,
+                                                                      ),
                                                                 Container(
                                                                   width: MediaQuery.of(
                                                                               context)
@@ -304,7 +317,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                           .width -
                                                                       150,
                                                                   child: Text(
-                                                                    '${_barberShopList![index].vendor_loc}',
+                                                                    '${_barberShopList?[index].vendor_loc ?? ''} ',
                                                                     style: Theme.of(
                                                                             context)
                                                                         .primaryTextTheme
@@ -341,26 +354,24 @@ class _ServiceDetailScreenState extends BaseRouteState {
           ),
           bottomNavigationBar: _barberShopList!.length > 0 &&
                   selectedVendorId != null
-              ? SafeArea(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 5, bottom: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => BookAppointmentScreen(
-                                        selectedVendorId,
-                                        a: widget.analytics,
-                                        o: widget.observer)),
-                              );
-                            },
-                            child: Text(
-                                AppLocalizations.of(context)!.lbl_book_now)),
-                      ],
-                    ),
+              ? Padding(
+                  padding: EdgeInsets.only(top: 5, bottom: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => BookAppointmentScreen(
+                                      selectedVendorId,
+                                      a: widget.analytics,
+                                      o: widget.observer)),
+                            );
+                          },
+                          child:
+                              Text(AppLocalizations.of(context)!.lbl_book_now)),
+                    ],
                   ),
                 )
               : null),
@@ -423,48 +434,52 @@ class _ServiceDetailScreenState extends BaseRouteState {
               height: 140,
               child: Card(margin: EdgeInsets.only(top: 5, bottom: 15)),
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 80,
-                            height: 80,
-                            child: Card(
-                                margin: EdgeInsets.only(top: 5, bottom: 5)),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width - 220,
-                                height: 40,
-                                child: Card(
-                                    margin: EdgeInsets.only(
-                                        top: 5, bottom: 5, left: 5)),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width - 120,
-                                height: 40,
-                                child: Card(
-                                    margin: EdgeInsets.only(
-                                        top: 5, bottom: 5, left: 5)),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 25,
-                      )
-                    ],
-                  );
-                }),
+            Flexible(
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 80,
+                              height: 80,
+                              child: Card(
+                                  margin: EdgeInsets.only(top: 5, bottom: 5)),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width - 220,
+                                  height: 40,
+                                  child: Card(
+                                      margin: EdgeInsets.only(
+                                          top: 5, bottom: 5, left: 5)),
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width - 120,
+                                  height: 40,
+                                  child: Card(
+                                      margin: EdgeInsets.only(
+                                          top: 5, bottom: 5, left: 5)),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 25,
+                        )
+                      ],
+                    );
+                  }),
+            ),
           ],
         ),
       ),

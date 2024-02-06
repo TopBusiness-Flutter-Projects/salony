@@ -62,9 +62,10 @@ class _BottomNavigationWidgetState extends BaseRouteState {
                   unselectedFontSize: 0,
                   selectedFontSize: 0,
                   onTap: (index) {
-                    _currentIndex = index;
-                    locationIndex = 0;
-                    setState(() {});
+                    setState(() {
+                      _currentIndex = index;
+                      locationIndex = 0;
+                    });
                   },
                   items: [
                     BottomNavigationBarItem(

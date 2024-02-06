@@ -70,6 +70,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '559354982479',
     projectId: 'salonyuser',
     storageBucket: 'salonyuser.appspot.com',
-    iosBundleId: 'com.gofresha.app',
+    iosBundleId: 'com.topbusiness.salony',
   );
 }

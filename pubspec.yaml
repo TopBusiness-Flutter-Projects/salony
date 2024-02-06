@@ -89,9 +89,9 @@ dev_dependencies:
 
 flutter_icons:
   android: "ic_launcher"
-  ios: false
+  ios: true
   remove_alpha_ios: true
-  image_path: "assets/logo.png"
+  image_path: "assets/logo33.png"
 #  image_path: "assets/roundicon.png"
 # The following section is specific to Flutter.
 flutter:
