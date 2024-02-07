@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
+import 'package:app/models/businessLayer/shared_prefrence.dart';
 import 'package:app/models/favoriteModel.dart';
 import 'package:app/screens/cartScreen.dart';
 import 'package:app/screens/productDetailScreen.dart';
@@ -14,6 +15,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
+Favorites? favoritesList;
+
 class FavouritesScreen extends BaseRoute {
   FavouritesScreen({a, o}) : super(a: a, o: o, r: 'FavouritesScreen');
   @override
@@ -22,7 +25,6 @@ class FavouritesScreen extends BaseRoute {
 
 class _FavouritesScreenState extends BaseRouteState {
   GlobalKey<ScaffoldState>? _scaffoldKey;
-  Favorites? _favoritesList;
   bool _isDataLoaded = false;
 
   _FavouritesScreenState() : super();
@@ -36,41 +38,39 @@ class _FavouritesScreenState extends BaseRouteState {
       child: sc(Scaffold(
           appBar: AppBar(
             title: Text(
-              AppLocalizations.of(context)!.lbl_favourites,
-              style: Theme.of(context).appBarTheme.titleTextStyle,
+              'المفضلة', // AppLocalizations.of(context)!.lbl_favourites,
+              style: TextStyle(
+                fontFamily: 'cairo',
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+              ),
             ),
             automaticallyImplyLeading: false,
             actions: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => SearchScreen(
-                                0,
-                                a: widget.analytics,
-                                o: widget.observer,
-                              )),
-                    );
-                  },
-                  icon: Icon(Icons.search)),
+              // IconButton(
+              //     onPressed: () {
+              //       Navigator.of(context).push(
+              //         MaterialPageRoute(
+              //             builder: (context) => SearchScreen(
+              //                   0,
+              //                   a: widget.analytics,
+              //                   o: widget.observer,
+              //                 )),
+              //       );
+              //     },
+              //     icon: Icon(Icons.search)),
               _isDataLoaded
                   ? Container(
                       margin: EdgeInsets.only(top: 3),
-                      padding: global.isRTL
-                          ? EdgeInsets.only(
-                              left: 20,
-                            )
-                          : EdgeInsets.only(
-                              right: 20,
-                            ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                       child: badges.Badge(
                         badgeStyle: badges.BadgeStyle(
-                          padding: EdgeInsets.all(5),
-                          badgeColor: Theme.of(context).primaryColor,
-                        ),
+                            padding: EdgeInsets.all(5),
+                            badgeColor: Theme.of(context).primaryColor),
                         showBadge: true,
                         badgeContent: Text(
-                          '${global.user!.cart_count}',
+                          '${myCartCount <= 0 ? 0 : myCartCount}', // '${global.user!.cart_count}',
                           style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                         child: GestureDetector(
@@ -95,7 +95,7 @@ class _FavouritesScreenState extends BaseRouteState {
           ),
           resizeToAvoidBottomInset: true,
           body: _isDataLoaded
-              ? _favoritesList != null && _favoritesList!.fav_items.length > 0
+              ? favoritesList != null && favoritesList!.fav_items.length > 0
                   ? _productListWidget()
                   : Center(
                       child: Text(
@@ -164,7 +164,9 @@ class _FavouritesScreenState extends BaseRouteState {
           if (result != null) {
             if (result.status == "1" && global.user?.cart_count != null) {
               _isDeletedSuccessfully = true;
-              global.user!.cart_count = global.user!.cart_count! - 1;
+              global.user!.cart_count = global.user!.cart_count! > 0
+                  ? global.user!.cart_count! - 1
+                  : 0;
               setState(() {});
             } else {}
           }
@@ -187,10 +189,10 @@ class _FavouritesScreenState extends BaseRouteState {
         await apiHelper!.getFavoriteList(global.user!.id).then((result) {
           if (result != null) {
             if (result.status == "1") {
-              _favoritesList = result.recordList;
+              favoritesList = result.recordList;
               _isDataLoaded = true;
             } else if (result.status == "0") {
-              _favoritesList = null;
+              favoritesList = null;
               _isDataLoaded = true;
             }
             setState(() {});
@@ -211,7 +213,7 @@ class _FavouritesScreenState extends BaseRouteState {
 
   List<Widget> _productList() {
     List<Widget> productList = [];
-    for (int index = 0; index < _favoritesList!.fav_items.length; index++) {
+    for (int index = 0; index < favoritesList!.fav_items.length; index++) {
       productList.add(InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
@@ -220,12 +222,12 @@ class _FavouritesScreenState extends BaseRouteState {
           Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => ProductDetailScreen(
-                      _favoritesList!.fav_items[index].id,
+                      favoritesList!.fav_items[index].id,
                       a: widget.analytics,
                       o: widget.observer,
                       isShowGoCartBtn:
-                          _favoritesList!.fav_items[index].cart_qty != null &&
-                                  _favoritesList!.fav_items[index].cart_qty! > 0
+                          favoritesList!.fav_items[index].cart_qty != null &&
+                                  favoritesList!.fav_items[index].cart_qty! > 0
                               ? true
                               : false,
                     )),
@@ -236,55 +238,58 @@ class _FavouritesScreenState extends BaseRouteState {
           width: (MediaQuery.of(context).size.width / 2) - 17,
           child: Card(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              _favoritesList!.fav_items[index].product_image != null
-                  ? CachedNetworkImage(
-                      imageUrl: global.baseUrlForImage +
-                          _favoritesList!.fav_items[index].product_image!,
-                      imageBuilder: (context, imageProvider) => Container(
+              Flexible(
+                child: favoritesList!.fav_items[index].product_image != null
+                    ? CachedNetworkImage(
+                        imageUrl: global.baseUrlForImage +
+                            favoritesList!.fav_items[index].product_image!,
+                        imageBuilder: (context, imageProvider) => Container(
+                          height:
+                              (((MediaQuery.of(context).size.width / 2) - 15) *
+                                      1.4) *
+                                  0.55,
+                          margin: EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover, image: imageProvider)),
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                              onPressed: () async {
+                                await (_removeFromFavorites(
+                                        favoritesList!.fav_items[index].id)
+                                    .then((_isFav) {
+                                  _getFavoriteList();
+                                  print(
+                                      "_isFav 4 $_isFav s: ${favoritesList!.fav_items.length}  : index : $index");
+                                  if (_isFav ?? true) {
+                                    favoritesList!.fav_items.removeAt(index);
+                                    print(
+                                        "_isFav 4 : ${favoritesList!.fav_items.length}  : index : $index");
+                                  }
+                                  setState(() {});
+                                }));
+                              },
+                              icon: Icon(Icons.favorite,
+                                  color: Color(0xFFF36D86))),
+                        ),
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
+                    : Container(
                         height:
                             (((MediaQuery.of(context).size.width / 2) - 15) *
                                     1.4) *
-                                0.55,
+                                0.72,
                         margin: EdgeInsets.only(bottom: 5),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                fit: BoxFit.cover, image: imageProvider)),
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                            onPressed: () async {
-                              await (_removeFromFavorites(
-                                      _favoritesList!.fav_items[index].id)
-                                  .then((_isFav) {
-                                _getFavoriteList();
-                                print(
-                                    "_isFav 4 $_isFav s: ${_favoritesList!.fav_items.length}  : index : $index");
-                                if (_isFav ?? true) {
-                                  _favoritesList!.fav_items.removeAt(index);
-                                  print(
-                                      "_isFav 4 : ${_favoritesList!.fav_items.length}  : index : $index");
-                                }
-                                setState(() {});
-                              }));
-                            },
-                            icon:
-                                Icon(Icons.favorite, color: Color(0xFFFA692C))),
-                      ),
-                      placeholder: (context, url) =>
-                          Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    )
-                  : Container(
-                      height: (((MediaQuery.of(context).size.width / 2) - 15) *
-                              1.4) *
-                          0.72,
-                      margin: EdgeInsets.only(bottom: 5),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        AppLocalizations.of(context)!.lbl_no_image,
-                        style: Theme.of(context).primaryTextTheme.titleMedium,
-                      )),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text(
+                          AppLocalizations.of(context)!.lbl_no_image,
+                          style: Theme.of(context).primaryTextTheme.titleMedium,
+                        )),
+              ),
               SizedBox(
                 height: 20,
                 child: Padding(
@@ -292,35 +297,40 @@ class _FavouritesScreenState extends BaseRouteState {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 100,
-                        child: Text(
-                          '${_favoritesList!.fav_items[index].product_name}',
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).primaryTextTheme.headline3,
+                      Flexible(
+                        child: Container(
+                          width: 100,
+                          child: Text(
+                            '${favoritesList!.fav_items[index].product_name}',
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                Theme.of(context).primaryTextTheme.displaySmall,
+                          ),
                         ),
                       ),
                       Text(
-                          '${global.currency.currency_sign}${_favoritesList!.fav_items[index].price}',
-                          style: Theme.of(context).primaryTextTheme.subtitle1)
+                          '${global.currency.currency_sign}${favoritesList!.fav_items[index].price}',
+                          style: Theme.of(context).primaryTextTheme.titleMedium)
                     ],
                   ),
                 ),
               ),
-              _favoritesList!.fav_items[index].cart_qty == null ||
-                      (_favoritesList!.fav_items[index].cart_qty != null &&
-                          _favoritesList!.fav_items[index].cart_qty == 0)
+              favoritesList!.fav_items[index].cart_qty == null ||
+                      (favoritesList!.fav_items[index].cart_qty != null &&
+                          favoritesList!.fav_items[index].cart_qty == 0)
                   ? GestureDetector(
                       onTap: () async {
                         showOnlyLoaderDialog();
-
                         int _qty = 1;
                         bool isSuccess = await _addToCart(
-                            _qty, _favoritesList!.fav_items[index].id);
+                            _qty, favoritesList!.fav_items[index].id);
                         if (isSuccess && global.user?.cart_count != null) {
-                          _favoritesList!.fav_items[index].cart_qty = 1;
+                          favoritesList!.fav_items[index].cart_qty = 1;
                           global.user!.cart_count =
                               global.user!.cart_count! + 1;
+                          await setCartCount(count: 1);
+                          await getCartCount();
+                          myCartCount++;
                         }
                         hideLoader();
                         setState(() {});
@@ -339,10 +349,13 @@ class _FavouritesScreenState extends BaseRouteState {
                                   .backgroundColor,
                               size: 16,
                             ),
-                            Text(AppLocalizations.of(context)!.lbl_add_to_cart,
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .subtitle1)
+                            Flexible(
+                              child: Text(
+                                  AppLocalizations.of(context)!.lbl_add_to_cart,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .titleMedium),
+                            )
                           ],
                         ),
                       ),
@@ -351,46 +364,57 @@ class _FavouritesScreenState extends BaseRouteState {
                       padding: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                              height: 20,
-                              width: 20,
+                              height: 25,
+                              width: 25,
                               child: TextButton(
                                 onPressed: () async {
                                   showOnlyLoaderDialog();
-                                  if (_favoritesList!
+                                  if (favoritesList!
                                           .fav_items[index].cart_qty ==
                                       1) {
                                     bool isSuccess = await _delFromCart(
-                                        _favoritesList!.fav_items[index].id);
+                                        favoritesList!.fav_items[index].id);
                                     if (isSuccess) {
-                                      _favoritesList!
-                                          .fav_items[index].cart_qty = 0;
+                                      favoritesList!.fav_items[index].cart_qty =
+                                          0;
                                     }
-                                    _favoritesList!.fav_items[index].cart_qty =
+                                    favoritesList!.fav_items[index].cart_qty =
                                         0;
+
+                                    await setCartCount(
+                                        count: favoritesList!
+                                                .fav_items[index].cart_qty! -
+                                            1);
+                                    await getCartCount();
+                                    myCartCount =
+                                        myCartCount <= 0 ? 0 : myCartCount - 1;
                                   } else {
-                                    int _qty = _favoritesList!
+                                    int _qty = favoritesList!
                                             .fav_items[index].cart_qty! -
                                         1;
 
                                     bool isSuccess = await _addToCart(_qty,
-                                        _favoritesList!.fav_items[index].id);
+                                        favoritesList!.fav_items[index].id);
                                     if (isSuccess &&
-                                        _favoritesList
+                                        favoritesList
                                                 ?.fav_items[index].cart_qty !=
                                             null) {
-                                      _favoritesList!.fav_items[index]
-                                          .cart_qty = _favoritesList!
-                                              .fav_items[index].cart_qty! -
-                                          1;
+                                      favoritesList!.fav_items[index].cart_qty =
+                                          favoritesList!
+                                                  .fav_items[index].cart_qty! -
+                                              1;
                                     }
                                   }
+
                                   hideLoader();
                                   setState(() {});
                                 },
                                 child:
-                                    _favoritesList!.fav_items[index].cart_qty ==
+                                    favoritesList!.fav_items[index].cart_qty ==
                                             1
                                         ? Icon(
                                             Icons.delete,
@@ -405,50 +429,53 @@ class _FavouritesScreenState extends BaseRouteState {
                             width: 5,
                           ),
                           Container(
-                            height: 20,
-                            width: 20,
+                            height: 25,
+                            width: 25,
+                            margin: EdgeInsets.all(2),
+                            alignment: Alignment.center,
                             decoration: BoxDecoration(
+                              // color: Colors.red,
                               border: Border.all(
                                   width: 1.0,
                                   color: Theme.of(context).primaryColor),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5.0)),
                             ),
-                            child: Center(
-                              child: Text(
-                                "${_favoritesList!.fav_items[index].cart_qty}",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor),
-                              ),
+                            child: Text(
+                              "${favoritesList!.fav_items[index].cart_qty}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
                             ),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
+                          SizedBox(width: 5),
                           Container(
-                              height: 20,
-                              width: 20,
+                              height: 25,
+                              width: 25,
                               child: TextButton(
                                 onPressed: () async {
                                   showOnlyLoaderDialog();
-                                  int _qty = _favoritesList!
+                                  int _qty = favoritesList!
                                           .fav_items[index].cart_qty! +
                                       1;
-
-                                  bool isSuccess = await _addToCart(_qty,
-                                      _favoritesList!.fav_items[index].id);
+                                  bool isSuccess = await _addToCart(
+                                      _qty, favoritesList!.fav_items[index].id);
                                   if (isSuccess &&
-                                      _favoritesList
+                                      favoritesList
                                               ?.fav_items[index].cart_qty !=
                                           null) {
-                                    _favoritesList!.fav_items[index].cart_qty =
-                                        _favoritesList!
+                                    favoritesList!.fav_items[index].cart_qty =
+                                        favoritesList!
                                                 .fav_items[index].cart_qty! +
                                             1;
                                   }
                                   hideLoader();
-
+                                  // await setCartCount(
+                                  //     count: favoritesList!
+                                  //             .fav_items[index].cart_qty! +
+                                  //         1);
+                                  // await getCartCount();
+                                  // myCartCount++;
                                   setState(() {});
                                 },
                                 child: Icon(
@@ -472,11 +499,11 @@ class _FavouritesScreenState extends BaseRouteState {
       child: Padding(
         padding: EdgeInsets.only(
             bottom: 10,
-            left: _favoritesList!.fav_items.length == 1 ? 15 : 5,
+            left: favoritesList!.fav_items.length == 1 ? 15 : 5,
             right: 5,
             top: 15),
         child: Align(
-          alignment: _favoritesList!.fav_items.length == 1
+          alignment: favoritesList!.fav_items.length == 1
               ? global.isRTL
                   ? Alignment.centerRight
                   : Alignment.centerLeft

@@ -95,7 +95,7 @@ class _ProductDetailScreenState extends BaseRouteState {
                                               ? Icons.favorite
                                               : Icons.favorite_outline,
                                           color: _productDetail!.isFavourite
-                                              ? Color(0xFFFA692C)
+                                              ? Color(0xFFF36D86)
                                               : Colors.white,
                                         ))
                                   ],
@@ -159,7 +159,7 @@ class _ProductDetailScreenState extends BaseRouteState {
                                               ? Icons.favorite
                                               : Icons.favorite_outline,
                                           color: _productDetail!.isFavourite
-                                              ? Color(0xFFFA692C)
+                                              ? Color(0xFFF36D86)
                                               : Colors.white,
                                         ))
                                   ],

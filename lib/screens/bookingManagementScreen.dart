@@ -13,10 +13,12 @@ import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BookingManagementScreen extends BaseRoute {
-  BookingManagementScreen({a, o}) : super(a: a, o: o, r: 'BookingManagementScreen');
+  BookingManagementScreen({a, o})
+      : super(a: a, o: o, r: 'BookingManagementScreen');
 
   @override
-  _BookingManagementScreenState createState() => new _BookingManagementScreenState();
+  _BookingManagementScreenState createState() =>
+      new _BookingManagementScreenState();
 }
 
 class _BookingManagementScreenState extends BaseRouteState {
@@ -47,12 +49,14 @@ class _BookingManagementScreenState extends BaseRouteState {
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
-                        margin: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                        margin: const EdgeInsets.only(
+                            left: 10, right: 10, top: 5, bottom: 5),
                         child: ExpansionTile(
                           backgroundColor: Colors.transparent,
                           collapsedBackgroundColor: Colors.transparent,
                           initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.only(left: 10, right: 10),
+                          tilePadding:
+                              const EdgeInsets.only(left: 10, right: 10),
                           trailing: Column(
                             children: [
                               Container(
@@ -66,9 +70,13 @@ class _BookingManagementScreenState extends BaseRouteState {
                                           ? Colors.grey
                                           : _allBookingsList![index].status == 4
                                               ? Colors.grey
-                                              : _allBookingsList![index].status == 3
+                                              : _allBookingsList![index]
+                                                          .status ==
+                                                      3
                                                   ? Colors.red
-                                                  : _allBookingsList![index].status == 1
+                                                  : _allBookingsList![index]
+                                                              .status ==
+                                                          1
                                                       ? Colors.amber
                                                       : Colors.green[600],
                                   borderRadius: new BorderRadius.circular(7.0),
@@ -77,18 +85,33 @@ class _BookingManagementScreenState extends BaseRouteState {
                                 child: Center(
                                   child: Text(
                                     _allBookingsList![index].status == 6
-                                        ? AppLocalizations.of(context)!.lbl_confirmed
+                                        ? AppLocalizations.of(context)!
+                                            .lbl_confirmed
                                         : _allBookingsList![index].status == 5
-                                            ? AppLocalizations.of(context)!.lbl_vendor_cancelled
-                                            : _allBookingsList![index].status == 4
-                                                ? AppLocalizations.of(context)!.lbl_cancelled
-                                                : _allBookingsList![index].status == 3
-                                                    ? AppLocalizations.of(context)!.lbl_failed
-                                                    : _allBookingsList![index].status == 1
-                                                        ? AppLocalizations.of(context)!.lbl_pending
-                                                        : AppLocalizations.of(context)!.lbl_completed,
+                                            ? AppLocalizations.of(context)!
+                                                .lbl_vendor_cancelled
+                                            : _allBookingsList![index].status ==
+                                                    4
+                                                ? AppLocalizations.of(context)!
+                                                    .lbl_cancelled
+                                                : _allBookingsList![index]
+                                                            .status ==
+                                                        3
+                                                    ? AppLocalizations.of(
+                                                            context)!
+                                                        .lbl_failed
+                                                    : _allBookingsList![index]
+                                                                .status ==
+                                                            1
+                                                        ? AppLocalizations.of(
+                                                                context)!
+                                                            .lbl_pending
+                                                        : AppLocalizations.of(
+                                                                context)!
+                                                            .lbl_completed,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white, fontSize: 12),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
                                   ),
                                 ),
                               ),
@@ -97,17 +120,29 @@ class _BookingManagementScreenState extends BaseRouteState {
                           title: ListTile(
                             horizontalTitleGap: 10,
                             contentPadding: EdgeInsets.all(5),
-                            leading: _allBookingsList![index].vendor_logo != null
+                            leading: _allBookingsList![index].vendor_logo !=
+                                    null
                                 ? CachedNetworkImage(
-                                    imageUrl: global.baseUrlForImage + _allBookingsList![index].vendor_logo!,
-                                    imageBuilder: (context, imageProvider) => CircleAvatar(radius: 28, backgroundColor: Colors.yellow, backgroundImage: imageProvider),
-                                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                    errorWidget: (context, url, error) => Icon(Icons.error),
+                                    imageUrl: global.baseUrlForImage +
+                                        _allBookingsList![index].vendor_logo!,
+                                    imageBuilder: (context, imageProvider) =>
+                                        CircleAvatar(
+                                            radius: 28,
+                                            backgroundColor: Colors.yellow,
+                                            backgroundImage: imageProvider),
+                                    placeholder: (context, url) => Center(
+                                        child: CircularProgressIndicator()),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                                   )
-                                : CircleAvatar(radius: 28, backgroundColor: Colors.yellow, child: Icon(Icons.person)),
+                                : CircleAvatar(
+                                    radius: 28,
+                                    backgroundColor: Colors.yellow,
+                                    child: Icon(Icons.person)),
                             title: Text(
                               '${_allBookingsList![index].vendor_name}',
-                              style: Theme.of(context).primaryTextTheme.titleSmall,
+                              style:
+                                  Theme.of(context).primaryTextTheme.titleSmall,
                             ),
                             subtitle: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -115,24 +150,32 @@ class _BookingManagementScreenState extends BaseRouteState {
                               children: [
                                 Text(
                                   '${_allBookingsList![index].staff_name}',
-                                  style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyMedium,
                                 ),
                                 Text(
                                   '${_allBookingsList![index].vendor_phone}',
-                                  style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyMedium,
                                 ),
                                 _allBookingsList![index].vendor_review != null
                                     ? Container(
                                         height: 22,
                                         width: 90,
                                         child: RatingBar.builder(
-                                          initialRating: _allBookingsList![index].vendor_review!.rating!,
+                                          initialRating:
+                                              _allBookingsList![index]
+                                                  .vendor_review!
+                                                  .rating!,
                                           minRating: 0,
                                           direction: Axis.horizontal,
                                           allowHalfRating: true,
                                           itemCount: 5,
                                           itemSize: 12,
-                                          itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                                          itemPadding: EdgeInsets.symmetric(
+                                              horizontal: 1.0),
                                           itemBuilder: (context, _) => Icon(
                                             Icons.star,
                                             color: Colors.amber,
@@ -152,29 +195,40 @@ class _BookingManagementScreenState extends BaseRouteState {
                               tileColor: Colors.grey[200],
                               title: Text(
                                 AppLocalizations.of(context)!.lbl_total_price,
-                                style: Theme.of(context).primaryTextTheme.displaySmall,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .displaySmall,
                               ),
                               trailing: Text(
                                 '${global.currency.currency_sign}${_allBookingsList![index].rem_price}',
-                                style: Theme.of(context).primaryTextTheme.displaySmall,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .displaySmall,
                               ),
                             ),
                             ListTile(
                               tileColor: Colors.grey[200],
                               title: Text(
-                                AppLocalizations.of(context)!.lbl_appointment_date,
-                                style: Theme.of(context).primaryTextTheme.displaySmall,
+                                AppLocalizations.of(context)!
+                                    .lbl_appointment_date,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .displaySmall,
                               ),
                               trailing: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
                                     '${DateFormat('dd MMM yy').format(DateTime.parse(_allBookingsList![index].service_date!))}',
-                                    style: Theme.of(context).primaryTextTheme.displaySmall,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .displaySmall,
                                   ),
                                   Text(
                                     '${_allBookingsList![index].service_time!.substring(0, 9)}',
-                                    style: Theme.of(context).primaryTextTheme.displaySmall,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .displaySmall,
                                   ),
                                 ],
                               ),
@@ -182,16 +236,21 @@ class _BookingManagementScreenState extends BaseRouteState {
                             ListView.separated(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              itemCount: _allBookingsList![index].cart_services.length,
+                              itemCount:
+                                  _allBookingsList![index].cart_services.length,
                               itemBuilder: (BuildContext context, int i) {
                                 return ListTile(
                                   title: Text(
                                     '${_allBookingsList![index].cart_services[i].varient}',
-                                    style: Theme.of(context).primaryTextTheme.titleSmall,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .titleSmall,
                                   ),
                                   subtitle: Text(
                                     '${_allBookingsList![index].cart_services[i].service_name}',
-                                    style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .bodyMedium,
                                   ),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -201,7 +260,9 @@ class _BookingManagementScreenState extends BaseRouteState {
                                         alignment: Alignment.centerRight,
                                         child: Text(
                                           '${global.currency.currency_sign} ${_allBookingsList![index].cart_services[i].price}',
-                                          style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .bodyMedium,
                                         ),
                                       ),
                                     ],
@@ -217,34 +278,52 @@ class _BookingManagementScreenState extends BaseRouteState {
                               },
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 10, right: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       _allBookingsList![index].status == 2
                                           ? TextButton(
-                                              child: Text(AppLocalizations.of(context)!.lbl_rate),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .lbl_rate),
                                               onPressed: () {
                                                 Navigator.of(context).push(
                                                   MaterialPageRoute(
-                                                    builder: (context) => AddRatingScreen(_allBookingsList![index], a: widget.analytics, o: widget.observer),
+                                                    builder: (context) =>
+                                                        AddRatingScreen(
+                                                            _allBookingsList![
+                                                                index],
+                                                            a: widget.analytics,
+                                                            o: widget.observer),
                                                   ),
                                                 );
                                               },
                                             )
                                           : SizedBox(),
-                                      _allBookingsList![index].vendor_phone != null
+                                      _allBookingsList![index].vendor_phone !=
+                                              null
                                           ? Padding(
-                                              padding: const EdgeInsets.only(left: 5, right: 5),
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, right: 5),
                                               child: TextButton(
                                                 child: Padding(
-                                                  padding: const EdgeInsets.only(right: 10, left: 10),
-                                                  child: Text(AppLocalizations.of(context)!.lbl_contact_saloon),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10, left: 10),
+                                                  child: Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .lbl_contact_saloon),
                                                 ),
                                                 onPressed: () {
-                                                  _makingPhoneCall(_allBookingsList![index].vendor_phone);
+                                                  _makingPhoneCall(
+                                                      _allBookingsList![index]
+                                                          .vendor_phone);
                                                 },
                                               ),
                                             )
@@ -253,10 +332,18 @@ class _BookingManagementScreenState extends BaseRouteState {
                                   ),
                                   _allBookingsList![index].status == 1
                                       ? TextButton(
-                                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey[600])),
-                                          child: Text(AppLocalizations.of(context)!.lbl_cancel),
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.grey[600])),
+                                          child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .lbl_cancelled),
                                           onPressed: () {
-                                            _selectCancelReasons(_allBookingsList![index].cart_id, index);
+                                            _selectCancelReasons(
+                                                _allBookingsList![index]
+                                                    .cart_id,
+                                                index);
                                           },
                                         )
                                       : SizedBox(),
@@ -269,7 +356,8 @@ class _BookingManagementScreenState extends BaseRouteState {
                     })
                 : Center(
                     child: Text(
-                      AppLocalizations.of(context)!.txt_nothing_is_yet_to_see_here,
+                      AppLocalizations.of(context)!
+                          .txt_nothing_is_yet_to_see_here,
                       style: Theme.of(context).primaryTextTheme.titleSmall,
                     ),
                   )
@@ -295,12 +383,16 @@ class _BookingManagementScreenState extends BaseRouteState {
               hideLoader();
               _allBookingsList![index].status = 4;
               Navigator.of(context).pop();
-              showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage: result.message.toString());
               setState(() {});
             } else if (result.status == "0") {
               hideLoader();
               Navigator.of(context).pop();
-              showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage: result.message.toString());
               setState(() {});
             }
 
@@ -311,7 +403,8 @@ class _BookingManagementScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - bookingManagementScreen.dart - _cancelBooking():" + e.toString());
+      print("Exception - bookingManagementScreen.dart - _cancelBooking():" +
+          e.toString());
     }
   }
 
@@ -331,7 +424,8 @@ class _BookingManagementScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - bookingManagementScreen.dart - _getAllBookings():" + e.toString());
+      print("Exception - bookingManagementScreen.dart - _getAllBookings():" +
+          e.toString());
     }
   }
 
@@ -355,7 +449,8 @@ class _BookingManagementScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - bookingManagementScreen.dart - _getCancelreasons():" + e.toString());
+      print("Exception - bookingManagementScreen.dart - _getCancelreasons():" +
+          e.toString());
     }
   }
 
@@ -366,7 +461,8 @@ class _BookingManagementScreenState extends BaseRouteState {
       _isDataLoaded = true;
       setState(() {});
     } catch (e) {
-      print("Exception - bookingManagementScreen.dart - _init():" + e.toString());
+      print(
+          "Exception - bookingManagementScreen.dart - _init():" + e.toString());
     }
   }
 
@@ -379,7 +475,8 @@ class _BookingManagementScreenState extends BaseRouteState {
         throw 'Could not launch $url';
       }
     } catch (e) {
-      print("Exception - bookingManagementScreen.dart - _makingPhoneCall():" + e.toString());
+      print("Exception - bookingManagementScreen.dart - _makingPhoneCall():" +
+          e.toString());
     }
   }
 
@@ -401,7 +498,7 @@ class _BookingManagementScreenState extends BaseRouteState {
                   ))
               .toList(),
           cancelButton: CupertinoActionSheetAction(
-            child: Text(AppLocalizations.of(context)!.lbl_cancel),
+            child: Text(AppLocalizations.of(context)!.lbl_cancelled),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -409,7 +506,9 @@ class _BookingManagementScreenState extends BaseRouteState {
         ),
       );
     } catch (e) {
-      print("Exception - bookingManagementScreen.dart - _selectCancelReasons():" + e.toString());
+      print(
+          "Exception - bookingManagementScreen.dart - _selectCancelReasons():" +
+              e.toString());
     }
   }
 
@@ -439,12 +538,16 @@ class _BookingManagementScreenState extends BaseRouteState {
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 220,
                             height: 30,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 120,
                             height: 30,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                         ],
                       )

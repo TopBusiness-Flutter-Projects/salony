@@ -543,7 +543,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
               if (result.status == "1") {
                 global.user = result.recordList;
                 global.sp.setString(
-                    'currentUser', json.encode(global.user!.toJson()));
+                    "currentUser", json.encode(global.user!.toJson()));
 
                 await getCurrentPosition().then((_) async {
                   if (global.lat != null && global.lng != null) {
@@ -582,7 +582,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
               if (result.status == "1") {
                 global.user = result.recordList;
                 global.sp.setString(
-                    'currentUser', json.encode(global.user!.toJson()));
+                    "currentUser", json.encode(global.user!.toJson()));
 
                 await getCurrentPosition().then((_) async {
                   if (global.lat != null && global.lng != null) {

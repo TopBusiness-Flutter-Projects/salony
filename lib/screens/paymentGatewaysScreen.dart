@@ -24,9 +24,12 @@ class PaymentGatewayScreen extends BaseRoute {
   final int? screenId;
   final Cart? cartList;
   final BookNow? bookNowDetails;
-  PaymentGatewayScreen({a, o, this.screenId, this.cartList, this.bookNowDetails}) : super(a: a, o: o, r: 'PaymentGatewayScreen');
+  PaymentGatewayScreen(
+      {a, o, this.screenId, this.cartList, this.bookNowDetails})
+      : super(a: a, o: o, r: 'PaymentGatewayScreen');
   @override
-  _PaymentGatewayScreenState createState() => new _PaymentGatewayScreenState(cartList: cartList, screenId: screenId, bookNowDetails: bookNowDetails);
+  _PaymentGatewayScreenState createState() => new _PaymentGatewayScreenState(
+      cartList: cartList, screenId: screenId, bookNowDetails: bookNowDetails);
 }
 
 class _PaymentGatewayScreenState extends BaseRouteState {
@@ -53,117 +56,144 @@ class _PaymentGatewayScreenState extends BaseRouteState {
 
   bool isLoading = false;
 
-  _PaymentGatewayScreenState({this.screenId, this.cartList, this.bookNowDetails}) : super();
+  _PaymentGatewayScreenState(
+      {this.screenId, this.cartList, this.bookNowDetails})
+      : super();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          Navigator.of(context).pop();
-          return false;
-        },
-        child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              appBar: AppBar(
-                title: Text(
-                  AppLocalizations.of(context)!.lbl_payment_method,
-                  style: Theme.of(context).appBarTheme.titleTextStyle,
-                ),
-              ),
-              body: _isDataLoaded
-                  ? Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            AppLocalizations.of(context)!.txt_pay_on_delivery,
-                            style: Theme.of(context).primaryTextTheme.headlineSmall,
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.grey[300],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _isCOD = true;
-                            setState(() {});
-                          },
-                          child: ListTile(
-                            tileColor: _isCOD ? Theme.of(context).primaryColorLight.withOpacity(0.3) : Colors.transparent,
-                            leading: Icon(
-                              MdiIcons.cash,
-                              color: Colors.green[500],
-                            ),
-                            title: Text(AppLocalizations.of(context)!.lbl_cash),
-                            subtitle: Text(AppLocalizations.of(context)!.txt_pay_through_cash_at_the_salon),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.grey[300],
-                        ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context)!.lbl_other_methods, style: Theme.of(context).primaryTextTheme.headlineSmall),
-                        ),
-                        Divider(
-                          color: Colors.grey[300],
-                        ),
-                        _paymentGatewayList!.razorpay!.razorpay_status == 'Yes'
-                            ? GestureDetector(
-                                onTap: () {
-                                  showOnlyLoaderDialog();
-                                  openCheckout();
-                                },
-                                child: ListTile(
-                                  leading: Icon(MdiIcons.creditCard),
-                                  title: Text(AppLocalizations.of(context)!.lbl_rezorpay),
-                                ),
-                              )
-                            : SizedBox(),
-                        _paymentGatewayList!.stripe!.stripe_status == 'Yes'
-                            ? GestureDetector(
-                                onTap: () {
-                                  _cardDialog();
-                                },
-                                child: ListTile(
-                                  leading: Icon(FontAwesomeIcons.stripe),
-                                  title: Text(AppLocalizations.of(context)!.lbl_stripe),
-                                ),
-                              )
-                            : SizedBox(),
-                        _paymentGatewayList!.paystack!.paystack_status == 'Yes'
-                            ? GestureDetector(
-                                onTap: () {
-                                  _cardDialog(paymentCallId: 1);
-                                },
-                                child: ListTile(
-                                  leading: Icon(MdiIcons.creditCard),
-                                  title: Text(AppLocalizations.of(context)!.lbl_paystack),
-                                ),
-                              )
-                            : SizedBox()
-                      ],
-                    )
-                  : _shimmer(),
-              bottomNavigationBar: BottomAppBar(
-                  color: Color(0xFF171D2C),
-                  child: SizedBox(
-                      height: 60,
-                      width: double.infinity,
+      onWillPop: () async {
+        Navigator.of(context).pop();
+        return false;
+      },
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text(
+              AppLocalizations.of(context)!.lbl_payment_method,
+              style: Theme.of(context).appBarTheme.titleTextStyle,
+            ),
+          ),
+          body: _isDataLoaded
+              ? Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        AppLocalizations.of(context)!.txt_pay_on_delivery,
+                        style: Theme.of(context).primaryTextTheme.headlineSmall,
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.grey[300],
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _isCOD = true;
+                        setState(() {});
+                      },
                       child: ListTile(
-                        title: RichText(
-                            text: TextSpan(style: Theme.of(context).primaryTextTheme.titleMedium, children: [
-                          TextSpan(text: AppLocalizations.of(context)!.lbl_total_amount),
-                          TextSpan(text: screenId == 1 ? '${global.currency.currency_sign} ${bookNowDetails?.rem_price ?? '0.00'}' : '${global.currency.currency_sign} ${cartList?.total_price ?? '0.00'}', style: Theme.of(context).primaryTextTheme.headlineSmall)
+                        tileColor: _isCOD
+                            ? Theme.of(context)
+                                .primaryColorLight
+                                .withOpacity(0.3)
+                            : Colors.transparent,
+                        leading: Icon(
+                          MdiIcons.cash,
+                          color: Colors.green[500],
+                        ),
+                        title: Text(AppLocalizations.of(context)!.lbl_cash),
+                        subtitle: Text(AppLocalizations.of(context)!
+                            .txt_pay_through_cash_at_the_salon),
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.grey[300],
+                    ),
+                    ListTile(
+                      title: Text(
+                          AppLocalizations.of(context)!.lbl_other_methods,
+                          style:
+                              Theme.of(context).primaryTextTheme.headlineSmall),
+                    ),
+                    Divider(
+                      color: Colors.grey[300],
+                    ),
+                    _paymentGatewayList!.razorpay!.razorpay_status == 'Yes'
+                        ? GestureDetector(
+                            onTap: () {
+                              showOnlyLoaderDialog();
+                              openCheckout();
+                            },
+                            child: ListTile(
+                              leading: Icon(MdiIcons.creditCard),
+                              title: Text(
+                                  AppLocalizations.of(context)!.lbl_rezorpay),
+                            ),
+                          )
+                        : SizedBox(),
+                    _paymentGatewayList!.stripe!.stripe_status == 'Yes'
+                        ? GestureDetector(
+                            onTap: () {
+                              _cardDialog();
+                            },
+                            child: ListTile(
+                              leading: Icon(FontAwesomeIcons.stripe),
+                              title: Text(
+                                  AppLocalizations.of(context)!.lbl_stripe),
+                            ),
+                          )
+                        : SizedBox(),
+                    _paymentGatewayList!.paystack!.paystack_status == 'Yes'
+                        ? GestureDetector(
+                            onTap: () {
+                              _cardDialog(paymentCallId: 1);
+                            },
+                            child: ListTile(
+                              leading: Icon(MdiIcons.creditCard),
+                              title: Text(
+                                  AppLocalizations.of(context)!.lbl_paystack),
+                            ),
+                          )
+                        : SizedBox()
+                  ],
+                )
+              : _shimmer(),
+          bottomNavigationBar: BottomAppBar(
+              color: Color(0xFF171D2C),
+              child: SizedBox(
+                  height: 60,
+                  width: double.infinity,
+                  child: ListTile(
+                    title: RichText(
+                        text: TextSpan(
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
+                            children: [
+                          TextSpan(
+                              text: AppLocalizations.of(context)!
+                                  .lbl_total_amount),
+                          TextSpan(
+                              text: screenId == 1
+                                  ? '${global.currency.currency_sign} ${bookNowDetails?.rem_price ?? '0.00'}'
+                                  : '${global.currency.currency_sign} ${cartList?.total_price ?? '0.00'}',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .headlineSmall)
                         ])),
-                        trailing: _isCOD
-                            ? ElevatedButton(
-                                onPressed: () {
-                                  screenId == 1 ? _checkOut() : _productCartCheckout();
-                                },
-                                child: Text(AppLocalizations.of(context)!.lbl_checkout),
-                              )
-                            : SizedBox(),
-                      )))),
-        );
+                    trailing: _isCOD
+                        ? ElevatedButton(
+                            onPressed: () {
+                              screenId == 1
+                                  ? _checkOut()
+                                  : _productCartCheckout();
+                            },
+                            child: Text(
+                                AppLocalizations.of(context)!.lbl_checkout),
+                          )
+                        : SizedBox(),
+                  )))),
+    );
   }
 
   @override
@@ -183,9 +213,15 @@ class _PaymentGatewayScreenState extends BaseRouteState {
 
     options = {
       'key': _paymentGatewayList!.razorpay!.razorpay_key,
-      'amount': screenId == 1 ? bookNowDetails!.rem_price : cartList!.total_price,
-      'name': screenId == 1 ? bookNowDetails!.cart_id : cartList!.cart_items[0].order_cart_id,
-      'prefill': {'contact': global.user!.user_phone, 'email': global.user!.email},
+      'amount':
+          screenId == 1 ? bookNowDetails!.rem_price : cartList!.total_price,
+      'name': screenId == 1
+          ? bookNowDetails!.cart_id
+          : cartList!.cart_items[0].order_cart_id,
+      'prefill': {
+        'contact': global.user!.user_phone,
+        'email': global.user!.email
+      },
       'currency': 'INR'
     };
 
@@ -199,7 +235,10 @@ class _PaymentGatewayScreenState extends BaseRouteState {
 
   void payStatck(String? key) async {
     try {
-      payPlugin.initialize(publicKey: _paymentGatewayList!.paystack!.paystack_public_key!).then((value) {
+      payPlugin
+          .initialize(
+              publicKey: _paymentGatewayList!.paystack!.paystack_public_key!)
+          .then((value) {
         _startAfreshCharge((int.parse('${cartList!.total_price}') * 100));
       }).catchError((e) {
         setState(() {
@@ -207,7 +246,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         });
       });
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart - payStatck(): " + e.toString());
+      print("Exception - paymentGatewaysScreen.dart - payStatck(): " +
+          e.toString());
     }
   }
 
@@ -221,10 +261,15 @@ class _PaymentGatewayScreenState extends BaseRouteState {
       showOnlyLoaderDialog();
       customers = await StripeService.createCustomer(email: global.user!.email);
 
-      var paymentMethodsObject = await (StripeService.createPaymentMethod(card) as FutureOr<Map<String, dynamic>>);
+      var paymentMethodsObject = await (StripeService.createPaymentMethod(card)
+          as FutureOr<Map<String, dynamic>>);
 
-      var paymentIntent = await (StripeService.createPaymentIntent(amount, currency, customerId: customers["id"]) as FutureOr<Map<String, dynamic>>);
-      var response = await (StripeService.confirmPaymentIntent(paymentIntent["id"], paymentMethodsObject["id"]) as FutureOr<Map<String, dynamic>>);
+      var paymentIntent = await (StripeService.createPaymentIntent(
+              amount, currency, customerId: customers["id"])
+          as FutureOr<Map<String, dynamic>>);
+      var response = await (StripeService.confirmPaymentIntent(
+              paymentIntent["id"], paymentMethodsObject["id"])
+          as FutureOr<Map<String, dynamic>>);
       if (response["status"] == 'succeeded') {
         bool isConnected = await br.checkConnectivity();
         if (isConnected) {
@@ -239,17 +284,24 @@ class _PaymentGatewayScreenState extends BaseRouteState {
               if (result != null) {
                 if (result.status == "1") {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => BookingConfirmationScreen(a: widget.analytics, o: widget.observer)),
+                    MaterialPageRoute(
+                        builder: (context) => BookingConfirmationScreen(
+                            a: widget.analytics, o: widget.observer)),
                   );
                 }
               }
             });
           } else {
-            await apiHelper!.productCartCheckout(global.user!.id, "success", "stripe", payment_id: paymentIntent["id"]).then((result) {
+            await apiHelper!
+                .productCartCheckout(global.user!.id, "success", "stripe",
+                    payment_id: paymentIntent["id"])
+                .then((result) {
               if (result != null) {
                 if (result.status == "1") {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => BookingConfirmationScreen(a: widget.analytics, o: widget.observer)),
+                    MaterialPageRoute(
+                        builder: (context) => BookingConfirmationScreen(
+                            a: widget.analytics, o: widget.observer)),
                   );
                 }
               }
@@ -260,7 +312,9 @@ class _PaymentGatewayScreenState extends BaseRouteState {
           showNetworkErrorSnackBar(_scaffoldKey);
         }
 
-        return new StripeTransactionResponse(message: AppLocalizations.of(context)!.lbl_transaction_successful, success: true);
+        return new StripeTransactionResponse(
+            message: AppLocalizations.of(context)!.lbl_transaction_successful,
+            success: true);
       } else {
         bool isConnected = await br.checkConnectivity();
         if (isConnected) {
@@ -275,17 +329,23 @@ class _PaymentGatewayScreenState extends BaseRouteState {
             await apiHelper!.checkOut(_bookNow).then((result) async {
               if (result != null) {
                 if (result.status == "0") {
-                  showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+                  showSnackBar(
+                      key: _scaffoldKey,
+                      snackBarMessage: result.message.toString());
                   setState(() {});
                 } else {}
               }
             });
           } else {
-            await apiHelper!.productCartCheckout(global.user!.id, "failed", "stripe").then((result) {
+            await apiHelper!
+                .productCartCheckout(global.user!.id, "failed", "stripe")
+                .then((result) {
               if (result != null) {
                 if (result.status == "2") {
                   Navigator.of(context).pop();
-                  showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+                  showSnackBar(
+                      key: _scaffoldKey,
+                      snackBarMessage: result.message.toString());
                 }
               }
             });
@@ -296,14 +356,19 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         } else {
           showNetworkErrorSnackBar(_scaffoldKey);
         }
-        return new StripeTransactionResponse(message: AppLocalizations.of(context)!.lbl_transaction_failed, success: false);
+        return new StripeTransactionResponse(
+            message: AppLocalizations.of(context)!.lbl_transaction_failed,
+            success: false);
       }
     } on PlatformException catch (err) {
-      print('Platfrom Exception: paymentGatewaysScreen.dart -  payWithNewCard() : ${err.toString()}');
+      print(
+          'Platfrom Exception: paymentGatewaysScreen.dart -  payWithNewCard() : ${err.toString()}');
       return StripeService.getPlatformExceptionErrorResult(err);
     } catch (err) {
-      print('Exception: paymentGatewaysScreen.dart -  payWithNewCard() : ${err.toString()}');
-      return new StripeTransactionResponse(message: 'Transaction failed: ${err.toString()}', success: false);
+      print(
+          'Exception: paymentGatewaysScreen.dart -  payWithNewCard() : ${err.toString()}');
+      return new StripeTransactionResponse(
+          message: 'Transaction failed: ${err.toString()}', success: false);
     }
   }
 
@@ -327,7 +392,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                         children: [
                           TextButton(
                             style: Theme.of(context).textButtonTheme.style,
-                            child: Text(AppLocalizations.of(context)!.lbl_cancel),
+                            child: Text(
+                                AppLocalizations.of(context)!.lbl_cancelled),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
@@ -336,7 +402,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                             padding: const EdgeInsets.only(left: 10),
                             child: TextButton(
                               style: Theme.of(context).textButtonTheme.style,
-                              child: Text(AppLocalizations.of(context)!.lbl_pay),
+                              child:
+                                  Text(AppLocalizations.of(context)!.lbl_pay),
                               onPressed: () {
                                 _save(paymentCallId);
                               },
@@ -347,9 +414,12 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                     ],
                     content: Form(
                       key: _formKey,
-                      autovalidateMode: _autovalidate ? AutovalidateMode.always : AutovalidateMode.disabled,
+                      autovalidateMode: _autovalidate
+                          ? AutovalidateMode.always
+                          : AutovalidateMode.disabled,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+                        padding:
+                            const EdgeInsets.only(left: 15, right: 15, top: 15),
                         child: Column(
                           children: [
                             TextFormField(
@@ -361,8 +431,11 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                               ],
                               textInputAction: TextInputAction.next,
                               decoration: new InputDecoration(
-                                hintText: AppLocalizations.of(context)!.lbl_card_number,
-                                hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+                                hintText: AppLocalizations.of(context)!
+                                    .lbl_card_number,
+                                hintStyle: Theme.of(context)
+                                    .inputDecorationTheme
+                                    .hintStyle,
                                 prefixIcon: Icon(Icons.credit_card),
                               ),
                               textCapitalization: TextCapitalization.none,
@@ -373,13 +446,15 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                               // ignore: missing_return
                               validator: (input) {
                                 if (input!.isEmpty) {
-                                  return AppLocalizations.of(context)!.txt_enter_card_number;
+                                  return AppLocalizations.of(context)!
+                                      .txt_enter_card_number;
                                 }
 
                                 input = BusinessRule.getCleanedNumber(input);
 
                                 if (input.length < 8) {
-                                  return AppLocalizations.of(context)!.txt_enter_valid_card_number;
+                                  return AppLocalizations.of(context)!
+                                      .txt_enter_valid_card_number;
                                 }
 
                                 int sum = 0;
@@ -399,7 +474,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                                   return null;
                                 }
 
-                                return AppLocalizations.of(context)!.txt_enter_valid_card_number;
+                                return AppLocalizations.of(context)!
+                                    .txt_enter_valid_card_number;
                               },
                             ),
                             SizedBox(
@@ -422,17 +498,22 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                                           Icons.date_range,
                                         ),
                                         hintText: 'MM/YY',
-                                        hintStyle: Theme.of(context).inputDecorationTheme.hintStyle),
-                                    textCapitalization: TextCapitalization.sentences,
+                                        hintStyle: Theme.of(context)
+                                            .inputDecorationTheme
+                                            .hintStyle),
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
                                     keyboardType: TextInputType.number,
                                     onFieldSubmitted: (value) {
-                                      List<int> expiryDate = BusinessRule.getExpiryDate(value);
+                                      List<int> expiryDate =
+                                          BusinessRule.getExpiryDate(value);
                                       _month = expiryDate[0];
                                       _year = expiryDate[1];
                                     },
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return AppLocalizations.of(context)!.txt_enter_expiry_date;
+                                        return AppLocalizations.of(context)!
+                                            .txt_enter_expiry_date;
                                       }
 
                                       int year;
@@ -440,31 +521,41 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                                       // The value contains a forward slash if the month and year has been
                                       // entered.
                                       if (value.contains(new RegExp(r'(/)'))) {
-                                        var split = value.split(new RegExp(r'(/)'));
+                                        var split =
+                                            value.split(new RegExp(r'(/)'));
                                         // The value before the slash is the month while the value to right of
                                         // it is the year.
                                         month = int.parse(split[0]);
                                         year = int.parse(split[1]);
                                       } else {
                                         // Only the month was entered
-                                        month = int.parse(value.substring(0, (value.length)));
-                                        year = -1; // Lets use an invalid year intentionally
+                                        month = int.parse(
+                                            value.substring(0, (value.length)));
+                                        year =
+                                            -1; // Lets use an invalid year intentionally
                                       }
 
                                       if ((month < 1) || (month > 12)) {
                                         // A valid month is between 1 (January) and 12 (December)
-                                        return AppLocalizations.of(context)!.txt_expiry_month_is_invalid;
+                                        return AppLocalizations.of(context)!
+                                            .txt_expiry_month_is_invalid;
                                       }
 
-                                      var fourDigitsYear = BusinessRule.convertYearTo4Digits(year);
-                                      if ((fourDigitsYear < 1) || (fourDigitsYear > 2099)) {
+                                      var fourDigitsYear =
+                                          BusinessRule.convertYearTo4Digits(
+                                              year);
+                                      if ((fourDigitsYear < 1) ||
+                                          (fourDigitsYear > 2099)) {
                                         // We are assuming a valid should be between 1 and 2099.
                                         // Note that, it's valid doesn't mean that it has not expired.
-                                        return AppLocalizations.of(context)!.txt_expiry_year_is_invalid;
+                                        return AppLocalizations.of(context)!
+                                            .txt_expiry_year_is_invalid;
                                       }
 
-                                      if (!BusinessRule.hasDateExpired(month, year)) {
-                                        return AppLocalizations.of(context)!.txt_card_has_expired;
+                                      if (!BusinessRule.hasDateExpired(
+                                          month, year)) {
+                                        return AppLocalizations.of(context)!
+                                            .txt_card_has_expired;
                                       }
                                       return null;
                                     },
@@ -487,15 +578,22 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                                         prefixIcon: Icon(
                                           MdiIcons.creditCard,
                                         ),
-                                        hintText: AppLocalizations.of(context)!.lbl_cvv,
-                                        hintStyle: Theme.of(context).inputDecorationTheme.hintStyle),
-                                    textCapitalization: TextCapitalization.sentences,
+                                        hintText: AppLocalizations.of(context)!
+                                            .lbl_cvv,
+                                        hintStyle: Theme.of(context)
+                                            .inputDecorationTheme
+                                            .hintStyle),
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
                                     keyboardType: TextInputType.number,
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return AppLocalizations.of(context)!.txt_enter_cvv;
-                                      } else if (value.length < 3 || value.length > 4) {
-                                        return AppLocalizations.of(context)!.txt_cvv_is_invalid;
+                                        return AppLocalizations.of(context)!
+                                            .txt_enter_cvv;
+                                      } else if (value.length < 3 ||
+                                          value.length > 4) {
+                                        return AppLocalizations.of(context)!
+                                            .txt_cvv_is_invalid;
                                       }
                                       return null;
                                     },
@@ -510,14 +608,18 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                               controller: _cName,
                               textInputAction: TextInputAction.next,
                               inputFormatters: [
-                                FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]')),
+                                FilteringTextInputFormatter.allow(
+                                    RegExp('[a-zA-Z ]')),
                               ],
                               decoration: new InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.person,
                                   ),
-                                  hintText: AppLocalizations.of(context)!.txt_card_holder_name,
-                                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle),
+                                  hintText: AppLocalizations.of(context)!
+                                      .txt_card_holder_name,
+                                  hintStyle: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle),
                               textCapitalization: TextCapitalization.words,
                               keyboardType: TextInputType.text,
                               validator: (value) {
@@ -545,7 +647,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         });
       });
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart - _chargeCard(): " + e.toString());
+      print("Exception - paymentGatewaysScreen.dart - _chargeCard(): " +
+          e.toString());
     }
   }
 
@@ -572,7 +675,9 @@ class _PaymentGatewayScreenState extends BaseRouteState {
 
               setState(() {});
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage: result.message.toString());
             }
           }
         });
@@ -580,7 +685,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart - _checkOut():" + e.toString());
+      print("Exception - paymentGatewaysScreen.dart - _checkOut():" +
+          e.toString());
     }
   }
 
@@ -604,7 +710,9 @@ class _PaymentGatewayScreenState extends BaseRouteState {
               _isDataLoaded = true;
               setState(() {});
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+              showSnackBar(
+                  key: _scaffoldKey,
+                  snackBarMessage: result.message.toString());
             }
           }
         });
@@ -612,7 +720,9 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart.dart - _getPaymentGateways():" + e.toString());
+      print(
+          "Exception - paymentGatewaysScreen.dart.dart - _getPaymentGateways():" +
+              e.toString());
     }
   }
 
@@ -643,17 +753,23 @@ class _PaymentGatewayScreenState extends BaseRouteState {
           await apiHelper!.checkOut(_bookNow).then((result) async {
             if (result != null) {
               if (result.status == "0") {
-                showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+                showSnackBar(
+                    key: _scaffoldKey,
+                    snackBarMessage: result.message.toString());
                 setState(() {});
               } else {}
             }
           });
         } else {
-          await apiHelper!.productCartCheckout(global.user!.id, "failed", " razorpay").then((result) {
+          await apiHelper!
+              .productCartCheckout(global.user!.id, "failed", " razorpay")
+              .then((result) {
             if (result != null) {
               if (result.status == "2") {
                 Navigator.of(context).pop();
-                showSnackBar(key: _scaffoldKey, snackBarMessage: result.message.toString());
+                showSnackBar(
+                    key: _scaffoldKey,
+                    snackBarMessage: result.message.toString());
               }
             }
           });
@@ -664,9 +780,13 @@ class _PaymentGatewayScreenState extends BaseRouteState {
       } else {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
-      showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.lbl_transaction_failed);
+      showSnackBar(
+          key: _scaffoldKey,
+          snackBarMessage:
+              AppLocalizations.of(context)!.lbl_transaction_failed);
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart -  _handlePaymentError" + e.toString());
+      print("Exception - paymentGatewaysScreen.dart -  _handlePaymentError" +
+          e.toString());
     }
   }
 
@@ -688,17 +808,24 @@ class _PaymentGatewayScreenState extends BaseRouteState {
             if (result != null) {
               if (result.status == "1") {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => BookingConfirmationScreen(a: widget.analytics, o: widget.observer)),
+                  MaterialPageRoute(
+                      builder: (context) => BookingConfirmationScreen(
+                          a: widget.analytics, o: widget.observer)),
                 );
               }
             }
           });
         } else {
-          await apiHelper!.productCartCheckout(global.user!.id, "success", "razorpay", payment_id: response.paymentId).then((result) {
+          await apiHelper!
+              .productCartCheckout(global.user!.id, "success", "razorpay",
+                  payment_id: response.paymentId)
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => BookingConfirmationScreen(a: widget.analytics, o: widget.observer)),
+                  MaterialPageRoute(
+                      builder: (context) => BookingConfirmationScreen(
+                          a: widget.analytics, o: widget.observer)),
                 );
               }
             }
@@ -710,9 +837,13 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
 
-      showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.lbl_transaction_successful);
+      showSnackBar(
+          key: _scaffoldKey,
+          snackBarMessage:
+              AppLocalizations.of(context)!.lbl_transaction_successful);
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart - _handlePaymentSuccess" + e.toString());
+      print("Exception - paymentGatewaysScreen.dart - _handlePaymentSuccess" +
+          e.toString());
     }
   }
 
@@ -723,7 +854,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
       _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
       _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart.dart - _init():" + e.toString());
+      print("Exception - paymentGatewaysScreen.dart.dart - _init():" +
+          e.toString());
     }
   }
 
@@ -759,7 +891,9 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart.dart - _productCartCheckout():" + e.toString());
+      print(
+          "Exception - paymentGatewaysScreen.dart.dart - _productCartCheckout():" +
+              e.toString());
     }
   }
 
@@ -768,13 +902,22 @@ class _PaymentGatewayScreenState extends BaseRouteState {
       showOnlyLoaderDialog();
       if (_cCardNumber.text.trim().isEmpty) {
         hideLoader();
-        showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_enter_your_card_number);
+        showSnackBar(
+            key: _scaffoldKey,
+            snackBarMessage:
+                AppLocalizations.of(context)!.txt_enter_your_card_number);
       } else if (_cExpiry.text.trim().isEmpty) {
         hideLoader();
-        showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_enter_your_expiry_date);
+        showSnackBar(
+            key: _scaffoldKey,
+            snackBarMessage:
+                AppLocalizations.of(context)!.txt_enter_your_expiry_date);
       } else if (_cName.text.trim().isEmpty) {
         hideLoader();
-        showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_enter_your_card_name);
+        showSnackBar(
+            key: _scaffoldKey,
+            snackBarMessage:
+                AppLocalizations.of(context)!.txt_enter_your_card_name);
       } else {
         if (_formKey.currentState!.validate()) {
           bool isConnected = await br.checkConnectivity();
@@ -787,9 +930,21 @@ class _PaymentGatewayScreenState extends BaseRouteState {
             );
             Navigator.of(context).pop();
             if (screenId == 1) {
-              callId == 1 ? payStatck(_paymentGatewayList!.paystack!.paystack_secret_key) : await payWithNewCard(card: stripeCard, amount: bookNowDetails!.rem_price, currency: global.currency.currency);
+              callId == 1
+                  ? payStatck(
+                      _paymentGatewayList!.paystack!.paystack_secret_key)
+                  : await payWithNewCard(
+                      card: stripeCard,
+                      amount: bookNowDetails!.rem_price,
+                      currency: global.currency.currency);
             } else {
-              callId == 1 ? payStatck(_paymentGatewayList!.paystack!.paystack_secret_key) : await payWithNewCard(card: stripeCard, amount: cartList!.total_price.toString(), currency: global.currency.currency);
+              callId == 1
+                  ? payStatck(
+                      _paymentGatewayList!.paystack!.paystack_secret_key)
+                  : await payWithNewCard(
+                      card: stripeCard,
+                      amount: cartList!.total_price.toString(),
+                      currency: global.currency.currency);
             }
 
             hideLoader();
@@ -797,7 +952,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         }
       }
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart - _save(): " + e.toString());
+      print(
+          "Exception - paymentGatewaysScreen.dart - _save(): " + e.toString());
     }
   }
 
@@ -856,7 +1012,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
 
       _chargeCard(charge);
     } catch (e) {
-      print("Exception - paymentGatewaysScreen.dart - _startAfreshCharge(): " + e.toString());
+      print("Exception - paymentGatewaysScreen.dart - _startAfreshCharge(): " +
+          e.toString());
     }
   }
 
@@ -877,7 +1034,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                 actions: <Widget>[
                   CupertinoDialogAction(
                     child: Text(
-                      AppLocalizations.of(context)!.lbl_cancel,
+                      AppLocalizations.of(context)!.lbl_cancelled,
                       style: TextStyle(color: Colors.red),
                     ),
                     onPressed: () {
@@ -897,7 +1054,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
             );
           });
     } catch (e) {
-      print('Exception - paymentGatewaysScreen.dart - exitAppDialog(): ' + e.toString());
+      print('Exception - paymentGatewaysScreen.dart - exitAppDialog(): ' +
+          e.toString());
     }
   }
 }

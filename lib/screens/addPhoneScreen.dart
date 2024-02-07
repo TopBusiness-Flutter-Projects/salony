@@ -49,14 +49,18 @@ class _AddPhoneScreenState extends BaseRouteState {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: Text(AppLocalizations.of(context)!.txt_you_will_receive_otp_on_this_number, textAlign: TextAlign.center, style: Theme.of(context).primaryTextTheme.headline3),
+                  child: Text(
+                      AppLocalizations.of(context)!
+                          .txt_you_will_receive_otp_on_this_number,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).primaryTextTheme.headline3),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 70.0),
                   child: TextFormField(
                     textAlign: TextAlign.start,
                     autofocus: false,
-                    cursorColor: Color(0xFFFA692C),
+                    cursorColor: Color(0xFFF36D86),
                     enabled: true,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
@@ -100,11 +104,15 @@ class _AddPhoneScreenState extends BaseRouteState {
     String mobileNumber = '';
     try {
       _simCard = (await MobileNumber.getSimCards!);
-      _simCard.removeWhere((e) => e.number == '' || e.number == null || e.number!.contains(RegExp(r'[A-Z]')));
+      _simCard.removeWhere((e) =>
+          e.number == '' ||
+          e.number == null ||
+          e.number!.contains(RegExp(r'[A-Z]')));
       if (_simCard.length > 1) {
         await _selectPhoneNumber();
       } else if (_simCard.length > 0) {
-        mobileNumber = _simCard[0].number!.substring(_simCard[0].number!.length - 10);
+        mobileNumber =
+            _simCard[0].number!.substring(_simCard[0].number!.length - 10);
       }
     } on PlatformException catch (e) {
       debugPrint("Failed to get mobile number because of '${e.message}'");
@@ -142,7 +150,8 @@ class _AddPhoneScreenState extends BaseRouteState {
       _tUser.user_phone = _cPhoneNumber.text.trim();
       _tUser.device_id = global.appDeviceId;
 
-      if (_cPhoneNumber.text.isNotEmpty && _cPhoneNumber.text.trim().length == 10) {
+      if (_cPhoneNumber.text.isNotEmpty &&
+          _cPhoneNumber.text.trim().length == 10) {
         bool isConnected = await br.checkConnectivity();
         if (isConnected) {
           showOnlyLoaderDialog();
@@ -152,7 +161,8 @@ class _AddPhoneScreenState extends BaseRouteState {
                 await _sendOTP(_cPhoneNumber.text.trim());
               } else {
                 hideLoader();
-                showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+                showSnackBar(
+                    key: _scaffoldKey, snackBarMessage: '${result.message}');
               }
             }
           });
@@ -161,11 +171,16 @@ class _AddPhoneScreenState extends BaseRouteState {
         } else {
           showNetworkErrorSnackBar(_scaffoldKey);
         }
-      } else if (_cPhoneNumber.text.isEmpty || _cPhoneNumber.text.trim().length < 10) {
-        showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_please_enter_valid_contact_no);
+      } else if (_cPhoneNumber.text.isEmpty ||
+          _cPhoneNumber.text.trim().length < 10) {
+        showSnackBar(
+            key: _scaffoldKey,
+            snackBarMessage: AppLocalizations.of(context)!
+                .txt_please_enter_valid_contact_no);
       }
     } catch (e) {
-      print("Exception - addPhoneScreen.dart - _loginWithPhone():" + e.toString());
+      print("Exception - addPhoneScreen.dart - _loginWithPhone():" +
+          e.toString());
     }
   }
 
@@ -177,17 +192,19 @@ class _AddPhoneScreenState extends BaseRouteState {
           title: Text(AppLocalizations.of(context)!.txt_select_phonenumber),
           actions: _simCard
               .map((e) => CupertinoActionSheetAction(
-                    child: Text('${e.number!.substring(e.number!.length - 10)}'),
+                    child:
+                        Text('${e.number!.substring(e.number!.length - 10)}'),
                     onPressed: () async {
                       setState(() {
-                        _cPhoneNumber.text = e.number!.substring(e.number!.length - 10);
+                        _cPhoneNumber.text =
+                            e.number!.substring(e.number!.length - 10);
                       });
                       Navigator.pop(context);
                     },
                   ))
               .toList(),
           cancelButton: CupertinoActionSheetAction(
-            child: Text(AppLocalizations.of(context)!.lbl_cancel),
+            child: Text(AppLocalizations.of(context)!.lbl_cancelled),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -195,7 +212,8 @@ class _AddPhoneScreenState extends BaseRouteState {
         ),
       );
     } catch (e) {
-      print("Exception - addPhoneScreen.dart - _showCupertinoModalSheet():" + e.toString());
+      print("Exception - addPhoneScreen.dart - _showCupertinoModalSheet():" +
+          e.toString());
     }
   }
 
@@ -206,7 +224,10 @@ class _AddPhoneScreenState extends BaseRouteState {
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();
-          showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_please_try_again_after_sometime);
+          showSnackBar(
+              key: _scaffoldKey,
+              snackBarMessage: AppLocalizations.of(context)!
+                  .txt_please_try_again_after_sometime);
         },
         codeSent: (String verificationId, int? resendToken) async {
           hideLoader();

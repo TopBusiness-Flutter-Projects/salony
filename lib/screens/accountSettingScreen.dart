@@ -41,267 +41,352 @@ class _AccountSettingScreenState extends BaseRouteState {
         return true;
       },
       child: Scaffold(
-          appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.lbl_account_settings),
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.height * 0.19,
-                    child: Stack(
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _tImage != null
-                                ? Container(
-                                    height: MediaQuery.of(context).size.height * 0.17,
-                                    width: MediaQuery.of(context).size.height * 0.17,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).cardTheme.color,
-                                      borderRadius: new BorderRadius.all(
-                                        new Radius.circular(MediaQuery.of(context).size.height * 0.17),
-                                      ),
-                                      image: DecorationImage(image: FileImage(_tImage!), fit: BoxFit.cover),
-                                      border: new Border.all(
-                                        color: Theme.of(context).primaryColor,
-                                        width: 3.0,
-                                      ),
+        appBar: AppBar(
+          title: Text('إعدادات الحساب'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.height * 0.19,
+                  child: Stack(
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _tImage != null
+                              ? Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.17,
+                                  width:
+                                      MediaQuery.of(context).size.height * 0.17,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).cardTheme.color,
+                                    borderRadius: new BorderRadius.all(
+                                      new Radius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.17),
                                     ),
-                                  )
-                                : global.user!.image != ''
-                                    ? CachedNetworkImage(
-                                        imageUrl: global.baseUrlForImage + global.user!.image!,
-                                        imageBuilder: (context, imageProvider) => Container(
-                                          height: MediaQuery.of(context).size.height * 0.17,
-                                          width: MediaQuery.of(context).size.height * 0.17,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context).cardTheme.color,
-                                            borderRadius: new BorderRadius.all(
-                                              new Radius.circular(MediaQuery.of(context).size.height * 0.17),
-                                            ),
-                                            image: DecorationImage(image: imageProvider),
-                                            border: new Border.all(
-                                              color: Theme.of(context).primaryColor,
-                                              width: 3.0,
-                                            ),
-                                          ),
-                                        ),
-                                        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) => Icon(Icons.error),
-                                      )
-                                    : Container(
-                                        height: MediaQuery.of(context).size.height * 0.17,
-                                        width: MediaQuery.of(context).size.height * 0.17,
+                                    image: DecorationImage(
+                                        image: FileImage(_tImage!),
+                                        fit: BoxFit.cover),
+                                    border: new Border.all(
+                                      color: Theme.of(context).primaryColor,
+                                      width: 3.0,
+                                    ),
+                                  ),
+                                )
+                              : global.user!.image != ''
+                                  ? CachedNetworkImage(
+                                      imageUrl: global.baseUrlForImage +
+                                          global.user!.image!,
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.17,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.17,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                          color: Theme.of(context).cardTheme.color,
+                                          color:
+                                              Theme.of(context).cardTheme.color,
                                           borderRadius: new BorderRadius.all(
-                                            new Radius.circular(MediaQuery.of(context).size.height * 0.17),
+                                            new Radius.circular(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.17),
                                           ),
+                                          image: DecorationImage(
+                                              image: imageProvider),
                                           border: new Border.all(
-                                            color: Theme.of(context).primaryColor,
+                                            color:
+                                                Theme.of(context).primaryColor,
                                             width: 3.0,
                                           ),
                                         ),
-                                        child: Icon(
-                                          Icons.person,
-                                          size: 50,
+                                      ),
+                                      placeholder: (context, url) => Center(
+                                          child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    )
+                                  : Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.17,
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.17,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Theme.of(context).cardTheme.color,
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.17),
+                                        ),
+                                        border: new Border.all(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 3.0,
                                         ),
                                       ),
-                            SizedBox(
-                              height: 10,
-                            )
-                          ],
-                        ),
-                        Positioned(
-                            top: 86,
-                            right: 15,
-                            child: IconButton(
-                                padding: EdgeInsets.all(0),
-                                onPressed: () {
-                                  _showCupertinoModalSheet();
-                                  setState(() {});
-                                },
-                                icon: Container(
-                                    padding: EdgeInsets.all(0),
-                                    margin: EdgeInsets.all(0),
-                                    decoration: BoxDecoration(color: Color(0xFFFA692C), borderRadius: BorderRadius.circular(34)),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 30,
-                                    ))))
-                      ],
-                    ),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 50,
+                                      ),
+                                    ),
+                          SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      ),
+                      Positioned(
+                          top: 86,
+                          right: 15,
+                          child: IconButton(
+                              padding: EdgeInsets.all(0),
+                              onPressed: () {
+                                _showCupertinoModalSheet();
+                                setState(() {});
+                              },
+                              icon: Container(
+                                  padding: EdgeInsets.all(0),
+                                  margin: EdgeInsets.all(0),
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFFF36D86),
+                                      borderRadius: BorderRadius.circular(34)),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ))))
+                    ],
                   ),
                 ),
-                Center(
-                    child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    '${global.user!.name}',
-                    style: Theme.of(context).appBarTheme.titleTextStyle,
-                  ),
-                )),
-                Align(
-                    alignment: global.isRTL ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: Text(
-                        AppLocalizations.of(context)!.lbl_name,
-                        style: Theme.of(context).primaryTextTheme.headline3,
-                      ),
-                    )),
-                Container(
-                    margin: EdgeInsets.only(top: 5, left: 10, right: 10),
-                    height: 50,
-                    child: TextFormField(
-                      textAlign: TextAlign.start,
-                      autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
-                      style: Theme.of(context).inputDecorationTheme.hintStyle,
-                      controller: _cName,
-                      focusNode: _fName,
-                      onEditingComplete: () {
-                        _fPasword.requestFocus();
-                      },
-                      decoration: InputDecoration(prefixIcon: Icon(Icons.person), hintText: 'Fahim Khan'),
-                    )),
-                Align(
-                    alignment: global.isRTL ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: Text(
-                        AppLocalizations.of(context)!.lbl_email,
-                        style: Theme.of(context).primaryTextTheme.headline3,
-                      ),
-                    )),
-                Container(
-                    margin: EdgeInsets.only(top: 5, left: 10, right: 10),
-                    height: 50,
-                    child: TextFormField(
-                      textAlign: TextAlign.start,
-                      autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
-                      enabled: true,
-                      readOnly: true,
-                      style: Theme.of(context).inputDecorationTheme.hintStyle,
-                      controller: _cEmail,
-                      focusNode: _fEmail,
-                      decoration: InputDecoration(prefixIcon: Icon(Icons.email), hintText: AppLocalizations.of(context)!.hnt_email),
-                    )),
-                Align(
-                    alignment: global.isRTL ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: Text(
-                        AppLocalizations.of(context)!.lbl_mobile,
-                        style: Theme.of(context).primaryTextTheme.headline3,
-                      ),
-                    )),
-                Container(
-                    margin: EdgeInsets.only(top: 5, left: 10, right: 10),
-                    height: 50,
-                    child: TextFormField(
-                      textAlign: TextAlign.start,
-                      autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
-                      enabled: true,
-                      readOnly: true,
-                      style: Theme.of(context).inputDecorationTheme.hintStyle,
-                      controller: _cMobile,
-                      focusNode: _fMobile,
-                      decoration: InputDecoration(prefixIcon: Icon(Icons.phone), hintText: AppLocalizations.of(context)!.hnt_phone),
-                    )),
-                Align(
-                    alignment: global.isRTL ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: Text(
-                        AppLocalizations.of(context)!.lbl_change_password,
-                        style: Theme.of(context).primaryTextTheme.headline3,
-                      ),
-                    )),
-                Container(
-                    margin: EdgeInsets.only(top: 5, left: 10, right: 10),
-                    height: 50,
-                    child: TextFormField(
-                      textAlign: TextAlign.start,
-                      autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
-                      enabled: true,
-                      obscureText: true,
-                      style: Theme.of(context).inputDecorationTheme.hintStyle,
-                      controller: _cPassword,
-                      focusNode: _fPasword,
-                      decoration: InputDecoration(prefixIcon: Icon(Icons.password), hintText: AppLocalizations.of(context)!.hnt_password),
-                      onEditingComplete: () {
-                        _fConfirmPassword.requestFocus();
-                      },
-                    )),
-                Align(
-                    alignment: global.isRTL ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: Text(
-                        AppLocalizations.of(context)!.lbl_confirm_password,
-                        style: Theme.of(context).primaryTextTheme.headline3,
-                      ),
-                    )),
-                Container(
-                    margin: EdgeInsets.only(top: 5, left: 10, right: 10),
-                    height: 50,
-                    child: TextFormField(
-                      textAlign: TextAlign.start,
-                      autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
-                      enabled: true,
-                      obscureText: true,
-                      style: Theme.of(context).inputDecorationTheme.hintStyle,
-                      controller: _cConfirmPassword,
-                      focusNode: _fConfirmPassword,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.password),
-                        hintText: AppLocalizations.of(context)!.lbl_confirm_password,
-                      ),
-                      onEditingComplete: () {
-                        FocusScope.of(context).unfocus();
-                      },
-                    )),
-              ],
-            ),
-          ),
-          bottomNavigationBar: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(),
-                  SizedBox(
-                    width: 150,
-                    height: 43,
-                    child: TextButton(
-                        onPressed: () {
-                          _save();
-                        },
-                        child: Text(AppLocalizations.of(context)!.btn_save)),
-                  ),
-                  SizedBox(),
-                ],
               ),
-            ),
+              Center(
+                  child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  '${global.user!.name}',
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                ),
+              )),
+              Align(
+                  alignment: global.isRTL
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: Text(
+                      'اسم المستخدم',
+                      style: Theme.of(context).primaryTextTheme.displaySmall,
+                    ),
+                  )),
+              Container(
+                  margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                  height: 50,
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    cursorColor: Color(0xFFF36D86),
+                    style: Theme.of(context).inputDecorationTheme.hintStyle,
+                    controller: _cName,
+                    focusNode: _fName,
+                    onEditingComplete: () {
+                      _fPasword.requestFocus();
+                    },
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person),
+                        hintText: 'اسم المستخدم'),
+                  )),
+              Align(
+                  alignment: global.isRTL
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: Text(
+                      'البريد الالكتروني',
+                      style: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.black54,
+                          fontSize: 16),
+                    ),
+                  )),
+              Container(
+                  margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                  height: 50,
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    cursorColor: Color(0xFFF36D86),
+                    enabled: true,
+                    readOnly: true,
+                    style: Theme.of(context).inputDecorationTheme.hintStyle,
+                    controller: _cEmail,
+                    focusNode: _fEmail,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.email),
+                      hintText: 'البريد الالكتروني',
+                      hintStyle: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.black26,
+                          fontSize: 16),
+                    ),
+                  )),
+              Align(
+                  alignment: global.isRTL
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: Text(
+                      'رقم الهاتف',
+                      style: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.black54,
+                          fontSize: 16),
+                    ),
+                  )),
+              Container(
+                  margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                  height: 50,
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    cursorColor: Color(0xFFF36D86),
+                    enabled: true,
+                    readOnly: true,
+                    style: Theme.of(context).inputDecorationTheme.hintStyle,
+                    controller: _cMobile,
+                    focusNode: _fMobile,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.phone),
+                      hintText: 'رقم الهاتف',
+                      hintStyle: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.black26,
+                          fontSize: 16),
+                    ),
+                  )),
+              Align(
+                  alignment: global.isRTL
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: Text(
+                      'كلمة المرور',
+                      style: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.black54,
+                          fontSize: 16),
+                    ),
+                  )),
+              Container(
+                  margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                  height: 50,
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    cursorColor: Color(0xFFF36D86),
+                    enabled: true,
+                    obscureText: true,
+                    style: Theme.of(context).inputDecorationTheme.hintStyle,
+                    controller: _cPassword,
+                    focusNode: _fPasword,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.password),
+                      hintText: 'كلمة المرور',
+                      hintStyle: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.black26,
+                          fontSize: 16),
+                    ),
+                    onEditingComplete: () {
+                      _fConfirmPassword.requestFocus();
+                    },
+                  )),
+              Align(
+                  alignment: global.isRTL
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    child: Text(
+                      'تأكيد كلمة المرور',
+                      style: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.black54,
+                          fontSize: 16),
+                    ),
+                  )),
+              Container(
+                  margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                  height: 50,
+                  child: TextFormField(
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    cursorColor: Color(0xFFF36D86),
+                    enabled: true,
+                    obscureText: true,
+                    style: Theme.of(context).inputDecorationTheme.hintStyle,
+                    controller: _cConfirmPassword,
+                    focusNode: _fConfirmPassword,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.password),
+                      hintText: 'تأكيد كلمة المرور',
+                      helperStyle: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.black26,
+                          fontSize: 16),
+                    ),
+                    onEditingComplete: () {
+                      FocusScope.of(context).unfocus();
+                    },
+                  )),
+            ],
           ),
         ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(),
+              SizedBox(
+                width: 150,
+                height: 43,
+                child: TextButton(
+                    onPressed: () {
+                      _save();
+                    },
+                    child: Text(
+                      'حفظ',
+                      style: TextStyle(
+                          fontFamily: 'cairo',
+                          color: Colors.white,
+                          fontSize: 18),
+                    )),
+              ),
+              SizedBox(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -331,12 +416,21 @@ class _AccountSettingScreenState extends BaseRouteState {
     try {
       FocusScope.of(context).unfocus();
       global.user!.user_name = _cName.text;
-      global.user!.user_password = _cPassword.text.isEmpty ? null : _cPassword.text;
-      if (_cPassword.text.isNotEmpty && _cPassword.text.trim().length >= 8 && _cConfirmPassword.text.isNotEmpty && _cPassword.text.trim() == _cConfirmPassword.text.trim()) {
-      } else if (_cPassword.text.isNotEmpty && _cPassword.text.trim().length < 8) {
-        showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_password_should_be_of_minimum_8_character);
-      } else if (_cConfirmPassword.text.isNotEmpty && _cConfirmPassword.text.trim() != _cPassword.text.trim()) {
-        showSnackBar(key: _scaffoldKey, snackBarMessage: AppLocalizations.of(context)!.txt_password_do_not_match);
+      global.user!.user_password =
+          _cPassword.text.isEmpty ? null : _cPassword.text;
+      if (_cPassword.text.isNotEmpty &&
+          _cPassword.text.trim().length >= 8 &&
+          _cConfirmPassword.text.isNotEmpty &&
+          _cPassword.text.trim() == _cConfirmPassword.text.trim()) {
+      } else if (_cPassword.text.isNotEmpty &&
+          _cPassword.text.trim().length < 8) {
+        showSnackBar(
+            key: _scaffoldKey,
+            snackBarMessage: 'كلمة المرور يجب  ان تكون اكبر من 8 حروق و ارقام');
+      } else if (_cConfirmPassword.text.isNotEmpty &&
+          _cConfirmPassword.text.trim() != _cPassword.text.trim()) {
+        showSnackBar(
+            key: _scaffoldKey, snackBarMessage: 'كلمة المرور غير متطابقه');
       }
 
       bool isConnected = await br.checkConnectivity();
@@ -355,13 +449,14 @@ class _AccountSettingScreenState extends BaseRouteState {
               hideLoader();
 
               global.user = result.data;
-
-              global.sp.setString('currentUser', json.encode(global.user!.toJson()));
+              global.sp
+                  .setString("currentUser", json.encode(global.user!.toJson()));
               Navigator.of(context).pop();
 
               setState(() {});
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+              showSnackBar(
+                  key: _scaffoldKey, snackBarMessage: '${result.message}');
             }
           }
         });
@@ -381,7 +476,8 @@ class _AccountSettingScreenState extends BaseRouteState {
           title: Text(AppLocalizations.of(context)!.lbl_actions),
           actions: [
             CupertinoActionSheetAction(
-              child: Text(AppLocalizations.of(context)!.lbl_take_picture, style: TextStyle(color: Color(0xFF171D2C))),
+              child: Text(AppLocalizations.of(context)!.lbl_take_picture,
+                  style: TextStyle(color: Color(0xFF171D2C))),
               onPressed: () async {
                 Navigator.pop(context);
                 showOnlyLoaderDialog();
@@ -392,7 +488,8 @@ class _AccountSettingScreenState extends BaseRouteState {
               },
             ),
             CupertinoActionSheetAction(
-              child: Text(AppLocalizations.of(context)!.lbl_choose_from_library, style: TextStyle(color: Color(0xFF171D2C))),
+              child: Text(AppLocalizations.of(context)!.lbl_choose_from_library,
+                  style: TextStyle(color: Color(0xFF171D2C))),
               onPressed: () async {
                 Navigator.pop(context);
                 showOnlyLoaderDialog();
@@ -404,7 +501,8 @@ class _AccountSettingScreenState extends BaseRouteState {
             )
           ],
           cancelButton: CupertinoActionSheetAction(
-            child: Text(AppLocalizations.of(context)!.lbl_cancel, style: TextStyle(color: Color(0xFFFA692C))),
+            child: Text(AppLocalizations.of(context)!.lbl_cancelled,
+                style: TextStyle(color: Color(0xFFF36D86))),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -412,7 +510,9 @@ class _AccountSettingScreenState extends BaseRouteState {
         ),
       );
     } catch (e) {
-      print("Exception - accountSettingScreen.dart - _showCupertinoModalSheet():" + e.toString());
+      print(
+          "Exception - accountSettingScreen.dart - _showCupertinoModalSheet():" +
+              e.toString());
     }
   }
 }

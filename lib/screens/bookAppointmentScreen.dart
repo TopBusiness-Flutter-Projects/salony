@@ -131,7 +131,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                 Dismissible(
                                   background: Card(
                                     elevation: 0,
-                                    color: Color(0xFFFA692C),
+                                    color: Color(0xFFF36D86),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(0)),
                                   ),
@@ -154,7 +154,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                     children: [
                                       Container(
                                           decoration: BoxDecoration(
-                                              color: Color(0xFFFA692C),
+                                              color: Color(0xFFF36D86),
                                               borderRadius: BorderRadius.only(
                                                   topRight: Radius.circular(10),
                                                   bottomRight:
@@ -521,7 +521,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 monthTextStyle: Theme.of(context).primaryTextTheme.bodyLarge!,
                 initialSelectedDate:
                     DateTime.parse(_bookingAppointment!.selected_date!),
-                selectionColor: Color(0xFFFA692C),
+                selectionColor: Color(0xFFF36D86),
                 selectedTextColor: Colors.white,
                 daysCount: 10,
                 onDateChange: (date) {
@@ -565,7 +565,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                   selectedTimeSlot ==
                                       _bookingAppointment!
                                           .time_slot![index].timeslot
-                              ? Color(0xFFFA692C)
+                              ? Color(0xFFF36D86)
                               : _bookingAppointment!
                                           .time_slot![index].availibility ==
                                       true
@@ -675,7 +675,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                           ),
                           color: _bookingAppointment!.staff_id ==
                                   _bookingAppointment!.barber[index].staff_id
-                              ? Color(0xFFFA692C)
+                              ? Color(0xFFF36D86)
                               : Colors.white,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,

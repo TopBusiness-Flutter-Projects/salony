@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:app/models/currencyModel.dart';
 import 'package:app/models/googleMapModel.dart';
 import 'package:app/models/mapBoxModel.dart';
 import 'package:app/models/userModel.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String? appDeviceId;
@@ -42,6 +39,8 @@ List<String> rtlLanguageCodeLList = [
 ];
 late SharedPreferences sp;
 CurrentUser? user = new CurrentUser();
+int cardCount = 0;
+
 Future<Map<String, String>> getApiHeaders(bool authorizationRequired) async {
   Map<String, String> apiHeader = new Map<String, String>();
   if (authorizationRequired) {
@@ -49,6 +48,8 @@ Future<Map<String, String>> getApiHeaders(bool authorizationRequired) async {
     if (sp.getString("currentUser") != null) {
       CurrentUser currentUser =
           CurrentUser.fromJson(json.decode(sp.getString("currentUser")!));
+      user = CurrentUser.fromJson(json.decode(sp.getString("currentUser")!));
+      print('aaaaaaaaaaa ... ${user?.cart_count ?? 5}');
       apiHeader.addAll({"Authorization": "Bearer" + currentUser.token!});
       print('token ${currentUser.token}');
     }

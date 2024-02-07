@@ -130,7 +130,7 @@ class _SignInScreenState extends BaseRouteState {
                         child: TextFormField(
                           textAlign: TextAlign.start,
                           autofocus: false,
-                          cursorColor: Color(0xFFFA692C),
+                          cursorColor: Color(0xFFF36D86),
                           enabled: true,
                           style: TextStyle(
                             color: Color(0xFFA6A6A6),
@@ -158,7 +158,7 @@ class _SignInScreenState extends BaseRouteState {
                         child: TextFormField(
                           textAlign: TextAlign.start,
                           autofocus: false,
-                          cursorColor: Color(0xFFFA692C),
+                          cursorColor: Color(0xFFF36D86),
                           enabled: true,
                           style: TextStyle(
                             color: Color(0xFFA6A6A6),
@@ -257,7 +257,7 @@ class _SignInScreenState extends BaseRouteState {
                     //           Icons.check_circle,
                     //           size: 20,
                     //           color: _isRemember
-                    //               ? Color(0xFFFA692C)
+                    //               ? Color(0xFFF36D86)
                     //               : Color(0xFF898A8D),
                     //         ),
                     //         Padding(
@@ -509,7 +509,7 @@ class _SignInScreenState extends BaseRouteState {
                 print("result.status");
                 global.user = result.recordList;
                 global.sp.setString(
-                    'currentUser', json.encode(global.user!.toJson()));
+                    "currentUser", json.encode(global.user!.toJson()));
                 await getCurrentPosition().then((_) async {
                   if (global.lat != null && global.lng != null) {
                     hideLoader();

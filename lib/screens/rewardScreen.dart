@@ -38,11 +38,13 @@ class _RewardScreenState extends BaseRouteState {
               ? _scratchCardList!.length > 0
                   ? SingleChildScrollView(
                       child: Center(
-                      child: Wrap(spacing: 12, runSpacing: 12, children: _rewardList()),
+                      child: Wrap(
+                          spacing: 12, runSpacing: 12, children: _rewardList()),
                     ))
                   : Center(
                       child: Text(
-                      AppLocalizations.of(context)!.txt_nothing_is_yet_to_see_here,
+                      AppLocalizations.of(context)!
+                          .txt_nothing_is_yet_to_see_here,
                       style: Theme.of(context).primaryTextTheme.titleSmall,
                     ))
               : _shimmer()),
@@ -81,7 +83,8 @@ class _RewardScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - rewardScreen.dart - _getScratchCards():" + e.toString());
+      print(
+          "Exception - rewardScreen.dart - _getScratchCards():" + e.toString());
     }
   }
 
@@ -120,7 +123,9 @@ class _RewardScreenState extends BaseRouteState {
               borderRadius: BorderRadius.circular(10),
               child: Scratcher(
                 key: scratchKey,
-                image: Image(image: NetworkImage(global.baseUrlForImage + _scratchCardList![index].scratch_card_image!)),
+                image: Image(
+                    image: NetworkImage(global.baseUrlForImage +
+                        _scratchCardList![index].scratch_card_image!)),
                 brushSize: 30,
                 threshold: 50,
                 accuracy: ScratchAccuracy.low,
@@ -129,7 +134,8 @@ class _RewardScreenState extends BaseRouteState {
                   await _onScratch(_scratchCardList![index].scratch_id);
                   if (_scratchCard != null) {
                     _scratchCardList![index].is_scratch = true;
-                    scratchKey.currentState!.reveal(duration: Duration(milliseconds: 2000));
+                    scratchKey.currentState!
+                        .reveal(duration: Duration(milliseconds: 2000));
                     setState(() {});
                   }
                 },
@@ -153,7 +159,7 @@ class _RewardScreenState extends BaseRouteState {
         height: ((MediaQuery.of(context).size.width / 2) - 20) * 1.3,
         width: (MediaQuery.of(context).size.width / 2) - 20,
         child: Card(
-            color: Color(0xFFFA692C),
+            color: Color(0xFFF36D86),
             margin: const EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 4),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -176,7 +182,12 @@ class _RewardScreenState extends BaseRouteState {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 0),
-                    child: Text('${_scratchCardList![index].earning}', textAlign: TextAlign.center, style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w400)),
+                    child: Text('${_scratchCardList![index].earning}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400)),
                   ),
                 ],
               ),
@@ -199,8 +210,9 @@ class _RewardScreenState extends BaseRouteState {
                   height: ((MediaQuery.of(context).size.width / 2) - 20) * 1.3,
                   width: (MediaQuery.of(context).size.width / 2) - 20,
                   child: Card(
-                    color: Color(0xFFFA692C),
-                    margin: const EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 4),
+                    color: Color(0xFFF36D86),
+                    margin: const EdgeInsets.only(
+                        left: 4, right: 4, top: 4, bottom: 4),
                   ));
             }),
           ),

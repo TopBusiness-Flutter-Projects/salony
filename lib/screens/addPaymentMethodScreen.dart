@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class AddPaymentMethodScreen extends BaseRoute {
-  AddPaymentMethodScreen({a, o}) : super(a: a, o: o, r: 'AddPaymentMethodScreen');
+  AddPaymentMethodScreen({a, o})
+      : super(a: a, o: o, r: 'AddPaymentMethodScreen');
   @override
-  _AddPaymentMethodScreenState createState() => new _AddPaymentMethodScreenState();
+  _AddPaymentMethodScreenState createState() =>
+      new _AddPaymentMethodScreenState();
 }
 
 class _AddPaymentMethodScreenState extends BaseRouteState {
@@ -38,10 +40,15 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                     height: 180,
                     width: 300,
                     margin: EdgeInsets.all(20),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), image: DecorationImage(fit: BoxFit.cover, image: AssetImage('assets/c2.jpg'))),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/c2.jpg'))),
                   ),
                   Padding(
-                      padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+                      padding:
+                          const EdgeInsets.only(top: 15, left: 10, right: 10),
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -60,7 +67,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           ],
                           keyboardType: TextInputType.number,
                           autofocus: false,
-                          cursorColor: Color(0xFFFA692C),
+                          cursorColor: Color(0xFFF36D86),
                           enabled: true,
                           style: Theme.of(context).primaryTextTheme.headline6,
                           controller: _cCardNumber,
@@ -71,14 +78,18 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           decoration: InputDecoration(
                               suffixIcon: Icon(
                                 Icons.credit_card_outlined,
-                                color: Theme.of(context).iconTheme.color!.withOpacity(0.5),
+                                color: Theme.of(context)
+                                    .iconTheme
+                                    .color!
+                                    .withOpacity(0.5),
                                 size: 18,
                               ),
                               hintText: "Card Number"),
                         )),
                   ),
                   Padding(
-                      padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+                      padding:
+                          const EdgeInsets.only(top: 15, left: 10, right: 10),
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -92,7 +103,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                         child: TextFormField(
                           textAlign: TextAlign.start,
                           autofocus: false,
-                          cursorColor: Color(0xFFFA692C),
+                          cursorColor: Color(0xFFF36D86),
                           enabled: true,
                           style: Theme.of(context).primaryTextTheme.headline6,
                           controller: _cCardHolderName,
@@ -103,14 +114,18 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           decoration: InputDecoration(
                               suffixIcon: Icon(
                                 Icons.person_outline,
-                                color: Theme.of(context).iconTheme.color!.withOpacity(0.5),
+                                color: Theme.of(context)
+                                    .iconTheme
+                                    .color!
+                                    .withOpacity(0.5),
                                 size: 18,
                               ),
                               hintText: "Card Holder Name"),
                         )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+                    padding:
+                        const EdgeInsets.only(top: 15, left: 10, right: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -118,18 +133,22 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                                padding: const EdgeInsets.only(top: 0, left: 0, right: 10),
+                                padding: const EdgeInsets.only(
+                                    top: 0, left: 0, right: 10),
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Expiry Date',
-                                      style: Theme.of(context).primaryTextTheme.subtitle1,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .subtitle1,
                                     ))),
                             Padding(
                               padding: const EdgeInsets.only(right: 4, top: 3),
                               child: SizedBox(
                                   height: 50,
-                                  width: MediaQuery.of(context).size.width / 2 - 20,
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      20,
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
                                     inputFormatters: [
@@ -137,9 +156,11 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                     ],
                                     keyboardType: TextInputType.number,
                                     autofocus: false,
-                                    cursorColor: Color(0xFFFA692C),
+                                    cursorColor: Color(0xFFF36D86),
                                     enabled: true,
-                                    style: Theme.of(context).primaryTextTheme.headline6,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .headline6,
                                     controller: _cExpiryDate,
                                     focusNode: _fExpiryDate,
                                     onEditingComplete: () {
@@ -148,7 +169,10 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                     decoration: InputDecoration(
                                         suffixIcon: Icon(
                                           MdiIcons.calendar,
-                                          color: Theme.of(context).iconTheme.color!.withOpacity(0.5),
+                                          color: Theme.of(context)
+                                              .iconTheme
+                                              .color!
+                                              .withOpacity(0.5),
                                           size: 18,
                                         ),
                                         hintText: "Expiry Date"),
@@ -160,18 +184,22 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                                padding: const EdgeInsets.only(top: 0, left: 0, right: 10),
+                                padding: const EdgeInsets.only(
+                                    top: 0, left: 0, right: 10),
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Security Code',
-                                      style: Theme.of(context).primaryTextTheme.subtitle1,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .subtitle1,
                                     ))),
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
                               child: SizedBox(
                                   height: 50,
-                                  width: MediaQuery.of(context).size.width / 2 - 20,
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      20,
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
                                     inputFormatters: [
@@ -180,9 +208,11 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                     ],
                                     keyboardType: TextInputType.number,
                                     autofocus: false,
-                                    cursorColor: Color(0xFFFA692C),
+                                    cursorColor: Color(0xFFF36D86),
                                     enabled: true,
-                                    style: Theme.of(context).primaryTextTheme.headline6,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .headline6,
                                     controller: _cCVV,
                                     focusNode: _fCVV,
                                     onEditingComplete: () {
@@ -191,7 +221,10 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                     decoration: InputDecoration(
                                         suffixIcon: Icon(
                                           MdiIcons.keyVariant,
-                                          color: Theme.of(context).iconTheme.color!.withOpacity(0.5),
+                                          color: Theme.of(context)
+                                              .iconTheme
+                                              .color!
+                                              .withOpacity(0.5),
                                           size: 18,
                                         ),
                                         hintText: "Security Code"),

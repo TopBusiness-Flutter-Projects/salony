@@ -23,19 +23,36 @@ class BusinessRule {
   String? calculateDurationDiff(DateTime? date) {
     String? durationText;
     try {
-      if(date != null) {
-        if (Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.year) > 0) {
-          durationText = '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.year)} year ago';
-        } else if (Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.month) > 0) {
-          durationText = '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.month)} mon ago';
-        } else if (Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.week) > 0) {
-          durationText = '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.week)} week ago';
-        } else if (Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.day) > 0) {
-          durationText = '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.day)} day ago';
-        } else if (Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.hour) > 0) {
-          durationText = '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.hour)} hour ago';
-        } else if (Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.minute) > 0) {
-          durationText = '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.minute)} min ago';
+      if (date != null) {
+        if (Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.year) >
+            0) {
+          durationText =
+              '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.year)} year ago';
+        } else if (Jiffy.now()
+                .diff(Jiffy.parseFromDateTime(date), unit: Unit.month) >
+            0) {
+          durationText =
+              '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.month)} mon ago';
+        } else if (Jiffy.now()
+                .diff(Jiffy.parseFromDateTime(date), unit: Unit.week) >
+            0) {
+          durationText =
+              '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.week)} week ago';
+        } else if (Jiffy.now()
+                .diff(Jiffy.parseFromDateTime(date), unit: Unit.day) >
+            0) {
+          durationText =
+              '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.day)} day ago';
+        } else if (Jiffy.now()
+                .diff(Jiffy.parseFromDateTime(date), unit: Unit.hour) >
+            0) {
+          durationText =
+              '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.hour)} hour ago';
+        } else if (Jiffy.now()
+                .diff(Jiffy.parseFromDateTime(date), unit: Unit.minute) >
+            0) {
+          durationText =
+              '${Jiffy.now().diff(Jiffy.parseFromDateTime(date), unit: Unit.minute)} min ago';
         } else {
           durationText = 'now';
         }
@@ -44,7 +61,9 @@ class BusinessRule {
       }
       return null;
     } catch (e) {
-      print("Exception - barberDescriptionScreen.dart - _calculateDurationDiff(): " + e.toString());
+      print(
+          "Exception - barberDescriptionScreen.dart - _calculateDurationDiff(): " +
+              e.toString());
       return durationText;
     }
   }
@@ -74,7 +93,8 @@ class BusinessRule {
 
       return isConnected;
     } catch (e) {
-      print('Exception - businessRule.dart - checkConnectivity(): ' + e.toString());
+      print('Exception - businessRule.dart - checkConnectivity(): ' +
+          e.toString());
     }
     return false;
   }
@@ -83,15 +103,18 @@ class BusinessRule {
     try {
       global.sp = await SharedPreferences.getInstance();
     } catch (e) {
-      print("Exception - otpVerificationScreen.dart - _saveUser():" + e.toString());
+      print("Exception - otpVerificationScreen.dart - _saveUser():" +
+          e.toString());
     }
   }
 
   inviteFriendShareMessage() {
     try {
-      Share.share("${global.appShareMessage.replaceAll("[CODE]", "${global.user!.referral_code}")}");
+      Share.share(
+          "${global.appShareMessage.replaceAll("[CODE]", "${global.user!.referral_code}")}");
     } catch (e) {
-      print("Exception -  businessRule.dart - inviteFriendShareMessage():" + e.toString());
+      print("Exception -  businessRule.dart - inviteFriendShareMessage():" +
+          e.toString());
     }
   }
 
@@ -101,11 +124,12 @@ class BusinessRule {
       if (permissionStatus.isLimited || permissionStatus.isDenied) {
         permissionStatus = await Permission.camera.request();
       }
-      XFile _selectedImage = await (ImagePicker().pickImage(source: ImageSource.camera) as FutureOr<XFile>);
-      File imageFile = File(_selectedImage.path);
-      File _finalImage = await (_cropImage(imageFile.path) as FutureOr<File>);
+      XFile? _selectedImage =
+          await (ImagePicker().pickImage(source: ImageSource.camera));
+      File? imageFile = File(_selectedImage!.path);
+      File? _finalImage = await _cropImage(imageFile.path);
 
-      File? _finalImage1 = await _imageCompress(_finalImage, imageFile.path);
+      File? _finalImage1 = await _imageCompress(_finalImage!, imageFile.path);
 
       return _finalImage1;
     } catch (e) {
@@ -121,22 +145,24 @@ class BusinessRule {
         permissionStatus = await Permission.photos.request();
       }
       File imageFile;
-      XFile _selectedImage = await (ImagePicker().pickImage(source: ImageSource.gallery) as FutureOr<XFile>);
-      imageFile = File(_selectedImage.path);
-      File _byteData = await (_cropImage(imageFile.path) as FutureOr<File>);
-      _byteData = await (_imageCompress(_byteData, imageFile.path) as FutureOr<File>);
+      XFile? _selectedImage =
+          await (ImagePicker().pickImage(source: ImageSource.gallery));
+      imageFile = File(_selectedImage!.path);
+      File? _byteData = await (_cropImage(imageFile.path));
+      _byteData = await (_imageCompress(_byteData!, imageFile.path));
       return _byteData;
     } catch (e) {
-      print("Exception - businessRule.dart - selectImageFromGallery()" + e.toString());
+      print("Exception - businessRule.dart - selectImageFromGallery()" +
+          e.toString());
     }
     return null;
   }
 
   Future<File?> _cropImage(String sourcePath) async {
     try {
-      File? _croppedFile = (await ImageCropper().cropImage(
-        sourcePath: sourcePath,
-        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+      CroppedFile? _croppedFile = (await ImageCropper().cropImage(
+          sourcePath: sourcePath,
+          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
           uiSettings: [
             AndroidUiSettings(
               initAspectRatio: CropAspectRatioPreset.original,
@@ -149,9 +175,9 @@ class BusinessRule {
               cropFrameColor: Color(0xFF46A9FC),
               lockAspectRatio: true,
             ),
-          ])) as File?;
+          ]));
       if (_croppedFile != null) {
-        return _croppedFile;
+        return File(_croppedFile.path);
       }
     } catch (e) {
       print("Exception - businessRule.dart - _cropImage():" + e.toString());
@@ -210,7 +236,8 @@ class BusinessRule {
     // 1. The year is in the past. In that case, we just assume that the month
     // has passed
     // 2. Card's month (plus another month) is more than current month.
-    return hasYearPassed(year) || convertYearTo4Digits(year) == now.year && (month < now.month + 1);
+    return hasYearPassed(year) ||
+        convertYearTo4Digits(year) == now.year && (month < now.month + 1);
   }
 
   static bool hasYearPassed(int year) {
@@ -229,7 +256,8 @@ class BusinessRule {
 
 class CardMonthInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     var newText = newValue.text;
 
     if (newValue.selection.baseOffset == 0) {
@@ -246,13 +274,16 @@ class CardMonthInputFormatter extends TextInputFormatter {
     }
 
     var string = buffer.toString();
-    return newValue.copyWith(text: string, selection: new TextSelection.collapsed(offset: string.length));
+    return newValue.copyWith(
+        text: string,
+        selection: new TextSelection.collapsed(offset: string.length));
   }
 }
 
 class CardNumberInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     var text = newValue.text;
 
     if (newValue.selection.baseOffset == 0) {
@@ -269,7 +300,9 @@ class CardNumberInputFormatter extends TextInputFormatter {
     }
 
     var string = buffer.toString();
-    return newValue.copyWith(text: string, selection: new TextSelection.collapsed(offset: string.length));
+    return newValue.copyWith(
+        text: string,
+        selection: new TextSelection.collapsed(offset: string.length));
   }
 }
 

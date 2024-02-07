@@ -523,8 +523,9 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}show_cart"),
         headers: await global.getApiHeaders(true),
-        body: json.encode({"user_id": user_id, "lang": global.languageCode}),
+        body: json.encode({"user_id": user_id}),
       );
+      print('...........$user_id');
 
       dynamic recordList;
       if (response.statusCode == 200 &&
@@ -864,8 +865,9 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}product_orders"),
         headers: await global.getApiHeaders(true),
-        body: json
-            .encode({"user_id": global.user!.id, "lang": global.languageCode}),
+        body: json.encode({
+          "user_id": global.user!.id,
+        }),
       );
 
       dynamic recordList;
@@ -1078,7 +1080,6 @@ class APIHelper {
           "id": id,
         }),
       );
-
       dynamic recordList;
       if (response.statusCode == 200 &&
           json.decode(response.body)["status"] == "1") {

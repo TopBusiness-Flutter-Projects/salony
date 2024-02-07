@@ -85,7 +85,7 @@ class _SearchScreenState extends BaseRouteState {
                     child: TextFormField(
                       textAlign: TextAlign.start,
                       autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
+                      cursorColor: Color(0xFFF36D86),
                       enabled: true,
                       style: Theme.of(context).primaryTextTheme.titleLarge,
                       controller: _cSearch,
@@ -121,7 +121,7 @@ class _SearchScreenState extends BaseRouteState {
                           child: Container(
                             width: 50,
                             decoration: BoxDecoration(
-                                color: Color(0xFFFA692C),
+                                color: Color(0xFFF36D86),
                                 borderRadius: BorderRadius.circular(5)),
                             child: Icon(
                               Icons.arrow_circle_down_outlined,
@@ -141,7 +141,7 @@ class _SearchScreenState extends BaseRouteState {
                 Padding(
                   padding: const EdgeInsets.only(top: 10, left: 13, right: 13),
                   child: TabBar(
-                    indicatorColor: Color(0xFFFA692C),
+                    indicatorColor: Color(0xFFF36D86),
                     controller: _tabController,
                     overlayColor: MaterialStateProperty.all(Colors.transparent),
                     tabs: [

@@ -107,7 +107,7 @@ class _BottomNavigationWidgetState extends BaseRouteState {
         //   child: FloatingActionButton(
         //     elevation: 0,
         //     mini: true,
-        //     backgroundColor: Color(0xFFFA692C),
+        //     backgroundColor: Color(0xFFF36D86),
         //     onPressed: () {
         //       Navigator.of(context).push(
         //         MaterialPageRoute(

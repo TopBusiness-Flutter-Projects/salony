@@ -198,7 +198,7 @@ class _ProductListScreenState extends BaseRouteState {
                                   ? Icons.favorite
                                   : Icons.favorite_outline,
                               color: _productList[index].isFavourite!
-                                  ? Color(0xFFFA692C)
+                                  ? Color(0xFFF36D86)
                                   : Colors.white,
                             )),
                       ),
@@ -352,7 +352,7 @@ class _ProductListScreenState extends BaseRouteState {
                             width: 20,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                  width: 1.0, color: Color(0xFFFA692C)),
+                                  width: 1.0, color: Color(0xFFF36D86)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5.0)),
                             ),
@@ -360,7 +360,7 @@ class _ProductListScreenState extends BaseRouteState {
                               child: Text(
                                 "${_productList[index].cart_qty}",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Color(0xFFFA692C)),
+                                style: TextStyle(color: Color(0xFFF36D86)),
                               ),
                             ),
                           ),

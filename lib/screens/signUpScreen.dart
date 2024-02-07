@@ -167,7 +167,7 @@ class _SignUpScreenState extends BaseRouteState {
                         //                 padding: EdgeInsets.all(0),
                         //                 margin: EdgeInsets.all(0),
                         //                 decoration: BoxDecoration(
-                        //                     color: Color(0xFFFA692C),
+                        //                     color: Color(0xFFF36D86),
                         //                     borderRadius:
                         //                         BorderRadius.circular(34)),
                         //                 child: Icon(
@@ -189,7 +189,7 @@ class _SignUpScreenState extends BaseRouteState {
                             FilteringTextInputFormatter.deny(RegExp(r'[0-9]'))
                           ],
                           textCapitalization: TextCapitalization.words,
-                          cursorColor: Color(0xFFFA692C),
+                          cursorColor: Color(0xFFF36D86),
                           enabled: true,
                           style: TextStyle(fontFamily: 'cairo'),
                           controller: _cName,
@@ -211,7 +211,7 @@ class _SignUpScreenState extends BaseRouteState {
                                 _phoneNumberLength),
                           ],
                           keyboardType: TextInputType.number,
-                          cursorColor: Color(0xFFFA692C),
+                          cursorColor: Color(0xFFF36D86),
                           enabled: true,
                           style: TextStyle(fontFamily: 'cairo'),
                           controller: _cMobile,
@@ -227,7 +227,7 @@ class _SignUpScreenState extends BaseRouteState {
                         child: TextFormField(
                           textAlign: TextAlign.start,
                           autofocus: false,
-                          cursorColor: Color(0xFFFA692C),
+                          cursorColor: Color(0xFFF36D86),
                           enabled: true,
                           obscureText: !_isPasswordVisible,
                           style: TextStyle(fontFamily: 'cairo'),
@@ -257,7 +257,7 @@ class _SignUpScreenState extends BaseRouteState {
                           textAlign: TextAlign.start,
                           autofocus: false,
                           obscureText: !_isConfirmPasswordVisible,
-                          cursorColor: Color(0xFFFA692C),
+                          cursorColor: Color(0xFFF36D86),
                           enabled: true,
                           style: TextStyle(fontFamily: 'cairo'),
                           controller: _cConfirmPassword,
@@ -286,7 +286,7 @@ class _SignUpScreenState extends BaseRouteState {
                     //     child: TextFormField(
                     //       textAlign: TextAlign.start,
                     //       autofocus: false,
-                    //       cursorColor: Color(0xFFFA692C),
+                    //       cursorColor: Color(0xFFF36D86),
                     //       enabled: true,
                     //       style: Theme.of(context).primaryTextTheme.headline6,
                     //       controller: _cReferralCode,
@@ -311,7 +311,7 @@ class _SignUpScreenState extends BaseRouteState {
                     //             Icons.check_circle,
                     //             size: 20,
                     //             color: _isAgree
-                    //                 ? Color(0xFFFA692C)
+                    //                 ? Color(0xFFF36D86)
                     //                 : Color(0xFF898A8D),
                     //           ),
                     //           Padding(
@@ -475,52 +475,52 @@ class _SignUpScreenState extends BaseRouteState {
     }
   }
 
-  _showCupertinoModalSheet() {
-    try {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext context) => CupertinoActionSheet(
-          title: Text(AppLocalizations.of(context)!.lbl_actions),
-          actions: [
-            CupertinoActionSheetAction(
-              child: Text(AppLocalizations.of(context)!.lbl_take_picture,
-                  style: TextStyle(color: Color(0xFF171D2C))),
-              onPressed: () async {
-                Navigator.pop(context);
-                showOnlyLoaderDialog();
-                _tImage = await br.openCamera();
-                hideLoader();
+  // _showCupertinoModalSheet() {
+  //   try {
+  //     showCupertinoModalPopup(
+  //       context: context,
+  //       builder: (BuildContext context) => CupertinoActionSheet(
+  //         title: Text(AppLocalizations.of(context)!.lbl_actions),
+  //         actions: [
+  //           CupertinoActionSheetAction(
+  //             child: Text(AppLocalizations.of(context)!.lbl_take_picture,
+  //                 style: TextStyle(color: Color(0xFF171D2C))),
+  //             onPressed: () async {
+  //               Navigator.pop(context);
+  //               showOnlyLoaderDialog();
+  //               _tImage = await br.openCamera();
+  //               hideLoader();
 
-                setState(() {});
-              },
-            ),
-            CupertinoActionSheetAction(
-              child: Text(AppLocalizations.of(context)!.lbl_choose_from_library,
-                  style: TextStyle(color: Color(0xFF171D2C))),
-              onPressed: () async {
-                Navigator.pop(context);
-                showOnlyLoaderDialog();
-                _tImage = await br.selectImageFromGallery();
-                hideLoader();
+  //               setState(() {});
+  //             },
+  //           ),
+  //           CupertinoActionSheetAction(
+  //             child: Text(AppLocalizations.of(context)!.lbl_choose_from_library,
+  //                 style: TextStyle(color: Color(0xFF171D2C))),
+  //             onPressed: () async {
+  //               Navigator.pop(context);
+  //               showOnlyLoaderDialog();
+  //               _tImage = await br.selectImageFromGallery();
+  //               hideLoader();
 
-                setState(() {});
-              },
-            )
-          ],
-          cancelButton: CupertinoActionSheetAction(
-            child: Text(AppLocalizations.of(context)!.lbl_cancel,
-                style: TextStyle(color: Color(0xFFFA692C))),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-      );
-    } catch (e) {
-      print("Exception - signUpScreen.dart - _showCupertinoModalSheet():" +
-          e.toString());
-    }
-  }
+  //               setState(() {});
+  //             },
+  //           )
+  //         ],
+  //         cancelButton: CupertinoActionSheetAction(
+  //           child: Text(AppLocalizations.of(context)!.lbl_cancelled
+  //               style: TextStyle(color: Color(0xFFF36D86))),
+  //           onPressed: () {
+  //             Navigator.pop(context);
+  //           },
+  //         ),
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     print("Exception - signUpScreen.dart - _showCupertinoModalSheet():" +
+  //         e.toString());
+  //   }
+  // }
 
   _signUp() async {
     try {
@@ -597,9 +597,7 @@ class _SignUpScreenState extends BaseRouteState {
           _cPassword.text.isNotEmpty &&
           (_cConfirmPassword.text.trim() != _cPassword.text.trim())) {
         showSnackBar(
-            key: _scaffoldKey,
-            snackBarMessage:
-                AppLocalizations.of(context)!.txt_password_do_not_match);
+            key: _scaffoldKey, snackBarMessage: 'كلمة المرور غير متطابقه');
       }
       // else if (!_isAgree) {
       //   showSnackBar(

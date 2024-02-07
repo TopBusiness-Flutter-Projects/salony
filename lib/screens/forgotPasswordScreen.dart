@@ -49,7 +49,7 @@ class _ForgotPasswordScreenState extends BaseRouteState {
                     child: TextFormField(
                       textAlign: TextAlign.start,
                       autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
+                      cursorColor: Color(0xFFF36D86),
                       enabled: true,
                       style: Theme.of(context).primaryTextTheme.titleLarge,
                       controller: _cPhone,

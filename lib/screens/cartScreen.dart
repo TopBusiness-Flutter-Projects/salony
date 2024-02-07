@@ -10,6 +10,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../models/businessLayer/shared_prefrence.dart';
+import 'favouritesScreen.dart';
+
 class CartScreen extends BaseRoute {
   final int? screenId;
   CartScreen({a, o, this.screenId}) : super(a: a, o: o, r: 'CartScreen');
@@ -24,18 +27,55 @@ class _CartScreenState extends BaseRouteState {
   Cart? _cartItems;
   bool _isDataLoaded = false;
   _CartScreenState({this.screenId}) : super();
+  _getFavoriteList() async {
+    try {
+      bool isConnected = await br.checkConnectivity();
+      if (isConnected) {
+        await apiHelper!.getFavoriteList(global.user!.id).then((result) {
+          if (result != null) {
+            if (result.status == "1") {
+              favoritesList = result.recordList;
+              // _isDataLoaded = true;
+            } else if (result.status == "0") {
+              favoritesList = null;
+              // _isDataLoaded = true;
+            }
+            setState(() {});
+          }
+        });
+      } else {
+        showNetworkErrorSnackBar(_scaffoldKey);
+      }
+    } catch (e) {
+      print("Exception - favoritesScreen.dart - _getFavoriteList():" +
+          e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
           Navigator.of(context).pop();
+          // removeCartCount();
+          // myCartCount = 0;
+          // getCartCount();
+          // _getFavoriteList();
+          // setState(() {});
           return false;
         },
         child: Scaffold(
             appBar: AppBar(
               title: RichText(
-                text: TextSpan(text: AppLocalizations.of(context)!.lbl_my_cart, style: Theme.of(context).appBarTheme.titleTextStyle, children: [TextSpan(text: AppLocalizations.of(context)!.txt_store_pick_up_only, style: Theme.of(context).primaryTextTheme.subtitle1)]),
+                text: TextSpan(
+                    text: AppLocalizations.of(context)!.lbl_my_cart,
+                    style: Theme.of(context).appBarTheme.titleTextStyle,
+                    children: [
+                      TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .txt_store_pick_up_only,
+                          style: Theme.of(context).primaryTextTheme.titleMedium)
+                    ]),
               ),
               actions: [
                 _isDataLoaded
@@ -43,6 +83,11 @@ class _CartScreenState extends BaseRouteState {
                         ? IconButton(
                             onPressed: () {
                               _delConfirmationDialog();
+                              removeCartCount();
+                              myCartCount = 0;
+                              getCartCount();
+                              _getFavoriteList();
+                              setState(() {});
                             },
                             icon: Icon(Icons.delete_outline))
                         : SizedBox()
@@ -52,62 +97,87 @@ class _CartScreenState extends BaseRouteState {
             body: _isDataLoaded
                 ? _cartList != null && _cartList!.cart_items.length > 0
                     ? SafeArea(
-                      child: ListView.builder(
+                        child: ListView.builder(
                           itemCount: _cartList!.cart_items.length,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.only(top: 8, bottom: 8, left: 13, right: 13),
+                              padding: const EdgeInsets.only(
+                                  top: 8, bottom: 8, left: 13, right: 13),
                               child: Card(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    _cartList!.cart_items[index].product_image != null
+                                    _cartList!.cart_items[index]
+                                                .product_image !=
+                                            null
                                         ? CachedNetworkImage(
-                                            imageUrl: global.baseUrlForImage + _cartList!.cart_items[index].product_image!,
-                                            imageBuilder: (context, imageProvider) => Card(
+                                            imageUrl: global.baseUrlForImage +
+                                                _cartList!.cart_items[index]
+                                                    .product_image!,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Card(
                                               child: Container(
                                                 height: 85,
                                                 width: 100,
                                                 decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
                                                     image: DecorationImage(
                                                       image: imageProvider,
                                                       fit: BoxFit.cover,
                                                     )),
                                               ),
                                             ),
-                                            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                            errorWidget: (context, url, error) => Icon(Icons.error),
+                                            placeholder: (context, url) => Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.error),
                                           )
                                         : Card(
                                             child: Container(
                                               height: 85,
                                               width: 100,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  AppLocalizations.of(context)!.lbl_no_image,
-                                                  style: Theme.of(context).primaryTextTheme.subtitle1,
+                                                  AppLocalizations.of(context)!
+                                                      .lbl_no_image,
+                                                  style: Theme.of(context)
+                                                      .primaryTextTheme
+                                                      .subtitle1,
                                                 ),
                                               ),
                                             ),
                                           ),
                                     Expanded(
                                       child: Padding(
-                                        padding: global.isRTL ? EdgeInsets.only(right: 18, top: 10) : EdgeInsets.only(left: 18, top: 10),
+                                        padding: global.isRTL
+                                            ? EdgeInsets.only(
+                                                right: 18, top: 10)
+                                            : EdgeInsets.only(
+                                                left: 18, top: 10),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
                                               '${_cartList!.cart_items[index].product_name}',
-                                              style: Theme.of(context).primaryTextTheme.bodyText1,
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .bodyText1,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -116,14 +186,18 @@ class _CartScreenState extends BaseRouteState {
                                             ),
                                             Text(
                                               '${global.currency.currency_sign}${_cartList!.cart_items[index].price}  ',
-                                              style: Theme.of(context).primaryTextTheme.headline6,
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6,
                                             ),
                                           ],
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: global.isRTL ? EdgeInsets.only(left: 8) : EdgeInsets.only(right: 8),
+                                      padding: global.isRTL
+                                          ? EdgeInsets.only(left: 8)
+                                          : EdgeInsets.only(right: 8),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -132,21 +206,48 @@ class _CartScreenState extends BaseRouteState {
                                               width: 25,
                                               child: TextButton(
                                                 onPressed: () async {
-                                                  if (_cartList!.cart_items[index].qty == 1) {
-                                                    _delConfirmationDialog(index: index, callId: 1);
+                                                  if (_cartList!
+                                                          .cart_items[index]
+                                                          .qty ==
+                                                      1) {
+                                                    _delConfirmationDialog(
+                                                        index: index,
+                                                        callId: 1);
                                                   } else {
                                                     showOnlyLoaderDialog();
-                                                    int _qty = _cartList!.cart_items[index].qty! - 1;
-                                                    bool isSuccess = await _addToCart(_qty, _cartList!.cart_items[index].product_id);
-                                                    if (isSuccess && _cartList?.cart_items[index].qty != null) {
-                                                      _cartList!.cart_items[index].qty = _cartList!.cart_items[index].qty! - 1;
+                                                    int _qty = _cartList!
+                                                            .cart_items[index]
+                                                            .qty! -
+                                                        1;
+                                                    bool isSuccess =
+                                                        await _addToCart(
+                                                            _qty,
+                                                            _cartList!
+                                                                .cart_items[
+                                                                    index]
+                                                                .product_id);
+                                                    if (isSuccess &&
+                                                        _cartList
+                                                                ?.cart_items[
+                                                                    index]
+                                                                .qty !=
+                                                            null) {
+                                                      _cartList!
+                                                          .cart_items[index]
+                                                          .qty = _cartList!
+                                                              .cart_items[index]
+                                                              .qty! -
+                                                          1;
                                                     }
                                                     hideLoader();
                                                   }
 
                                                   setState(() {});
                                                 },
-                                                child: _cartList!.cart_items[index].qty == 1
+                                                child: _cartList!
+                                                            .cart_items[index]
+                                                            .qty ==
+                                                        1
                                                     ? Icon(
                                                         Icons.delete,
                                                         size: 15,
@@ -163,14 +264,20 @@ class _CartScreenState extends BaseRouteState {
                                             width: 25,
                                             height: 25,
                                             decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0, color: Color(0xFFFA692C)),
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              border: Border.all(
+                                                  width: 1.0,
+                                                  color: Color(0xFFF36D86)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
                                             ),
                                             child: Center(
                                               child: Text(
                                                 "${_cartList!.cart_items[index].qty}",
                                                 textAlign: TextAlign.center,
-                                                style: TextStyle(color: Color(0xFFFA692C), fontWeight: FontWeight.bold),
+                                                style: TextStyle(
+                                                    color: Color(0xFFF36D86),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ),
                                           ),
@@ -183,10 +290,27 @@ class _CartScreenState extends BaseRouteState {
                                               child: TextButton(
                                                 onPressed: () async {
                                                   showOnlyLoaderDialog();
-                                                  int _qty = _cartList!.cart_items[index].qty! + 1;
-                                                  bool isSuccess = await _addToCart(_qty, _cartList!.cart_items[index].product_id);
-                                                  if (isSuccess && _cartList?.cart_items[index].qty != null) {
-                                                    _cartList!.cart_items[index].qty = _cartList!.cart_items[index].qty! + 1;
+                                                  int _qty = _cartList!
+                                                          .cart_items[index]
+                                                          .qty! +
+                                                      1;
+                                                  bool isSuccess =
+                                                      await _addToCart(
+                                                          _qty,
+                                                          _cartList!
+                                                              .cart_items[index]
+                                                              .product_id);
+                                                  if (isSuccess &&
+                                                      _cartList
+                                                              ?.cart_items[
+                                                                  index]
+                                                              .qty !=
+                                                          null) {
+                                                    _cartList!.cart_items[index]
+                                                        .qty = _cartList!
+                                                            .cart_items[index]
+                                                            .qty! +
+                                                        1;
                                                   }
                                                   hideLoader();
                                                   setState(() {});
@@ -205,7 +329,7 @@ class _CartScreenState extends BaseRouteState {
                             );
                           },
                         ),
-                    )
+                      )
                     : Center(
                         child: Padding(
                           padding: const EdgeInsets.all(10),
@@ -216,22 +340,30 @@ class _CartScreenState extends BaseRouteState {
                             children: [
                               Icon(
                                 Icons.shopping_cart_outlined,
-                                color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+                                color: Theme.of(context)
+                                    .floatingActionButtonTheme
+                                    .backgroundColor,
                                 size: 150,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 25),
                                 child: Text(
-                                  AppLocalizations.of(context)!.txt_your_cart_is_empty,
-                                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                                  AppLocalizations.of(context)!
+                                      .txt_your_cart_is_empty,
+                                  style: Theme.of(context)
+                                      .appBarTheme
+                                      .titleTextStyle,
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 10),
                                 child: Text(
-                                  AppLocalizations.of(context)!.txt_shop_for_some_product_in_order_to_purchase_them,
+                                  AppLocalizations.of(context)!
+                                      .txt_shop_for_some_product_in_order_to_purchase_them,
                                   textAlign: TextAlign.center,
-                                  style: Theme.of(context).primaryTextTheme.subtitle1,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .subtitle1,
                                 ),
                               ),
                             ],
@@ -250,14 +382,33 @@ class _CartScreenState extends BaseRouteState {
                         ? _cartList != null && _cartList!.cart_items.length > 0
                             ? ListTile(
                                 tileColor: Colors.transparent,
-                                title: RichText(text: TextSpan(style: Theme.of(context).primaryTextTheme.subtitle1, children: [TextSpan(text: 'Total Amount  '), TextSpan(text: '${global.currency.currency_sign}${_cartList!.total_price}', style: Theme.of(context).primaryTextTheme.headline5)])),
+                                title: RichText(
+                                    text: TextSpan(
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .subtitle1,
+                                        children: [
+                                      TextSpan(text: 'Total Amount  '),
+                                      TextSpan(
+                                          text:
+                                              '${global.currency.currency_sign}${_cartList!.total_price}',
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .headline5)
+                                    ])),
                                 trailing: ElevatedButton(
                                   onPressed: () async {
                                     Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) => PaymentGatewayScreen(cartList: _cartList, a: widget.analytics, o: widget.observer)),
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PaymentGatewayScreen(
+                                                  cartList: _cartList,
+                                                  a: widget.analytics,
+                                                  o: widget.observer)),
                                     );
                                   },
-                                  child: Text(AppLocalizations.of(context)!.lbl_checkout),
+                                  child: Text(AppLocalizations.of(context)!
+                                      .lbl_checkout),
                                 ),
                               )
                             : Row(
@@ -268,10 +419,15 @@ class _CartScreenState extends BaseRouteState {
                                   ElevatedButton(
                                     onPressed: () {
                                       Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) => ProductListScreen(a: widget.analytics, o: widget.observer)),
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductListScreen(
+                                                    a: widget.analytics,
+                                                    o: widget.observer)),
                                       );
                                     },
-                                    child: Text(AppLocalizations.of(context)!.lbl_shop_now),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .lbl_shop_now),
                                   ),
                                 ],
                               )
@@ -296,7 +452,9 @@ class _CartScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.addToCart(global.user!.id, id, quantity).then((result) {
+        await apiHelper!
+            .addToCart(global.user!.id, id, quantity)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               _isSucessfullyAdded = true;
@@ -325,11 +483,13 @@ class _CartScreenState extends BaseRouteState {
           if (result != null) {
             if (result.status == "1") {
               _isCartCleared = true;
-              showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+              showSnackBar(
+                  key: _scaffoldKey, snackBarMessage: '${result.message}');
 
               setState(() {});
             } else {
-              showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+              showSnackBar(
+                  key: _scaffoldKey, snackBarMessage: '${result.message}');
             }
           }
         });
@@ -352,10 +512,17 @@ class _CartScreenState extends BaseRouteState {
               data: ThemeData(dialogBackgroundColor: Colors.white),
               child: CupertinoAlertDialog(
                 title: Text(
-                  callId == 1 ? AppLocalizations.of(context)!.txt_remove_product_from_cart : AppLocalizations.of(context)!.lbl_clear_cart,
+                  callId == 1
+                      ? AppLocalizations.of(context)!
+                          .txt_remove_product_from_cart
+                      : AppLocalizations.of(context)!.lbl_clear_cart,
                 ),
                 content: Text(
-                  callId == 1 ? AppLocalizations.of(context)!.txt_are_you_sure_you_want_to_remove_this_product : AppLocalizations.of(context)!.txt_are_you_sure_you_want_to_clear_this_product_from_cart,
+                  callId == 1
+                      ? AppLocalizations.of(context)!
+                          .txt_are_you_sure_you_want_to_remove_this_product
+                      : AppLocalizations.of(context)!
+                          .txt_are_you_sure_you_want_to_clear_this_product_from_cart,
                 ),
                 actions: <Widget>[
                   CupertinoDialogAction(
@@ -374,12 +541,14 @@ class _CartScreenState extends BaseRouteState {
                     onPressed: () async {
                       showOnlyLoaderDialog();
                       if (callId == 1) {
-                        bool isSuccess = await _delFromCart(_cartList!.cart_items[index!].product_id);
+                        bool isSuccess = await _delFromCart(
+                            _cartList!.cart_items[index!].product_id);
 
                         if (isSuccess && global.user?.cart_count != null) {
                           _cartList!.cart_items[index].qty = 0;
                           _cartList!.cart_items.removeAt(index);
-                          global.user?.cart_count = global.user!.cart_count! - 1;
+                          global.user?.cart_count =
+                              global.user!.cart_count! - 1;
                         }
                       } else {
                         bool isSuccess = await _clearCart();
@@ -398,7 +567,8 @@ class _CartScreenState extends BaseRouteState {
             );
           });
     } catch (e) {
-      print('Exception - cartScreen.dart - _delConfirmationDialog(): ' + e.toString());
+      print('Exception - cartScreen.dart - _delConfirmationDialog(): ' +
+          e.toString());
     }
   }
 
@@ -478,12 +648,16 @@ class _CartScreenState extends BaseRouteState {
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 220,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 120,
                             height: 40,
-                            child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                            child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 5, bottom: 5, left: 5)),
                           ),
                         ],
                       )

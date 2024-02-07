@@ -126,7 +126,7 @@ class _BarberDetailScreenState extends BaseRouteState {
                             top: 70,
                             child: CircleAvatar(
                               radius: 60,
-                              backgroundColor: Color(0xFFFA692C),
+                              backgroundColor: Color(0xFFF36D86),
                               child: CachedNetworkImage(
                                 imageUrl: global.baseUrlForImage +
                                     (_barberDetails?.staff_image ?? ''),

@@ -42,6 +42,10 @@ class _ProfileScreenState extends BaseRouteState {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+          title: Text(
+            'الحساب',
+            style: Theme.of(context).appBarTheme.titleTextStyle,
+          ),
           automaticallyImplyLeading: false,
         ),
         body: _isDataLoaded
@@ -56,34 +60,47 @@ class _ProfileScreenState extends BaseRouteState {
                       Center(
                         child: global.user!.image != ''
                             ? CachedNetworkImage(
-                                imageUrl: '${global.baseUrlForImage}${global.user!.image}',
-                                imageBuilder: (context, imageProvider) => Container(
-                                  height: MediaQuery.of(context).size.height * 0.17,
-                                  width: MediaQuery.of(context).size.height * 0.17,
+                                imageUrl:
+                                    '${global.baseUrlForImage}${global.user!.image}',
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.17,
+                                  width:
+                                      MediaQuery.of(context).size.height * 0.17,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).cardTheme.color,
                                     borderRadius: new BorderRadius.all(
-                                      new Radius.circular(MediaQuery.of(context).size.height * 0.17),
+                                      new Radius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.17),
                                     ),
-                                    image: DecorationImage(image: imageProvider),
+                                    image:
+                                        DecorationImage(image: imageProvider),
                                     border: new Border.all(
                                       color: Theme.of(context).primaryColor,
                                       width: 3.0,
                                     ),
                                   ),
                                 ),
-                                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                placeholder: (context, url) =>
+                                    Center(child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
                               )
                             : Container(
-                                height: MediaQuery.of(context).size.height * 0.17,
-                                width: MediaQuery.of(context).size.height * 0.17,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.17,
+                                width:
+                                    MediaQuery.of(context).size.height * 0.17,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).cardTheme.color,
                                   borderRadius: new BorderRadius.all(
-                                    new Radius.circular(MediaQuery.of(context).size.height * 0.17),
+                                    new Radius.circular(
+                                        MediaQuery.of(context).size.height *
+                                            0.17),
                                   ),
                                   border: new Border.all(
                                     color: Theme.of(context).primaryColor,
@@ -109,15 +126,22 @@ class _ProfileScreenState extends BaseRouteState {
                         child: ListTile(
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => AccountSettingScreen(a: widget.analytics, o: widget.observer)),
+                              MaterialPageRoute(
+                                  builder: (context) => AccountSettingScreen(
+                                      a: widget.analytics, o: widget.observer)),
                             );
                           },
                           shape: Theme.of(context).cardTheme.shape,
                           leading: Icon(Icons.person),
-                          title: Text(AppLocalizations.of(context)!.lbl_account_settings, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text('إعدادات الحساب',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
-                            AppLocalizations.of(context)!.txt_name_email_address_contact_number,
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            AppLocalizations.of(context)!
+                                .txt_name_email_address_contact_number,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -126,15 +150,25 @@ class _ProfileScreenState extends BaseRouteState {
                         child: ListTile(
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => ProductOrderHistoryScreen(a: widget.analytics, o: widget.observer)),
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductOrderHistoryScreen(
+                                          a: widget.analytics,
+                                          o: widget.observer)),
                             );
                           },
                           shape: Theme.of(context).cardTheme.shape,
                           leading: Icon(FontAwesomeIcons.clockRotateLeft),
-                          title: Text(AppLocalizations.of(context)!.lbl_my_orders, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)!.lbl_my_orders,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
-                            AppLocalizations.of(context)!.txt_manage_your_order_history,
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            AppLocalizations.of(context)!
+                                .txt_manage_your_order_history,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -143,15 +177,24 @@ class _ProfileScreenState extends BaseRouteState {
                         child: ListTile(
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => BookingManagementScreen(a: widget.analytics, o: widget.observer)),
+                              MaterialPageRoute(
+                                  builder: (context) => BookingManagementScreen(
+                                      a: widget.analytics, o: widget.observer)),
                             );
                           },
                           shape: Theme.of(context).cardTheme.shape,
                           leading: Icon(Icons.book_online),
-                          title: Text(AppLocalizations.of(context)!.lbl_booking_management, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)!
+                                  .lbl_booking_management,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
-                            AppLocalizations.of(context)!.txt_manage_your_booking_system,
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            AppLocalizations.of(context)!
+                                .txt_manage_your_booking_system,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -160,15 +203,23 @@ class _ProfileScreenState extends BaseRouteState {
                         child: ListTile(
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => RewardScreen(a: widget.analytics, o: widget.observer)),
+                              MaterialPageRoute(
+                                  builder: (context) => RewardScreen(
+                                      a: widget.analytics, o: widget.observer)),
                             );
                           },
                           shape: Theme.of(context).cardTheme.shape,
                           leading: Icon(Icons.card_giftcard),
-                          title: Text(AppLocalizations.of(context)!.lbl_reward_points_programme, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)!
+                                  .lbl_reward_points_programme,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
                             "You've ${global.user?.rewards ?? 0} rewards points",
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -178,14 +229,22 @@ class _ProfileScreenState extends BaseRouteState {
                           shape: Theme.of(context).cardTheme.shape,
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => PricingAndOffers(a: widget.analytics, o: widget.observer)),
+                              MaterialPageRoute(
+                                  builder: (context) => PricingAndOffers(
+                                      a: widget.analytics, o: widget.observer)),
                             );
                           },
                           leading: Icon(FontAwesomeIcons.tag),
-                          title: Text(AppLocalizations.of(context)!.lbl_pricing_offers, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)!.lbl_pricing_offers,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
-                            AppLocalizations.of(context)!.txt_get_every_special_offers,
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            AppLocalizations.of(context)!
+                                .txt_get_every_special_offers,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -195,14 +254,22 @@ class _ProfileScreenState extends BaseRouteState {
                           shape: Theme.of(context).cardTheme.shape,
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => ReferAndEarnScreen(a: widget.analytics, o: widget.observer)),
+                              MaterialPageRoute(
+                                  builder: (context) => ReferAndEarnScreen(
+                                      a: widget.analytics, o: widget.observer)),
                             );
                           },
                           leading: Icon(MdiIcons.accountConvert),
-                          title: Text(AppLocalizations.of(context)!.lbl_invite_earn, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)!.lbl_invite_earn,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
-                            AppLocalizations.of(context)!.txt_invite_friends_and_earn_reward,
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            AppLocalizations.of(context)!
+                                .txt_invite_friends_and_earn_reward,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -220,10 +287,17 @@ class _ProfileScreenState extends BaseRouteState {
                           },
                           shape: Theme.of(context).cardTheme.shape,
                           leading: Icon(Icons.close),
-                          title: Text(AppLocalizations.of(context)!.lbl_terms_of_service, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)!
+                                  .lbl_terms_of_service,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
-                            AppLocalizations.of(context)!.txt_save_your_terms_of_service,
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            AppLocalizations.of(context)!
+                                .txt_save_your_terms_of_service,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -241,10 +315,16 @@ class _ProfileScreenState extends BaseRouteState {
                           },
                           shape: Theme.of(context).cardTheme.shape,
                           leading: Icon(FontAwesomeIcons.language),
-                          title: Text(AppLocalizations.of(context)!.lbl_select_language, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)!.lbl_select_language,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
-                            AppLocalizations.of(context)!.txt_set_your_preffered_language,
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            AppLocalizations.of(context)!
+                                .txt_set_your_preffered_language,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -256,10 +336,15 @@ class _ProfileScreenState extends BaseRouteState {
                           },
                           shape: Theme.of(context).cardTheme.shape,
                           leading: Icon(FontAwesomeIcons.userLock),
-                          title: Text(AppLocalizations.of(context)!.lbl_delete_account, style: Theme.of(context).primaryTextTheme.titleSmall),
+                          title: Text(
+                              AppLocalizations.of(context)!.lbl_delete_account,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
                             AppLocalizations.of(context)!.txt_delete_account,
-                            style: Theme.of(context).primaryTextTheme.titleMedium,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -268,7 +353,10 @@ class _ProfileScreenState extends BaseRouteState {
                       ),
                       ElevatedButton.icon(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Theme.of(context).bottomNavigationBarTheme.backgroundColor),
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context)
+                                  .bottomNavigationBarTheme
+                                  .backgroundColor),
                         ),
                         onPressed: () {
                           _signOutDialog();
@@ -317,7 +405,8 @@ class _ProfileScreenState extends BaseRouteState {
               global.user = _user;
               global.user!.cart_count = _tCartCount;
 
-              global.sp.setString('currentUser', json.encode(global.user!.toJson()));
+              global.sp
+                  .setString("currentUser", json.encode(global.user!.toJson()));
             }
           }
         });
@@ -325,7 +414,8 @@ class _ProfileScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - profileScreen.dart - _getUserProfile():" + e.toString());
+      print(
+          "Exception - profileScreen.dart - _getUserProfile():" + e.toString());
     }
   }
 
@@ -368,20 +458,27 @@ class _ProfileScreenState extends BaseRouteState {
                             SizedBox(
                               width: 80,
                               height: 80,
-                              child: Card(margin: EdgeInsets.only(top: 5, bottom: 5)),
+                              child: Card(
+                                  margin: EdgeInsets.only(top: 5, bottom: 5)),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width - 220,
+                                  width:
+                                      MediaQuery.of(context).size.width - 220,
                                   height: 40,
-                                  child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                                  child: Card(
+                                      margin: EdgeInsets.only(
+                                          top: 5, bottom: 5, left: 5)),
                                 ),
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width - 120,
+                                  width:
+                                      MediaQuery.of(context).size.width - 120,
                                   height: 40,
-                                  child: Card(margin: EdgeInsets.only(top: 5, bottom: 5, left: 5)),
+                                  child: Card(
+                                      margin: EdgeInsets.only(
+                                          top: 5, bottom: 5, left: 5)),
                                 ),
                               ],
                             )
@@ -412,12 +509,13 @@ class _ProfileScreenState extends BaseRouteState {
                   AppLocalizations.of(context)!.lbl_sign_out,
                 ),
                 content: Text(
-                  AppLocalizations.of(context)!.txt_confirmation_message_for_sign_out,
+                  AppLocalizations.of(context)!
+                      .txt_confirmation_message_for_sign_out,
                 ),
                 actions: <Widget>[
                   CupertinoDialogAction(
                     child: Text(
-                      AppLocalizations.of(context)!.lbl_cancel,
+                      AppLocalizations.of(context)!.lbl_cancelled,
                       style: TextStyle(color: Colors.red),
                     ),
                     onPressed: () {
@@ -431,7 +529,9 @@ class _ProfileScreenState extends BaseRouteState {
                     onPressed: () async {
                       global.sp.remove("currentUser");
 
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInScreen(a: widget.analytics, o: widget.observer)));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SignInScreen(
+                              a: widget.analytics, o: widget.observer)));
                       global.user = new CurrentUser();
                     },
                   ),
@@ -440,12 +540,13 @@ class _ProfileScreenState extends BaseRouteState {
             );
           });
     } catch (e) {
-      print('Exception - profileScreen.dart - exitAppDialog(): ' + e.toString());
+      print(
+          'Exception - profileScreen.dart - exitAppDialog(): ' + e.toString());
     }
   }
 
   _showDeleteAccountDialog() async {
-    if(Platform.isIOS) {
+    if (Platform.isIOS) {
       _showCupertinoDeleteDialog();
     } else {
       _showMaterialDeleteDialog();
@@ -453,64 +554,75 @@ class _ProfileScreenState extends BaseRouteState {
   }
 
   _showMaterialDeleteDialog() async {
-    showDialog(context: context, builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(AppLocalizations.of(context)!.lbl_account_deletion),
-        content: Text(AppLocalizations.of(context)!.lbl_account_deletion_confirmation),
-        actions: [
-          ElevatedButton(onPressed: () {
-            Navigator.of(context).pop();
-          }, child: Text(AppLocalizations.of(context)!.lbl_cancel)),
-          ElevatedButton(onPressed: () async {
-            if(global.user?.id != null) {
-              await apiHelper?.deleteAccount(global.user?.id);
-              global.sp.remove("currentUser");
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.lbl_account_deletion),
+            content: Text(AppLocalizations.of(context)!
+                .lbl_account_deletion_confirmation),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(AppLocalizations.of(context)!.lbl_cancelled)),
+              ElevatedButton(
+                  onPressed: () async {
+                    if (global.user?.id != null) {
+                      await apiHelper?.deleteAccount(global.user?.id);
+                      global.sp.remove("currentUser");
 
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                  SignInScreen(a: widget.analytics, o: widget.observer)));
-              global.user = new CurrentUser();
-            }
-          }, child: Text(AppLocalizations.of(context)!.btn_delete)),
-        ],
-      );
-    });
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SignInScreen(
+                              a: widget.analytics, o: widget.observer)));
+                      global.user = new CurrentUser();
+                    }
+                  },
+                  child: Text(AppLocalizations.of(context)!.btn_delete)),
+            ],
+          );
+        });
   }
 
   _showCupertinoDeleteDialog() async {
-    showCupertinoDialog(context: context, builder: (BuildContext context) {
-      return Theme(
-        data: ThemeData(dialogBackgroundColor: Colors.white),
-        child: CupertinoAlertDialog(
-          title: Text(
-            AppLocalizations.of(context)!.lbl_account_deletion,
-          ),
-          content: Text(
-            AppLocalizations.of(context)!.lbl_account_deletion_confirmation,
-          ),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text(
-                AppLocalizations.of(context)!.lbl_cancel,
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Theme(
+            data: ThemeData(dialogBackgroundColor: Colors.white),
+            child: CupertinoAlertDialog(
+              title: Text(
+                AppLocalizations.of(context)!.lbl_account_deletion,
               ),
-              onPressed: () {
-                // Dismiss the dialog but don't
-                // dismiss the swiped item
-                return Navigator.of(context).pop(false);
-              },
-            ),
-            CupertinoDialogAction(
-              child: Text(AppLocalizations.of(context)!.btn_delete, style: TextStyle(color: Colors.red)),
-              onPressed: () async {
-                await apiHelper?.deleteAccount(global.user?.id);
-                global.sp.remove("currentUser");
+              content: Text(
+                AppLocalizations.of(context)!.lbl_account_deletion_confirmation,
+              ),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text(AppLocalizations.of(context)!.lbl_cancelled),
+                  onPressed: () {
+                    // Dismiss the dialog but don't
+                    // dismiss the swiped item
+                    return Navigator.of(context).pop(false);
+                  },
+                ),
+                CupertinoDialogAction(
+                  child: Text(AppLocalizations.of(context)!.btn_delete,
+                      style: TextStyle(color: Colors.red)),
+                  onPressed: () async {
+                    await apiHelper?.deleteAccount(global.user?.id);
+                    global.sp.remove("currentUser");
 
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInScreen(a: widget.analytics, o: widget.observer)));
-                global.user = new CurrentUser();
-              },
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SignInScreen(
+                            a: widget.analytics, o: widget.observer)));
+                    global.user = new CurrentUser();
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-      );
-    });
+          );
+        });
   }
 }

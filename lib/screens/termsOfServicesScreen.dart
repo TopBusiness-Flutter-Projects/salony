@@ -78,7 +78,9 @@ class _TermsOfServicesState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - termsOfServicesScreen.dart - _getTermsAndCondition():" + e.toString());
+      print(
+          "Exception - termsOfServicesScreen.dart - _getTermsAndCondition():" +
+              e.toString());
     }
   }
 

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends BaseRoute {
   final String? email;
-  ResetPasswordScreen(this.email, {a, o}) : super(a: a, o: o, r: 'ResetPasswordScreen');
+  ResetPasswordScreen(this.email, {a, o})
+      : super(a: a, o: o, r: 'ResetPasswordScreen');
   @override
-  _ResetPasswordScreenState createState() => new _ResetPasswordScreenState(this.email);
+  _ResetPasswordScreenState createState() =>
+      new _ResetPasswordScreenState(this.email);
 }
 
 class _ResetPasswordScreenState extends BaseRouteState {
@@ -29,7 +31,8 @@ class _ResetPasswordScreenState extends BaseRouteState {
         appBar: AppBar(),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),
+            padding:
+                const EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),
             child: Column(
               children: [
                 Text(
@@ -38,7 +41,10 @@ class _ResetPasswordScreenState extends BaseRouteState {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: Text('Please enter your Email so we can help you to recover your password.', textAlign: TextAlign.center, style: Theme.of(context).primaryTextTheme.headline3),
+                  child: Text(
+                      'Please enter your Email so we can help you to recover your password.',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).primaryTextTheme.headline3),
                 ),
                 Container(
                     margin: EdgeInsets.only(top: 70),
@@ -46,7 +52,7 @@ class _ResetPasswordScreenState extends BaseRouteState {
                     child: TextFormField(
                       textAlign: TextAlign.start,
                       autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
+                      cursorColor: Color(0xFFF36D86),
                       enabled: true,
                       style: Theme.of(context).primaryTextTheme.headline6,
                       controller: _cNewPassword,
@@ -62,7 +68,7 @@ class _ResetPasswordScreenState extends BaseRouteState {
                     child: TextFormField(
                       textAlign: TextAlign.start,
                       autofocus: false,
-                      cursorColor: Color(0xFFFA692C),
+                      cursorColor: Color(0xFFF36D86),
                       enabled: true,
                       style: Theme.of(context).primaryTextTheme.headline6,
                       controller: _cConfirmPassword,
@@ -101,11 +107,16 @@ class _ResetPasswordScreenState extends BaseRouteState {
 
   _changePassword() async {
     try {
-      if (_cNewPassword.text.isNotEmpty && _cNewPassword.text.trim().length >= 8 && _cConfirmPassword.text.isNotEmpty && _cNewPassword.text.trim() == _cConfirmPassword.text.trim()) {
+      if (_cNewPassword.text.isNotEmpty &&
+          _cNewPassword.text.trim().length >= 8 &&
+          _cConfirmPassword.text.isNotEmpty &&
+          _cNewPassword.text.trim() == _cConfirmPassword.text.trim()) {
         bool isConnected = await br.checkConnectivity();
         if (isConnected) {
           showOnlyLoaderDialog();
-          await apiHelper!.changePassword(email, _cNewPassword.text.trim()).then((result) {
+          await apiHelper!
+              .changePassword(email, _cNewPassword.text.trim())
+              .then((result) {
             if (result != null) {
               if (result.status == "1") {
                 hideLoader();
@@ -119,20 +130,27 @@ class _ResetPasswordScreenState extends BaseRouteState {
                 setState(() {});
               } else {
                 hideLoader();
-                showSnackBar(key: _scaffoldKey, snackBarMessage: '${result.message}');
+                showSnackBar(
+                    key: _scaffoldKey, snackBarMessage: '${result.message}');
               }
             }
           });
         } else {
           showNetworkErrorSnackBar(_scaffoldKey);
         }
-      } else if (_cNewPassword.text.isEmpty || _cNewPassword.text.trim().length < 8) {
-        showSnackBar(key: _scaffoldKey, snackBarMessage: 'Password should be of minimun 8 characters');
-      } else if (_cConfirmPassword.text.isEmpty || _cConfirmPassword.text.trim() != _cNewPassword.text.trim()) {
-        showSnackBar(key: _scaffoldKey, snackBarMessage: 'Passwords do not match');
+      } else if (_cNewPassword.text.isEmpty ||
+          _cNewPassword.text.trim().length < 8) {
+        showSnackBar(
+            key: _scaffoldKey,
+            snackBarMessage: 'Password should be of minimun 8 characters');
+      } else if (_cConfirmPassword.text.isEmpty ||
+          _cConfirmPassword.text.trim() != _cNewPassword.text.trim()) {
+        showSnackBar(
+            key: _scaffoldKey, snackBarMessage: 'Passwords do not match');
       }
     } catch (e) {
-      print("Exception - resetPasswordScreen.dart - _changePassword():" + e.toString());
+      print("Exception - resetPasswordScreen.dart - _changePassword():" +
+          e.toString());
     }
   }
 }

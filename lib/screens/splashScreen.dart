@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+import '../models/businessLayer/shared_prefrence.dart';
+
 class SplashScreen extends BaseRoute {
   SplashScreen({a, o}) : super(a: a, o: o, r: 'SplashScreen');
   @override
@@ -57,7 +59,7 @@ class _SplashScreenState extends BaseRouteState {
                   children: [
                     Image.asset(
                       'assets/images/logo.png',
-                      width: MediaQuery.of(context).size.width/1.8,
+                      width: MediaQuery.of(context).size.width / 1.8,
                     ),
                     // Padding(
                     //   padding: EdgeInsets.only(top: 20),
@@ -134,9 +136,13 @@ class _SplashScreenState extends BaseRouteState {
       bool isConnected = configResults[3];
 
       if (isConnected) {
-        if (global.sp.getString('currentUser') != null) {
+        if (global.sp.getString("currentUser") != null) {
           global.user = CurrentUser.fromJson(
               json.decode(global.sp.getString("currentUser")!));
+          print('+++++++++++${global.user!.cart_count}');
+          await getCartCount();
+          print('+++++++++++ :: $myCartCount');
+
           await getCurrentPosition().then((_) async {
             if (global.lat != null && global.lng != null) {
               setState(() {});

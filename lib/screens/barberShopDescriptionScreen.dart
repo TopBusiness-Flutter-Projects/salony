@@ -350,8 +350,8 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                                     height: 35,
                                     alignment: Alignment.center,
                                     child: TabBar(
-                                      indicatorColor: Color(0xFFFA692C),
-                                      labelColor: Color(0xFFFA692C),
+                                      indicatorColor: Color(0xFFF36D86),
+                                      labelColor: Color(0xFFF36D86),
                                       unselectedLabelColor: Colors.white,
                                       controller: _tabController,
                                       indicatorWeight: 0.1,

@@ -15,7 +15,9 @@ Map<int, Color> color = {
 };
 ThemeData nativeTheme() {
   return ThemeData(
-    textSelectionTheme: TextSelectionThemeData(cursorColor: Color(0xFFF36D86), selectionHandleColor: Color(0xFFF36D86)),
+    textSelectionTheme: TextSelectionThemeData(
+        cursorColor: Color(0xFFF36D86),
+        selectionHandleColor: Color(0xFFF36D86)),
     splashFactory: NoSplash.splashFactory,
     primaryColor: Color(0xFFF36D86),
     primaryColorLight: Color(0xFF898A8D), // Color(0xFF66d5ff),
@@ -23,25 +25,74 @@ ThemeData nativeTheme() {
     primaryIconTheme: IconThemeData(color: Color(0xFFF36D86)),
     cardColor: Colors.white,
     primaryTextTheme: TextTheme(
-      displayLarge: TextStyle(fontSize: 17, color: Colors.white, fontWeight: FontWeight.w500), // listtile title white
-      displayMedium: TextStyle(color: Colors.white70, fontSize: 11), // listtile subtitle white
-      displaySmall: TextStyle(fontSize: 14, color: Color(0xFF171D2C), fontWeight: FontWeight.w500), // signup / signin
-      headlineMedium: TextStyle(fontSize: 30, color: Color(0xFF171D2C), letterSpacing: -0.5, fontWeight: FontWeight.bold), // signup && sign in
-      headlineSmall: TextStyle(fontSize: 15, color: Color(0xFFF36D86), fontWeight: FontWeight.w400), // - homeScreen - orange
-      titleLarge: TextStyle(fontSize: 15, color: Color(0xFF171D2C), fontWeight: FontWeight.w600), //-  home Screen
-      titleMedium: TextStyle(fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w400), // listtile subtitle
-      titleSmall: TextStyle(fontSize: 14, color: Color(0xFF565656), fontWeight: FontWeight.w600), // Listtile title
-      bodySmall: TextStyle(fontSize: 25, color: Color(0xFF171D2C), fontWeight: FontWeight.bold), // verify, reset, forgot pwd,
-      labelSmall: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600), // book appoinments
+      displayLarge: TextStyle(
+          fontSize: 17,
+          fontFamily: 'cairo',
+          color: Colors.white,
+          fontWeight: FontWeight.w500), // listtile title white
+      displayMedium: TextStyle(
+          fontFamily: 'cairo',
+          color: Colors.white70,
+          fontSize: 11), // listtile subtitle white
+      displaySmall: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 14,
+          color: Color(0xFF171D2C),
+          fontWeight: FontWeight.w500), // signup / signin
+      headlineMedium: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 30,
+          color: Color(0xFF171D2C),
+          letterSpacing: -0.5,
+          fontWeight: FontWeight.bold), // signup && sign in
+      headlineSmall: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 15,
+          color: Color(0xFFF36D86),
+          fontWeight: FontWeight.w400), // - homeScreen - orange
+      titleLarge: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 15,
+          color: Color(0xFF171D2C),
+          fontWeight: FontWeight.w600), //-  home Screen
+      titleMedium: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 14,
+          color: Colors.grey,
+          fontWeight: FontWeight.w400), // listtile subtitle
+      titleSmall: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 14,
+          color: Color(0xFF565656),
+          fontWeight: FontWeight.w600), // Listtile title
+      bodySmall: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 25,
+          color: Color(0xFF171D2C),
+          fontWeight: FontWeight.bold), // verify, reset, forgot pwd,
+      labelSmall: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 14,
+          color: Colors.white,
+          fontWeight: FontWeight.w600), // book appoinments
 
-      labelLarge: TextStyle(fontSize: 13.5, color: Color(0xFF565656), fontWeight: FontWeight.w600),
+      labelLarge: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 13.5,
+          color: Color(0xFF565656),
+          fontWeight: FontWeight.w600),
 
       bodyLarge: TextStyle(
+        fontFamily: 'cairo',
         fontSize: 13,
         color: Color(0xFF171D2C),
         fontWeight: FontWeight.w500,
       ), // home screen
-      bodyMedium: TextStyle(fontSize: 12, color: Color(0xFF898A8D), fontWeight: FontWeight.w400), // home screen
+      bodyMedium: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 12,
+          color: Color(0xFF898A8D),
+          fontWeight: FontWeight.w400), // home screen
     ),
     scaffoldBackgroundColor: Colors.white,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -52,9 +103,10 @@ ThemeData nativeTheme() {
         borderRadius: BorderRadius.circular(10.0),
       ),
       backgroundColor: Colors.grey[100],
-      titleTextStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF36D86)),
+      titleTextStyle:
+          TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF36D86)),
     ),
-    fontFamily: 'Poppins',
+    fontFamily: 'cairo',
     dividerColor: Colors.transparent,
     buttonTheme: ButtonThemeData(
       textTheme: ButtonTextTheme.primary,
@@ -65,7 +117,8 @@ ThemeData nativeTheme() {
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
       disabledColor: Colors.grey,
-      shape: RoundedRectangleBorder(borderRadius: new BorderRadius.all(new Radius.circular(10.0))),
+      shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.all(new Radius.circular(10.0))),
     ),
     cardTheme: CardTheme(
       elevation: 2,
@@ -79,6 +132,7 @@ ThemeData nativeTheme() {
       alignLabelWithHint: true,
       hintStyle: TextStyle(
         fontSize: 15,
+        fontFamily: 'cairo',
         color: Color(0xFF898A8D),
         fontWeight: FontWeight.w400,
       ),
@@ -120,18 +174,29 @@ ThemeData nativeTheme() {
       elevation: 0,
       actionsIconTheme: IconThemeData(color: Color(0xFF171D2C), size: 30),
       iconTheme: IconThemeData(color: Color(0xFF171D2C), size: 30),
-      titleTextStyle: TextStyle(fontSize: 17, color: Color(0xFF171D2C), fontWeight: FontWeight.w600), systemOverlayStyle: SystemUiOverlayStyle.dark,
+      titleTextStyle: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 17,
+          color: Color(0xFF171D2C),
+          fontWeight: FontWeight.w600),
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     bottomSheetTheme: BottomSheetThemeData(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
           Color(0xFFF36D86),
         ),
-        textStyle: MaterialStateProperty.all(TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w400)),
+        textStyle: MaterialStateProperty.all(TextStyle(
+            fontFamily: 'cairo',
+            fontSize: 16,
+            color: Colors.white,
+            fontWeight: FontWeight.w400)),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -143,18 +208,40 @@ ThemeData nativeTheme() {
       shape: MaterialStateProperty.all(RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       )),
-      textStyle: MaterialStateProperty.all(TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w400)),
+      textStyle: MaterialStateProperty.all(TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 16,
+          color: Colors.white,
+          fontWeight: FontWeight.w400)),
     )),
     iconTheme: IconThemeData(color: Color(0xFF898A8D)),
 
     tabBarTheme: TabBarTheme(
       labelPadding: EdgeInsets.only(bottom: 3),
       indicatorSize: TabBarIndicatorSize.label,
-      labelStyle: TextStyle(fontSize: 13.5, color: Color(0xFF171D2C), fontWeight: FontWeight.w500),
-      unselectedLabelStyle: TextStyle(fontSize: 13.5, color: Color(0xFF898A8D), fontWeight: FontWeight.w400),
+      labelStyle: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 13.5,
+          color: Color(0xFF171D2C),
+          fontWeight: FontWeight.w500),
+      unselectedLabelStyle: TextStyle(
+          fontFamily: 'cairo',
+          fontSize: 13.5,
+          color: Color(0xFF898A8D),
+          fontWeight: FontWeight.w400),
     ),
 
     bottomAppBarTheme: BottomAppBarTheme(color: Color(0xFF171D2C)),
-    snackBarTheme: SnackBarThemeData(backgroundColor: Color(0xFF171D2C), contentTextStyle: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w400), behavior: SnackBarBehavior.fixed), colorScheme: ColorScheme.fromSwatch(primarySwatch: MaterialColor(0xFFFA692C, color)).copyWith(secondary: Colors.red),
+    snackBarTheme: SnackBarThemeData(
+        backgroundColor: Color(0xFF171D2C),
+        contentTextStyle: TextStyle(
+            fontFamily: 'cairo',
+            fontSize: 15,
+            color: Colors.white,
+            fontWeight: FontWeight.w400),
+        behavior: SnackBarBehavior.fixed),
+    colorScheme:
+        ColorScheme.fromSwatch(primarySwatch: MaterialColor(0xFFF36D86, color))
+            .copyWith(secondary: Colors.red),
   );
 }
