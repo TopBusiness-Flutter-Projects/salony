@@ -70,11 +70,12 @@ class _FavouritesScreenState extends BaseRouteState {
                             badgeColor: Theme.of(context).primaryColor),
                         showBadge: true,
                         badgeContent: Text(
-                          '${myCartCount <= 0 ? 0 : myCartCount}', // '${global.user!.cart_count}',
+                          '$myCartCount', // '${global.user!.cart_count}',
                           style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                         child: GestureDetector(
                           onTap: () {
+                            print('0000000000000000000000000000000001');
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => CartScreen(
                                       a: widget.analytics,
@@ -115,6 +116,11 @@ class _FavouritesScreenState extends BaseRouteState {
 
   @override
   void initState() {
+    Timer.periodic(Duration(seconds: 2), (timer) {
+      setState(() {
+        print('5555555555555555');
+      });
+    });
     super.initState();
     if (global.user!.id == null) {
       Future.delayed(Duration.zero, () {
@@ -142,6 +148,8 @@ class _FavouritesScreenState extends BaseRouteState {
             if (result.status == "1") {
               _isSucessfullyAdded = true;
               setState(() {});
+
+              _getFavoriteList();
             } else {}
           }
         });
@@ -328,9 +336,20 @@ class _FavouritesScreenState extends BaseRouteState {
                           favoritesList!.fav_items[index].cart_qty = 1;
                           global.user!.cart_count =
                               global.user!.cart_count! + 1;
-                          await setCartCount(count: 1);
+                          await setCartCount();
                           await getCartCount();
                           myCartCount++;
+                          print('00000000000000$myCartCount');
+                          setState(() {});
+                        } else {
+                          favoritesList!.fav_items[index].cart_qty = 1;
+                          // global.user!.cart_count =
+                          //     global.user!.cart_count! + 1;
+                          await setCartCount();
+                          await getCartCount();
+                          myCartCount++;
+                          print('00000000000000 : $myCartCount');
+                          setState(() {});
                         }
                         hideLoader();
                         setState(() {});
@@ -391,7 +410,7 @@ class _FavouritesScreenState extends BaseRouteState {
                                             1);
                                     await getCartCount();
                                     myCartCount =
-                                        myCartCount <= 0 ? 0 : myCartCount - 1;
+                                        myCartCount < 0 ? 0 : myCartCount - 1;
                                   } else {
                                     int _qty = favoritesList!
                                             .fav_items[index].cart_qty! -

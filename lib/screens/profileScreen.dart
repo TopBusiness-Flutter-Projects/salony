@@ -301,33 +301,33 @@ class _ProfileScreenState extends BaseRouteState {
                           ),
                         ),
                       ),
-                      Card(
-                        margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ChooseLanguageScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
-                                      )),
-                            );
-                          },
-                          shape: Theme.of(context).cardTheme.shape,
-                          leading: Icon(FontAwesomeIcons.language),
-                          title: Text(
-                              AppLocalizations.of(context)!.lbl_select_language,
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .titleSmall),
-                          subtitle: Text(
-                            AppLocalizations.of(context)!
-                                .txt_set_your_preffered_language,
-                            style:
-                                Theme.of(context).primaryTextTheme.titleMedium,
-                          ),
-                        ),
-                      ),
+                      // Card(
+                      //   margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      //   child: ListTile(
+                      //     onTap: () {
+                      //       Navigator.of(context).push(
+                      //         MaterialPageRoute(
+                      //             builder: (context) => ChooseLanguageScreen(
+                      //                   a: widget.analytics,
+                      //                   o: widget.observer,
+                      //                 )),
+                      //       );
+                      //     },
+                      //     shape: Theme.of(context).cardTheme.shape,
+                      //     leading: Icon(FontAwesomeIcons.language),
+                      //     title: Text(
+                      //         AppLocalizations.of(context)!.lbl_select_language,
+                      //         style: Theme.of(context)
+                      //             .primaryTextTheme
+                      //             .titleSmall),
+                      //     subtitle: Text(
+                      //       AppLocalizations.of(context)!
+                      //           .txt_set_your_preffered_language,
+                      //       style:
+                      //           Theme.of(context).primaryTextTheme.titleMedium,
+                      //     ),
+                      //   ),
+                      // ),
                       Card(
                         margin: EdgeInsets.only(top: 10, left: 10, right: 10),
                         child: ListTile(

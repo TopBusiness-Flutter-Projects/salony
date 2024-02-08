@@ -56,11 +56,13 @@ class _CartScreenState extends BaseRouteState {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          Navigator.of(context).pop();
-          // removeCartCount();
-          // myCartCount = 0;
-          // getCartCount();
-          // _getFavoriteList();
+          _getFavoriteList().then((e) {
+            getCartCount();
+
+            Navigator.of(context).pop();
+            setState(() {});
+          });
+
           // setState(() {});
           return false;
         },
@@ -93,6 +95,17 @@ class _CartScreenState extends BaseRouteState {
                         : SizedBox()
                     : SizedBox()
               ],
+              automaticallyImplyLeading: false,
+              leading: IconButton(
+                  onPressed: () {
+                    _getFavoriteList().then((e) {
+                      getCartCount();
+
+                      Navigator.of(context).pop();
+                      setState(() {});
+                    });
+                  },
+                  icon: Icon(Icons.arrow_back)),
             ),
             body: _isDataLoaded
                 ? _cartList != null && _cartList!.cart_items.length > 0
@@ -154,7 +167,7 @@ class _CartScreenState extends BaseRouteState {
                                                       .lbl_no_image,
                                                   style: Theme.of(context)
                                                       .primaryTextTheme
-                                                      .subtitle1,
+                                                      .titleMedium,
                                                 ),
                                               ),
                                             ),
@@ -177,7 +190,7 @@ class _CartScreenState extends BaseRouteState {
                                               '${_cartList!.cart_items[index].product_name}',
                                               style: Theme.of(context)
                                                   .primaryTextTheme
-                                                  .bodyText1,
+                                                  .bodyLarge,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -188,7 +201,7 @@ class _CartScreenState extends BaseRouteState {
                                               '${global.currency.currency_sign}${_cartList!.cart_items[index].price}  ',
                                               style: Theme.of(context)
                                                   .primaryTextTheme
-                                                  .headline6,
+                                                  .titleLarge,
                                             ),
                                           ],
                                         ),
@@ -540,6 +553,7 @@ class _CartScreenState extends BaseRouteState {
                     child: Text(AppLocalizations.of(context)!.lbl_yes),
                     onPressed: () async {
                       showOnlyLoaderDialog();
+
                       if (callId == 1) {
                         bool isSuccess = await _delFromCart(
                             _cartList!.cart_items[index!].product_id);
@@ -559,6 +573,13 @@ class _CartScreenState extends BaseRouteState {
 
                       hideLoader();
                       Navigator.of(context).pop();
+                      setState(() {});
+                      await _getCartItems();
+
+                      myCartCount -= 1;
+                      await setCartCount();
+                      await getCartCount();
+                      await _getFavoriteList();
                       setState(() {});
                     },
                   ),
