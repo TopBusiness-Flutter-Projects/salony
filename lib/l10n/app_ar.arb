@@ -291,9 +291,9 @@
     "@lbl_about": {
         "description": "حول"
     },
-    "lbl_barbers": "حلاقون",
+    "lbl_barbers": "كوافيرن",
     "@lbl_barbers": {
-        "description": "حلاقون"
+        "description": "كوافيرن"
     },
   "hnt_phone": "45454545454",
     "@hnt_phone": {
@@ -487,9 +487,9 @@
     "@lbl_about": {
         "description": "حول"
     },
-    "lbl_barbers": "حلاقون",
+    "lbl_barbers": "كوافيرن",
     "@lbl_barbers": {
-        "description": "حلاقون"
+        "description": "كوافيرن"
     }
 ,
        "lbl_gallery": "المعرض",
@@ -524,9 +524,9 @@
     "@lbl_products": {
         "description": "المنتجات"
     },
-    "txt_similar_barbershop_nearby": "محل حلاقة مماثل بالقرب",
+    "txt_similar_barbershop_nearby": "كوافير مماثل بالقرب",
     "@txt_similar_barbershop_nearby": {
-        "description": "محل حلاقة مماثل بالقرب"
+        "description": "كوافير مماثل بالقرب"
     },
     "txt_book_an_appointment": "حجز موعد",
     "@txt_book_an_appointment": {
@@ -568,9 +568,9 @@
     "@lbl_picking_time": {
         "description": "وقت الاستلام"
     },
-    "lbl_barbershop": "محل حلاقة",
+    "lbl_barbershop": "كوافير",
     "@lbl_barbershop": {
-        "description": "محل حلاقة"
+        "description": "كوافير"
     },
     "lbl_location": "الموقع",
     "@lbl_location": {
@@ -846,13 +846,13 @@
 "@txt_no_barbershop_are_available_at_your_location": {
     "description": "لا تتوفر محلات حلاقة في موقعك"
 },
-"lbl_popular_barbers": "حلاقون شعبيون",
+"lbl_popular_barbers": "كوافيرن شعبيون",
 "@lbl_popular_barbers": {
-    "description": "حلاقون شعبيون"
+    "description": "كوافيرن شعبيون"
 },
-"txt_no_barbers_are_available_at_your_location": "لا تتوفر حلاقون في موقعك",
+"txt_no_barbers_are_available_at_your_location": "لا تتوفر كوافيرن في موقعك",
 "@txt_no_barbers_are_available_at_your_location": {
-    "description": "لا تتوفر حلاقون في موقعك"
+    "description": "لا تتوفر كوافيرن في موقعك"
 },
 "txt_no_image_availa": "لا تتوفر صورة",
 "@txt_no_image_availa": {
@@ -882,9 +882,9 @@
 "@lbl_barbershops": {
     "description": "محلات حلاقة"
 },
-"lbl_barbershop_600": "محل حلاقة (600)",
+"lbl_barbershop_600": "كوافير (600)",
 "@lbl_barbershop_600": {
-    "description": "محل حلاقة (600)"
+    "description": "كوافير (600)"
 },
 "lbl_notification": "إشعار",
 "@lbl_notification": {
