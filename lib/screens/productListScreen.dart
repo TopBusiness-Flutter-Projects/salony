@@ -60,47 +60,41 @@ class _ProductListScreenState extends BaseRouteState {
                     );
                   },
                   icon: Icon(Icons.search)),
-              global.user?.id == null
-                  ? SizedBox()
-                  : _isDataLoaded
-                      ? Container(
-                          margin: EdgeInsets.only(top: 3),
-                          padding: global.isRTL
-                              ? EdgeInsets.only(
-                                  left: 20,
-                                )
-                              : EdgeInsets.only(
-                                  right: 20,
-                                ),
-                          child: badges.Badge(
-                            badgeStyle: badges.BadgeStyle(
-                              padding: EdgeInsets.all(7),
-                              badgeColor: Theme.of(context).primaryColor,
-                            ),
-                            showBadge: true,
-                            badgeContent: Text(
-                              '${global.user?.cart_count}',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => CartScreen(
-                                          a: widget.analytics,
-                                          o: widget.observer,
-                                          screenId: 1,
-                                        )));
-                              },
-                              child: Icon(
-                                Icons.shopping_cart_outlined,
-                                size: 25,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        )
-                      : SizedBox(),
+              // global.user?.id == null
+              //     ? SizedBox()
+              //     : _isDataLoaded
+              //         ? Container(
+              //             margin: EdgeInsets.all(5),
+              //             padding:EdgeInsets.symmetric(horizontal:  10),
+              //             child: badges.Badge(
+              //               badgeStyle: badges.BadgeStyle(
+              //                 padding: EdgeInsets.all(7),
+              //                 badgeColor: Theme.of(context).primaryColor,
+              //               ),
+              //               showBadge: true,
+              //               badgeContent: Text(
+              //                 '${global.user?.cart_count ?? 0}',
+              //                 style:
+              //                     TextStyle(color: Colors.white, fontSize: 15),
+              //               ),
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   Navigator.of(context).push(MaterialPageRoute(
+              //                       builder: (context) => CartScreen(
+              //                             a: widget.analytics,
+              //                             o: widget.observer,
+              //                             screenId: 1,
+              //                           )));
+              //                 },
+              //                 child: Icon(
+              //                   Icons.shopping_cart_outlined,
+              //                   size: 25,
+              //                   color: Colors.black,
+              //                 ),
+              //               ),
+              //             ),
+              //           )
+              //         : SizedBox(),
             ],
           ),
           resizeToAvoidBottomInset: true,

@@ -174,11 +174,7 @@ class _CartScreenState extends BaseRouteState {
                                           ),
                                     Expanded(
                                       child: Padding(
-                                        padding: global.isRTL
-                                            ? EdgeInsets.only(
-                                                right: 18, top: 10)
-                                            : EdgeInsets.only(
-                                                left: 18, top: 10),
+                                        padding: EdgeInsets.all(10),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -270,9 +266,7 @@ class _CartScreenState extends BaseRouteState {
                                                         size: 13,
                                                       ),
                                               )),
-                                          SizedBox(
-                                            width: 2,
-                                          ),
+                                          SizedBox(width: 2),
                                           Container(
                                             width: 25,
                                             height: 25,

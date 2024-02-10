@@ -446,6 +446,7 @@ class _SignUpScreenState extends BaseRouteState {
   _sendOTP(String phoneNumber) async {
     print('....phone....:+2$phoneNumber');
     try {
+      print('done....phone....:+2$phoneNumber');
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+2$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
@@ -471,7 +472,7 @@ class _SignUpScreenState extends BaseRouteState {
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
     } catch (e) {
-      print("Exception - signUpScreen.dart - _sendOTP():" + e.toString());
+      print("Exception - OTP - _sendOTP():" + e.toString());
     }
   }
 

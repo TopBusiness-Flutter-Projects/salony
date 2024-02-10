@@ -189,7 +189,6 @@ class _SplashScreenState extends BaseRouteState {
           if (result != null) {
             if (result.status == "1") {
               global.currency = result.recordList;
-
               setState(() {});
             } else {}
           }

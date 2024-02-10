@@ -264,7 +264,11 @@ class APIHelper {
         headers: await global.getApiHeaders(true),
         body: json.encode(bookNow),
       );
+      print("............... ${global.baseUrl}checkout");
 
+      print(bookNow.toString());
+      print(json.encode(bookNow));
+      print("............... ${global.baseUrl}checkout");
       dynamic recordList;
       if (response.statusCode == 200 &&
           json.decode(response.body)["status"] == "1") {

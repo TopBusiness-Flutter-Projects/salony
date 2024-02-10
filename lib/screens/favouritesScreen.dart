@@ -59,39 +59,39 @@ class _FavouritesScreenState extends BaseRouteState {
               //       );
               //     },
               //     icon: Icon(Icons.search)),
-              _isDataLoaded
-                  ? Container(
-                      margin: EdgeInsets.only(top: 3),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      child: badges.Badge(
-                        badgeStyle: badges.BadgeStyle(
-                            padding: EdgeInsets.all(5),
-                            badgeColor: Theme.of(context).primaryColor),
-                        showBadge: true,
-                        badgeContent: Text(
-                          '$myCartCount', // '${global.user!.cart_count}',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            print('0000000000000000000000000000000001');
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => CartScreen(
-                                      a: widget.analytics,
-                                      o: widget.observer,
-                                      screenId: 1,
-                                    )));
-                          },
-                          child: Icon(
-                            Icons.shopping_cart_outlined,
-                            size: 25,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    )
-                  : SizedBox(),
+              // _isDataLoaded
+              //     ? Container(
+              //         margin: EdgeInsets.only(top: 3),
+              //         padding:
+              //             EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              //         child: badges.Badge(
+              //           badgeStyle: badges.BadgeStyle(
+              //               padding: EdgeInsets.all(5),
+              //               badgeColor: Theme.of(context).primaryColor),
+              //           showBadge: true,
+              //           badgeContent: Text(
+              //             '${myCartCount <= 0 ? 0 : myCartCount}', // '${global.user!.cart_count}',
+              //             style: TextStyle(color: Colors.white, fontSize: 15),
+              //           ),
+              //           child: GestureDetector(
+              //             onTap: () {
+              //               print('0000000000000000000000000000000001');
+              //               Navigator.of(context).push(MaterialPageRoute(
+              //                   builder: (context) => CartScreen(
+              //                         a: widget.analytics,
+              //                         o: widget.observer,
+              //                         screenId: 1,
+              //                       )));
+              //             },
+              //             child: Icon(
+              //               Icons.shopping_cart_outlined,
+              //               size: 25,
+              //               color: Colors.black,
+              //             ),
+              //           ),
+              //         ),
+              //       )
+              //     : SizedBox(),
             ],
           ),
           resizeToAvoidBottomInset: true,

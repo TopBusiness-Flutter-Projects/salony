@@ -8,9 +8,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingConfirmationScreen extends BaseRoute {
   final int? screenId;
-  BookingConfirmationScreen({a, o, this.screenId}) : super(a: a, o: o, r: 'BookingConfirmationScreen');
+  BookingConfirmationScreen({a, o, this.screenId})
+      : super(a: a, o: o, r: 'BookingConfirmationScreen');
   @override
-  _BookingConfirmationScreenState createState() => new _BookingConfirmationScreenState(this.screenId);
+  _BookingConfirmationScreenState createState() =>
+      new _BookingConfirmationScreenState(this.screenId);
 }
 
 class _BookingConfirmationScreenState extends BaseRouteState {
@@ -21,17 +23,23 @@ class _BookingConfirmationScreenState extends BaseRouteState {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () {
-          return Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => BottomNavigationWidget(
-                      a: widget.analytics,
-                      o: widget.observer,
-                    )),
-          ).then((value) => value as bool);
+          return Navigator.of(context)
+              .push(
+                MaterialPageRoute(
+                    builder: (context) => BottomNavigationWidget(
+                          a: widget.analytics,
+                          o: widget.observer,
+                        )),
+              )
+              .then((value) => value as bool);
         },
         child: sc(Scaffold(
             bottomNavigationBar: Container(
-              decoration: BoxDecoration(color: Color(0xFF171D2C), borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+              decoration: BoxDecoration(
+                  color: Color(0xFF171D2C),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15))),
               height: Platform.isIOS ? 68 : 60,
               padding: EdgeInsets.only(
                 left: 100,
@@ -40,7 +48,8 @@ class _BookingConfirmationScreenState extends BaseRouteState {
               child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(2)),
                   child: Padding(
-                    padding: EdgeInsets.only(top: 8.0, bottom: Platform.isIOS ? 16.0 : 8.0),
+                    padding: EdgeInsets.only(
+                        top: 8.0, bottom: Platform.isIOS ? 16.0 : 8.0),
                     child: TextButton(
                       onPressed: () {
                         Navigator.of(context).push(
@@ -64,7 +73,10 @@ class _BookingConfirmationScreenState extends BaseRouteState {
                     Padding(
                       padding: EdgeInsets.only(),
                       child: Container(
-                        decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.fill, image: AssetImage('assets/greatekan3.png'))),
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage('assets/greatekan3.png'))),
                         width: 200,
                         height: 200,
                       ),
@@ -85,8 +97,16 @@ class _BookingConfirmationScreenState extends BaseRouteState {
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: screenId == 1
-                          ? Text('Your order has been placed successfully, please pick your items from store ASAP', textAlign: TextAlign.center, style: Theme.of(context).primaryTextTheme.subtitle1)
-                          : Text('Your booking has been placed successfully, you will receive a notification/sms about your booking status', textAlign: TextAlign.center, style: Theme.of(context).primaryTextTheme.subtitle1),
+                          ? Text(
+                              'Your order has been placed successfully, please pick your items from store ASAP',
+                              textAlign: TextAlign.center,
+                              style:
+                                  Theme.of(context).primaryTextTheme.subtitle1)
+                          : Text(
+                              'Your booking has been placed successfully, you will receive a notification/sms about your booking status',
+                              textAlign: TextAlign.center,
+                              style:
+                                  Theme.of(context).primaryTextTheme.subtitle1),
                     ),
                   ],
                 )))));

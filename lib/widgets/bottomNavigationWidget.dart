@@ -1,12 +1,12 @@
 import 'package:app/models/businessLayer/baseRoute.dart';
-import 'package:app/screens/barberShopListScreen.dart';
 import 'package:app/screens/favouritesScreen.dart';
 import 'package:app/screens/homeScreen.dart';
-import 'package:app/screens/locationScreen.dart';
 import 'package:app/screens/profileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:flutter/services.dart';
+
+import '../screens/cartScreen.dart';
 
 class BottomNavigationWidget extends BaseRoute {
   final int? screenId;
@@ -93,6 +93,15 @@ class _BottomNavigationWidgetState extends BaseRouteState {
                         )),
                     BottomNavigationBarItem(
                         label: '',
+                        tooltip: 'Basket',
+                        icon: Padding(
+                          padding: global.isRTL
+                              ? EdgeInsets.only(right: 15)
+                              : EdgeInsets.only(left: 15),
+                          child: Icon(Icons.shopping_cart),
+                        )),
+                    BottomNavigationBarItem(
+                        label: '',
                         icon: Icon(Icons.person_outline),
                         tooltip: 'Profile')
                   ],
@@ -133,7 +142,13 @@ class _BottomNavigationWidgetState extends BaseRouteState {
         //   o: widget.observer,
         //   screenId: locationIndex,
         // ),
+
         FavouritesScreen(a: widget.analytics, o: widget.observer),
+        CartScreen(
+          a: widget.analytics,
+          o: widget.observer,
+          screenId: 1,
+        ),
         ProfileScreen(a: widget.analytics, o: widget.observer)
       ];
 }

@@ -9,6 +9,25 @@
       "client_info": {
         "mobilesdk_app_id": "1:559354982479:android:cfa4a943152d96503a7a3a",
         "android_client_info": {
+          "package_name": "com.gofresha.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI-G6YMnxkYZaRZHcG_7I7ixbz_Z9qcQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559354982479:android:8502121e9152a5be3a7a3a",
+        "android_client_info": {
           "package_name": "com.topbusiness.salony"
         }
       },

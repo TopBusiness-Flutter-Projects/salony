@@ -652,6 +652,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
     }
   }
 
+//! here
   _checkOut() async {
     try {
       BookNow _bookNow = new BookNow();

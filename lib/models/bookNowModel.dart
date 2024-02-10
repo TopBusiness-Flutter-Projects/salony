@@ -47,28 +47,41 @@ class BookNow {
     try {
       id = json['id'] != null ? int.parse('${json['id']}') : null;
       cart_id = json['cart_id'] != null ? json['cart_id'] : null;
-      user_id = json['user_id'] != null ? int.parse('${json['user_id']}') : null;
-      vendor_id = json['vendor_id'] != null ? int.parse('${json['vendor_id']}') : null;
-      staff_id = json['staff_id'] != null ? int.parse('${json['staff_id']}') : null;
+      user_id =
+          json['user_id'] != null ? int.parse('${json['user_id']}') : null;
+      vendor_id =
+          json['vendor_id'] != null ? int.parse('${json['vendor_id']}') : null;
+      staff_id =
+          json['staff_id'] != null ? int.parse('${json['staff_id']}') : null;
       total_price = json['total_price'] != null ? json['total_price'] : null;
       rem_price = json['rem_price'] != null ? json['rem_price'] : null;
-      coupon_discount = json['coupon_discount'] != null ? json['coupon_discount'] : null;
-      reward_discount = json['reward_discount'] != null ? json['reward_discount'] : null;
+      coupon_discount =
+          json['coupon_discount'] != null ? json['coupon_discount'] : null;
+      reward_discount =
+          json['reward_discount'] != null ? json['reward_discount'] : null;
       reward_use = json['reward_use'] != null ? json['reward_use'] : null;
-      payment_method = json['payment_method'] != null ? json['payment_method'] : null;
-      payment_status = json['payment_status'] != null ? json['payment_status'] : null;
+      payment_method =
+          json['payment_method'] != null ? json['payment_method'] : null;
+      payment_status =
+          json['payment_status'] != null ? json['payment_status'] : null;
       service_date = json['service_date'] != null ? json['service_date'] : null;
       service_time = json['service_time'] != null ? json['service_time'] : null;
       status = json['status'] != null ? int.parse('${json['status']}') : null;
-      order_status = json['order_status'] != null ? int.parse('${json['order_status']}') : null;
+      order_status = json['order_status'] != null
+          ? int.parse('${json['order_status']}')
+          : null;
       mobile = json['mobile'] != null ? json['mobile'] : null;
-      coupon_id = json['coupon_id'] != null ? int.parse('${json['coupon_id']}') : null;
-      payment_gateway = json['payment_gateway'] != null ? json['payment_gateway'] : null;
+      coupon_id =
+          json['coupon_id'] != null ? int.parse('${json['coupon_id']}') : null;
+      payment_gateway =
+          json['payment_gateway'] != null ? json['payment_gateway'] : null;
       payment_id = json['payment_id'] != null ? json['payment_id'] : null;
-      delivery_date = json['delivery_date'] != null ? json['delivery_date'] : null;
+      delivery_date =
+          json['delivery_date'] != null ? json['delivery_date'] : null;
       time_slot = json['time_slot'] != null ? json['time_slot'] : null;
     } catch (e) {
-      print("Exception - BookNowModel.dart - BookNow.fromJson():" + e.toString());
+      print(
+          "Exception - BookNowModel.dart - BookNow.fromJson():" + e.toString());
     }
   }
 }
