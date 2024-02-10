@@ -19,17 +19,17 @@
     "@txt_professional_barber_specialists": {
         "description": "متخصصون في تصفيف الشعر المحترفون"
     },
-    "txt_find_barber_shop_nearby": "العثور على صالون حلاقة قريب",
+    "txt_find_barber_shop_nearby": "العثور على صالون كوافير قريب",
     "@txt_find_barber_shop_nearby": {
-        "description": "العثور على صالون حلاقة قريب"
+        "description": "العثور على صالون كوافير قريب"
     },
     "txt_welcome_to": "مرحبًا بك في ",
     "@txt_welcome_to": {
         "description": "مرحبًا بك في "
     },
-    "txt_ekan_barber_shop": "صالون حلاقة إيكان",
+    "txt_ekan_barber_shop": "صالون كوافير إيكان",
     "@txt_ekan_barber_shop": {
-        "description": "صالون حلاقة إيكان"
+        "description": "صالون كوافير إيكان"
     },
     "txt_app": "تطبيق!",
     "@txt_app": {
@@ -251,13 +251,13 @@
     "@lbl_confirm_location": {
         "description": "تأكيد الموقع"
     },
-    "lbl_barber_shop": "صالون حلاقة",
+    "lbl_barber_shop": "صالون كوافير",
     "@lbl_barber_shop": {
-        "description": "صالون حلاقة"
+        "description": "صالون كوافير"
     },
-    "txt_near_by_barbershop_list_will_shown_here": "سيتم عرض قائمة صالونات الحلاقة القريبة هنا",
+    "txt_near_by_barbershop_list_will_shown_here": "سيتم عرض قائمة صالونات الكوافير القريبة هنا",
     "@txt_near_by_barbershop_list_will_shown_here": {
-        "description": "سيتم عرض قائمة صالونات الحلاقة القريبة هنا"
+        "description": "سيتم عرض قائمة صالونات الكوافير القريبة هنا"
     },
     "lbl_services": "الخدمات",
     "@lbl_services": {
@@ -447,13 +447,13 @@
     "@lbl_confirm_location": {
         "description": "تأكيد الموقع"
     },
-    "lbl_barber_shop": "صالون حلاقة",
+    "lbl_barber_shop": " كوافير",
     "@lbl_barber_shop": {
-        "description": "صالون حلاقة"
+        "description": " حلكوافيراقة"
     },
-    "txt_near_by_barbershop_list_will_shown_here": "سيتم عرض قائمة صالونات الحلاقة القريبة هنا",
+    "txt_near_by_barbershop_list_will_shown_here": "سيتم عرض قائمة صالونات الكوافير القريبة هنا",
     "@txt_near_by_barbershop_list_will_shown_here": {
-        "description": "سيتم عرض قائمة صالونات الحلاقة القريبة هنا"
+        "description": "سيتم عرض قائمة صالونات الكوافير القريبة هنا"
     },
     "lbl_services": "الخدمات",
     "@lbl_services": {
@@ -576,9 +576,9 @@
     "@lbl_location": {
         "description": "الموقع"
     },
-    "lbl_barber": "حلاق",
+    "lbl_barber": "كوافير",
     "@lbl_barber": {
-        "description": "حلاق"
+        "description": "كوافير"
     },
     "lbl_coupons": "كوبونات",
     "@lbl_coupons": {
@@ -718,9 +718,9 @@
     "@lbl_cash": {
         "description": "نقداً"
     },
-    "txt_pay_through_cash_at_the_salon": "الدفع نقدًا في صالون الحلاقة.",
+    "txt_pay_through_cash_at_the_salon": "كوافير .",
     "@txt_pay_through_cash_at_the_salon": {
-        "description": "الدفع نقدًا في صالون الحلاقة."
+        "description": "كوافير"
     },
     "lbl_other_methods": "طرق أخرى",
     "@lbl_other_methods": {
@@ -842,9 +842,9 @@
 "@lbl_see_more": {
     "description": "رؤية المزيد"
 },
-"txt_no_barbershop_are_available_at_your_location": "لا تتوفر محلات حلاقة في موقعك",
+"txt_no_barbershop_are_available_at_your_location": "لا تتوفر محلات كوافير في موقعك",
 "@txt_no_barbershop_are_available_at_your_location": {
-    "description": "لا تتوفر محلات حلاقة في موقعك"
+    "description": "لا تتوفر محلات كوافير في موقعك"
 },
 "lbl_popular_barbers": "كوافيرن شعبيون",
 "@lbl_popular_barbers": {
@@ -878,9 +878,9 @@
 "@lbl_search": {
     "description": "بحث"
 },
-"lbl_barbershops": "محلات حلاقة",
+"lbl_barbershops": "محلات كوافير",
 "@lbl_barbershops": {
-    "description": "محلات حلاقة"
+    "description": "محلات كوافير"
 },
 "lbl_barbershop_600": "كوافير (600)",
 "@lbl_barbershop_600": {

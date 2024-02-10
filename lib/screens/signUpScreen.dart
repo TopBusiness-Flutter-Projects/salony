@@ -444,11 +444,11 @@ class _SignUpScreenState extends BaseRouteState {
   }
 
   _sendOTP(String phoneNumber) async {
-    print('....phone....:+2$phoneNumber');
+    print('....phone....:+966$phoneNumber');
     try {
-      print('done....phone....:+2$phoneNumber');
+      print('done....phone....:+966$phoneNumber');
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+2$phoneNumber',
+        phoneNumber: '+966$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();
