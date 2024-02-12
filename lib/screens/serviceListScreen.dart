@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../models/main_services.dart';
+import 'detailsOfServices.dart';
+
 class ServiceListScreen extends BaseRoute {
   ServiceListScreen({a, o}) : super(a: a, o: o, r: 'ServiceListScreen');
   @override
@@ -16,7 +19,7 @@ class ServiceListScreen extends BaseRoute {
 
 class _ServiceListScreenState extends BaseRouteState {
   GlobalKey<ScaffoldState>? _scaffoldKey;
-  List<Service> _serviceList = [];
+  List<MainService> _serviceList = [];
   bool _isDataLoaded = false;
   bool _isRecordPending = true;
   bool _isMoreDataLoaded = false;
@@ -71,14 +74,17 @@ class _ServiceListScreenState extends BaseRouteState {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                      builder: (context) => ServiceDetailScreen(
-                                            serviceName: _serviceList[index]
-                                                .service_name,
-                                            a: widget.analytics,
-                                            o: widget.observer,
-                                            serviceImage: _serviceList[index]
-                                                .service_image,
-                                          )),
+                                      builder: (context) =>
+                                          DetailsOfServiceScreen(
+                                              sId: _serviceList[index]
+                                                  .id
+                                                  .toString(),
+                                              serviceName:
+                                                  _serviceList[index].name,
+                                              a: widget.analytics,
+                                              o: widget.observer,
+                                              serviceImage:
+                                                  _serviceList[index].image)),
                                 );
                               },
                               child: Card(
@@ -90,7 +96,7 @@ class _ServiceListScreenState extends BaseRouteState {
                                       fit: FlexFit.tight,
                                       child: CachedNetworkImage(
                                         imageUrl: global.baseUrlForImage +
-                                            _serviceList[index].service_image!,
+                                            _serviceList[index].image!,
                                         imageBuilder:
                                             (context, imageProvider) =>
                                                 Container(
@@ -149,7 +155,7 @@ class _ServiceListScreenState extends BaseRouteState {
                                     //   ],
                                     // ),
                                     Text(
-                                      '${_serviceList[index].service_name}',
+                                      '${_serviceList[index].name}',
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 20,
@@ -170,7 +176,7 @@ class _ServiceListScreenState extends BaseRouteState {
                       child: Text(
                         AppLocalizations.of(context)!
                             .txt_service_will_shown_here,
-                        style: Theme.of(context).primaryTextTheme.subtitle2,
+                        style: Theme.of(context).primaryTextTheme.titleSmall,
                       ),
                     )
               : _shimmer()),
@@ -197,17 +203,13 @@ class _ServiceListScreenState extends BaseRouteState {
           } else {
             pageNumber++;
           }
-          await apiHelper!
-              .getServices(global.lat, global.lng, pageNumber)
-              .then((result) {
+          await apiHelper!.getMainServices().then((result) {
             if (result != null) {
               if (result.status == "1") {
-                List<Service> _tList = result.recordList;
-
+                List<MainService> _tList = result.recordList;
                 if (_tList.isEmpty) {
                   _isRecordPending = false;
                 }
-
                 _serviceList.addAll(_tList);
                 setState(() {
                   _isMoreDataLoaded = false;

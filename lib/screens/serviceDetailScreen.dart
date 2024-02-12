@@ -12,8 +12,12 @@ import 'package:shimmer/shimmer.dart';
 class ServiceDetailScreen extends BaseRoute {
   final String? serviceName;
   final String? serviceImage;
-  ServiceDetailScreen({a, o, this.serviceName, this.serviceImage})
-      : super(a: a, o: o, r: 'ServiceDetailScreen');
+  ServiceDetailScreen({
+    a,
+    o,
+    this.serviceName,
+    this.serviceImage,
+  }) : super(a: a, o: o, r: 'ServiceDetailScreen');
   @override
   _ServiceDetailScreenState createState() => new _ServiceDetailScreenState(
       serviceName: serviceName, serviceImage: serviceImage);

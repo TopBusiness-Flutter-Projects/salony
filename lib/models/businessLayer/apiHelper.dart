@@ -37,6 +37,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
+import '../details_of_services.dart';
+import '../main_services.dart';
+
 class APIHelper {
   Future<dynamic> addSalonRating(
       int? user_id, int? vendor_id, double rating, String description) async {
@@ -969,6 +972,28 @@ class APIHelper {
     }
   }
 
+  Future<dynamic> getDetailsOfMainServices(String sId) async {
+    try {
+      final response = await http.get(
+        Uri.parse("${global.baseUrl}get_services_by_id?s_id=$sId"),
+        headers: await global.getApiHeaders(false),
+      );
+
+      dynamic recordList;
+      if (response.statusCode == 200 &&
+          json.decode(response.body)["status"] == "1") {
+        recordList = List<DetailsOfMainService>.from(json
+            .decode(response.body)["data"]
+            .map((x) => DetailsOfMainService.fromJson(x)));
+      } else {
+        recordList = null;
+      }
+      return getAPIResult(response, recordList);
+    } catch (e) {
+      print("Exception - getNearByBarberShops(): " + e.toString());
+    }
+  }
+
   Future<dynamic> getScratchCards() async {
     try {
       final response = await http.post(
@@ -1019,6 +1044,28 @@ class APIHelper {
       return getAPIResult(response, recordList);
     } catch (e) {
       print("Exception - getServices(): " + e.toString());
+    }
+  }
+
+  Future<dynamic> getMainServices() async {
+    try {
+      final response = await http.get(
+        Uri.parse("${global.baseUrl}get_main_services"),
+        headers: await global.getApiHeaders(false),
+      );
+
+      dynamic recordList;
+      if (response.statusCode == 200 &&
+          json.decode(response.body)["status"] == "1") {
+        recordList = List<MainService>.from(json
+            .decode(response.body)["data"]
+            .map((x) => MainService.fromJson(x)));
+      } else {
+        recordList = null;
+      }
+      return getAPIResult(response, recordList);
+    } catch (e) {
+      print("Exception - MainServicesModel(): " + e.toString());
     }
   }
 

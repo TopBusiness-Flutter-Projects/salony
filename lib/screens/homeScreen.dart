@@ -18,6 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../models/main_services.dart';
+import 'detailsOfServices.dart';
+
 class HomeScreen extends BaseRoute {
   HomeScreen({a, o}) : super(a: a, o: o, r: 'HomeScreen');
   @override
@@ -27,14 +30,16 @@ class HomeScreen extends BaseRoute {
 class _HomeScreenState extends BaseRouteState {
   GlobalKey<ScaffoldState>? _scaffoldKey;
   List<BannerModel>? _bannerList = [];
-  List<Service>? _serviceList = [];
+  // List<Service>? _serviceList = [];
+  List<MainService>? _mainServiceList = [];
   List<BarberShop>? _barberShopList = [];
   List<PopularBarbers>? _popularBarbersList = [];
   List<Product>? _productList = [];
   CarouselController? _carouselController;
   int _currentIndex = 0;
   bool _isBannerDataLoaded = true;
-  bool _isServicesDataLoaded = true;
+  // bool _isServicesDataLoaded = true;
+  bool _isMainServicesDataLoaded = true;
   bool _isBarberShopDataLoaded = false;
   bool _isBarbersDataLoaded = false;
   bool _isProductsLoaded = true;
@@ -341,8 +346,8 @@ class _HomeScreenState extends BaseRouteState {
                 ),
                 SizedBox(
                     // height: 60,
-                    child: _isServicesDataLoaded
-                        ? _serviceList!.length > 0
+                    child: _isMainServicesDataLoaded
+                        ? _mainServiceList!.length > 0
                             ? _services()
                             : Padding(
                                 padding: const EdgeInsets.only(left: 15),
@@ -659,19 +664,41 @@ class _HomeScreenState extends BaseRouteState {
     }
   }
 
-  _getServices() async {
+  // _getServices() async {
+  //   try {
+  //     bool isConnected = await br.checkConnectivity();
+  //     if (isConnected) {
+  //       await apiHelper!.getServices(global.lat, global.lng, 1).then((result) {
+  //         if (result != null) {
+  //           if (result.status == "1") {
+  //             _serviceList = result.recordList;
+  //           } else {}
+  //         }
+
+  //         setState(() {
+  //           _isServicesDataLoaded = true;
+  //         });
+  //       });
+  //     } else {
+  //       showNetworkErrorSnackBar(_scaffoldKey);
+  //     }
+  //   } catch (e) {
+  //     print("Exception - homeScreen.dart - _getServices():" + e.toString());
+  //   }
+  // }
+  _getMainServices() async {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.getServices(global.lat, global.lng, 1).then((result) {
+        await apiHelper!.getMainServices().then((result) {
           if (result != null) {
             if (result.status == "1") {
-              _serviceList = result.recordList;
+              _mainServiceList = result.recordList;
             } else {}
           }
 
           setState(() {
-            _isServicesDataLoaded = true;
+            _isMainServicesDataLoaded = true;
           });
         });
       } else {
@@ -685,7 +712,7 @@ class _HomeScreenState extends BaseRouteState {
   _init() async {
     final List<dynamic> _ = await Future.wait([
       _getNearByBanners(),
-      _getServices(),
+      _getMainServices(),
       // _getNearByBarberShops(),
       // _getPopularBarbers(),
       _getProducts()
@@ -1133,7 +1160,7 @@ class _HomeScreenState extends BaseRouteState {
                 childAspectRatio: 3 / 2.5,
                 mainAxisSpacing: 5,
                 crossAxisSpacing: 10),
-            itemCount: _serviceList!.length,
+            itemCount: _mainServiceList!.length,
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
 
@@ -1148,12 +1175,12 @@ class _HomeScreenState extends BaseRouteState {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => ServiceDetailScreen(
-                              serviceName: _serviceList![index].service_name,
+                          builder: (context) => DetailsOfServiceScreen(
+                              sId: _mainServiceList![index].id.toString(),
+                              serviceName: _mainServiceList![index].name,
                               a: widget.analytics,
                               o: widget.observer,
-                              serviceImage:
-                                  _serviceList![index].service_image)),
+                              serviceImage: _mainServiceList![index].image)),
                     );
                   },
                   child: Column(
@@ -1163,7 +1190,7 @@ class _HomeScreenState extends BaseRouteState {
                         fit: FlexFit.tight,
                         child: CachedNetworkImage(
                           imageUrl: global.baseUrlForImage +
-                              _serviceList![index].service_image!,
+                              _mainServiceList![index].image!,
                           imageBuilder: (context, imageProvider) => Card(
                             // margin:
                             //     EdgeInsets.only(left: 4, right: 4, bottom: 4),
@@ -1207,7 +1234,7 @@ class _HomeScreenState extends BaseRouteState {
                       //   ),
                       // ),
                       Text(
-                        '${_serviceList![index].service_name}',
+                        '${_mainServiceList![index].name}',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Colors.black,
