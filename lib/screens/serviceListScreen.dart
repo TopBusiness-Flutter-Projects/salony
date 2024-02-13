@@ -43,8 +43,11 @@ class _ServiceListScreenState extends BaseRouteState {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => SearchScreen(3,
-                              a: widget.analytics, o: widget.observer)),
+                          builder: (context) => SearchScreen(
+                                1,
+                                a: widget.analytics,
+                                o: widget.observer,
+                              )),
                     );
                   },
                   icon: Icon(Icons.search))
@@ -203,7 +206,7 @@ class _ServiceListScreenState extends BaseRouteState {
           } else {
             pageNumber++;
           }
-          await apiHelper!.getMainServices().then((result) {
+          await apiHelper!.getMainServices(type: 'service').then((result) {
             if (result != null) {
               if (result.status == "1") {
                 List<MainService> _tList = result.recordList;

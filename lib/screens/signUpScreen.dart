@@ -6,12 +6,17 @@ import 'package:app/screens/otpVerificationScreen.dart';
 import 'package:app/screens/signInScreen.dart';
 import 'package:app/screens/termsOfServicesScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../models/DistrictModel.dart';
+import '../models/city_model.dart';
+import '../models/region_model.dart';
 
 class SignUpScreen extends BaseRoute {
   final String? appleId;
@@ -47,11 +52,19 @@ class _SignUpScreenState extends BaseRouteState {
   File? _tImage;
   bool _isPasswordVisible = false;
   final int _phoneNumberLength = 11;
+  bool _isRegionsLoaded = false;
+  bool _isCitiesLoaded = false;
+  bool _isDistrictsLoaded = false;
 
   bool _isConfirmPasswordVisible = false;
   _SignUpScreenState({this.email, this.fbId, this.name, this.appleId})
       : super();
-
+  RegionModel? regionModel;
+  CityModel? cityModel;
+  DistrictModel? districtModel;
+  List<RegionModel> regions = [];
+  List<CityModel> cities = [];
+  List<DistrictModel> districts = [];
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -104,79 +117,6 @@ class _SignUpScreenState extends BaseRouteState {
                             ),
                           ],
                         ),
-                        // Stack(
-                        //   alignment: Alignment.bottomRight,
-                        //   children: [
-                        //     _tImage != null
-                        //         ? CircleAvatar(
-                        //             radius: 32,
-                        //             child: ClipRRect(
-                        //                 borderRadius: BorderRadius.circular(32),
-                        //                 child: Image.file(_tImage!)),
-                        //           )
-                        //         : global.user!.image != null
-                        //             ? CachedNetworkImage(
-                        //                 imageUrl: global.baseUrlForImage +
-                        //                     global.user!.image!,
-                        //                 imageBuilder: (context, imageProvider) =>
-                        //                     CircleAvatar(
-                        //                         radius: 32,
-                        //                         backgroundImage: imageProvider),
-                        //                 placeholder: (context, url) => Center(
-                        //                     child: CircularProgressIndicator()),
-                        //                 errorWidget: (context, url, error) =>
-                        //                     Icon(Icons.error),
-                        //               )
-                        //             : CircleAvatar(
-                        //                 radius: 24,
-                        //                 child: Icon(Icons.person),
-                        //                 backgroundColor: Colors.white,
-                        //               ),
-                        //     CircleAvatar(
-                        //       radius: 32,
-                        //       child: ClipRRect(
-                        //           borderRadius: BorderRadius.circular(32),
-                        //           child: _tImage == null
-                        //               ? CircleAvatar(
-                        //                   radius: 30,
-                        //                   child: Icon(Icons.person),
-                        //                   backgroundColor: Colors.white,
-                        //                 )
-                        //               : Image.file(
-                        //                   _tImage ?? File(''),
-                        //                   errorBuilder:
-                        //                       (context, error, stackTrace) {
-                        //                     return CircleAvatar(
-                        //                       radius: 24,
-                        //                       child: Icon(Icons.add),
-                        //                       backgroundColor: Colors.white,
-                        //                     );
-                        //                   },
-                        //                 )),
-                        //     ),
-                        //     Positioned(
-                        //         top: 30,
-                        //         left: 30,
-                        //         child: IconButton(
-                        //             padding: EdgeInsets.all(0),
-                        //             onPressed: () {
-                        //               _showCupertinoModalSheet();
-                        //               setState(() {});
-                        //             },
-                        //             icon: Container(
-                        //                 padding: EdgeInsets.all(0),
-                        //                 margin: EdgeInsets.all(0),
-                        //                 decoration: BoxDecoration(
-                        //                     color: Color(0xFFF36D86),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(34)),
-                        //                 child: Icon(
-                        //                   Icons.add,
-                        //                   color: Colors.white,
-                        //                   size: 20,
-                        //                 ))))
-                        //   ],
-                        // )
                       ],
                     ),
                     Container(
@@ -221,6 +161,214 @@ class _SignUpScreenState extends BaseRouteState {
                             _fPassword.requestFocus();
                           },
                         )),
+                    Container(
+                      margin: EdgeInsets.only(top: 15), // color: Colors.red,
+                      // height: 10,
+                      child: DropdownButtonFormField2<RegionModel>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          // Add Horizontal padding using menuItemStyleData.padding so it matches
+                          // the menu padding when button's width is not specified.
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          // Add more decoration..
+                        ),
+                        hint: const Text(
+                          'اختر منطقتك',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        items: regions
+                            .map((item) => DropdownMenuItem<RegionModel>(
+                                  value: item,
+                                  child: Text(
+                                    item.nameAr ?? '',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'من فضلك اختر بلدك';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          cities = [];
+                          districts = [];
+                          // cityModel = null;
+                          setState(() {});
+                          regionModel = value;
+                          _getCities(id: value!.regionId ?? 1);
+                          //Do something when selected item is changed.
+                        },
+                        onSaved: (value) {
+                          regionModel = value;
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black45,
+                          ),
+                          iconSize: 24,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        ),
+                      ),
+                    ),
+                    cities.isEmpty
+                        ? Container()
+                        : Container(
+                            margin:
+                                EdgeInsets.only(top: 15), // color: Colors.red,
+                            // height: 10,
+                            child: DropdownButtonFormField2<CityModel>(
+                              isExpanded: true,
+                              decoration: InputDecoration(
+                                // Add Horizontal padding using menuItemStyleData.padding so it matches
+                                // the menu padding when button's width is not specified.
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                // Add more decoration..
+                              ),
+                              hint: const Text(
+                                'اختر مدينتك',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              // value: cityModel,
+                              items: cities
+                                  .map((item) => DropdownMenuItem<CityModel>(
+                                        value: item,
+                                        child: Text(
+                                          item.nameAr ?? '',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'من فضلك اختر مدينتك';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                setState(() {
+                                  districts = [];
+                                  // districtModel = null;
+                                });
+                                cityModel = value;
+                                _getDistrict(cityId: value!.cityId ?? 1);
+                                //Do something when selected item is changed.
+                              },
+                              onSaved: (value) {
+                                cityModel = value;
+                              },
+                              buttonStyleData: const ButtonStyleData(
+                                padding: EdgeInsets.only(right: 8),
+                              ),
+                              iconStyleData: const IconStyleData(
+                                icon: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black45,
+                                ),
+                                iconSize: 24,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                              ),
+                            ),
+                          ),
+                    districts.isEmpty
+                        ? Container()
+                        : Container(
+                            margin:
+                                EdgeInsets.only(top: 15), // color: Colors.red,
+                            // height: 10,
+                            child: DropdownButtonFormField2<DistrictModel>(
+                              isExpanded: true,
+                              decoration: InputDecoration(
+                                // Add Horizontal padding using menuItemStyleData.padding so it matches
+                                // the menu padding when button's width is not specified.
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                // Add more decoration..
+                              ),
+                              hint: const Text(
+                                'اختر الحي',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              // value: cityModel,
+                              items: districts
+                                  .map(
+                                      (item) => DropdownMenuItem<DistrictModel>(
+                                            value: item,
+                                            child: Text(
+                                              item.nameAr ?? '',
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ))
+                                  .toList(),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'من فضلك اختر الحي';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                //Do something when selected item is changed.
+                                districtModel = value;
+                              },
+                              onSaved: (value) {
+                                districtModel = value;
+                              },
+                              buttonStyleData: const ButtonStyleData(
+                                padding: EdgeInsets.only(right: 8),
+                              ),
+                              iconStyleData: const IconStyleData(
+                                icon: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black45,
+                                ),
+                                iconSize: 24,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                              ),
+                            ),
+                          ),
                     Container(
                         margin: EdgeInsets.only(top: 15),
                         height: 50,
@@ -280,76 +428,6 @@ class _SignUpScreenState extends BaseRouteState {
                             FocusScope.of(context).requestFocus(_fReferralCode);
                           },
                         )),
-                    // Container(
-                    //     margin: EdgeInsets.only(top: 15),
-                    //     height: 50,
-                    //     child: TextFormField(
-                    //       textAlign: TextAlign.start,
-                    //       autofocus: false,
-                    //       cursorColor: Color(0xFFF36D86),
-                    //       enabled: true,
-                    //       style: Theme.of(context).primaryTextTheme.headline6,
-                    //       controller: _cReferralCode,
-                    //       focusNode: _fReferralCode,
-                    //       decoration: InputDecoration(
-                    //           hintText:
-                    //               AppLocalizations.of(context)!.lbl_referral_code),
-                    //       onEditingComplete: () {
-                    //         FocusScope.of(context).unfocus();
-                    //       },
-                    //     )),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 40),
-                    //   child: GestureDetector(
-                    //       onTap: () {
-                    //         _isAgree = !_isAgree;
-                    //         setState(() {});
-                    //       },
-                    //       child: Row(
-                    //         children: [
-                    //           Icon(
-                    //             Icons.check_circle,
-                    //             size: 20,
-                    //             color: _isAgree
-                    //                 ? Color(0xFFF36D86)
-                    //                 : Color(0xFF898A8D),
-                    //           ),
-                    //           Padding(
-                    //               padding: const EdgeInsets.only(left: 5),
-                    //               child: Wrap(
-                    //                 children: [
-                    //                   Text(
-                    //                     AppLocalizations.of(context)!
-                    //                         .txt_i_agree_to_the,
-                    //                     style: Theme.of(context)
-                    //                         .primaryTextTheme
-                    //                         .subtitle1,
-                    //                   ),
-                    //                   InkWell(
-                    //                       splashColor: Colors.transparent,
-                    //                       highlightColor: Colors.transparent,
-                    //                       overlayColor: MaterialStateProperty.all(
-                    //                           Colors.transparent),
-                    //                       onTap: () {
-                    //                         Navigator.of(context).push(
-                    //                           MaterialPageRoute(
-                    //                               builder: (context) =>
-                    //                                   TermsOfServices(
-                    //                                       a: widget.analytics,
-                    //                                       o: widget.observer)),
-                    //                         );
-                    //                       },
-                    //                       child: Text(
-                    //                           AppLocalizations.of(context)!
-                    //                               .txt_term_of_services,
-                    //                           style: Theme.of(context)
-                    //                               .primaryTextTheme
-                    //                               .subtitle2))
-                    //                 ],
-                    //               ))
-                    //         ],
-                    //       )),
-                    // ),
                     Container(
                         height: 50,
                         width: double.infinity,
@@ -363,7 +441,6 @@ class _SignUpScreenState extends BaseRouteState {
                               'انشاء حساب',
                               style: TextStyle(fontFamily: 'cairo'),
                             ))),
-
                     Padding(
                         padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.width / 3.5,
@@ -434,6 +511,7 @@ class _SignUpScreenState extends BaseRouteState {
 
   @override
   void initState() {
+    _getRegions();
     super.initState();
     _fillData();
   }
@@ -476,60 +554,14 @@ class _SignUpScreenState extends BaseRouteState {
     }
   }
 
-  // _showCupertinoModalSheet() {
-  //   try {
-  //     showCupertinoModalPopup(
-  //       context: context,
-  //       builder: (BuildContext context) => CupertinoActionSheet(
-  //         title: Text(AppLocalizations.of(context)!.lbl_actions),
-  //         actions: [
-  //           CupertinoActionSheetAction(
-  //             child: Text(AppLocalizations.of(context)!.lbl_take_picture,
-  //                 style: TextStyle(color: Color(0xFF171D2C))),
-  //             onPressed: () async {
-  //               Navigator.pop(context);
-  //               showOnlyLoaderDialog();
-  //               _tImage = await br.openCamera();
-  //               hideLoader();
-
-  //               setState(() {});
-  //             },
-  //           ),
-  //           CupertinoActionSheetAction(
-  //             child: Text(AppLocalizations.of(context)!.lbl_choose_from_library,
-  //                 style: TextStyle(color: Color(0xFF171D2C))),
-  //             onPressed: () async {
-  //               Navigator.pop(context);
-  //               showOnlyLoaderDialog();
-  //               _tImage = await br.selectImageFromGallery();
-  //               hideLoader();
-
-  //               setState(() {});
-  //             },
-  //           )
-  //         ],
-  //         cancelButton: CupertinoActionSheetAction(
-  //           child: Text(AppLocalizations.of(context)!.lbl_cancelled
-  //               style: TextStyle(color: Color(0xFFF36D86))),
-  //           onPressed: () {
-  //             Navigator.pop(context);
-  //           },
-  //         ),
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     print("Exception - signUpScreen.dart - _showCupertinoModalSheet():" +
-  //         e.toString());
-  //   }
-  // }
-
   _signUp() async {
     try {
       CurrentUser _user = new CurrentUser();
       if (appleId != null) {
         _user.apple_id = appleId;
       }
-
+      _user.address =
+          "${regionModel?.nameAr ?? ''} - ${cityModel?.nameAr ?? ''} - ${districtModel?.nameAr ?? ''}";
       _user.user_name = _cName.text.trim();
       // _user.user_email = _cEmail.text.trim();
       _user.user_phone = _cMobile.text.trim();
@@ -544,7 +576,10 @@ class _SignUpScreenState extends BaseRouteState {
           // _cMobile.text.trim().length == _phoneNumberLength &&
           _cPassword.text.isNotEmpty &&
           _cConfirmPassword.text.isNotEmpty &&
-          _cPassword.text.trim() == _cConfirmPassword.text.trim()) {
+          _cPassword.text.trim() == _cConfirmPassword.text.trim() &&
+          regionModel != null &&
+          cityModel != null &&
+          districtModel != null) {
         bool isConnected = await br.checkConnectivity();
         if (isConnected) {
           showOnlyLoaderDialog();
@@ -575,6 +610,12 @@ class _SignUpScreenState extends BaseRouteState {
             key: _scaffoldKey,
             snackBarMessage: AppLocalizations.of(context)!
                 .txt_please_enter_valid_mobile_number);
+      } else if (regionModel == null) {
+        showSnackBar(key: _scaffoldKey, snackBarMessage: 'من فضلك اختر مدينتك');
+      } else if (cityModel == null) {
+        showSnackBar(key: _scaffoldKey, snackBarMessage: 'من فضلك اختر منطقتك');
+      } else if (districtModel == null) {
+        showSnackBar(key: _scaffoldKey, snackBarMessage: 'من فضلك اختر الحي');
       } else if (_cPassword.text.isEmpty) {
         showSnackBar(
             key: _scaffoldKey,
@@ -610,4 +651,62 @@ class _SignUpScreenState extends BaseRouteState {
       print("Exception - signUpScreen.dart - _signUp():" + e.toString());
     }
   }
+
+  _getRegions() async {
+    try {
+      bool isConnected = await br.checkConnectivity();
+      if (isConnected) {
+        await apiHelper!.getRegions().then((result) {
+          if (result != null) {
+            regions = result.map((e) => RegionModel.fromJson(e)).toList();
+          }
+          _isRegionsLoaded = true;
+          setState(() {});
+        });
+      } else {
+        showNetworkErrorSnackBar(_scaffoldKey);
+      }
+    } catch (e) {
+      print("Exception - homeScreen.dart - _getProducts():" + e.toString());
+    }
+  }
+
+  _getCities({required int id}) async {
+    try {
+      bool isConnected = await br.checkConnectivity();
+      if (isConnected) {
+        await apiHelper!.getCities(id: id).then((result) {
+          if (result != null) {
+            cities = result.map((e) => CityModel.fromJson(e)).toList();
+          }
+          _isCitiesLoaded = true;
+          setState(() {});
+        });
+      } else {
+        showNetworkErrorSnackBar(_scaffoldKey);
+      }
+    } catch (e) {
+      print("Exception - homeScreen.dart - _getProducts():" + e.toString());
+    }
+  }
+
+  _getDistrict({required int cityId}) async {
+    try {
+      bool isConnected = await br.checkConnectivity();
+      if (isConnected) {
+        await apiHelper!.getDistrict(cityId: cityId).then((result) {
+          if (result != null) {
+            districts = result.map((e) => DistrictModel.fromJson(e)).toList();
+          }
+          _isDistrictsLoaded = true;
+          setState(() {});
+        });
+      } else {
+        showNetworkErrorSnackBar(_scaffoldKey);
+      }
+    } catch (e) {
+      print("Exception - getDistrict():" + e.toString());
+    }
+  }
+  //
 }

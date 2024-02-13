@@ -11,6 +11,7 @@ class CurrentUser {
   String? lastname;
   String? image;
   String? email;
+  String? address;
   int? otp;
   String? facebook_id;
   DateTime? email_verified_at;
@@ -35,6 +36,8 @@ class CurrentUser {
 
   CurrentUser.fromJson(Map<String, dynamic> json) {
     try {
+      address = json['user_address'] ?? null;
+
       id = json['id'] != null ? int.parse('${json['id']}') : null;
       user_phone = json['user_phone'] != null ? json['user_phone'] : null;
       name = json['name'] != null ? json['name'] : null;
@@ -85,6 +88,7 @@ class CurrentUser {
   Map<String, dynamic> toJson() => {
         'id': id,
         'status': status != null ? status : null,
+        "user_address": address,
         'user_phone':
             user_phone != null && user_phone!.isNotEmpty ? user_phone : null,
         'user_name':

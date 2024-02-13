@@ -20,6 +20,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../models/main_services.dart';
 import 'detailsOfServices.dart';
+import 'productsOfMain.dart';
 
 class HomeScreen extends BaseRoute {
   HomeScreen({a, o}) : super(a: a, o: o, r: 'HomeScreen');
@@ -32,6 +33,8 @@ class _HomeScreenState extends BaseRouteState {
   List<BannerModel>? _bannerList = [];
   // List<Service>? _serviceList = [];
   List<MainService>? _mainServiceList = [];
+  List<MainService>? _mainProductsList = [];
+  bool _isProductsLoaded = true;
   List<BarberShop>? _barberShopList = [];
   List<PopularBarbers>? _popularBarbersList = [];
   List<Product>? _productList = [];
@@ -42,7 +45,6 @@ class _HomeScreenState extends BaseRouteState {
   bool _isMainServicesDataLoaded = true;
   bool _isBarberShopDataLoaded = false;
   bool _isBarbersDataLoaded = false;
-  bool _isProductsLoaded = true;
 
   _HomeScreenState() : super();
 
@@ -509,7 +511,7 @@ class _HomeScreenState extends BaseRouteState {
                 SizedBox(
                   // height: 160,
                   child: _isProductsLoaded
-                      ? _productList!.length > 0
+                      ? _mainProductsList!.length > 0
                           ? _products()
                           : Padding(
                               padding: const EdgeInsets.only(left: 15),
@@ -641,28 +643,28 @@ class _HomeScreenState extends BaseRouteState {
   //   }
   // }
 
-  _getProducts() async {
-    try {
-      bool isConnected = await br.checkConnectivity();
-      if (isConnected) {
-        await apiHelper!
-            .getProducts(global.lat, global.lng, 1, '')
-            .then((result) {
-          if (result != null) {
-            if (result.status == "1") {
-              _productList = result.recordList;
-            } else {}
-          }
-          _isProductsLoaded = true;
-          setState(() {});
-        });
-      } else {
-        showNetworkErrorSnackBar(_scaffoldKey);
-      }
-    } catch (e) {
-      print("Exception - homeScreen.dart - _getProducts():" + e.toString());
-    }
-  }
+  // _getProducts() async {
+  //   try {
+  //     bool isConnected = await br.checkConnectivity();
+  //     if (isConnected) {
+  //       await apiHelper!
+  //           .getProducts(global.lat, global.lng, 1, '')
+  //           .then((result) {
+  //         if (result != null) {
+  //           if (result.status == "1") {
+  //             _productList = result.recordList;
+  //           } else {}
+  //         }
+  //         _isProductsLoaded = true;
+  //         setState(() {});
+  //       });
+  //     } else {
+  //       showNetworkErrorSnackBar(_scaffoldKey);
+  //     }
+  //   } catch (e) {
+  //     print("Exception - homeScreen.dart - _getProducts():" + e.toString());
+  //   }
+  // }
 
   // _getServices() async {
   //   try {
@@ -686,18 +688,23 @@ class _HomeScreenState extends BaseRouteState {
   //     print("Exception - homeScreen.dart - _getServices():" + e.toString());
   //   }
   // }
-  _getMainServices() async {
+  _getMainServices({String type = 'service'}) async {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.getMainServices().then((result) {
+        await apiHelper!.getMainServices(type: type).then((result) {
           if (result != null) {
             if (result.status == "1") {
-              _mainServiceList = result.recordList;
+              if (type == 'service') {
+                _mainServiceList = result.recordList;
+              } else {
+                _mainProductsList = result.recordList;
+              }
             } else {}
           }
 
           setState(() {
+            _isProductsLoaded = true;
             _isMainServicesDataLoaded = true;
           });
         });
@@ -712,10 +719,12 @@ class _HomeScreenState extends BaseRouteState {
   _init() async {
     final List<dynamic> _ = await Future.wait([
       _getNearByBanners(),
-      _getMainServices(),
+      _getMainServices(type: 'service'),
+      _getMainServices(type: 'product'),
+
       // _getNearByBarberShops(),
       // _getPopularBarbers(),
-      _getProducts()
+      // _getProducts()
     ]);
     setState(() {});
   }
@@ -852,7 +861,7 @@ class _HomeScreenState extends BaseRouteState {
                 childAspectRatio: 3 / 2.5,
                 mainAxisSpacing: 5,
                 crossAxisSpacing: 10),
-            itemCount: _productList!.length,
+            itemCount: _mainProductsList!.length,
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             // scrollDirection: Axis.horizontal,
@@ -862,16 +871,24 @@ class _HomeScreenState extends BaseRouteState {
                 highlightColor: Colors.transparent,
                 overlayColor: MaterialStateProperty.all(Colors.transparent),
                 onTap: () {
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => ProductDetailScreen(
+                  //         _mainProductsList![index].id,
+                  //         a: widget.analytics,
+                  //         o: widget.observer,
+                  //         isShowGoCartBtn:
+                  //             _mainProductsList![index].cart_qty != null &&
+                  //                     _mainProductsList![index].cart_qty! > 0
+                  //                 ? true
+                  //                 : false)));
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ProductDetailScreen(
-                          _productList![index].id,
-                          a: widget.analytics,
-                          o: widget.observer,
-                          isShowGoCartBtn:
-                              _productList![index].cart_qty != null &&
-                                      _productList![index].cart_qty! > 0
-                                  ? true
-                                  : false)));
+                      builder: (context) => ProductsOfMainScreen(
+                            mainId: _mainProductsList![index].id ?? 4,
+                            a: widget.analytics,
+                            o: widget.observer,
+                            serviceImage: _mainProductsList![index].image,
+                            serviceName: _mainProductsList![index].name,
+                          )));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -889,68 +906,69 @@ class _HomeScreenState extends BaseRouteState {
                             child: Card(
                               child: CachedNetworkImage(
                                 imageUrl: global.baseUrlForImage +
-                                    _productList![index].product_image!,
+                                    _mainProductsList![index].image!,
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
-                                        // width: 110,
-                                        // height: 110,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(2),
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: imageProvider)),
-                                        child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: IconButton(
-                                              alignment: Alignment.topRight,
-                                              padding: EdgeInsets.all(4),
-                                              onPressed: () async {
-                                                if (global.user!.id == null) {
-                                                  Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            SignInScreen(
-                                                              a: widget
-                                                                  .analytics,
-                                                              o: widget
-                                                                  .observer,
-                                                            )),
-                                                  );
-                                                } else {
-                                                  bool? _isFav;
-                                                  _isFav = await _addToFavorite(
-                                                      _productList![index].id);
-                                                  if (_isFav! &&
-                                                      _productList![index]
-                                                              .isFavourite !=
-                                                          null) {
-                                                    _productList![index]
-                                                            .isFavourite =
-                                                        !_productList![index]
-                                                            .isFavourite!;
-                                                  }
-                                                }
-                                                setState(() {});
-                                              },
-                                              icon: Icon(
-                                                _productList![index]
-                                                                .isFavourite !=
-                                                            null &&
-                                                        _productList![index]
-                                                            .isFavourite!
-                                                    ? Icons.favorite
-                                                    : Icons.favorite_outline,
-                                                color: _productList![index]
-                                                                .isFavourite !=
-                                                            null &&
-                                                        _productList![index]
-                                                            .isFavourite!
-                                                    ? Color(0xffF36D86)
-                                                    : Colors.white,
-                                                size: 20,
-                                              )),
-                                        )),
+                                  // width: 110,
+                                  // height: 110,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(2),
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: imageProvider)),
+                                  // child: Align(
+                                  //   alignment: Alignment.topRight,
+                                  //   child: IconButton(
+                                  //       alignment: Alignment.topRight,
+                                  //       padding: EdgeInsets.all(4),
+                                  //       onPressed: () async {
+                                  //         if (global.user!.id == null) {
+                                  //           Navigator.of(context).push(
+                                  //             MaterialPageRoute(
+                                  //                 builder: (context) =>
+                                  //                     SignInScreen(
+                                  //                       a: widget
+                                  //                           .analytics,
+                                  //                       o: widget
+                                  //                           .observer,
+                                  //                     )),
+                                  //           );
+                                  //         } else {
+                                  //           bool? _isFav;
+                                  //           _isFav = await _addToFavorite(
+                                  //               _mainProductsList![index]
+                                  //                   .id);
+                                  //           if (_isFav! &&
+                                  //               _productList![index]
+                                  //                       .isFavourite !=
+                                  //                   null) {
+                                  //             _productList![index]
+                                  //                     .isFavourite =
+                                  //                 !_productList![index]
+                                  //                     .isFavourite!;
+                                  //           }
+                                  //         }
+                                  //         setState(() {});
+                                  //       },
+                                  //       icon: Icon(
+                                  //         _productList![index]
+                                  //                         .isFavourite !=
+                                  //                     null &&
+                                  //                 _productList![index]
+                                  //                     .isFavourite!
+                                  //             ? Icons.favorite
+                                  //             : Icons.favorite_outline,
+                                  //         color: _productList![index]
+                                  //                         .isFavourite !=
+                                  //                     null &&
+                                  //                 _productList![index]
+                                  //                     .isFavourite!
+                                  //             ? Color(0xffF36D86)
+                                  //             : Colors.white,
+                                  //         size: 20,
+                                  //       )),
+                                  // )
+                                ),
                                 placeholder: (context, url) =>
                                     Center(child: CircularProgressIndicator()),
                                 errorWidget: (context, url, error) => Container(
@@ -970,7 +988,7 @@ class _HomeScreenState extends BaseRouteState {
                           Padding(
                             padding: const EdgeInsets.all(5),
                             child: Text(
-                              '${_productList![index].product_name}',
+                              '${_mainProductsList![index].name}',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: TextStyle(

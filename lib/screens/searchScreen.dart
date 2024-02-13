@@ -145,8 +145,8 @@ class _SearchScreenState extends BaseRouteState {
                     controller: _tabController,
                     overlayColor: MaterialStateProperty.all(Colors.transparent),
                     tabs: [
-                      Text(AppLocalizations.of(context)!.lbl_barbershops),
-                      Text(AppLocalizations.of(context)!.lbl_barbers),
+                      // Text(AppLocalizations.of(context)!.lbl_barbershops),
+                      // Text(AppLocalizations.of(context)!.lbl_barbers),
                       Text(AppLocalizations.of(context)!.lbl_products),
                       Text(AppLocalizations.of(context)!.lbl_services),
                     ],
@@ -160,8 +160,8 @@ class _SearchScreenState extends BaseRouteState {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 15),
                     child: TabBarView(controller: _tabController, children: [
-                      _barberShopView(),
-                      _barbersList(),
+                      // _barberShopView(),
+                      // _barbersList(),
                       _productListWidget(),
                       _servicesList()
                     ]),
@@ -185,7 +185,7 @@ class _SearchScreenState extends BaseRouteState {
     super.initState();
     _currentIndex = index;
     _tabController =
-        new TabController(initialIndex: _currentIndex, length: 4, vsync: this);
+        new TabController(initialIndex: _currentIndex, length: 2, vsync: this);
     _tabController!.addListener(_tabControllerListener);
     _init();
   }

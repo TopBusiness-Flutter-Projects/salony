@@ -39,6 +39,7 @@ import 'package:http/http.dart' as http;
 
 import '../details_of_services.dart';
 import '../main_services.dart';
+import '../region_model.dart';
 
 class APIHelper {
   Future<dynamic> addSalonRating(
@@ -922,6 +923,27 @@ class APIHelper {
     }
   }
 
+  Future<dynamic> getProductsOfMain(int mainId) async {
+    try {
+      final response = await http.get(
+        Uri.parse("${global.baseUrl}getProductById?main_id=$mainId"),
+        headers: await global.getApiHeaders(false),
+      );
+
+      dynamic recordList;
+      if (response.statusCode == 200 &&
+          json.decode(response.body)["status"] == "1") {
+        recordList = List<Product>.from(
+            json.decode(response.body)["data"].map((x) => Product.fromJson(x)));
+      } else {
+        recordList = null;
+      }
+      return getAPIResult(response, recordList);
+    } catch (e) {
+      print("Exception - getProductsOfMain(): " + e.toString());
+    }
+  }
+
   Future<dynamic> getReferandEarn() async {
     try {
       Response response;
@@ -1047,10 +1069,10 @@ class APIHelper {
     }
   }
 
-  Future<dynamic> getMainServices() async {
+  Future<dynamic> getMainServices({required String type}) async {
     try {
       final response = await http.get(
-        Uri.parse("${global.baseUrl}get_main_services"),
+        Uri.parse("${global.baseUrl}get_main_services?type=$type"),
         headers: await global.getApiHeaders(false),
       );
 
@@ -1313,6 +1335,7 @@ class APIHelper {
             'password': user.user_password,
             'device_id': global.appDeviceId,
             'fb_id': user.fb_id != null ? user.fb_id : null,
+            "user_address": user.address
           }),
           options: Options(
             headers: await global.getApiHeaders(false),
@@ -1487,4 +1510,92 @@ class APIHelper {
       print("Exception - verifyOtpForgotPassword(): " + e.toString());
     }
   }
+
+  Future<List<dynamic>> getRegions() async {
+    try {
+      Response response;
+      var dio = Dio();
+
+      response = await dio.get('${global.baseUrl}getRegions',
+          queryParameters: {
+            // 'lang': global.languageCode,
+          },
+          options: Options(
+            headers: await global.getApiHeaders(false),
+          ));
+      List<dynamic> recordList;
+      if (response.statusCode == 200) {
+        final data = response.data;
+        recordList = data;
+        print("88888 : ${recordList.length}");
+        return recordList;
+      } else {
+        recordList = [];
+      }
+      return getDioResult(response, recordList);
+    } catch (e) {
+      print("Exception - getRegions(): " + e.toString());
+      return [];
+    }
+  }
+
+  Future<List<dynamic>> getCities({required int id}) async {
+    try {
+      Response response;
+      var dio = Dio();
+
+      response =
+          await dio.get('${global.baseUrl}getCitiesByRegion?region_id=$id',
+              queryParameters: {
+                // 'lang': global.languageCode,
+              },
+              options: Options(
+                headers: await global.getApiHeaders(false),
+              ));
+      List<dynamic> recordList;
+      if (response.statusCode == 200) {
+        final data = response.data;
+        recordList = data;
+        print("88888 : ${recordList.length}");
+        return recordList;
+      } else {
+        recordList = [];
+      }
+      return getDioResult(response, recordList);
+    } catch (e) {
+      print("Exception - getCities(): " + e.toString());
+      return [];
+    }
+  }
+
+  Future<List<dynamic>> getDistrict({required int cityId}) async {
+    try {
+      Response response;
+      var dio = Dio();
+
+      response =
+          await dio.get('${global.baseUrl}getDistrictsByCity?city_id=$cityId',
+              queryParameters: {
+                // 'lang': global.languageCode,
+              },
+              options: Options(
+                headers: await global.getApiHeaders(false),
+              ));
+      List<dynamic> recordList;
+      if (response.statusCode == 200) {
+        final data = response.data;
+        recordList = data;
+        print("88888 : ${recordList.length}");
+        return recordList;
+      } else {
+        recordList = [];
+      }
+      return getDioResult(response, recordList);
+    } catch (e) {
+      print("Exception - getCities(): " + e.toString());
+      return [];
+    }
+  }
+
+//
 }
