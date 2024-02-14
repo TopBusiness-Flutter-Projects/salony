@@ -702,7 +702,6 @@ class _HomeScreenState extends BaseRouteState {
               }
             } else {}
           }
-
           setState(() {
             _isProductsLoaded = true;
             _isMainServicesDataLoaded = true;
