@@ -162,8 +162,9 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}booking_appointment"),
         headers: await global.getApiHeaders(true),
-        body:
-            json.encode({"vendor_id": vendor_id, "lang": global.languageCode}),
+        body: json.encode({
+          "vendor_id": vendor_id,
+        }),
       );
 
       dynamic recordList;
@@ -973,8 +974,8 @@ class APIHelper {
         Uri.parse("${global.baseUrl}service_salons"),
         headers: await global.getApiHeaders(false),
         body: json.encode({
-          "lat": lat,
-          "lng": lng,
+          // "lat": lat,
+          // "lng": lng,
           "service_name": service_name,
         }),
       );

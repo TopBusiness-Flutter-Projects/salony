@@ -586,31 +586,31 @@ class _ProductListScreenState extends BaseRouteState {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: global.isRTL
-                                ? EdgeInsets.only(right: 8, top: 20)
-                                : EdgeInsets.only(right: 8, top: 20),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.black26,
-                                  child: Center(
-                                    child: Icon(
-                                      global.isRTL
-                                          ? MdiIcons.chevronRight
-                                          : MdiIcons.chevronLeft,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: global.isRTL
+                          //       ? EdgeInsets.only(right: 8, top: 20)
+                          //       : EdgeInsets.only(right: 8, top: 20),
+                          //   child: GestureDetector(
+                          //     onTap: () {
+                          //       Navigator.of(context).pop();
+                          //     },
+                          //     child: SizedBox(
+                          //       height: 30,
+                          //       width: 30,
+                          //       child: CircleAvatar(
+                          //         backgroundColor: Colors.black26,
+                          //         child: Center(
+                          //           child: Icon(
+                          //             global.isRTL
+                          //                 ? MdiIcons.chevronRight
+                          //                 : MdiIcons.chevronLeft,
+                          //             color: Colors.white,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                       ListTile(

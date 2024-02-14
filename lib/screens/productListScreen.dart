@@ -51,18 +51,6 @@ class _ProductListScreenState extends BaseRouteState {
               style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
             actions: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => SearchScreen(
-                                0,
-                                a: widget.analytics,
-                                o: widget.observer,
-                              )),
-                    );
-                  },
-                  icon: Icon(Icons.search)),
               // global.user?.id == null
               //     ? SizedBox()
               //     : _isDataLoaded

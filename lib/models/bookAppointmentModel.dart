@@ -24,17 +24,31 @@ class BookAppointment {
       owner = json['owner'] != null ? json['owner'] : null;
       description = json['description'] != null ? json['description'] : null;
       type = json['type'] != null ? int.parse('${json['type']}') : null;
-      rating = json['rating'] != null ? double.parse('${json['rating']}') : null;
+      rating =
+          json['rating'] != null ? double.parse('${json['rating']}') : null;
       vendor_logo = json['vendor_logo'] != null ? json['vendor_logo'] : null;
       vendor_loc = json['vendor_loc'] != null ? json['vendor_loc'] : null;
-      vendor_id = json['vendor_id'] != null ? int.parse('${json['vendor_id']}') : null;
-      staff_id = json['staff_id'] != null ? int.parse('${json['staff_id']}') : null;
-      selected_date = json['selected_date'] != null ? json['selected_date'] : null;
-      barber = json['barber'] != null && json['barber'] != [] ? List<PopularBarbers>.from(json['barber'].map((x) => PopularBarbers.fromJson(x))) : [];
-      time_slot = json['time_slot'] != null && json['time_slot'] != [] ? List<TimeSlot>.from(json['time_slot'].map((x) => TimeSlot.fromJson(x))) : [];
-      services = json['services'] != null && json['services'] != [] ? List<Service>.from(json['services'].map((x) => Service.fromJson(x))) : [];
+      vendor_id =
+          json['vendor_id'] != null ? int.parse('${json['vendor_id']}') : null;
+      staff_id =
+          json['staff_id'] != null ? int.parse('${json['staff_id']}') : null;
+      selected_date =
+          json['selected_date'] != null ? json['selected_date'] : null;
+      barber = json['barber'] != null && json['barber'] != []
+          ? List<PopularBarbers>.from(
+              json['barber'].map((x) => PopularBarbers.fromJson(x)))
+          : [];
+      time_slot = json['time_slot'] != null && json['time_slot'] != []
+          ? List<TimeSlot>.from(
+              json['time_slot'].map((x) => TimeSlot.fromJson(x)))
+          : [];
+      services = json['services'] != null && json['services'] != []
+          ? List<Service>.from(json['services'].map((x) => Service.fromJson(x)))
+          : [];
     } catch (e) {
-      print("Exception - bookAppointmentModel.dart - BookAppointment.fromJson():" + e.toString());
+      print(
+          "Exception - bookAppointmentModel.dart - BookAppointment.fromJson():" +
+              e.toString());
     }
   }
 }

@@ -860,16 +860,20 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                         endIndent: 13,
                                         thickness: 1,
                                       ),
-                                      Container(
-                                          width: 50,
-                                          child: Text(
-                                              ' ${global.currency.currency_sign}${_bookingAppointment!.services[index].service_type[i].price}',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  fontWeight:
-                                                      FontWeight.w400))),
+                                      Column(
+                                        children: [
+                                          Container(
+                                              // width: 50,
+                                              child: Text(
+                                                  ' ${global.currency.currency_sign}${_bookingAppointment!.services[index].service_type[i].price}',
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                      fontWeight:
+                                                          FontWeight.w400))),
+                                        ],
+                                      ),
                                       IconButton(
                                           iconSize: 20,
                                           padding: EdgeInsets.all(0),
@@ -884,9 +888,10 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                                       .service_type[i]);
                                             } else {
                                               _selectedServiceType.add(
-                                                  _bookingAppointment!
-                                                      .services[index]
-                                                      .service_type[i]);
+                                                _bookingAppointment!
+                                                    .services[index]
+                                                    .service_type[i],
+                                              );
                                             }
                                             setState(() {});
                                           },

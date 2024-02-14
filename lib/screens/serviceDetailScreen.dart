@@ -40,159 +40,155 @@ class _ServiceDetailScreenState extends BaseRouteState {
         return false;
       },
       child: Scaffold(
-          appBar: (_barberShopList?.isEmpty ?? false) ? AppBar() : null,
-          body: SafeArea(
-            child: _isDataLoaded
-                ? _barberShopList!.length > 0
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                            CachedNetworkImage(
-                              imageUrl: global.baseUrlForImage + serviceImage!,
-                              imageBuilder: (context, imageProvider) =>
+        appBar: (_barberShopList?.isEmpty ?? false) ? AppBar() : null,
+        body: SafeArea(
+          child: _isDataLoaded
+              ? _barberShopList!.length > 0
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                          CachedNetworkImage(
+                            imageUrl: global.baseUrlForImage + serviceImage!,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
+                              height: MediaQuery.of(context).size.height * 0.24,
+                              width: MediaQuery.of(context).size.width,
+                              child: Stack(
+                                children: [
                                   Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.cover),
-                                ),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.24,
-                                width: MediaQuery.of(context).size.width,
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors.black,
-                                            Colors.transparent
-                                          ],
-                                          begin: Alignment.bottomCenter,
-                                          end: Alignment.center,
-                                        ),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.black,
+                                          Colors.transparent
+                                        ],
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.center,
                                       ),
                                     ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: global.isRTL
-                                                  ? EdgeInsets.only(
-                                                      right: 8, top: 20)
-                                                  : EdgeInsets.only(
-                                                      right: 8, top: 20),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: SizedBox(
-                                                  height: 30,
-                                                  width: 30,
-                                                  child: CircleAvatar(
-                                                    backgroundColor:
-                                                        Colors.black26,
-                                                    child: Center(
-                                                      child: Icon(
-                                                        global.isRTL
-                                                            ? MdiIcons
-                                                                .chevronRight
-                                                            : MdiIcons
-                                                                .chevronLeft,
-                                                        color: Colors.white,
-                                                      ),
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: global.isRTL
+                                                ? EdgeInsets.only(
+                                                    right: 8, top: 20)
+                                                : EdgeInsets.only(
+                                                    right: 8, top: 20),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: SizedBox(
+                                                height: 30,
+                                                width: 30,
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                      Colors.black26,
+                                                  child: Center(
+                                                    child: Icon(
+                                                      global.isRTL
+                                                          ? MdiIcons
+                                                              .chevronRight
+                                                          : MdiIcons
+                                                              .chevronLeft,
+                                                      color: Colors.white,
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                        ListTile(
-                                          title: Text('$serviceName',
-                                              style: TextStyle(
-                                                fontFamily: 'cairo',
-                                                fontSize: 18,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w500,
-                                              )),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                              placeholder: (context, url) =>
-                                  Center(child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) => Container(
-                                decoration: BoxDecoration(),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.24,
-                                width: MediaQuery.of(context).size.width,
-                                child: Text(
-                                    AppLocalizations.of(context)!.lbl_no_image),
+                                          ),
+                                        ],
+                                      ),
+                                      ListTile(
+                                        title: Text('$serviceName',
+                                            style: TextStyle(
+                                              fontFamily: 'cairo',
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                            )),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
-                            Expanded(
-                              child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 10, left: 10, right: 10),
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: _barberShopList!.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return Card(
-                                          shape: selectedVendorId != null &&
-                                                  selectedVendorId ==
-                                                      _barberShopList![index]
-                                                          .vendor_id
-                                              ? RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                  side: BorderSide(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                      width: 2))
-                                              : null,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  //
-                                                  children: [
-                                                    GestureDetector(
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) => Container(
+                              decoration: BoxDecoration(),
+                              height: MediaQuery.of(context).size.height * 0.24,
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                  AppLocalizations.of(context)!.lbl_no_image),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10, left: 10, right: 10),
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: _barberShopList!.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Card(
+                                        shape: selectedVendorId != null &&
+                                                selectedVendorId ==
+                                                    _barberShopList![index]
+                                                        .vendor_id
+                                            ? RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                side: BorderSide(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    width: 2))
+                                            : null,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                //
+                                                children: [
+                                                  Expanded(
+                                                    child: GestureDetector(
                                                       onTap: () {
-                                                        if (selectedVendorId ==
-                                                            _barberShopList![
-                                                                    index]
-                                                                .vendor_id) {
-                                                          selectedVendorId =
-                                                              null;
-                                                        } else {
-                                                          selectedVendorId =
-                                                              _barberShopList![
-                                                                      index]
-                                                                  .vendor_id;
-                                                        }
+                                                        // if (selectedVendorId ==
+                                                        //     _barberShopList![
+                                                        //             index]
+                                                        //         .vendor_id) {
+                                                        //   selectedVendorId =
+                                                        //       null;
+                                                        // } else {
+                                                        //   selectedVendorId =
+                                                        //       _barberShopList![
+                                                        //               index]
+                                                        //           .vendor_id;
+                                                        // }
 
-                                                        setState(() {});
+                                                        // setState(() {});
                                                       },
                                                       child: CachedNetworkImage(
                                                         imageUrl: global
@@ -251,27 +247,26 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                             Icon(Icons.error),
                                                       ),
                                                     ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.of(context)
-                                                            .push(
-                                                          MaterialPageRoute(
-                                                              builder: (context) => BarberShopDescriptionScreen(
-                                                                  _barberShopList![
-                                                                          index]
-                                                                      .vendor_id,
-                                                                  a: widget
-                                                                      .analytics,
-                                                                  o: widget
-                                                                      .observer)),
-                                                        );
-                                                      },
-                                                      child: Padding(
-                                                        padding: global.isRTL
-                                                            ? EdgeInsets.only(
-                                                                right: 5)
-                                                            : EdgeInsets.only(
-                                                                left: 5),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Container(
+                                                      // color: Colors.red,
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.of(context)
+                                                              .push(
+                                                            MaterialPageRoute(
+                                                                builder: (context) => BarberShopDescriptionScreen(
+                                                                    _barberShopList![
+                                                                            index]
+                                                                        .vendor_id,
+                                                                    a: widget
+                                                                        .analytics,
+                                                                    o: widget
+                                                                        .observer)),
+                                                          );
+                                                        },
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
@@ -286,6 +281,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                       left: 6),
                                                               child: Text(
                                                                 '${_barberShopList![index].vendor_name}',
+                                                                maxLines: 1,
                                                                 style:
                                                                     TextStyle(
                                                                   fontFamily:
@@ -314,22 +310,25 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                         size:
                                                                             20,
                                                                       ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
+                                                                Flexible(
+                                                                  child:
+                                                                      Container(
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width -
+                                                                        150,
+                                                                    child: Text(
+                                                                      '${_barberShopList?[index].vendor_loc ?? ''} ',
+                                                                      maxLines:
+                                                                          1,
+                                                                      style: Theme.of(
                                                                               context)
-                                                                          .size
-                                                                          .width -
-                                                                      150,
-                                                                  child: Text(
-                                                                    '${_barberShopList?[index].vendor_loc ?? ''} ',
-                                                                    style: Theme.of(
-                                                                            context)
-                                                                        .primaryTextTheme
-                                                                        .titleMedium,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    maxLines: 1,
+                                                                          .primaryTextTheme
+                                                                          .titleMedium,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ],
@@ -338,47 +337,88 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                        onPressed: () {
+                                                          // if (selectedVendorId ==
+                                                          //     _barberShopList![
+                                                          //             index]
+                                                          //         .vendor_id) {
+                                                          //   selectedVendorId =
+                                                          //       null;
+                                                          // } else {
+                                                          //   selectedVendorId =
+                                                          //       _barberShopList![
+                                                          //               index]
+                                                          //           .vendor_id;
+                                                          // }
+                                                          print(
+                                                              _barberShopList![
+                                                                      index]
+                                                                  .vendor_id);
+
+                                                          setState(() {});
+                                                          Navigator.of(context)
+                                                              .push(
+                                                            MaterialPageRoute(
+                                                                builder: (context) => BookAppointmentScreen(
+                                                                    _barberShopList![
+                                                                            index]
+                                                                        .vendor_id,
+                                                                    a: widget
+                                                                        .analytics,
+                                                                    o: widget
+                                                                        .observer)),
+                                                          );
+                                                        },
+                                                        child: Text(
+                                                            AppLocalizations.of(
+                                                                    context)!
+                                                                .lbl_book_now)),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        );
-                                      })),
-                            )
-                          ])
-                    : Center(
-                        child: Text(
-                          AppLocalizations.of(context)!
-                              .txt_nearby_shopw_will_shown_here,
-                          style: Theme.of(context).primaryTextTheme.titleSmall,
-                        ),
-                      )
-                : _shimmer(),
-          ),
-          bottomNavigationBar: _barberShopList!.length > 0 &&
-                  selectedVendorId != null
-              ? Padding(
-                  padding: EdgeInsets.only(top: 5, bottom: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => BookAppointmentScreen(
-                                      selectedVendorId,
-                                      a: widget.analytics,
-                                      o: widget.observer)),
-                            );
-                          },
-                          child:
-                              Text(AppLocalizations.of(context)!.lbl_book_now)),
-                    ],
-                  ),
-                )
-              : null),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    })),
+                          )
+                        ])
+                  : Center(
+                      child: Text(
+                        AppLocalizations.of(context)!
+                            .txt_nearby_shopw_will_shown_here,
+                        style: Theme.of(context).primaryTextTheme.titleSmall,
+                      ),
+                    )
+              : _shimmer(),
+        ),
+        // bottomNavigationBar: _barberShopList!.length > 0 &&
+        //         selectedVendorId != null
+        //     ? Padding(
+        //         padding: EdgeInsets.only(top: 5, bottom: 5),
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             ElevatedButton(
+        //                 onPressed: () {
+        //                   Navigator.of(context).push(
+        //                     MaterialPageRoute(
+        //                         builder: (context) => BookAppointmentScreen(
+        //                             selectedVendorId,
+        //                             a: widget.analytics,
+        //                             o: widget.observer)),
+        //                   );
+        //                 },
+        //                 child:
+        //                     Text(AppLocalizations.of(context)!.lbl_book_now)),
+        //           ],
+        //         ),
+        //       )
+        //     : null
+      ),
     );
   }
 
