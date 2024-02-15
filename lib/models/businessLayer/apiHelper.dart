@@ -410,6 +410,7 @@ class APIHelper {
   }
 
   Future<dynamic> getAllBookings(int? user_id) async {
+    print("all_booking $user_id");
     try {
       final response = await http.post(
         Uri.parse("${global.baseUrl}all_booking"),

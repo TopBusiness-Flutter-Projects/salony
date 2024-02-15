@@ -552,9 +552,9 @@
     "@lbl_next": {
         "description": "التالي"
     },
-    "lbl_available_slot": "الفتحات المتاحة",
+    "lbl_available_slot": "المواعيد المتاحة",
     "@lbl_available_slot": {
-        "description": "الفتحات المتاحة"
+        "description": "المواعيد المتاحة"
     },
     "lbl_choose_hair_specialist": "اختر متخصص في تصفيف الشعر",
     "@lbl_choose_hair_specialist": {

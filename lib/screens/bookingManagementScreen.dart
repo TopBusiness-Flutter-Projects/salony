@@ -241,7 +241,7 @@ class _BookingManagementScreenState extends BaseRouteState {
                               itemBuilder: (BuildContext context, int i) {
                                 return ListTile(
                                   title: Text(
-                                    '${_allBookingsList![index].cart_services[i].varient}',
+                                    '${_allBookingsList![index].cart_services[i].service_name}',
                                     style: Theme.of(context)
                                         .primaryTextTheme
                                         .titleSmall,
@@ -416,6 +416,9 @@ class _BookingManagementScreenState extends BaseRouteState {
           if (result != null) {
             if (result.status == "1") {
               _allBookingsList = result.recordList;
+              print("all_booking : ${_allBookingsList!.length}");
+              print(
+                  "all_booking : ${_allBookingsList![0].cart_services[0].varient}");
               setState(() {});
             }
           }
@@ -458,6 +461,7 @@ class _BookingManagementScreenState extends BaseRouteState {
     try {
       await _getAllBookings();
       await _getCancelreasons();
+      print(_cancelReasonsList!.length);
       _isDataLoaded = true;
       setState(() {});
     } catch (e) {
@@ -485,10 +489,15 @@ class _BookingManagementScreenState extends BaseRouteState {
       showCupertinoModalPopup(
         context: context,
         builder: (BuildContext context) => CupertinoActionSheet(
-          title: Text(AppLocalizations.of(context)!.lbl_select_reason),
+          title: Text(
+            AppLocalizations.of(context)!.lbl_select_reason,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           actions: _cancelReasonsList!
               .map((e) => CupertinoActionSheetAction(
-                    child: Text('${e.reason}'),
+                    child: Text('${e.reason ?? ""}'),
                     onPressed: () async {
                       setState(() {
                         selectedCancelReason = e.reason;

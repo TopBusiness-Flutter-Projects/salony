@@ -6,6 +6,7 @@ class ServiceType {
   int? time;
   String? service_name;
   int? vendor_id;
+  int? qty;
 
   ServiceType();
   ServiceType.fromJson(Map<String, dynamic> json) {
@@ -16,6 +17,7 @@ class ServiceType {
       service_id = json['service_id'] != null
           ? int.parse('${json['service_id']}')
           : null;
+      qty = json['qty'] ?? 1;
       varient = json['varient'] != null ? json['varient'] : null;
       time = json['time'] != null ? int.parse('${json['time']}') : null;
       // vendor_id = json['vendor_id'] != null ? json['vendor_id'] : null;
@@ -31,5 +33,6 @@ class ServiceType {
 
   Map<String, dynamic> toJson() => {
         'varient_id': varient_id != null ? varient_id.toString() : null,
+        "qty": qty ?? 1
       };
 }

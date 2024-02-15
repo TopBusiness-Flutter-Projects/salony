@@ -103,8 +103,13 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                           color: Colors.green[500],
                         ),
                         title: Text(AppLocalizations.of(context)!.lbl_cash),
-                        subtitle: Text(AppLocalizations.of(context)!
-                            .txt_pay_through_cash_at_the_salon),
+                        subtitle: Text(
+                          "الدفع عند وصولك لمكان الخدمه",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w200,
+                          ),
+                        ),
                       ),
                     ),
                     Divider(

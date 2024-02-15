@@ -10,6 +10,7 @@ class BookAppointment {
   String? vendor_logo;
   String? vendor_loc;
   int? vendor_id;
+  int? qty;
   double? rating;
   int? staff_id;
   String? selected_date;
@@ -20,6 +21,7 @@ class BookAppointment {
   BookAppointment();
   BookAppointment.fromJson(Map<String, dynamic> json) {
     try {
+      qty = json['qty'] ?? 1;
       salon_name = json['salon_name'] != null ? json['salon_name'] : null;
       owner = json['owner'] != null ? json['owner'] : null;
       description = json['description'] != null ? json['description'] : null;

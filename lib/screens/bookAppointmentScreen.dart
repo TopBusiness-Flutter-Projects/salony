@@ -187,9 +187,9 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                           ''),
                                   TextSpan(
                                       text:
-                                          '${global.currency.currency_sign}${_getTotalCost()}')
+                                          '${global.currency.currency_sign ?? 'SAR'} ${_getTotalCost()}')
                                 ])),
-                            trailing: SizedBox(
+                            trailing: Container(
                               width: 120,
                               height: 35,
                               child: TextButton(
@@ -612,10 +612,10 @@ class _BookAppointmentScreenState extends BaseRouteState {
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
-                      color: Color(0xFFDADADA),
+                      color: Color(0xFFF36D86),
                     )),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.all(3),
                   child: Text(
                     AppLocalizations.of(context)!.lbl_available_slot,
                     style: Theme.of(context).primaryTextTheme.titleSmall,
@@ -802,6 +802,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 collapsedTextColor: Color(0xFFF543520),
                 iconColor: Color(0xFF565656),
                 collapsedIconColor: Color(0xFF565656),
+                childrenPadding: EdgeInsets.all(0),
                 title: Text(
                     "${_bookingAppointment!.services[index].service_name}",
                     style: Theme.of(context).primaryTextTheme.titleSmall),
@@ -813,23 +814,23 @@ class _BookAppointmentScreenState extends BaseRouteState {
                           .services[index].service_type.length,
                       itemBuilder: (BuildContext context, int i) {
                         int? hr;
-
                         hr = _bookingAppointment!
                             .services[index].service_type[i].time;
-
                         return Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 0, bottom: 0),
+                              padding: const EdgeInsets.all(0),
                               child: SizedBox(
                                 height: 65,
                                 child: ListTile(
+                                  contentPadding: EdgeInsets.all(2),
                                   tileColor: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
                                         color: Colors.grey[100]!, width: 0.5),
                                   ),
-                                  title: Padding(
+                                  title: Container(
+                                    // color: Colors.red,
                                     padding: const EdgeInsets.only(left: 0),
                                     child: Text(
                                       '${_bookingAppointment!.services[index].service_type[i].varient}',
@@ -838,7 +839,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                           .primaryTextTheme
                                           .titleMedium,
                                       overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
+                                      maxLines: 2,
                                     ),
                                   ),
                                   trailing: Row(
@@ -846,14 +847,68 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Container(
-                                          alignment: Alignment.centerRight,
-                                          width: 65,
-                                          child: Text('$hr m',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xFF898A8D),
-                                                  fontWeight:
-                                                      FontWeight.w400))),
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3,
+                                        // color: Colors.red,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            IconButton(
+                                                // iconSize: 12,
+                                                onPressed: () {
+                                                  _bookingAppointment!
+                                                          .services[index]
+                                                          .service_type[i]
+                                                          .qty =
+                                                      _bookingAppointment!
+                                                              .services[index]
+                                                              .service_type[i]
+                                                              .qty! +
+                                                          1;
+                                                  setState(() {});
+                                                },
+                                                icon: Icon(
+                                                  Icons.add_circle_outlined,
+                                                  color: Color(0xFFF36D86),
+                                                )),
+                                            Flexible(
+                                                // fit: FlexFit.tight,
+                                                child: Text(_bookingAppointment!
+                                                    .services[index]
+                                                    .service_type[i]
+                                                    .qty
+                                                    .toString())),
+                                            IconButton(
+                                                // iconSize: 12,
+                                                onPressed: () {
+                                                  _bookingAppointment!
+                                                              .services[index]
+                                                              .service_type[i]
+                                                              .qty! >
+                                                          1
+                                                      ? _bookingAppointment!
+                                                              .services[index]
+                                                              .service_type[i]
+                                                              .qty =
+                                                          _bookingAppointment!
+                                                                  .services[
+                                                                      index]
+                                                                  .service_type[
+                                                                      i]
+                                                                  .qty! -
+                                                              1
+                                                      : null;
+                                                  setState(() {});
+                                                },
+                                                icon: Icon(
+                                                  Icons.remove_circle_outlined,
+                                                  color: Color(0xFFF36D86),
+                                                ))
+                                          ],
+                                        ),
+                                      ),
                                       VerticalDivider(
                                         color: Color(0xFF898A8D),
                                         indent: 13,
@@ -861,49 +916,64 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                         thickness: 1,
                                       ),
                                       Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Container(
                                               // width: 50,
                                               child: Text(
-                                                  ' ${global.currency.currency_sign}${_bookingAppointment!.services[index].service_type[i].price}',
+                                                  ' ${global.currency.currency_sign ?? 'SAR'}${_bookingAppointment!.services[index].service_type[i].price}',
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       color: Theme.of(context)
                                                           .primaryColor,
                                                       fontWeight:
                                                           FontWeight.w400))),
+                                          Container(
+                                              alignment: Alignment.centerRight,
+                                              // width: 65,
+                                              child: Text('$hr m',
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Color(0xFF898A8D),
+                                                      fontWeight:
+                                                          FontWeight.w400))),
                                         ],
                                       ),
-                                      IconButton(
-                                          iconSize: 20,
-                                          padding: EdgeInsets.all(0),
-                                          onPressed: () {
-                                            if (_selectedServiceType.contains(
-                                                _bookingAppointment!
-                                                    .services[index]
-                                                    .service_type[i])) {
-                                              _selectedServiceType.remove(
+                                      Container(
+                                        child: IconButton(
+                                            iconSize: 20,
+                                            padding: EdgeInsets.all(0),
+                                            onPressed: () {
+                                              if (_selectedServiceType.contains(
                                                   _bookingAppointment!
                                                       .services[index]
-                                                      .service_type[i]);
-                                            } else {
-                                              _selectedServiceType.add(
-                                                _bookingAppointment!
-                                                    .services[index]
-                                                    .service_type[i],
-                                              );
-                                            }
-                                            setState(() {});
-                                          },
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
-                                          icon: _selectedServiceType.contains(
+                                                      .service_type[i])) {
+                                                _selectedServiceType.remove(
+                                                    _bookingAppointment!
+                                                        .services[index]
+                                                        .service_type[i]);
+                                              } else {
+                                                _selectedServiceType.add(
                                                   _bookingAppointment!
                                                       .services[index]
-                                                      .service_type[i])
-                                              ? Icon(Icons.circle)
-                                              : Icon(Icons.circle_outlined)),
+                                                      .service_type[i],
+                                                );
+                                              }
+                                              setState(() {});
+                                            },
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                            icon: _selectedServiceType.contains(
+                                                    _bookingAppointment!
+                                                        .services[index]
+                                                        .service_type[i])
+                                                ? Icon(Icons.circle)
+                                                : Icon(Icons.circle_outlined)),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -978,7 +1048,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
   String _getTotalCost() {
     int cost = 0;
     for (int i = 0; i < _selectedServiceType.length; i++) {
-      cost += _selectedServiceType[i].price!;
+      cost += _selectedServiceType[i].price! * _selectedServiceType[i].qty!;
     }
     return cost.toString();
   }
@@ -1565,27 +1635,29 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 child: Text('',
                     style: Theme.of(context).primaryTextTheme.bodyMedium),
               )),
-          ListTile(
-            horizontalTitleGap: 0,
-            minLeadingWidth: 20,
-            contentPadding: EdgeInsets.only(
-              left: 10,
-              right: 10,
-            ),
-            leading: Padding(
-              padding:
-                  const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
-              child: Icon(Icons.location_on_outlined, size: 15),
-            ),
-            title: Padding(
-              padding:
-                  const EdgeInsets.only(top: 4, bottom: 5, left: 4, right: 4),
-              child: Text(
-                  AppLocalizations.of(context)!.lbl_location +
-                      ': ${_bookingAppointment!.vendor_loc}',
-                  style: Theme.of(context).primaryTextTheme.labelLarge),
-            ),
-          ),
+          _bookingAppointment!.vendor_loc == null
+              ? Container()
+              : ListTile(
+                  horizontalTitleGap: 0,
+                  minLeadingWidth: 20,
+                  contentPadding: EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                  ),
+                  leading: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 4, bottom: 4, left: 0, right: 4),
+                    child: Icon(Icons.location_on_outlined, size: 15),
+                  ),
+                  title: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 4, bottom: 5, left: 4, right: 4),
+                    child: Text(
+                        AppLocalizations.of(context)!.lbl_location +
+                            ': ${_bookingAppointment!.vendor_loc}',
+                        style: Theme.of(context).primaryTextTheme.labelLarge),
+                  ),
+                ),
           ListTile(
               horizontalTitleGap: 0,
               minLeadingWidth: 20,
@@ -1596,7 +1668,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
               leading: Padding(
                 padding:
                     const EdgeInsets.only(top: 4, bottom: 4, left: 0, right: 4),
-                child: Icon(Icons.male, size: 15),
+                child: Icon(Icons.female, size: 15),
               ),
               title: Padding(
                 padding:

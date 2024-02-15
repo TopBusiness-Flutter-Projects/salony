@@ -10,14 +10,12 @@ import 'package:app/screens/productDetailScreen.dart';
 import 'package:app/screens/productListScreen.dart';
 import 'package:app/screens/serviceDetailScreen.dart';
 import 'package:app/screens/serviceListScreen.dart';
-import 'package:app/screens/signInScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../models/main_services.dart';
 import 'detailsOfServices.dart';
 import 'productsOfMain.dart';
