@@ -180,8 +180,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                                   .lbl_total_amount),
                           TextSpan(
                               text: screenId == 1
-                                  ? '${global.currency.currency_sign} ${bookNowDetails?.rem_price ?? '0.00'}'
-                                  : '${global.currency.currency_sign} ${cartList?.total_price ?? '0.00'}',
+                                  ? '${global.currency.currency_sign ?? 'SAR'} ${bookNowDetails?.rem_price ?? '0.00'}'
+                                  : '${global.currency.currency_sign ?? 'SAR'} ${cartList?.total_price ?? '0.00'}',
                               style: Theme.of(context)
                                   .primaryTextTheme
                                   .headlineSmall)
@@ -227,7 +227,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
         'contact': global.user!.user_phone,
         'email': global.user!.email
       },
-      'currency': 'INR'
+      'currency': 'SAR'
     };
 
     try {
@@ -1012,7 +1012,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
       Charge charge = Charge()
         ..amount = price
         ..email = '${global.user!.email}'
-        ..currency = 'INR'
+        ..currency = 'SAR'
         ..card = _getCardFromUI()
         ..reference = _getReference();
 

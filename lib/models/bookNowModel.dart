@@ -24,6 +24,7 @@ class BookNow {
   String? delivery_date;
   String? time_slot;
   String? lang;
+  int? in_door;
 
   List<ServiceType> serviceTypeVarientIdList = [];
 
@@ -41,11 +42,13 @@ class BookNow {
         'payment_gateway': payment_gateway,
         'cart_id': cart_id,
         'lang': lang,
+        "in_door": in_door
       };
 
   BookNow.fromJson(Map<String, dynamic> json) {
     try {
       id = json['id'] != null ? int.parse('${json['id']}') : null;
+      in_door = json['in_door'] != null ? json['in_door'] : null;
       cart_id = json['cart_id'] != null ? json['cart_id'] : null;
       user_id =
           json['user_id'] != null ? int.parse('${json['user_id']}') : null;

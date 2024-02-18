@@ -415,7 +415,7 @@ class APIHelper {
       final response = await http.post(
         Uri.parse("${global.baseUrl}all_booking"),
         headers: await global.getApiHeaders(true),
-        body: json.encode({"user_id": user_id, "lang": global.languageCode}),
+        body: json.encode({"user_id": user_id}),
       );
 
       dynamic recordList;

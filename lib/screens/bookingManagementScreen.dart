@@ -200,7 +200,7 @@ class _BookingManagementScreenState extends BaseRouteState {
                                     .displaySmall,
                               ),
                               trailing: Text(
-                                '${global.currency.currency_sign}${_allBookingsList![index].rem_price}',
+                                '${global.currency.currency_sign ?? 'SAR'}${(int.parse(_allBookingsList![index].rem_price!) + _allBookingsList![index].in_door_val!)}',
                                 style: Theme.of(context)
                                     .primaryTextTheme
                                     .displaySmall,
@@ -233,6 +233,99 @@ class _BookingManagementScreenState extends BaseRouteState {
                                 ],
                               ),
                             ),
+                            ListTile(
+                              tileColor: Colors.grey[200],
+                              title: Text(
+                                "نوع الحجز",
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .displaySmall,
+                              ),
+                              trailing: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      (_allBookingsList![index].in_door! == 1)
+                                          ? Image.asset(
+                                              'assets/images/logo.png',
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  8,
+                                            )
+                                          : Image.asset(
+                                              'assets/images/salon_home.png',
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  11,
+                                            ),
+                                      Container(
+                                        color: Color(0xFFF36D86),
+                                        // thickness: 2,
+                                        // indent: 2,
+                                        width: 2,
+                                        height: 20,
+                                        margin: EdgeInsets.all(5),
+                                        // endIndent: 2,
+                                      ),
+                                      Text(
+                                        '${(_allBookingsList![index].in_door! == 0 ? "بالمنزل" : "داخل الصالون")}',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .displaySmall,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            (_allBookingsList![index].in_door! == 0)
+                                ? ListTile(
+                                    tileColor: Colors.grey[200],
+                                    title: Text(
+                                      'قيمة الخدمه خارج الصالون',
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .displaySmall,
+                                    ),
+                                    trailing: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          'SAR ${_allBookingsList![index].in_door_val!}',
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .displaySmall,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Container(),
+                            (_allBookingsList![index].in_door! == 0)
+                                ? ListTile(
+                                    tileColor: Colors.grey[200],
+                                    title: Text(
+                                      'سعر الخدامات',
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .displaySmall,
+                                    ),
+                                    trailing: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          'SAR ${_allBookingsList![index].rem_price}',
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .displaySmall,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Container(),
                             ListView.separated(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
@@ -247,7 +340,7 @@ class _BookingManagementScreenState extends BaseRouteState {
                                         .titleSmall,
                                   ),
                                   subtitle: Text(
-                                    '${_allBookingsList![index].cart_services[i].service_name}',
+                                    '${_allBookingsList![index].cart_services[i].varient}',
                                     style: Theme.of(context)
                                         .primaryTextTheme
                                         .bodyMedium,
@@ -259,7 +352,7 @@ class _BookingManagementScreenState extends BaseRouteState {
                                         width: 50,
                                         alignment: Alignment.centerRight,
                                         child: Text(
-                                          '${global.currency.currency_sign} ${_allBookingsList![index].cart_services[i].price}',
+                                          '${global.currency.currency_sign ?? 'SAR'} ${_allBookingsList![index].cart_services[i].price}',
                                           style: Theme.of(context)
                                               .primaryTextTheme
                                               .bodyMedium,

@@ -17,14 +17,11 @@ class ServiceCart {
       order_cart_id = json['order_cart_id'] != null
           ? int.parse('${json['order_cart_id']}')
           : null;
-      service_name =
-          json['service_name'] != null && json['service_name'] != 'n/a'
-              ? json['service_name']
-              : '';
+      service_name = json['s_name'] != null ? json['s_name'] : '';
       service_id = json['service_id'] != null
           ? int.parse('${json['service_id']}')
           : null;
-      varient = json['varient'] != null ? json['varient'] : null;
+      varient = json['varient_name'] != null ? json['varient_name'] : null;
       varient_id = json['varient_id'] != null
           ? int.parse('${json['varient_id']}')
           : null;
