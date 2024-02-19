@@ -6,9 +6,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class AddRatingScreen extends BaseRoute {
   final AllBookings bookings;
-  AddRatingScreen(this.bookings, {a, o}) : super(a: a, o: o, r: 'AddRatingScreen');
+  AddRatingScreen(this.bookings, {a, o})
+      : super(a: a, o: o, r: 'AddRatingScreen');
   @override
-  _AddRatingScreenState createState() => new _AddRatingScreenState(this.bookings);
+  _AddRatingScreenState createState() =>
+      new _AddRatingScreenState(this.bookings);
 }
 
 class _AddRatingScreenState extends BaseRouteState {
@@ -42,7 +44,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     children: [
                       Text(
                         'Salon Name',
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
+                        style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
                         '${bookings.vendor_name}',
@@ -58,7 +60,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     children: [
                       Text(
                         'Barber Name',
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
+                        style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
                         '${bookings.staff_name}',
@@ -74,7 +76,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     children: [
                       Text(
                         'Cart Id',
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
+                        style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
                         '${bookings.cart_id}',
@@ -90,7 +92,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     children: [
                       Text(
                         'Total amount',
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
+                        style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
                         '${global.currency.currency_sign} ${bookings.rem_price}',
@@ -102,12 +104,15 @@ class _AddRatingScreenState extends BaseRouteState {
                 SizedBox(
                   height: 50,
                 ),
-                Text("Rate Your Salon", style: Theme.of(context).primaryTextTheme.headline6),
+                Text("Rate Your Salon",
+                    style: Theme.of(context).primaryTextTheme.headline6),
                 SizedBox(
                   height: 10,
                 ),
                 RatingBar.builder(
-                  initialRating: bookings.vendor_review != null ? bookings.vendor_review!.rating! : 0,
+                  initialRating: bookings.vendor_review != null
+                      ? bookings.vendor_review!.rating!
+                      : 0,
                   minRating: 0,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -141,19 +146,23 @@ class _AddRatingScreenState extends BaseRouteState {
                     style: Theme.of(context).primaryTextTheme.bodyText1,
                     decoration: InputDecoration(
                       hintText: 'Comment',
-                      contentPadding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      contentPadding:
+                          EdgeInsets.only(top: 10, left: 10, right: 10),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 50,
                 ),
-                Text("Rate Your Barber", style: Theme.of(context).primaryTextTheme.headline6),
+                Text("Rate Your Barber",
+                    style: Theme.of(context).primaryTextTheme.headline6),
                 SizedBox(
                   height: 10,
                 ),
                 RatingBar.builder(
-                  initialRating: bookings.staff_review != null ? bookings.staff_review!.rating! : 0,
+                  initialRating: bookings.staff_review != null
+                      ? bookings.staff_review!.rating!
+                      : 0,
                   minRating: 0,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -187,7 +196,8 @@ class _AddRatingScreenState extends BaseRouteState {
                     style: Theme.of(context).primaryTextTheme.bodyText1,
                     decoration: InputDecoration(
                       hintText: 'Comment',
-                      contentPadding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      contentPadding:
+                          EdgeInsets.only(top: 10, left: 10, right: 10),
                     ),
                   ),
                 ),
@@ -211,20 +221,29 @@ class _AddRatingScreenState extends BaseRouteState {
                         _cCommentStaff.text = "";
                       }
 
-                      if (_cCommentShop.text.isNotEmpty && _cCommentStaff.text.isNotEmpty && bookings.staff_review == null && bookings.vendor_review == null) {
+                      if (_cCommentShop.text.isNotEmpty &&
+                          _cCommentStaff.text.isNotEmpty &&
+                          bookings.staff_review == null &&
+                          bookings.vendor_review == null) {
                         await _addSalonRating();
                         await _addStaffRating();
                         Navigator.of(context).pop();
-                      } else if (bookings.vendor_review == null && _cCommentShop.text.isNotEmpty) {
+                      } else if (bookings.vendor_review == null &&
+                          _cCommentShop.text.isNotEmpty) {
                         await _addSalonRating();
                         Navigator.of(context).pop();
-                      } else if (bookings.staff_review == null && _cCommentStaff.text.isNotEmpty) {
+                      } else if (bookings.staff_review == null &&
+                          _cCommentStaff.text.isNotEmpty) {
                         await _addStaffRating();
                         Navigator.of(context).pop();
                       } else if (_cCommentShop.text.isEmpty) {
-                        showSnackBar(snackBarMessage: 'Please write your review for salon');
+                        showSnackBar(
+                            snackBarMessage:
+                                'Please write your review for salon');
                       } else if (_cCommentStaff.text.isEmpty) {
-                        showSnackBar(snackBarMessage: 'Please write your review for salon staff');
+                        showSnackBar(
+                            snackBarMessage:
+                                'Please write your review for salon staff');
                       }
                     },
                     child: Padding(
@@ -253,7 +272,10 @@ class _AddRatingScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.addSalonRating(global.user!.id, bookings.vendor_id, _shopRating, _cCommentShop.text).then((result) {
+        await apiHelper!
+            .addSalonRating(global.user!.id, bookings.vendor_id, _shopRating,
+                _cCommentShop.text)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               if (bookings.vendor_review == null) {
@@ -271,7 +293,8 @@ class _AddRatingScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - addRatingScreen.dart - _addSalonRating():" + e.toString());
+      print("Exception - addRatingScreen.dart - _addSalonRating():" +
+          e.toString());
     }
   }
 
@@ -279,7 +302,10 @@ class _AddRatingScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.addStaffRating(global.user!.id, bookings.staff_id, _staffRating, _cCommentStaff.text).then((result) {
+        await apiHelper!
+            .addStaffRating(global.user!.id, bookings.staff_id, _staffRating,
+                _cCommentStaff.text)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               if (bookings.staff_review == null) {
@@ -297,7 +323,8 @@ class _AddRatingScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - addRatingScreen.dart - _addStaffRating():" + e.toString());
+      print("Exception - addRatingScreen.dart - _addStaffRating():" +
+          e.toString());
     }
   }
 

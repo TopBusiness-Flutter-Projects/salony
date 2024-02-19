@@ -100,13 +100,15 @@ class _BookingConfirmationScreenState extends BaseRouteState {
                           ? Text(
                               'Your order has been placed successfully, please pick your items from store ASAP',
                               textAlign: TextAlign.center,
-                              style:
-                                  Theme.of(context).primaryTextTheme.subtitle1)
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleMedium)
                           : Text(
                               'Your booking has been placed successfully, you will receive a notification/sms about your booking status',
                               textAlign: TextAlign.center,
-                              style:
-                                  Theme.of(context).primaryTextTheme.subtitle1),
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleMedium),
                     ),
                   ],
                 )))));

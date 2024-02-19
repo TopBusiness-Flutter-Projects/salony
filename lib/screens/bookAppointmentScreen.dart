@@ -382,44 +382,46 @@ class _BookAppointmentScreenState extends BaseRouteState {
                     ),
                   )
             : _shimmer(),
-        floatingActionButton: FloatingActionButton.extended(
-            backgroundColor: Colors.white,
-            onPressed: () {
-              setState(() {
-                in_door = (in_door == 0) ? 1 : 0;
-                //! 1 > inDoor
-                isInDoor = (in_door == 0) ? 'بالمنزل' : 'داخل الصالون';
-              });
-              print(in_door);
-            },
-            label: Row(
-              children: [
-                in_door == 1
-                    ? Image.asset(
-                        'assets/images/logo.png',
-                        width: MediaQuery.of(context).size.width / 8,
-                      )
-                    : Image.asset(
-                        'assets/images/salon_home.png',
-                        width: MediaQuery.of(context).size.width / 9,
+        floatingActionButton: _currentIndex != 0
+            ? null
+            : FloatingActionButton.extended(
+                backgroundColor: Colors.white,
+                onPressed: () {
+                  setState(() {
+                    in_door = (in_door == 0) ? 1 : 0;
+                    //! 1 > inDoor
+                    isInDoor = (in_door == 0) ? 'بالمنزل' : 'داخل الصالون';
+                  });
+                  print(in_door);
+                },
+                label: Row(
+                  children: [
+                    in_door == 1
+                        ? Image.asset(
+                            'assets/images/logo.png',
+                            width: MediaQuery.of(context).size.width / 8,
+                          )
+                        : Image.asset(
+                            'assets/images/salon_home.png',
+                            width: MediaQuery.of(context).size.width / 9,
+                          ),
+                    Container(
+                      color: Color(0xFFF36D86),
+                      // thickness: 2,
+                      // indent: 2,
+                      width: 2,
+                      height: 20,
+                      margin: EdgeInsets.all(5),
+                      // endIndent: 2,
+                    ),
+                    Text(
+                      isInDoor,
+                      style: TextStyle(
+                        color: Color(0xFFF36D86),
                       ),
-                Container(
-                  color: Color(0xFFF36D86),
-                  // thickness: 2,
-                  // indent: 2,
-                  width: 2,
-                  height: 20,
-                  margin: EdgeInsets.all(5),
-                  // endIndent: 2,
-                ),
-                Text(
-                  isInDoor,
-                  style: TextStyle(
-                    color: Color(0xFFF36D86),
-                  ),
-                ),
-              ],
-            )),
+                    ),
+                  ],
+                )),
       ),
     );
   }

@@ -95,7 +95,7 @@ class _SignInScreenState extends BaseRouteState {
                     //         },
                     //         child: Text(
                     //           AppLocalizations.of(context)!.lbl_skip,
-                    //           style: Theme.of(context).primaryTextTheme.headline5,
+                    //           style: Theme.of(context).primaryTextTheme.headlineSmall,
                     //         ))
                     //   ],
                     // ),
@@ -267,7 +267,7 @@ class _SignInScreenState extends BaseRouteState {
                     //                 .lbl_remember_me,
                     //             style: Theme.of(context)
                     //                 .primaryTextTheme
-                    //                 .subtitle1,
+                    //                 .titleMedium,
                     //           ),
                     //         )
                     //       ],
@@ -278,7 +278,7 @@ class _SignInScreenState extends BaseRouteState {
                     //   child: Text(
                     //       AppLocalizations.of(context)!
                     //           .txt_or_Connect_with_social_account,
-                    //       style: Theme.of(context).primaryTextTheme.subtitle1),
+                    //       style: Theme.of(context).primaryTextTheme.titleMedium),
                     // ),
                     // Container(
                     //   margin: EdgeInsets.only(top: 10),

@@ -134,7 +134,7 @@ class _BarberShopListScreenState extends BaseRouteState {
                                                       TextOverflow.ellipsis,
                                                   style: Theme.of(context)
                                                       .primaryTextTheme
-                                                      .bodyText2,
+                                                      .bodyMedium,
                                                 ),
                                               ),
                                             ],

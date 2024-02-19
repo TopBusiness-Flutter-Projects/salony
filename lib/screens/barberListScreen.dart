@@ -134,7 +134,7 @@
 //                                                   '${_popularBarbersList[index].vendor_name}',
 //                                                   style: Theme.of(context)
 //                                                       .primaryTextTheme
-//                                                       .subtitle1,
+//                                                       .titleMedium,
 //                                                 ),
 //                                               ],
 //                                             ),

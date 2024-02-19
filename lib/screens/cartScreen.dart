@@ -370,7 +370,7 @@ class _CartScreenState extends BaseRouteState {
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .primaryTextTheme
-                                      .subtitle1,
+                                      .titleMedium,
                                 ),
                               ),
                             ],
@@ -393,7 +393,7 @@ class _CartScreenState extends BaseRouteState {
                                     text: TextSpan(
                                         style: Theme.of(context)
                                             .primaryTextTheme
-                                            .subtitle1,
+                                            .titleMedium,
                                         children: [
                                       TextSpan(text: 'Total Amount  '),
                                       TextSpan(
@@ -401,7 +401,7 @@ class _CartScreenState extends BaseRouteState {
                                               '${global.currency.currency_sign}${_cartList!.total_price}',
                                           style: Theme.of(context)
                                               .primaryTextTheme
-                                              .headline5)
+                                              .headlineSmall)
                                     ])),
                                 trailing: ElevatedButton(
                                   onPressed: () async {

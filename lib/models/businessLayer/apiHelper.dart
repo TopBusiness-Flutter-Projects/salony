@@ -1291,7 +1291,7 @@ class APIHelper {
           "payment_status": payment_status,
           "payment_gateway": payment_gateway,
           "payment_id": payment_id,
-          "lang": global.languageCode
+          // "lang": global.languageCode
         }),
       );
 
@@ -1299,13 +1299,15 @@ class APIHelper {
       if (response.statusCode == 200 &&
               json.decode(response.body)["status"] == "1" ||
           json.decode(response.body)["status"] == "2") {
-        recordList = ProductCartCheckout.fromJson(
-            json.decode(response.body)["data"]["order"]);
+        // recordList = ProductCartCheckout.fromJson(
+        //     json.decode(response.body)["data"]["order"]);
         global.user!.cart_count =
             json.decode(response.body)['data']['cart_count'];
       } else {
         recordList = null;
       }
+      print('XXXXXXXXXXXXXXXXXXXXXXXXXX');
+
       return getAPIResult(response, recordList);
     } catch (e) {
       print("Exception - productCartCheckout(): " + e.toString());

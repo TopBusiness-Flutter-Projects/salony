@@ -53,7 +53,8 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Card Number',
-                            style: Theme.of(context).primaryTextTheme.subtitle1,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ))),
                   Padding(
                     padding: const EdgeInsets.only(top: 3, left: 10, right: 10),
@@ -94,7 +95,8 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Card Holder Name',
-                            style: Theme.of(context).primaryTextTheme.subtitle1,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleMedium,
                           ))),
                   Padding(
                     padding: const EdgeInsets.only(top: 3, left: 10, right: 10),
@@ -141,7 +143,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                       'Expiry Date',
                                       style: Theme.of(context)
                                           .primaryTextTheme
-                                          .subtitle1,
+                                          .titleMedium,
                                     ))),
                             Padding(
                               padding: const EdgeInsets.only(right: 4, top: 3),
@@ -192,7 +194,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                       'Security Code',
                                       style: Theme.of(context)
                                           .primaryTextTheme
-                                          .subtitle1,
+                                          .titleMedium,
                                     ))),
                             Padding(
                               padding: const EdgeInsets.only(left: 4),

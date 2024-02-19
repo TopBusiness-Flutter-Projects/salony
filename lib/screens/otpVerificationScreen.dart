@@ -124,7 +124,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                     'By tapping verification code above, you agree ',
                                     style: Theme.of(context)
                                         .primaryTextTheme
-                                        .subtitle1),
+                                        .titleMedium),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,7 +132,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                     Text('to the ',
                                         style: Theme.of(context)
                                             .primaryTextTheme
-                                            .subtitle1),
+                                            .titleMedium),
                                     InkWell(
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
@@ -172,7 +172,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                     Text(' and',
                                         style: Theme.of(context)
                                             .primaryTextTheme
-                                            .subtitle1),
+                                            .titleMedium),
                                   ],
                                 ),
                                 InkWell(
@@ -258,7 +258,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                       : 'Resend OTP',
                                   style: Theme.of(context)
                                       .primaryTextTheme
-                                      .headline5))),
+                                      .headlineSmall))),
                       Container(
                           height: 50,
                           width: double.infinity,
@@ -280,7 +280,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                     'By tapping verification code above, you agree ',
                                     style: Theme.of(context)
                                         .primaryTextTheme
-                                        .subtitle1),
+                                        .titleMedium),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -288,7 +288,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                     Text('to the ',
                                         style: Theme.of(context)
                                             .primaryTextTheme
-                                            .subtitle1),
+                                            .titleMedium),
                                     InkWell(
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
@@ -328,7 +328,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                     Text(' and',
                                         style: Theme.of(context)
                                             .primaryTextTheme
-                                            .subtitle1),
+                                            .titleMedium),
                                   ],
                                 ),
                                 InkWell(

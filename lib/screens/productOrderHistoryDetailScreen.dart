@@ -52,11 +52,13 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                       child: Card(
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.lbl_cart_id,
-                              style:
-                                  Theme.of(context).primaryTextTheme.subtitle2),
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text("${productOrderHistory.cart_id}",
-                              style:
-                                  Theme.of(context).primaryTextTheme.bodyText2),
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyMedium),
                         ),
                       ),
                     ),
@@ -68,12 +70,14 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                         child: ListTile(
                           title: Text(
                               AppLocalizations.of(context)!.lbl_order_on,
-                              style:
-                                  Theme.of(context).primaryTextTheme.subtitle2),
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleSmall),
                           subtitle: Text(
                               "${DateFormat('dd/MM/yyyy').format(productOrderHistory.created_at!)}  ${DateFormat('hh:mm a').format(productOrderHistory.created_at!)}",
-                              style:
-                                  Theme.of(context).primaryTextTheme.bodyText2),
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyMedium),
                         ),
                       ),
                     ),
@@ -85,10 +89,10 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                 child: Card(
                   child: ListTile(
                     title: Text(AppLocalizations.of(context)!.lbl_order_total,
-                        style: Theme.of(context).primaryTextTheme.subtitle2),
+                        style: Theme.of(context).primaryTextTheme.titleSmall),
                     trailing: Text(
                         "${global.currency.currency_sign} ${productOrderHistory.total_price}",
-                        style: Theme.of(context).primaryTextTheme.subtitle1),
+                        style: Theme.of(context).primaryTextTheme.titleMedium),
                   ),
                 ),
               ),
@@ -123,10 +127,10 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                     ? AppLocalizations.of(context)!.lbl_pending
                                     : AppLocalizations.of(context)!
                                         .lbl_completed,
-                        style: Theme.of(context).primaryTextTheme.subtitle2),
+                        style: Theme.of(context).primaryTextTheme.titleSmall),
                     subtitle: Text(
                       "${DateFormat('dd/MM/yyyy').format(productOrderHistory.created_at!)}  ${DateFormat('hh:mm a').format(productOrderHistory.created_at!)}",
-                      style: Theme.of(context).primaryTextTheme.bodyText2,
+                      style: Theme.of(context).primaryTextTheme.bodyMedium,
                     ),
                   ),
                 ),
@@ -143,7 +147,7 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                             title: Text(
                               '${productOrderHistory.vendor[index].vendor_name}',
                               style:
-                                  Theme.of(context).primaryTextTheme.subtitle2,
+                                  Theme.of(context).primaryTextTheme.titleSmall,
                             ),
                             onExpansionChanged: (val) {
                               _isExpanded = val;
@@ -152,27 +156,32 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      size: 15,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        "${productOrderHistory.vendor[index].vendor_loc}",
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .subtitle1,
+                                productOrderHistory.vendor[index].vendor_loc ==
+                                        null
+                                    ? Container()
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.location_on,
+                                            size: 15,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              "${productOrderHistory.vendor[index].vendor_loc}",
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .titleMedium,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -188,7 +197,7 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                       "${productOrderHistory.vendor[index].vendor_phone}",
                                       style: Theme.of(context)
                                           .primaryTextTheme
-                                          .subtitle1,
+                                          .titleMedium,
                                     ),
                                   ],
                                 ),
@@ -208,7 +217,7 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                   children: <Widget>[
                                     SizedBox(
                                       child: Container(
-                                        width: 40,
+                                        // width: 40,
                                         decoration: BoxDecoration(
                                           borderRadius: global.isRTL
                                               ? new BorderRadius.only(
@@ -229,28 +238,28 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                           ),
                                         ),
                                         padding: EdgeInsets.all(4),
-                                        height: 25,
+                                        // height: 25,
                                         child: Center(
                                           child: Text(
                                             AppLocalizations.of(context)!
                                                 .lbl_items,
                                             style: Theme.of(context)
                                                 .primaryTextTheme
-                                                .bodyText2,
+                                                .bodyMedium,
                                           ),
                                         ),
                                       ),
                                     ),
                                     Container(
-                                      height: 25,
-                                      width: 40,
+                                      // height: 25,
+                                      // width: 40,
                                       padding: EdgeInsets.all(4),
                                       child: Center(
                                         child: Text(
                                           "${productOrderHistory.count}",
                                           style: Theme.of(context)
                                               .primaryTextTheme
-                                              .bodyText2,
+                                              .bodyMedium,
                                         ),
                                       ),
                                       decoration: BoxDecoration(
@@ -285,22 +294,22 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                     '${global.currency.currency_sign}' +
                                         '${productOrderHistory.total_price}'),
                               ),
-                              productOrderHistory.status == 1
-                                  ? ListTile(
-                                      tileColor: Colors.grey[200],
-                                      title: Text('Go to location'),
-                                      trailing: productOrderHistory.status == 1
-                                          ? IconButton(
-                                              onPressed: () async {
-                                                await _openMap(
-                                                    productOrderHistory
-                                                        .vendor[0].lat,
-                                                    productOrderHistory
-                                                        .vendor[0].lng);
-                                              },
-                                              icon: Icon(Icons.map))
-                                          : SizedBox())
-                                  : SizedBox(),
+                              // productOrderHistory.status == 1
+                              //     ? ListTile(
+                              //         tileColor: Colors.grey[200],
+                              //         title: Text(''),
+                              //         trailing: productOrderHistory.status == 1
+                              //             ? IconButton(
+                              //                 onPressed: () async {
+                              //                   await _openMap(
+                              //                       productOrderHistory
+                              //                           .vendor[0].lat,
+                              //                       productOrderHistory
+                              //                           .vendor[0].lng);
+                              //                 },
+                              //                 icon: Icon(Icons.map))
+                              //             : SizedBox())
+                              // : SizedBox(),
                               Padding(
                                 padding:
                                     const EdgeInsets.only(top: 5, bottom: 4),
@@ -346,11 +355,8 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                                           Icon(Icons.error),
                                                 ),
                                                 Padding(
-                                                  padding: global.isRTL
-                                                      ? const EdgeInsets.only(
-                                                          right: 10)
-                                                      : const EdgeInsets.only(
-                                                          left: 10),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
@@ -365,7 +371,7 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                                           style: Theme.of(
                                                                   context)
                                                               .primaryTextTheme
-                                                              .subtitle2),
+                                                              .titleSmall),
                                                       Row(
                                                         mainAxisSize:
                                                             MainAxisSize.min,
@@ -378,7 +384,7 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                                         children: <Widget>[
                                                           SizedBox(
                                                             child: Container(
-                                                              width: 40,
+                                                              // width: 40,
                                                               decoration:
                                                                   BoxDecoration(
                                                                 borderRadius: global
@@ -414,7 +420,7 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                                               padding:
                                                                   EdgeInsets
                                                                       .all(4),
-                                                              height: 25,
+                                                              // height: 25,
                                                               child: Center(
                                                                 child: Text(
                                                                   AppLocalizations.of(
@@ -423,14 +429,14 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .primaryTextTheme
-                                                                      .bodyText2,
+                                                                      .bodyMedium,
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
                                                           Container(
-                                                            height: 25,
-                                                            width: 40,
+                                                            // height: 25,
+                                                            // width: 40,
                                                             padding:
                                                                 EdgeInsets.all(
                                                                     4),
@@ -440,7 +446,7 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                                                 style: Theme.of(
                                                                         context)
                                                                     .primaryTextTheme
-                                                                    .bodyText2,
+                                                                    .bodyMedium,
                                                               ),
                                                             ),
                                                             decoration:
@@ -483,7 +489,7 @@ class _ProductOrderHistoryDetailScreenState extends BaseRouteState {
                                               ' ${global.currency.currency_sign} ${productOrderHistory.vendor[index].products[i].price}',
                                               style: Theme.of(context)
                                                   .primaryTextTheme
-                                                  .headline5,
+                                                  .headlineSmall,
                                             ),
                                           ),
                                           i ==

@@ -25,9 +25,11 @@ final searchScaffoldKey = GlobalKey<ScaffoldState>();
 
 class LocationScreen extends BaseRoute {
   final int? screenId;
-  LocationScreen({a, o, this.screenId}) : super(a: a, o: o, r: 'LocationScreen');
+  LocationScreen({a, o, this.screenId})
+      : super(a: a, o: o, r: 'LocationScreen');
   @override
-  _LocationScreenState createState() => new _LocationScreenState(screenId: screenId);
+  _LocationScreenState createState() =>
+      new _LocationScreenState(screenId: screenId);
 }
 
 class _LocationScreenState extends BaseRouteState {
@@ -76,19 +78,25 @@ class _LocationScreenState extends BaseRouteState {
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search,
-                          color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+                          color: Theme.of(context)
+                              .floatingActionButtonTheme
+                              .backgroundColor,
                         ),
                         suffixIcon: Container(
                           width: 30,
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(color: Color(0xFFFFEA00), borderRadius: BorderRadius.circular(5)),
+                          decoration: BoxDecoration(
+                              color: Color(0xFFFFEA00),
+                              borderRadius: BorderRadius.circular(5)),
                           child: FaIcon(
                             FontAwesomeIcons.locationArrow,
                             color: Colors.white,
                             size: 17,
                           ),
                         ),
-                        hintText: global.currentLocation != null ? global.currentLocation : AppLocalizations.of(context)!.lbl_no_location,
+                        hintText: global.currentLocation != null
+                            ? global.currentLocation
+                            : AppLocalizations.of(context)!.lbl_no_location,
                       ),
                       onTap: () async {
                         //
@@ -117,8 +125,12 @@ class _LocationScreenState extends BaseRouteState {
                         // else{
                         // }
                         // searchLocation();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SearchLocation())).then((value) async {
-                          if(value!=null){
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchLocation()))
+                            .then((value) async {
+                          if (value != null) {
                             BackLatLng backLatLng = value;
                             _cSearch.text = backLatLng.address;
                             _lat = double.parse('${backLatLng.lat}');
@@ -126,10 +138,16 @@ class _LocationScreenState extends BaseRouteState {
                             global.lat = '$_lat';
                             global.lng = '$_lng';
                             showOnlyLoaderDialog();
-                            final GoogleMapController controller = await _controller.future;
-                            await controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(_lat, _lng), tilt: 59.440717697143555, zoom: 15)));
+                            final GoogleMapController controller =
+                                await _controller.future;
+                            await controller.animateCamera(
+                                CameraUpdate.newCameraPosition(CameraPosition(
+                                    target: LatLng(_lat, _lng),
+                                    tilt: 59.440717697143555,
+                                    zoom: 15)));
                             await _updateMarker(_lat, _lng).then((_) async {
-                              List<Placemark> placemarks = await placemarkFromCoordinates(_lat, _lng);
+                              List<Placemark> placemarks =
+                                  await placemarkFromCoordinates(_lat, _lng);
                               setPlace = placemarks[0];
                               hideLoader();
                               _isShowConfirmLocationWidget = true;
@@ -162,10 +180,16 @@ class _LocationScreenState extends BaseRouteState {
                         onTap: (latLng) async {
                           _lat = latLng.latitude;
                           _lng = latLng.longitude;
-                          final GoogleMapController controller = await _controller.future;
-                          controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(_lat, _lng), tilt: 59.440717697143555, zoom: 15)));
+                          final GoogleMapController controller =
+                              await _controller.future;
+                          controller.animateCamera(
+                              CameraUpdate.newCameraPosition(CameraPosition(
+                                  target: LatLng(_lat, _lng),
+                                  tilt: 59.440717697143555,
+                                  zoom: 15)));
                           await _updateMarker(_lat, _lng).then((value) async {
-                            List<Placemark> placemarks = await placemarkFromCoordinates(_lat, _lng);
+                            List<Placemark> placemarks =
+                                await placemarkFromCoordinates(_lat, _lng);
                             setPlace = placemarks[0];
                             _isShowConfirmLocationWidget = true;
                             setState(() {});
@@ -175,7 +199,13 @@ class _LocationScreenState extends BaseRouteState {
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 25, left: 8, right: 8),
-                        child: Align(alignment: Alignment.bottomCenter, child: SizedBox(height: _isShowConfirmLocationWidget ? 170 : 83, child: _isShowConfirmLocationWidget ? _setCurrentLocationWidget() : _nearBySalonsWidget())),
+                        child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SizedBox(
+                                height: _isShowConfirmLocationWidget ? 170 : 83,
+                                child: _isShowConfirmLocationWidget
+                                    ? _setCurrentLocationWidget()
+                                    : _nearBySalonsWidget())),
                       )
                     ],
                   )
@@ -236,13 +266,13 @@ class _LocationScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        await apiHelper!.getNearByBarberShops(global.lat, global.lng, 1).then((result) {
+        await apiHelper!
+            .getNearByBarberShops(global.lat, global.lng, 1)
+            .then((result) {
           if (result != null) {
             if (result.status == "1") {
               _barberShopList = result.recordList;
-            } else {
-              
-            }
+            } else {}
           }
           _isBarberShopDataLoaded = true;
 
@@ -252,7 +282,8 @@ class _LocationScreenState extends BaseRouteState {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - locationScreen.dart - _getNearByBarberShops():" + e.toString());
+      print("Exception - locationScreen.dart - _getNearByBarberShops():" +
+          e.toString());
     }
   }
 
@@ -260,17 +291,24 @@ class _LocationScreenState extends BaseRouteState {
     try {
       if (screenId == 1) {
         Future.delayed(Duration.zero, () async {
-          await Navigator.push(context, MaterialPageRoute(builder: (context) => SearchLocation())).then((value) async{
-            if(value != null){
+          await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchLocation()))
+              .then((value) async {
+            if (value != null) {
               BackLatLng backLatLng = value;
               _cSearch.text = backLatLng.address;
               _lat = double.parse('${backLatLng.lat}');
               _lng = double.parse('${backLatLng.lng}');
               showOnlyLoaderDialog();
               final GoogleMapController controller = await _controller.future;
-              await controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(_lat, _lng), tilt: 59.440717697143555, zoom: 15)));
+              await controller.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                      target: LatLng(_lat, _lng),
+                      tilt: 59.440717697143555,
+                      zoom: 15)));
               await _updateMarker(_lat, _lng).then((_) async {
-                List<Placemark> placemarks = await placemarkFromCoordinates(_lat, _lng);
+                List<Placemark> placemarks =
+                    await placemarkFromCoordinates(_lat, _lng);
                 setPlace = placemarks[0];
                 hideLoader();
                 _isShowConfirmLocationWidget = true;
@@ -330,7 +368,11 @@ class _LocationScreenState extends BaseRouteState {
                     overlayColor: MaterialStateProperty.all(Colors.transparent),
                     onTap: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => BarberShopDescriptionScreen(_barberShopList![index].vendor_id, a: widget.analytics, o: widget.observer)),
+                        MaterialPageRoute(
+                            builder: (context) => BarberShopDescriptionScreen(
+                                _barberShopList![index].vendor_id,
+                                a: widget.analytics,
+                                o: widget.observer)),
                       );
                     },
                     child: SizedBox(
@@ -341,26 +383,38 @@ class _LocationScreenState extends BaseRouteState {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             CachedNetworkImage(
-                              imageUrl: global.baseUrlForImage + _barberShopList![index].vendor_logo!,
-                              imageBuilder: (context, imageProvider) => Container(
+                              imageUrl: global.baseUrlForImage +
+                                  _barberShopList![index].vendor_logo!,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
                                 height: 75,
                                 width: 75,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), image: DecorationImage(fit: BoxFit.cover, image: imageProvider)),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: imageProvider)),
                               ),
-                              placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) => Icon(Icons.error),
+                              placeholder: (context, url) =>
+                                  Center(child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
                             Expanded(
                               child: ListTile(
                                 horizontalTitleGap: 0,
-                                contentPadding: EdgeInsets.only(left: 5, right: 5),
+                                contentPadding:
+                                    EdgeInsets.only(left: 5, right: 5),
                                 isThreeLine: true,
                                 title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       '${_barberShopList![index].vendor_name}',
-                                      style: Theme.of(context).primaryTextTheme.bodyLarge,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .bodyLarge,
                                     ),
                                   ],
                                 ),
@@ -371,25 +425,33 @@ class _LocationScreenState extends BaseRouteState {
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text('${_barberShopList![index].rating}', style: Theme.of(context).primaryTextTheme.bodyMedium),
+                                        Text(
+                                            '${_barberShopList![index].rating}',
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .bodyMedium),
                                         _barberShopList![index].rating != null
                                             ? RatingBar.builder(
-                                          initialRating: _barberShopList![index].rating!,
-                                          minRating: 0,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemSize: 8,
-                                          itemPadding: EdgeInsets.symmetric(horizontal: 0),
-                                          itemBuilder: (context, _) => Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                          ),
-                                          ignoreGestures: true,
-                                          updateOnDrag: false,
-                                          onRatingUpdate: (rating) {
-                                          },
-                                        )
+                                                initialRating:
+                                                    _barberShopList![index]
+                                                        .rating!,
+                                                minRating: 0,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                itemCount: 5,
+                                                itemSize: 8,
+                                                itemPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 0),
+                                                itemBuilder: (context, _) =>
+                                                    Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber,
+                                                ),
+                                                ignoreGestures: true,
+                                                updateOnDrag: false,
+                                                onRatingUpdate: (rating) {},
+                                              )
                                             : SizedBox()
                                       ],
                                     ),
@@ -403,7 +465,9 @@ class _LocationScreenState extends BaseRouteState {
                                         Text(
                                           '${_barberShopList![index].vendor_phone}',
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .bodyMedium,
                                         ),
                                       ],
                                     ),
@@ -418,7 +482,9 @@ class _LocationScreenState extends BaseRouteState {
                                           child: Text(
                                             '${_barberShopList![index].vendor_loc}',
                                             overflow: TextOverflow.ellipsis,
-                                            style: Theme.of(context).primaryTextTheme.bodyMedium,
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .bodyMedium,
                                           ),
                                         ),
                                       ],
@@ -449,10 +515,12 @@ class _LocationScreenState extends BaseRouteState {
       var places = await (placesService.getPlaces(
         searchText,
       ) as FutureOr<List<mpb.MapBoxPlace>>);
-      List<d.Location> location = await locationFromAddress(places[0].toString());
+      List<d.Location> location =
+          await locationFromAddress(places[0].toString());
       return location[0];
     } catch (e) {
-      print('Exception - locationScreen.dart - _placesSearch(): ' + e.toString());
+      print(
+          'Exception - locationScreen.dart - _placesSearch(): ' + e.toString());
       return null;
     }
   }
@@ -466,7 +534,7 @@ class _LocationScreenState extends BaseRouteState {
           children: [
             Text(
               AppLocalizations.of(context)!.txt_select_delivery_location,
-              style: Theme.of(context).primaryTextTheme.bodyText2,
+              style: Theme.of(context).primaryTextTheme.bodyMedium,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -483,19 +551,24 @@ class _LocationScreenState extends BaseRouteState {
                 ],
               ),
             ),
-            Align(alignment: Alignment.centerLeft, child: Text("${setPlace.name!.trim()}, ${setPlace.locality}, ${setPlace.street}, ${setPlace.subAdministrativeArea}, ${setPlace.postalCode}")),
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                    "${setPlace.name!.trim()}, ${setPlace.locality}, ${setPlace.street}, ${setPlace.subAdministrativeArea}, ${setPlace.postalCode}")),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: TextButton(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(AppLocalizations.of(context)!.lbl_confirm_location),
+                  child:
+                      Text(AppLocalizations.of(context)!.lbl_confirm_location),
                 ),
                 onPressed: () async {
                   _isShowConfirmLocationWidget = false;
                   global.lat = _lat.toString();
                   global.lng = _lng.toString();
-                  global.currentLocation = "${setPlace.name}, ${setPlace.locality} ";
+                  global.currentLocation =
+                      "${setPlace.name}, ${setPlace.locality} ";
                   await _getNearByBarberShops();
                   setState(() {});
                 },
@@ -565,7 +638,8 @@ class _LocationScreenState extends BaseRouteState {
 
       return true;
     } catch (e) {
-      print('MAP Exception - locationScreen.dart - _updateMarker():' + e.toString());
+      print('MAP Exception - locationScreen.dart - _updateMarker():' +
+          e.toString());
     }
     return false;
   }
@@ -598,27 +672,25 @@ Future<void> displayPrediction(Prediction p, BuildContext context) async {
     apiKey: global.mapGBoxModel!.map_api_key,
     apiHeaders: await const GoogleApiHeaders().getHeaders(),
   );
-  PlacesDetailsResponse detail =
-  await _places.getDetailsByPlaceId(p.placeId!);
+  PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId!);
   final lat = detail.result.geometry!.location.lat;
   final lng = detail.result.geometry!.location.lng;
   final address = detail.result.formattedAddress;
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text("${p.description} - $lat/$lng/$address")),
   );
-  Navigator.of(context).pop([lat,lng,address]);
+  Navigator.of(context).pop([lat, lng, address]);
 }
-
 
 class CustomSearchScaffold extends PlacesAutocompleteWidget {
   CustomSearchScaffold({Key? key})
       : super(
-    key: key,
-    apiKey: global.mapGBoxModel!.map_api_key!,
-    sessionToken: Uuid().generateV4(),
-    language: "en",
-    components: [Component(Component.country, "uk")],
-  );
+          key: key,
+          apiKey: global.mapGBoxModel!.map_api_key!,
+          sessionToken: Uuid().generateV4(),
+          language: "en",
+          components: [Component(Component.country, "uk")],
+        );
 
   @override
   _CustomSearchScaffoldState createState() => _CustomSearchScaffoldState();

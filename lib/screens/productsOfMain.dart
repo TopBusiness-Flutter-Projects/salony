@@ -252,11 +252,11 @@ class _ProductListScreenState extends BaseRouteState {
                     children: [
                       Text(
                         '${_productList[index].quantity}',
-                        style: Theme.of(context).primaryTextTheme.subtitle1,
+                        style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
                           '${global.currency.currency_sign} ${_productList[index].price}',
-                          style: Theme.of(context).primaryTextTheme.subtitle1)
+                          style: Theme.of(context).primaryTextTheme.titleMedium)
                     ],
                   ),
                 ),
@@ -310,7 +310,7 @@ class _ProductListScreenState extends BaseRouteState {
                             Text(AppLocalizations.of(context)!.lbl_add_to_cart,
                                 style: Theme.of(context)
                                     .primaryTextTheme
-                                    .subtitle1)
+                                    .titleMedium)
                           ],
                         ),
                       ),
