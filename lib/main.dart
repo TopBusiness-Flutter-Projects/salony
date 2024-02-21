@@ -172,29 +172,35 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-        create: (context) => LocaleProvider(),
-        builder: (context, child) {
-          final provider = Provider.of<LocaleProvider>(context);
+      create: (context) => LocaleProvider(),
+      builder: (context, child) {
+        final provider = Provider.of<LocaleProvider>(context);
 
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Barber',
-              navigatorObservers: <NavigatorObserver>[observer],
-              theme: nativeTheme(),
-              locale: provider.locale,
-              supportedLocales: L10n.all,
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              home: SplashScreen(
-                a: analytics,
-                o: observer,
-              ));
-        },
-      );
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Barber',
+          navigatorObservers: <NavigatorObserver>[observer],
+          theme: nativeTheme(),
+          locale: provider.locale,
+          supportedLocales: [
+            Locale("ar", "AE"),
+          ],
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: Builder(builder: (context) {
+            return Directionality(
+                textDirection: TextDirection.rtl,
+                child: SplashScreen(
+                  a: analytics,
+                  o: observer,
+                ));
+          }),
+        );
+      });
 }
 
 class MyHttpOverrides extends HttpOverrides {

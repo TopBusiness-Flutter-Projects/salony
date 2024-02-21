@@ -143,10 +143,12 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                     top: 10, left: 10, right: 10),
                                 child: ListView.builder(
                                     shrinkWrap: true,
+                                    // padding: EdgeInsets.all(10),
                                     itemCount: _barberShopList!.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return Card(
+                                        margin: EdgeInsets.all(5),
                                         shape: selectedVendorId != null &&
                                                 selectedVendorId ==
                                                     _barberShopList![index]

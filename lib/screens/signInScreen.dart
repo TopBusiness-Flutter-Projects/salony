@@ -1,22 +1,19 @@
 import 'dart:convert';
 import 'dart:core';
-import 'dart:math';
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/models/userModel.dart';
 import 'package:app/screens/forgotPasswordScreen.dart';
 import 'package:app/screens/signUpScreen.dart';
 import 'package:app/widgets/bottomNavigationWidget.dart';
-import 'package:crypto/crypto.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+// import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 //okay
 class SignInScreen extends BaseRoute {
@@ -33,7 +30,7 @@ class _SignInScreenState extends BaseRouteState {
   FocusNode _fPassword = new FocusNode();
   bool _isRemember = false;
   bool _isPasswordVisible = false;
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
+  // GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
   _SignInScreenState() : super();
   final int _phoneNumberLength = 11;
 
