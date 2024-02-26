@@ -2,11 +2,14 @@ import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/screens/bookAppointmentScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
+import '../models/details_of_main.dart';
 import '../models/details_of_services.dart';
+import 'barberShopDescriptionScreen.dart';
 import 'serviceDetailScreen.dart';
 
 class DetailsOfServiceScreen extends BaseRoute {
@@ -33,7 +36,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
 
   bool _isDataLoaded = false;
   int? selectedVendorId;
-  List<DetailsOfMainService>? _servicesList = [];
+  List<VendorModel>? _servicesList = [];
   _ServiceDetailScreenState({this.sId, this.serviceName, this.serviceImage})
       : super();
 
@@ -150,19 +153,33 @@ class _ServiceDetailScreenState extends BaseRouteState {
                               child: Padding(
                                   padding: const EdgeInsets.only(
                                       top: 10, left: 10, right: 10),
-                                  child: GridView.builder(
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              childAspectRatio: 3 / 2.5,
-                                              mainAxisSpacing: 5,
-                                              crossAxisSpacing: 10),
+                                  child: ListView.builder(
+                                      // gridDelegate:
+                                      //     SliverGridDelegateWithFixedCrossAxisCount(
+                                      //         crossAxisCount: 2,
+                                      //         childAspectRatio: 3 / 2.5,
+                                      //         mainAxisSpacing: 5,
+                                      //         crossAxisSpacing: 10),
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),
                                       itemCount: _servicesList!.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return Container(
+                                          padding: const EdgeInsets.only(
+                                              top: 10, left: 10, right: 10),
+                                          // margin: const EdgeInsets.only(
+                                          //     top: 10, left: 10, right: 10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(color: Colors.white10)
+                                              ]),
+                                          width: double.infinity,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              4,
                                           // color: Colors.red,
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -171,93 +188,211 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                 MaterialStateProperty.all(
                                                     Colors.transparent),
                                             onTap: () {
-                                              Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ServiceDetailScreen(
-                                                            serviceName:
-                                                                _servicesList![
-                                                                        index]
-                                                                    .serviceName,
-                                                            a: widget.analytics,
-                                                            o: widget.observer,
-                                                            serviceImage:
-                                                                _servicesList![
-                                                                        index]
-                                                                    .serviceImage)),
-                                              );
+                                              // Navigator.of(context).push(
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) =>
+                                              //           ServiceDetailScreen(
+                                              //               serviceName:
+                                              //                   _servicesList![
+                                              //                           index]
+                                              //                       .serviceName,
+                                              //               a: widget.analytics,
+                                              //               o: widget.observer,
+                                              //               serviceImage:
+                                              //                   _servicesList![
+                                              //                           index]
+                                              //                       .serviceImage)),
+                                              // );
                                             },
-                                            child: Column(
+                                            child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Flexible(
-                                                  fit: FlexFit.tight,
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: global
-                                                            .baseUrlForImage +
-                                                        _servicesList![index]
-                                                            .serviceImage!,
-                                                    imageBuilder: (context,
-                                                            imageProvider) =>
-                                                        Card(
-                                                      // margin:
-                                                      //     EdgeInsets.only(left: 4, right: 4, bottom: 4),
-                                                      child: Container(
-                                                        // width: 120,
-                                                        // height: 50,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(2),
-                                                          image: DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  imageProvider),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.of(context).push(MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            BarberShopDescriptionScreen(
+                                                                _servicesList![
+                                                                        index]
+                                                                    .vendorId,
+                                                                a: widget
+                                                                    .analytics,
+                                                                o: widget
+                                                                    .observer)));
+                                                  },
+                                                  child: Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            4,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            3.5,
+                                                    child: CachedNetworkImage(
+                                                      fit: BoxFit.cover,
+                                                      imageUrl: global
+                                                              .baseUrlForImage +
+                                                          _servicesList![index]
+                                                              .vendorLogo!,
+                                                      imageBuilder: (context,
+                                                              imageProvider) =>
+                                                          Card(
+                                                        // margin:
+                                                        //     EdgeInsets.only(left: 4, right: 4, bottom: 4),
+                                                        child: Container(
+                                                          // width: 120,
+                                                          // height: 50,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        2),
+                                                            image: DecorationImage(
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                image:
+                                                                    imageProvider),
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        Center(
-                                                            child:
-                                                                CircularProgressIndicator()),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 4,
-                                                          right: 4,
-                                                          bottom: 4),
-                                                      width: 120,
-                                                      height: 50,
-                                                      child: Card(
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          child: Text(
-                                                              AppLocalizations.of(
-                                                                      context)!
-                                                                  .lbl_no_image),
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          Center(
+                                                              child:
+                                                                  CircularProgressIndicator()),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 4,
+                                                            right: 4,
+                                                            bottom: 4),
+                                                        width: 120,
+                                                        height: 50,
+                                                        child: Card(
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            child: Text(
+                                                                AppLocalizations.of(
+                                                                        context)!
+                                                                    .lbl_no_image),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                                Text(
-                                                  '${_servicesList![index].serviceName}',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18,
-                                                    fontFamily: 'Cairo',
-                                                    fontWeight: FontWeight.w200,
-                                                    height: 0,
+                                                Flexible(
+                                                  fit: FlexFit.tight,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                BarberShopDescriptionScreen(
+                                                                    _servicesList![
+                                                                            index]
+                                                                        .vendorId,
+                                                                    a: widget
+                                                                        .analytics,
+                                                                    o: widget
+                                                                        .observer)),
+                                                      );
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            '${_servicesList![index].vendorName ?? ''}',
+                                                            maxLines: 2,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16,
+                                                              fontFamily:
+                                                                  'Cairo',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              height: 0,
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                  Icons
+                                                                      .location_on,
+                                                                  color: Color(
+                                                                      0xFFF36D86)),
+                                                              Text(
+                                                                '${_servicesList![index].vendorLoc ?? ''}',
+                                                                maxLines: 2,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      'Cairo',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  height: 0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
-                                                )
+                                                ),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      print(
+                                                          _servicesList![index]
+                                                              .vendorId);
+
+                                                      setState(() {});
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                BookAppointmentScreen(
+                                                                    _servicesList![
+                                                                            index]
+                                                                        .vendorId,
+                                                                    a: widget
+                                                                        .analytics,
+                                                                    o: widget
+                                                                        .observer)),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .lbl_book_now)),
                                               ],
                                             ),
                                           ),

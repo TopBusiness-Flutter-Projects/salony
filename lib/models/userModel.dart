@@ -32,12 +32,17 @@ class CurrentUser {
   String? fb_id;
   int? cart_count;
   String? apple_id;
+  String? region;
+  String? city;
+  String? area;
   CurrentUser();
 
   CurrentUser.fromJson(Map<String, dynamic> json) {
     try {
       address = json['user_address'] ?? null;
-
+      region = json['region'] ?? null;
+      city = json['city'] ?? null;
+      area = json['area'] ?? null;
       id = json['id'] != null ? int.parse('${json['id']}') : null;
       user_phone = json['user_phone'] != null ? json['user_phone'] : null;
       name = json['name'] != null ? json['name'] : null;
@@ -87,6 +92,9 @@ class CurrentUser {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        "city": city,
+        "region": region,
+        "area": area,
         'status': status != null ? status : null,
         "user_address": address,
         'user_phone':

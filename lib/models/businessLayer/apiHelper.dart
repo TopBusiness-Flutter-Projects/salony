@@ -37,6 +37,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
+import '../details_of_main.dart';
 import '../details_of_services.dart';
 import '../main_services.dart';
 import '../region_model.dart';
@@ -999,16 +1000,16 @@ class APIHelper {
   Future<dynamic> getDetailsOfMainServices(String sId) async {
     try {
       final response = await http.get(
-        Uri.parse("${global.baseUrl}get_services_by_id?s_id=$sId"),
+        Uri.parse("${global.baseUrl}get_vendors_by_id?s_id=$sId"),
         headers: await global.getApiHeaders(false),
       );
 
       dynamic recordList;
       if (response.statusCode == 200 &&
           json.decode(response.body)["status"] == "1") {
-        recordList = List<DetailsOfMainService>.from(json
+        recordList = List<VendorModel>.from(json
             .decode(response.body)["data"]
-            .map((x) => DetailsOfMainService.fromJson(x)));
+            .map((x) => VendorModel.fromJson(x)));
       } else {
         recordList = null;
       }
@@ -1339,7 +1340,10 @@ class APIHelper {
             'password': user.user_password,
             'device_id': global.appDeviceId,
             'fb_id': user.fb_id != null ? user.fb_id : null,
-            "user_address": user.address
+            // "user_address": user.address,
+            "region": user.region,
+            "area": user.area,
+            "city": user.city
           }),
           options: Options(
             headers: await global.getApiHeaders(false),
@@ -1403,6 +1407,9 @@ class APIHelper {
     String? user_name,
     File? user_image, {
     String? user_password,
+    String? region,
+    String? city,
+    String? area,
   }) async {
     try {
       Response response;
@@ -1414,6 +1421,9 @@ class APIHelper {
         'user_image': user_image != null
             ? await MultipartFile.fromFile(user_image.path.toString())
             : null,
+        "region": region,
+        "area": area,
+        "city": city
       });
 
       response = await dio.post('${global.baseUrl}profile_edit',

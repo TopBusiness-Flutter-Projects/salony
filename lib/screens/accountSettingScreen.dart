@@ -5,9 +5,14 @@ import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/businessRule.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../models/DistrictModel.dart';
+import '../models/city_model.dart';
+import '../models/region_model.dart';
 
 class AccountSettingScreen extends BaseRoute {
   AccountSettingScreen({a, o}) : super(a: a, o: o, r: 'AccountSettingScreen');
@@ -212,41 +217,42 @@ class _AccountSettingScreenState extends BaseRouteState {
                         prefixIcon: Icon(Icons.person),
                         hintText: 'اسم المستخدم'),
                   )),
-              Align(
-                  alignment: global.isRTL
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-                    child: Text(
-                      'البريد الالكتروني',
-                      style: TextStyle(
-                          fontFamily: 'cairo',
-                          color: Colors.black54,
-                          fontSize: 16),
-                    ),
-                  )),
-              Container(
-                  margin: EdgeInsets.only(top: 5, left: 10, right: 10),
-                  height: 50,
-                  child: TextFormField(
-                    textAlign: TextAlign.start,
-                    autofocus: false,
-                    cursorColor: Color(0xFFF36D86),
-                    enabled: true,
-                    readOnly: true,
-                    style: Theme.of(context).inputDecorationTheme.hintStyle,
-                    controller: _cEmail,
-                    focusNode: _fEmail,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.email),
-                      hintText: 'البريد الالكتروني',
-                      hintStyle: TextStyle(
-                          fontFamily: 'cairo',
-                          color: Colors.black26,
-                          fontSize: 16),
-                    ),
-                  )),
+              // Align(
+              //     alignment: global.isRTL
+              //         ? Alignment.centerRight
+              //         : Alignment.centerLeft,
+              //     child: Padding(
+              //       padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+              //       child: Text(
+              //         'البريد الالكتروني',
+              //         style: TextStyle(
+              //             fontFamily: 'cairo',
+              //             color: Colors.black54,
+              //             fontSize: 16),
+              //       ),
+              //     )),
+              // Container(
+              //     margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+              //     height: 50,
+              //     child: TextFormField(
+              //       textAlign: TextAlign.start,
+              //       autofocus: false,
+              //       cursorColor: Color(0xFFF36D86),
+              //       enabled: true,
+              //       readOnly: true,
+              //       style: Theme.of(context).inputDecorationTheme.hintStyle,
+              //       controller: _cEmail,
+              //       focusNode: _fEmail,
+              //       decoration: InputDecoration(
+              //         prefixIcon: Icon(Icons.email),
+              //         hintText: 'البريد الالكتروني',
+              //         hintStyle: TextStyle(
+              //             fontFamily: 'cairo',
+              //             color: Colors.black26,
+              //             fontSize: 16),
+              //       ),
+              //     )),
+
               Align(
                   alignment: global.isRTL
                       ? Alignment.centerRight
@@ -358,6 +364,238 @@ class _AccountSettingScreenState extends BaseRouteState {
                       FocusScope.of(context).unfocus();
                     },
                   )),
+
+              //!
+              Container(
+                padding: EdgeInsets.all(10),
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      ' العنوان الحالي : ',
+                      style: TextStyle(
+                          fontFamily: 'cairo',
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          fontSize: 16),
+                    ),
+                    Text(
+                      '${global.user!.region ?? ""} - ${global.user!.city ?? ""} - ${global.user!.area ?? ""}',
+                      maxLines: 1,
+                      style: TextStyle(
+                          fontFamily: 'cairo',
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15), // color: Colors.red,
+                // height: 10,
+                child: DropdownButtonFormField2<RegionModel>(
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    // Add Horizontal padding using menuItemStyleData.padding so it matches
+                    // the menu padding when button's width is not specified.
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    // Add more decoration..
+                  ),
+                  hint: const Text(
+                    'اختر منطقتك',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  items: regions
+                      .map((item) => DropdownMenuItem<RegionModel>(
+                            value: item,
+                            child: Text(
+                              item.nameAr ?? '',
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'من فضلك اختر بلدك';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    cities = [];
+                    districts = [];
+                    // cityModel = null;
+                    setState(() {});
+                    regionModel = value;
+                    _getCities(id: value!.regionId ?? 1);
+                    //Do something when selected item is changed.
+                  },
+                  onSaved: (value) {
+                    regionModel = value;
+                  },
+                  buttonStyleData: const ButtonStyleData(
+                    padding: EdgeInsets.only(right: 8),
+                  ),
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black45,
+                    ),
+                    iconSize: 24,
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                  ),
+                ),
+              ),
+              cities.isEmpty
+                  ? Container()
+                  : Container(
+                      margin: EdgeInsets.only(top: 15), // color: Colors.red,
+                      // height: 10,
+                      child: DropdownButtonFormField2<CityModel>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          // Add Horizontal padding using menuItemStyleData.padding so it matches
+                          // the menu padding when button's width is not specified.
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          // Add more decoration..
+                        ),
+                        hint: const Text(
+                          'اختر مدينتك',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        // value: cityModel,
+                        items: cities
+                            .map((item) => DropdownMenuItem<CityModel>(
+                                  value: item,
+                                  child: Text(
+                                    item.nameAr ?? '',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'من فضلك اختر مدينتك';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            districts = [];
+                            // districtModel = null;
+                          });
+                          cityModel = value;
+                          _getDistrict(cityId: value!.cityId ?? 1);
+                          //Do something when selected item is changed.
+                        },
+                        onSaved: (value) {
+                          cityModel = value;
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black45,
+                          ),
+                          iconSize: 24,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        ),
+                      ),
+                    ),
+              districts.isEmpty
+                  ? Container()
+                  : Container(
+                      margin: EdgeInsets.only(top: 15), // color: Colors.red,
+                      // height: 10,
+                      child: DropdownButtonFormField2<DistrictModel>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          // Add Horizontal padding using menuItemStyleData.padding so it matches
+                          // the menu padding when button's width is not specified.
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          // Add more decoration..
+                        ),
+                        hint: const Text(
+                          'اختر الحي',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        // value: cityModel,
+                        items: districts
+                            .map((item) => DropdownMenuItem<DistrictModel>(
+                                  value: item,
+                                  child: Text(
+                                    item.nameAr ?? '',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'من فضلك اختر الحي';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          //Do something when selected item is changed.
+                          districtModel = value;
+                        },
+                        onSaved: (value) {
+                          districtModel = value;
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black45,
+                          ),
+                          iconSize: 24,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),
@@ -399,13 +637,15 @@ class _AccountSettingScreenState extends BaseRouteState {
   void initState() {
     super.initState();
     _init();
+    _getRegions();
   }
 
   _init() {
     try {
       _cName.text = global.user!.name!;
-      _cEmail.text = global.user!.email!;
-      _cMobile.text = global.user!.user_phone!;
+      // _cEmail.text = global.user!.email??'';
+      _cMobile.text = global.user!.user_phone ?? '';
+
       setState(() {});
     } catch (e) {
       print("Exception - accountSettingScreen.dart - _init():" + e.toString());
@@ -418,6 +658,9 @@ class _AccountSettingScreenState extends BaseRouteState {
       global.user!.user_name = _cName.text;
       global.user!.user_password =
           _cPassword.text.isEmpty ? null : _cPassword.text;
+      global.user!.region = regionModel?.nameAr;
+      global.user!.city = cityModel?.nameAr;
+      global.user!.area = districtModel?.nameAr;
       if (_cPassword.text.isNotEmpty &&
           _cPassword.text.trim().length >= 8 &&
           _cConfirmPassword.text.isNotEmpty &&
@@ -426,7 +669,7 @@ class _AccountSettingScreenState extends BaseRouteState {
           _cPassword.text.trim().length < 8) {
         showSnackBar(
             key: _scaffoldKey,
-            snackBarMessage: 'كلمة المرور يجب  ان تكون اكبر من 8 حروق و ارقام');
+            snackBarMessage: 'كلمة المرور يجب  ان تكون اكبر من 8 حروف و ارقام');
       } else if (_cConfirmPassword.text.isNotEmpty &&
           _cConfirmPassword.text.trim() != _cPassword.text.trim()) {
         showSnackBar(
@@ -442,6 +685,9 @@ class _AccountSettingScreenState extends BaseRouteState {
           global.user!.user_name,
           _tImage,
           user_password: global.user!.user_password,
+          region: global.user!.region,
+          city: global.user!.city,
+          area: global.user!.area,
         )
             .then((result) {
           if (result != null) {
@@ -515,4 +761,72 @@ class _AccountSettingScreenState extends BaseRouteState {
               e.toString());
     }
   }
+
+  _getRegions() async {
+    try {
+      bool isConnected = await br.checkConnectivity();
+      if (isConnected) {
+        await apiHelper!.getRegions().then((result) {
+          if (result != null) {
+            regions = result.map((e) => RegionModel.fromJson(e)).toList();
+          }
+          _isRegionsLoaded = true;
+          setState(() {});
+        });
+      } else {
+        showNetworkErrorSnackBar(_scaffoldKey);
+      }
+    } catch (e) {
+      print("Exception - homeScreen.dart - _getProducts():" + e.toString());
+    }
+  }
+
+  _getCities({required int id}) async {
+    try {
+      bool isConnected = await br.checkConnectivity();
+      if (isConnected) {
+        await apiHelper!.getCities(id: id).then((result) {
+          if (result != null) {
+            cities = result.map((e) => CityModel.fromJson(e)).toList();
+          }
+          _isCitiesLoaded = true;
+          setState(() {});
+        });
+      } else {
+        showNetworkErrorSnackBar(_scaffoldKey);
+      }
+    } catch (e) {
+      print("Exception - homeScreen.dart - _getProducts():" + e.toString());
+    }
+  }
+
+  _getDistrict({required int cityId}) async {
+    try {
+      bool isConnected = await br.checkConnectivity();
+      if (isConnected) {
+        await apiHelper!.getDistrict(cityId: cityId).then((result) {
+          if (result != null) {
+            districts = result.map((e) => DistrictModel.fromJson(e)).toList();
+          }
+          _isDistrictsLoaded = true;
+          setState(() {});
+        });
+      } else {
+        showNetworkErrorSnackBar(_scaffoldKey);
+      }
+    } catch (e) {
+      print("Exception - getDistrict():" + e.toString());
+    }
+  }
+
+  RegionModel? regionModel;
+  CityModel? cityModel;
+  DistrictModel? districtModel;
+  List<RegionModel> regions = [];
+  List<CityModel> cities = [];
+  List<DistrictModel> districts = [];
+  bool _isRegionsLoaded = false;
+  bool _isCitiesLoaded = false;
+  bool _isDistrictsLoaded = false;
+  //
 }

@@ -161,6 +161,7 @@ class _SignUpScreenState extends BaseRouteState {
                             _fPassword.requestFocus();
                           },
                         )),
+                    //!
                     Container(
                       margin: EdgeInsets.only(top: 15), // color: Colors.red,
                       // height: 10,
@@ -369,6 +370,7 @@ class _SignUpScreenState extends BaseRouteState {
                               ),
                             ),
                           ),
+
                     Container(
                         margin: EdgeInsets.only(top: 15),
                         height: 50,
@@ -560,8 +562,11 @@ class _SignUpScreenState extends BaseRouteState {
       if (appleId != null) {
         _user.apple_id = appleId;
       }
-      _user.address =
-          "${regionModel?.nameAr ?? ''} - ${cityModel?.nameAr ?? ''} - ${districtModel?.nameAr ?? ''}";
+      _user.area = districtModel?.nameAr ?? '';
+      _user.city = cityModel?.nameAr ?? '';
+      _user.region = regionModel?.nameAr ?? '';
+      // _user.address =
+      //     "${regionModel?.nameAr ?? ''} - ${cityModel?.nameAr ?? ''} - ${districtModel?.nameAr ?? ''}";
       _user.user_name = _cName.text.trim();
       // _user.user_email = _cEmail.text.trim();
       _user.user_phone = _cMobile.text.trim();
@@ -577,9 +582,7 @@ class _SignUpScreenState extends BaseRouteState {
           _cPassword.text.isNotEmpty &&
           _cConfirmPassword.text.isNotEmpty &&
           _cPassword.text.trim() == _cConfirmPassword.text.trim() &&
-          regionModel != null &&
-          cityModel != null &&
-          districtModel != null) {
+          regionModel != null) {
         bool isConnected = await br.checkConnectivity();
         if (isConnected) {
           showOnlyLoaderDialog();
@@ -612,9 +615,9 @@ class _SignUpScreenState extends BaseRouteState {
                 .txt_please_enter_valid_mobile_number);
       } else if (regionModel == null) {
         showSnackBar(key: _scaffoldKey, snackBarMessage: 'من فضلك اختر مدينتك');
-      } else if (cityModel == null) {
+      } else if ((cityModel == null && cities.isNotEmpty)) {
         showSnackBar(key: _scaffoldKey, snackBarMessage: 'من فضلك اختر منطقتك');
-      } else if (districtModel == null) {
+      } else if (districtModel == null && districts.isNotEmpty) {
         showSnackBar(key: _scaffoldKey, snackBarMessage: 'من فضلك اختر الحي');
       } else if (_cPassword.text.isEmpty) {
         showSnackBar(
