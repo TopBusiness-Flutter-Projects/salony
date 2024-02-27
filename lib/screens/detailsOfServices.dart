@@ -2,15 +2,12 @@ import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/screens/bookAppointmentScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import '../models/details_of_main.dart';
-import '../models/details_of_services.dart';
 import 'barberShopDescriptionScreen.dart';
-import 'serviceDetailScreen.dart';
 
 class DetailsOfServiceScreen extends BaseRoute {
   final String? sId;
@@ -335,33 +332,38 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                               height: 0,
                                                             ),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              Icon(
-                                                                  Icons
-                                                                      .location_on,
-                                                                  color: Color(
-                                                                      0xFFF36D86)),
-                                                              Text(
-                                                                '${_servicesList![index].vendorLoc ?? ''}',
-                                                                maxLines: 2,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 12,
-                                                                  fontFamily:
-                                                                      'Cairo',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  height: 0,
+                                                          Flexible(
+                                                            child: Row(
+                                                              children: [
+                                                                Icon(
+                                                                    Icons
+                                                                        .location_on,
+                                                                    color: Color(
+                                                                        0xFFF36D86)),
+                                                                Flexible(
+                                                                  child: Text(
+                                                                    '${_servicesList![index].vendorLoc ?? ''}',
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontFamily:
+                                                                          'Cairo',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      height: 0,
+                                                                    ),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
                                                         ],
                                                       ),

@@ -1,16 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/models/userModel.dart';
 import 'package:app/screens/accountSettingScreen.dart';
 import 'package:app/screens/bookingManagementScreen.dart';
-import 'package:app/screens/languageSelectionScreen.dart';
 import 'package:app/screens/pricingAndOffersScreen.dart';
 import 'package:app/screens/productOrderHistoryScreen.dart';
-import 'package:app/screens/referAndEarnScreen.dart';
-import 'package:app/screens/rewardScreen.dart';
 import 'package:app/screens/signInScreen.dart';
 import 'package:app/screens/termsOfServicesScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -18,7 +14,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProfileScreen extends BaseRoute {
@@ -198,31 +193,31 @@ class _ProfileScreenState extends BaseRouteState {
                           ),
                         ),
                       ),
-                      Card(
-                        margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => RewardScreen(
-                                      a: widget.analytics, o: widget.observer)),
-                            );
-                          },
-                          shape: Theme.of(context).cardTheme.shape,
-                          leading: Icon(Icons.card_giftcard),
-                          title: Text(
-                              AppLocalizations.of(context)!
-                                  .lbl_reward_points_programme,
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .titleSmall),
-                          subtitle: Text(
-                            "You've ${global.user?.rewards ?? 0} rewards points",
-                            style:
-                                Theme.of(context).primaryTextTheme.titleMedium,
-                          ),
-                        ),
-                      ),
+                      // Card(
+                      //   margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      //   child: ListTile(
+                      //     onTap: () {
+                      //       Navigator.of(context).push(
+                      //         MaterialPageRoute(
+                      //             builder: (context) => RewardScreen(
+                      //                 a: widget.analytics, o: widget.observer)),
+                      //       );
+                      //     },
+                      //     shape: Theme.of(context).cardTheme.shape,
+                      //     leading: Icon(Icons.card_giftcard),
+                      //     title: Text(
+                      //         AppLocalizations.of(context)!
+                      //             .lbl_reward_points_programme,
+                      //         style: Theme.of(context)
+                      //             .primaryTextTheme
+                      //             .titleSmall),
+                      //     subtitle: Text(
+                      //       "You've ${global.user?.rewards ?? 0} rewards points",
+                      //       style:
+                      //           Theme.of(context).primaryTextTheme.titleMedium,
+                      //     ),
+                      //   ),
+                      // ),
                       Card(
                         margin: EdgeInsets.only(top: 10, left: 10, right: 10),
                         child: ListTile(
@@ -248,31 +243,31 @@ class _ProfileScreenState extends BaseRouteState {
                           ),
                         ),
                       ),
-                      Card(
-                        margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: ListTile(
-                          shape: Theme.of(context).cardTheme.shape,
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ReferAndEarnScreen(
-                                      a: widget.analytics, o: widget.observer)),
-                            );
-                          },
-                          leading: Icon(MdiIcons.accountConvert),
-                          title: Text(
-                              AppLocalizations.of(context)!.lbl_invite_earn,
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .titleSmall),
-                          subtitle: Text(
-                            AppLocalizations.of(context)!
-                                .txt_invite_friends_and_earn_reward,
-                            style:
-                                Theme.of(context).primaryTextTheme.titleMedium,
-                          ),
-                        ),
-                      ),
+                      // Card(
+                      //   margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      //   child: ListTile(
+                      //     shape: Theme.of(context).cardTheme.shape,
+                      //     onTap: () {
+                      //       Navigator.of(context).push(
+                      //         MaterialPageRoute(
+                      //             builder: (context) => ReferAndEarnScreen(
+                      //                 a: widget.analytics, o: widget.observer)),
+                      //       );
+                      //     },
+                      //     leading: Icon(MdiIcons.accountConvert),
+                      //     title: Text(
+                      //         AppLocalizations.of(context)!.lbl_invite_earn,
+                      //         style: Theme.of(context)
+                      //             .primaryTextTheme
+                      //             .titleSmall),
+                      //     subtitle: Text(
+                      //       AppLocalizations.of(context)!
+                      //           .txt_invite_friends_and_earn_reward,
+                      //       style:
+                      //           Theme.of(context).primaryTextTheme.titleMedium,
+                      //     ),
+                      //   ),
+                      // ),
                       Card(
                         margin: EdgeInsets.only(top: 10, left: 10, right: 10),
                         child: ListTile(
@@ -348,9 +343,7 @@ class _ProfileScreenState extends BaseRouteState {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20),
                       ElevatedButton.icon(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
@@ -364,9 +357,7 @@ class _ProfileScreenState extends BaseRouteState {
                         icon: Icon(Icons.logout_rounded),
                         label: Text(AppLocalizations.of(context)!.btn_sign_out),
                       ),
-                      SizedBox(
-                        height: 40,
-                      )
+                      SizedBox(height: 40)
                     ],
                   ),
                 ),

@@ -388,12 +388,12 @@ class APIHelper {
     }
   }
 
-  Future<dynamic> forgotPassword(String user_email) async {
+  Future<dynamic> forgotPassword(String user_phone) async {
     try {
       final response = await http.post(
         Uri.parse("${global.baseUrl}forget_password"),
         headers: await global.getApiHeaders(false),
-        body: json.encode({"user_email": user_email}),
+        body: json.encode({"user_phone": user_phone}),
       );
 
       dynamic recordList;
@@ -1001,7 +1001,7 @@ class APIHelper {
     try {
       final response = await http.get(
         Uri.parse("${global.baseUrl}get_vendors_by_id?s_id=$sId"),
-        headers: await global.getApiHeaders(false),
+        headers: await global.getApiHeaders(true),
       );
 
       dynamic recordList;

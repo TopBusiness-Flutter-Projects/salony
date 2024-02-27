@@ -108,6 +108,8 @@ class _HomeScreenState extends BaseRouteState {
                                               'assets/images/logo_person.png'),
                                           backgroundColor: Colors.white,
                                         ),
+
+                                  SizedBox(width: 6),
                                   Expanded(
                                     child: Padding(
                                       padding: global.isRTL

@@ -54,9 +54,8 @@ class _ForgotPasswordScreenState extends BaseRouteState {
                       style: Theme.of(context).primaryTextTheme.titleLarge,
                       controller: _cPhone,
                       focusNode: _fPhone,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)!.lbl_email),
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(hintText: 'أدخل رقم هاتفك'),
                       onEditingComplete: () {
                         FocusScope.of(context).unfocus();
                       },
@@ -99,7 +98,7 @@ class _ForgotPasswordScreenState extends BaseRouteState {
                             a: widget.analytics,
                             o: widget.observer,
                             screenId: 2,
-                            phoneNumberOrEmail: _cPhone.text.trim(),
+                            phoneNumberOrEmail: _cPhone.text,
                           )),
                 );
 

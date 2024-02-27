@@ -1009,9 +1009,9 @@
 "txt_confirmation_message_for_sign_out": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
 "@txt_confirmation_message_for_sign_out": {
     "description": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
-},"txt_name_email_address_contact_number": "الاسم، عنوان البريد الإلكتروني، رقم الاتصال",
+},"txt_name_email_address_contact_number": "الاسم، العنوان، رقم الاتصال",
 "@txt_name_email_address_contact_number": {
-    "description": "الاسم، عنوان البريد الإلكتروني، رقم الاتصال"
+    "description": "الاسم، العنوان، رقم الاتصال"
 },"txt_connect_with_phone": "الاتصال بالهاتف",
 "@txt_connect_with_phone": {
     "description": "الاتصال بالهاتف"
@@ -1045,9 +1045,9 @@
 "@txt_forgot_password": {
     "description": "نسيت كلمة المرور"
 },
-"txt_please_enter_your_email_so_we_can_help_you_to_recover_your_password": "يرجى إدخال بريدك الإلكتروني حتى نتمكن من مساعدتك في استرداد كلمة المرور الخاصة بك.",
+"txt_please_enter_your_email_so_we_can_help_you_to_recover_your_password": "يرجى إدخال رقم هاتفك حتى نتمكن من مساعدتك في استرداد كلمة المرور الخاصة بك.",
 "@txt_please_enter_your_email_so_we_can_help_you_to_recover_your_password": {
-    "description": "يرجى إدخال بريدك الإلكتروني حتى نتمكن من مساعدتك في استرداد كلمة المرور الخاصة بك."
+    "description": "يرجى إدخال رقم هاتفك حتى نتمكن من مساعدتك في استرداد كلمة المرور الخاصة بك."
 },
 "btn_send": "إرسال",
 "@btn_send": {

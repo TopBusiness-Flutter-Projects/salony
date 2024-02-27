@@ -95,7 +95,7 @@ class VendorModel {
         vendorEmail: json["vendor_email"],
         vendorPhone: json["vendor_phone"],
         vendorLogo: json["vendor_logo"],
-        vendorLoc: json["vendor_loc"],
+        vendorLoc: "${json["region"]},${json["city"]},${json["area"]} ",
         lat: json["lat"],
         lng: json["lng"],
         description: json["description"],

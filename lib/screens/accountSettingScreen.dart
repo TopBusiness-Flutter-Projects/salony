@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/businessRule.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
+import 'package:app/screens/profileScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../models/DistrictModel.dart';
 import '../models/city_model.dart';
 import '../models/region_model.dart';
+import '../models/userModel.dart';
+import '../widgets/bottomNavigationWidget.dart';
 
 class AccountSettingScreen extends BaseRoute {
   AccountSettingScreen({a, o}) : super(a: a, o: o, r: 'AccountSettingScreen');
@@ -697,9 +700,16 @@ class _AccountSettingScreenState extends BaseRouteState {
               global.user = result.data;
               global.sp
                   .setString("currentUser", json.encode(global.user!.toJson()));
-              Navigator.of(context).pop();
 
               setState(() {});
+              // Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BottomNavigationWidget(
+                          screenId: 3,
+                          a: widget.analytics,
+                          o: widget.observer)));
             } else {
               showSnackBar(
                   key: _scaffoldKey, snackBarMessage: '${result.message}');

@@ -12,6 +12,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -548,9 +549,23 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                      onPressed: _makePhoneCall, child: Text("Call")),
+                      onPressed: _makePhoneCall,
+                      child: Row(
+                        children: [
+                          Text(" إتصال "),
+                          Icon(FontAwesomeIcons.phone)
+                        ],
+                      )),
                   ElevatedButton(
-                      onPressed: _openWhatsApp, child: Text("WhatsApp"))
+                      onPressed: _openWhatsApp,
+                      child: Row(
+                        children: [
+                          Text(" واتساب "),
+                          Icon(
+                            FontAwesomeIcons.whatsapp,
+                          )
+                        ],
+                      ))
                 ],
               ),
             ),

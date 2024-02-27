@@ -201,10 +201,13 @@ class _SignUpScreenState extends BaseRouteState {
                         onChanged: (value) {
                           cities = [];
                           districts = [];
-                          // cityModel = null;
-                          setState(() {});
                           regionModel = value;
+                          cityModel = null;
+                          districtModel = null;
+                          setState(() {});
+
                           _getCities(id: value!.regionId ?? 1);
+
                           //Do something when selected item is changed.
                         },
                         onSaved: (value) {
@@ -230,78 +233,78 @@ class _SignUpScreenState extends BaseRouteState {
                         ),
                       ),
                     ),
-                    cities.isEmpty
-                        ? Container()
-                        : Container(
-                            margin:
-                                EdgeInsets.only(top: 15), // color: Colors.red,
-                            // height: 10,
-                            child: DropdownButtonFormField2<CityModel>(
-                              isExpanded: true,
-                              decoration: InputDecoration(
-                                // Add Horizontal padding using menuItemStyleData.padding so it matches
-                                // the menu padding when button's width is not specified.
-                                contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                // Add more decoration..
-                              ),
-                              hint: const Text(
-                                'اختر مدينتك',
-                                style: TextStyle(fontSize: 14),
-                              ),
-                              // value: cityModel,
-                              items: cities
-                                  .map((item) => DropdownMenuItem<CityModel>(
-                                        value: item,
-                                        child: Text(
-                                          item.nameAr ?? '',
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'من فضلك اختر مدينتك';
-                                }
-                                return null;
-                              },
-                              onChanged: (value) {
-                                setState(() {
-                                  districts = [];
-                                  // districtModel = null;
-                                });
-                                cityModel = value;
-                                _getDistrict(cityId: value!.cityId ?? 1);
-                                //Do something when selected item is changed.
-                              },
-                              onSaved: (value) {
-                                cityModel = value;
-                              },
-                              buttonStyleData: const ButtonStyleData(
-                                padding: EdgeInsets.only(right: 8),
-                              ),
-                              iconStyleData: const IconStyleData(
-                                icon: Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Colors.black45,
-                                ),
-                                iconSize: 24,
-                              ),
-                              dropdownStyleData: DropdownStyleData(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                              ),
-                            ),
+                    // cities.isEmpty
+                    //     ? Container()
+                    //     :
+                    Container(
+                      margin: EdgeInsets.only(top: 15), // color: Colors.red,
+                      child: DropdownButtonFormField2<CityModel>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
+                          // Add more decoration..
+                        ),
+                        hint: const Text(
+                          'اختر مدينتك',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        value: cityModel ?? null,
+                        items: cities
+                            .map((item) => DropdownMenuItem<CityModel>(
+                                  value: item,
+                                  child: Text(
+                                    item.nameAr ?? '',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'من فضلك اختر مدينتك';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          districts = [];
+                          cityModel = value;
+                          districtModel = null;
+
+                          setState(() {});
+
+                          (value!.cityId != null)
+                              ? _getDistrict(cityId: value.cityId!)
+                              : districtModel = null;
+                          //Do something when selected item is changed.
+                        },
+                        onSaved: (value) {
+                          cityModel = value;
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black45,
+                          ),
+                          iconSize: 24,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        ),
+                      ),
+                    ),
                     districts.isEmpty
                         ? Container()
                         : Container(
@@ -324,7 +327,7 @@ class _SignUpScreenState extends BaseRouteState {
                                 'اختر الحي',
                                 style: TextStyle(fontSize: 14),
                               ),
-                              // value: cityModel,
+                              value: districtModel ?? null,
                               items: districts
                                   .map(
                                       (item) => DropdownMenuItem<DistrictModel>(
