@@ -246,7 +246,7 @@ class APIHelper {
         Uri.parse("${global.baseUrl}change_password"),
         headers: await global.getApiHeaders(false),
         body: json
-            .encode({"user_email": user_email, "user_password": user_password}),
+            .encode({"user_phone": user_email, "user_password": user_password}),
       );
 
       dynamic recordList;

@@ -40,7 +40,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
   PaymentGateway? _paymentGatewayList;
   late Razorpay _razorpay;
   bool _isDataLoaded = false;
-  bool _isCOD = false;
+  bool _isCOD = true;
   var payPlugin = PaystackPlugin();
   TextEditingController _cCardNumber = new TextEditingController();
   TextEditingController _cExpiry = new TextEditingController();
@@ -104,7 +104,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                         ),
                         title: Text(AppLocalizations.of(context)!.lbl_cash),
                         subtitle: Text(
-                          "الدفع عند وصولك لمكان الخدمه",
+                          "الدفع عند إتمام الخدمة",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w200,
@@ -115,52 +115,52 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                     Divider(
                       color: Colors.grey[300],
                     ),
-                    ListTile(
-                      title: Text(
-                          AppLocalizations.of(context)!.lbl_other_methods,
-                          style:
-                              Theme.of(context).primaryTextTheme.headlineSmall),
-                    ),
-                    Divider(
-                      color: Colors.grey[300],
-                    ),
-                    _paymentGatewayList!.razorpay!.razorpay_status == 'Yes'
-                        ? GestureDetector(
-                            onTap: () {
-                              showOnlyLoaderDialog();
-                              openCheckout();
-                            },
-                            child: ListTile(
-                              leading: Icon(MdiIcons.creditCard),
-                              title: Text(
-                                  AppLocalizations.of(context)!.lbl_rezorpay),
-                            ),
-                          )
-                        : SizedBox(),
-                    _paymentGatewayList!.stripe!.stripe_status == 'Yes'
-                        ? GestureDetector(
-                            onTap: () {
-                              _cardDialog();
-                            },
-                            child: ListTile(
-                              leading: Icon(FontAwesomeIcons.stripe),
-                              title: Text(
-                                  AppLocalizations.of(context)!.lbl_stripe),
-                            ),
-                          )
-                        : SizedBox(),
-                    _paymentGatewayList!.paystack!.paystack_status == 'Yes'
-                        ? GestureDetector(
-                            onTap: () {
-                              _cardDialog(paymentCallId: 1);
-                            },
-                            child: ListTile(
-                              leading: Icon(MdiIcons.creditCard),
-                              title: Text(
-                                  AppLocalizations.of(context)!.lbl_paystack),
-                            ),
-                          )
-                        : SizedBox()
+                    // ListTile(
+                    //   title: Text(
+                    //       AppLocalizations.of(context)!.lbl_other_methods,
+                    //       style:
+                    //           Theme.of(context).primaryTextTheme.headlineSmall),
+                    // ),
+                    // Divider(
+                    //   color: Colors.grey[300],
+                    // ),
+                    // _paymentGatewayList!.razorpay!.razorpay_status == 'Yes'
+                    //     ? GestureDetector(
+                    //         onTap: () {
+                    //           showOnlyLoaderDialog();
+                    //           openCheckout();
+                    //         },
+                    //         child: ListTile(
+                    //           leading: Icon(MdiIcons.creditCard),
+                    //           title: Text(
+                    //               AppLocalizations.of(context)!.lbl_rezorpay),
+                    //         ),
+                    //       )
+                    //     : SizedBox(),
+                    // _paymentGatewayList!.stripe!.stripe_status == 'Yes'
+                    //     ? GestureDetector(
+                    //         onTap: () {
+                    //           _cardDialog();
+                    //         },
+                    //         child: ListTile(
+                    //           leading: Icon(FontAwesomeIcons.stripe),
+                    //           title: Text(
+                    //               AppLocalizations.of(context)!.lbl_stripe),
+                    //         ),
+                    //       )
+                    //     : SizedBox(),
+                    // _paymentGatewayList!.paystack!.paystack_status == 'Yes'
+                    //     ? GestureDetector(
+                    //         onTap: () {
+                    //           _cardDialog(paymentCallId: 1);
+                    //         },
+                    //         child: ListTile(
+                    //           leading: Icon(MdiIcons.creditCard),
+                    //           title: Text(
+                    //               AppLocalizations.of(context)!.lbl_paystack),
+                    //         ),
+                    //       )
+                    //     : SizedBox()
                   ],
                 )
               : _shimmer(),

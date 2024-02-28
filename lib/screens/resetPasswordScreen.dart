@@ -1,6 +1,7 @@
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/screens/signInScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ResetPasswordScreen extends BaseRoute {
   final String? email;
@@ -36,13 +37,13 @@ class _ResetPasswordScreenState extends BaseRouteState {
             child: Column(
               children: [
                 Text(
-                  'Reset Password',
+                  'إعادة تعيين كلمة المرور',
                   style: Theme.of(context).primaryTextTheme.caption,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                      'Please enter your Email so we can help you to recover your password.',
+                      "الرجاء إدخال كلمة المرور حتى نتمكن من مساعدتك في استعادة كلمة المرور الخاصة بك.",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).primaryTextTheme.headline3),
                 ),
@@ -57,7 +58,8 @@ class _ResetPasswordScreenState extends BaseRouteState {
                       style: Theme.of(context).primaryTextTheme.headline6,
                       controller: _cNewPassword,
                       focusNode: _fNewPassword,
-                      decoration: InputDecoration(hintText: 'New Password'),
+                      decoration:
+                          InputDecoration(hintText: 'كلمة المرور الجديدة'),
                       onEditingComplete: () {
                         _fConfirmPassword.requestFocus();
                       },
@@ -73,7 +75,8 @@ class _ResetPasswordScreenState extends BaseRouteState {
                       style: Theme.of(context).primaryTextTheme.headline6,
                       controller: _cConfirmPassword,
                       focusNode: _fConfirmPassword,
-                      decoration: InputDecoration(hintText: 'Confirm Password'),
+                      decoration:
+                          InputDecoration(hintText: 'تأكيد كلمة المرور '),
                       onEditingComplete: () {
                         FocusScope.of(context).unfocus();
                       },
@@ -86,7 +89,7 @@ class _ResetPasswordScreenState extends BaseRouteState {
                         onPressed: () {
                           _changePassword();
                         },
-                        child: Text('Reset Password'))),
+                        child: Text("إعادة تعيين كلمة المرور"))),
               ],
             ),
           ),
@@ -127,6 +130,8 @@ class _ResetPasswordScreenState extends BaseRouteState {
                             o: widget.observer,
                           )),
                 );
+                Fluttertoast.showToast(
+                    msg: 'تم تغير كلمة المرور بنجاح. قم بتسجيل الدخول الان!');
                 setState(() {});
               } else {
                 hideLoader();

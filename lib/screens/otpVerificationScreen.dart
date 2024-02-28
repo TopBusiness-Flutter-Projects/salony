@@ -12,6 +12,7 @@ import 'package:app/screens/termsOfServicesScreen.dart';
 import 'package:app/widgets/bottomNavigationWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
@@ -63,13 +64,13 @@ class _OTPVerificationScreenState extends BaseRouteState {
                   child: Column(
                     children: [
                       Text(
-                        'Verifying OTP',
+                        "التحقق من كلمة المرور  (OTP)",
                         style: Theme.of(context).primaryTextTheme.caption,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Text(
-                          'Enter the verification code from the email we just sent you.',
+                          "أدخل رمز التحقق من هاتفك الذي أرسلناه إليك للتو.",
                           style: Theme.of(context).primaryTextTheme.headline3,
                         ),
                       ),
@@ -99,7 +100,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                             _cCode.text = code;
                             setState(() {});
                             FocusScope.of(context).requestFocus(FocusNode());
-                            _verifyForgotPasswordOtp();
+                            // _verifyForgotPasswordOtp();
+                            verifySmsCode(_cCode.text, context);
                           }
                         },
                       ),
@@ -109,9 +111,10 @@ class _OTPVerificationScreenState extends BaseRouteState {
                           margin: EdgeInsets.only(top: 10),
                           child: TextButton(
                               onPressed: () async {
-                                _verifyForgotPasswordOtp();
+                                verifySmsCode(_cCode.text, context);
+                                // _verifyForgotPasswordOtp();
                               },
-                              child: Text('Verify'))),
+                              child: Text('التحقق من كود'))),
                       Padding(
                           padding: const EdgeInsets.only(top: 30),
                           child: SizedBox(
@@ -120,8 +123,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                    'By tapping verification code above, you agree ',
+                                Text("بالنقر على رمز التحقق أعلاه، فإنك توافق",
                                     style: Theme.of(context)
                                         .primaryTextTheme
                                         .titleMedium),
@@ -129,7 +131,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('to the ',
+                                    Text("إلى",
                                         style: Theme.of(context)
                                             .primaryTextTheme
                                             .titleMedium),
@@ -147,7 +149,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                                         o: widget.observer)),
                                           );
                                         },
-                                        child: Text('Terms of Services,',
+                                        child: Text('شروط الخدمة،',
                                             style: Theme.of(context)
                                                 .primaryTextTheme
                                                 .subtitle2)),
@@ -165,11 +167,11 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                                         o: widget.observer)),
                                           );
                                         },
-                                        child: Text('  privacy policy',
+                                        child: Text('  سياسة الخصوصية',
                                             style: Theme.of(context)
                                                 .primaryTextTheme
                                                 .subtitle2)),
-                                    Text(' and',
+                                    Text(' و',
                                         style: Theme.of(context)
                                             .primaryTextTheme
                                             .titleMedium),
@@ -188,7 +190,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                                 o: widget.observer)),
                                       );
                                     },
-                                    child: Text(' cookies policy.',
+                                    child: Text(
+                                        ' اتفاقية ملفات تعريف الارتباط.',
                                         style: Theme.of(context)
                                             .primaryTextTheme
                                             .subtitle2))
@@ -206,13 +209,13 @@ class _OTPVerificationScreenState extends BaseRouteState {
                   child: Column(
                     children: [
                       Text(
-                        'Verifying Number',
+                        "رقم التحقق",
                         style: Theme.of(context).primaryTextTheme.caption,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Text(
-                          'Enter the verification code from the phone we just sent you.',
+                          "أدخل رمز التحقق من الهاتف الذي أرسلناه إليك للتو.",
                           style: Theme.of(context).primaryTextTheme.headline3,
                         ),
                       ),
@@ -254,8 +257,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                               },
                               child: Text(
                                   _seconds != 0
-                                      ? 'Resend code 0:$_seconds'
-                                      : 'Resend OTP',
+                                      ? 'إعادة إرسال رمز التحقق  0: $_seconds'
+                                      : 'إعادة إرسال رمز التحقق',
                                   style: Theme.of(context)
                                       .primaryTextTheme
                                       .headlineSmall))),
@@ -267,7 +270,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                               onPressed: () async {
                                 _checkSecurityPin();
                               },
-                              child: Text('Verify'))),
+                              child: Text('تأكيد'))),
                       Padding(
                           padding: const EdgeInsets.only(top: 30),
                           child: SizedBox(
@@ -276,8 +279,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                    'By tapping verification code above, you agree ',
+                                Text("بالنقر على رمز التحقق أعلاه، فإنك توافق",
                                     style: Theme.of(context)
                                         .primaryTextTheme
                                         .titleMedium),
@@ -285,7 +287,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('to the ',
+                                    Text('إلي ',
                                         style: Theme.of(context)
                                             .primaryTextTheme
                                             .titleMedium),
@@ -303,7 +305,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                                         o: widget.observer)),
                                           );
                                         },
-                                        child: Text('Terms of Services,',
+                                        child: Text('شروط الخدمة،',
                                             style: Theme.of(context)
                                                 .primaryTextTheme
                                                 .subtitle2)),
@@ -321,11 +323,11 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                                         o: widget.observer)),
                                           );
                                         },
-                                        child: Text('  privacy policy',
+                                        child: Text('  سياسة الخصوصية',
                                             style: Theme.of(context)
                                                 .primaryTextTheme
                                                 .subtitle2)),
-                                    Text(' and',
+                                    Text(' و',
                                         style: Theme.of(context)
                                             .primaryTextTheme
                                             .titleMedium),
@@ -344,7 +346,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                                 o: widget.observer)),
                                       );
                                     },
-                                    child: Text(' cookies policy.',
+                                    child: Text(
+                                        ' اتفاقية ملفات تعريف الارتباط.',
                                         style: Theme.of(context)
                                             .primaryTextTheme
                                             .subtitle2))
@@ -461,7 +464,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
     try {
       FirebaseAuth _auth = FirebaseAuth.instance;
       await _auth.verifyPhoneNumber(
-        phoneNumber: '+92$mobileNumber',
+        phoneNumber: '+2$mobileNumber',
         timeout: Duration(seconds: 60),
         verificationCompleted: (AuthCredential authCredential) async {
           setState(() {});
@@ -492,41 +495,63 @@ class _OTPVerificationScreenState extends BaseRouteState {
     }
   }
 
-  _verifyForgotPasswordOtp() async {
-    try {
-      if (_cCode.text.length == 6) {
-        showOnlyLoaderDialog();
-        await apiHelper!
-            .verifyOtpForgotPassword(phoneNumberOrEmail, _cCode.text)
-            .then((result) {
-          if (result != null) {
-            if (result.status == "1") {
-              hideLoader();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) => ResetPasswordScreen(
-                          phoneNumberOrEmail,
-                          a: widget.analytics,
-                          o: widget.observer,
-                        )),
-              );
-            } else {
-              hideLoader();
-              showSnackBar(
-                  key: _scaffoldKey, snackBarMessage: '${result.message}');
-              setState(() {});
-            }
-          }
-        });
-      } else {
-        showSnackBar(
-            key: _scaffoldKey, snackBarMessage: 'Please enter 6 digit OTP');
-      }
-    } catch (e) {
-      print(
-          "Exception - otpVerificationScreen.dart - _verifyForgotPasswordOtp():" +
-              e.toString());
-    }
+  // _verifyForgotPasswordOtp() async {
+  //   try {
+  //     if (_cCode.text.length == 6) {
+  //       showOnlyLoaderDialog();
+  //       // if(){}
+  //       await apiHelper!
+  //           .verifyOtpForgotPassword(phoneNumberOrEmail, _cCode.text)
+  //           .then((result) {
+  //         if (result != null) {
+  //           if (result.status == "1") {
+  //             hideLoader();
+  //             Navigator.of(context).push(MaterialPageRoute(
+  //                 builder: (context) => ResetPasswordScreen(
+  //                       phoneNumberOrEmail,
+  //                       a: widget.analytics,
+  //                       o: widget.observer,
+  //                     )));
+  //           } else {
+  //             hideLoader();
+  //             showSnackBar(
+  //                 key: _scaffoldKey, snackBarMessage: '${result.message}');
+  //             setState(() {});
+  //           }
+  //         }
+  //       });
+  //     } else {
+  //       showSnackBar(
+  //           key: _scaffoldKey, snackBarMessage: 'Please enter 6 digit OTP');
+  //     }
+  //   } catch (e) {
+  //     print(
+  //         "Exception - otpVerificationScreen.dart - _verifyForgotPasswordOtp():" +
+  //             e.toString());
+  //   }
+  // }
+
+  verifySmsCode(String smsCode, BuildContext context) async {
+    print(verificationId);
+    showOnlyLoaderDialog();
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: verificationId!,
+      smsCode: smsCode,
+    );
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+      setState(() {});
+      hideLoader();
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ResetPasswordScreen(
+                phoneNumberOrEmail,
+                a: widget.analytics,
+                o: widget.observer,
+              )));
+    }).catchError((error) {
+      hideLoader();
+      Fluttertoast.showToast(msg: error.toString());
+      setState(() {});
+    });
   }
 
   _verifyOtp(String? _status) async {

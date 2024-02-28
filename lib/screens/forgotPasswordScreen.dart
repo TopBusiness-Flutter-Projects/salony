@@ -1,6 +1,7 @@
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/screens/otpVerificationScreen.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -82,6 +83,40 @@ class _ForgotPasswordScreenState extends BaseRouteState {
     super.initState();
   }
 
+  _sendOTP(String phoneNumber) async {
+    print('....phone....:+966$phoneNumber');
+    try {
+      print('done....phone....:+966$phoneNumber');
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '+2$phoneNumber',
+        verificationCompleted: (PhoneAuthCredential credential) {},
+        verificationFailed: (FirebaseAuthException e) {
+          hideLoader();
+          showSnackBar(
+              key: _scaffoldKey,
+              snackBarMessage: AppLocalizations.of(context)!
+                  .txt_please_try_again_after_sometime);
+        },
+        codeSent: (String verificationId, int? resendToken) async {
+          hideLoader();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => OTPVerificationScreen(
+                      a: widget.analytics,
+                      o: widget.observer,
+                      verificationId: verificationId,
+                      phoneNumberOrEmail: phoneNumber,
+                      screenId: 2,
+                    )),
+          );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+    } catch (e) {
+      print("Exception - OTP - _sendOTP():" + e.toString());
+    }
+  }
+
   _forgotPassword() async {
     try {
       if (_cPhone.text.isNotEmpty) {
@@ -92,15 +127,16 @@ class _ForgotPasswordScreenState extends BaseRouteState {
             if (result != null) {
               if (result.status == "1") {
                 hideLoader();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => OTPVerificationScreen(
-                            a: widget.analytics,
-                            o: widget.observer,
-                            screenId: 2,
-                            phoneNumberOrEmail: _cPhone.text,
-                          )),
-                );
+                _sendOTP(_cPhone.text);
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //       builder: (context) => OTPVerificationScreen(
+                //             a: widget.analytics,
+                //             o: widget.observer,
+                //             screenId: 2,
+                //             phoneNumberOrEmail: _cPhone.text,
+                //           )),
+                // );
 
                 setState(() {});
               } else {
