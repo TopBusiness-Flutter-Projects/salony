@@ -10,11 +10,18 @@ class PaymentGateway {
 
   PaymentGateway.fromJson(Map<String, dynamic> json) {
     try {
-      razorpay = json['razorpay'] != null ? RazorpayMethod.fromJson(json['razorpay']) : null;
-      stripe = json['stripe'] != null ? StripeMethod.fromJson(json['stripe']) : null;
-      paystack = json['paystack'] != null ? PayStackMethod.fromJson(json['paystack']) : null;
+      razorpay = json['razorpay'] != null
+          ? RazorpayMethod.fromJson(json['razorpay'])
+          : null;
+      stripe =
+          json['stripe'] != null ? StripeMethod.fromJson(json['stripe']) : null;
+      paystack = json['paystack'] != null
+          ? PayStackMethod.fromJson(json['paystack'])
+          : null;
     } catch (e) {
-      print("Exception - paymentGatewayModel.dart - PaymentGateway.fromJson():" + e.toString());
+      print(
+          "Exception - paymentGatewayModel.dart - PaymentGateway.fromJson():" +
+              e.toString());
     }
   }
 }
