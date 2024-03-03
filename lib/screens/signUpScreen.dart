@@ -531,7 +531,7 @@ class _SignUpScreenState extends BaseRouteState {
     try {
       print('done....phone....:+966$phoneNumber');
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+2$phoneNumber',
+        phoneNumber: '+966$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();

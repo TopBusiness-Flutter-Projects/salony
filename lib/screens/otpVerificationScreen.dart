@@ -464,7 +464,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
     try {
       FirebaseAuth _auth = FirebaseAuth.instance;
       await _auth.verifyPhoneNumber(
-        phoneNumber: '+2$mobileNumber',
+        phoneNumber: '+966$mobileNumber',
         timeout: Duration(seconds: 60),
         verificationCompleted: (AuthCredential authCredential) async {
           setState(() {});
