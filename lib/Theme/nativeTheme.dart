@@ -169,6 +169,7 @@ ThemeData nativeTheme() {
       selectedIconTheme: IconThemeData(color: Color(0xFFF36D86), size: 26),
       unselectedIconTheme: IconThemeData(color: Color(0xFF898A8D), size: 26),
     ),
+    useMaterial3: false,
     appBarTheme: AppBarTheme(
       color: Colors.transparent,
       elevation: 0,

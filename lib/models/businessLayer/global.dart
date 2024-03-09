@@ -10,8 +10,8 @@ String appName = 'Salony';
 String appShareMessage =
     "I'm inviting you to use $appName, a simple and easy app to find saloon services and products near by your location. Here's my code [CODE] - jusy enter it while registration.";
 String appVersion = '1.0';
-String baseUrl = 'https://salon.motaweron.com/api/';
-String baseUrlForImage = 'https://salon.motaweron.com/';
+String baseUrl = 'https://salony.topbusiness.io/api/';
+String baseUrlForImage = 'https://salony.topbusiness.io/';
 Currency currency = new Currency();
 late String currentLocation;
 String googleAPIKey = "place your google key here.";

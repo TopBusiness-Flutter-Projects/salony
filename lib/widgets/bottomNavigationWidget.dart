@@ -49,13 +49,14 @@ class _BottomNavigationWidgetState extends BaseRouteState {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: BottomAppBar(
-            notchMargin: 2,
+            notchMargin: 0,
+            color: Colors.transparent,
             shape: CircularNotchedRectangle(),
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15), topRight: Radius.circular(15)),
               child: SizedBox(
-                height: 60,
+                // height: 40,
                 child: BottomNavigationBar(
                   type: BottomNavigationBarType.fixed,
                   currentIndex: _currentIndex!,

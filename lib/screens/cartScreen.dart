@@ -379,68 +379,69 @@ class _CartScreenState extends BaseRouteState {
                       )
                 : _shimmer(),
             bottomNavigationBar: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: BottomAppBar(
-                  color: Color(0xFF171D2C),
-                  child: SizedBox(
-                    height: 60,
-                    width: double.infinity,
-                    child: _isDataLoaded
-                        ? _cartList != null && _cartList!.cart_items.length > 0
-                            ? ListTile(
-                                tileColor: Colors.transparent,
-                                title: RichText(
-                                    text: TextSpan(
+                padding: const EdgeInsets.only(top: 10),
+                child: SizedBox(
+                  height: 60,
+                  width: double.infinity,
+                  child: _isDataLoaded
+                      ? _cartList != null && _cartList!.cart_items.length > 0
+                          ? ListTile(
+                              tileColor: Colors.transparent,
+                              title: RichText(
+                                  text: TextSpan(
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .titleMedium,
+                                      children: [
+                                    TextSpan(text: 'Total Amount  '),
+                                    TextSpan(
+                                        text:
+                                            '${global.currency.currency_sign}${_cartList!.total_price}',
                                         style: Theme.of(context)
                                             .primaryTextTheme
-                                            .titleMedium,
-                                        children: [
-                                      TextSpan(text: 'Total Amount  '),
-                                      TextSpan(
-                                          text:
-                                              '${global.currency.currency_sign}${_cartList!.total_price}',
-                                          style: Theme.of(context)
-                                              .primaryTextTheme
-                                              .headlineSmall)
-                                    ])),
-                                trailing: ElevatedButton(
-                                  onPressed: () async {
+                                            .headlineSmall)
+                                  ])),
+                              trailing: ElevatedButton(
+                                onPressed: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PaymentGatewayScreen(
+                                                cartList: _cartList,
+                                                a: widget.analytics,
+                                                o: widget.observer)),
+                                  );
+                                },
+                                child: Text(
+                                    AppLocalizations.of(context)!.lbl_checkout),
+                              ),
+                            )
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              PaymentGatewayScreen(
-                                                  cartList: _cartList,
+                                              ProductListScreen(
                                                   a: widget.analytics,
                                                   o: widget.observer)),
                                     );
                                   },
-                                  child: Text(AppLocalizations.of(context)!
-                                      .lbl_checkout),
-                                ),
-                              )
-                            : Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductListScreen(
-                                                    a: widget.analytics,
-                                                    o: widget.observer)),
-                                      );
-                                    },
-                                    child: Text(AppLocalizations.of(context)!
-                                        .lbl_shop_now),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.lbl_shop_now,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ],
-                              )
-                        : SizedBox(),
-                  )),
-            )));
+                                ),
+                              ],
+                            )
+                      : SizedBox(),
+                ))));
   }
 
   @override
