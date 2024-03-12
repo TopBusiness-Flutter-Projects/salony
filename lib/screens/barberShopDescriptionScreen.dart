@@ -17,6 +17,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../models/businessLayer/global.dart';
+
+//! details of salony
 class BarberShopDescriptionScreen extends BaseRoute {
   final int? vendorId;
 
@@ -586,21 +589,21 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                           : Alignment.centerLeft,
                       child: _products())),
             ),
-            ListTile(
-              title: Text(
-                  AppLocalizations.of(context)!.txt_similar_barbershop_nearby,
-                  style: Theme.of(context).primaryTextTheme.titleSmall),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 20.0, left: 10),
-              child: SizedBox(
-                  height: 150,
-                  child: Align(
-                      alignment: global.isRTL
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                      child: _similarBarberShop())),
-            ),
+            // ListTile(
+            //   title: Text(
+            //       AppLocalizations.of(context)!.txt_similar_barbershop_nearby,
+            //       style: Theme.of(context).primaryTextTheme.titleSmall),
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.only(bottom: 20.0, left: 10),
+            //   child: SizedBox(
+            //       height: 150,
+            //       child: Align(
+            //           alignment: global.isRTL
+            //               ? Alignment.centerRight
+            //               : Alignment.centerLeft,
+            //           child: _similarBarberShop())),
+            // ),
             ListTile(
               title: Text(AppLocalizations.of(context)!.lbl_barbers,
                   style: Theme.of(context).primaryTextTheme.titleSmall),
@@ -1342,15 +1345,37 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                         },
                         backgroundColor: Colors.transparent,
                         collapsedBackgroundColor: Colors.transparent,
-                        tilePadding: EdgeInsets.only(left: 16, right: 27),
+                        tilePadding: EdgeInsets.only(left: 16, right: 5),
                         textColor: Color(0xFFFEDAA3A),
                         collapsedTextColor: Color(0xFFF543520),
                         iconColor: Color(0xFF565656),
                         collapsedIconColor: Color(0xFF565656),
-                        title: Text(
-                            _barberShopDesc!.services[index].service_name!,
-                            style:
-                                Theme.of(context).primaryTextTheme.titleSmall),
+                        title: Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  global.baseUrlForImage +
+                                      (_barberShopDesc!
+                                              .services[index].service_image ??
+                                          "")),
+                              onBackgroundImageError:
+                                  (exception, stackTrace) {},
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Text(
+                                    _barberShopDesc!
+                                        .services[index].service_name!,
+                                    maxLines: 1,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .titleSmall),
+                              ),
+                            ),
+                          ],
+                        ),
                         children: [
                           ListView.builder(
                               shrinkWrap: true,
@@ -1365,6 +1390,21 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                                 return Column(
                                   children: [
                                     ListTile(
+                                        contentPadding:
+                                            EdgeInsets.symmetric(vertical: 8),
+                                        leading: Image.network(
+                                          global.baseUrlForImage +
+                                              (_barberShopDesc!
+                                                      .services[index]
+                                                      .service_type[i]
+                                                      .varient_image ??
+                                                  ""),
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Image.asset(
+                                                'assets/images/logo.png');
+                                          },
+                                        ),
                                         visualDensity:
                                             VisualDensity(vertical: -3),
                                         tileColor: Colors.white,
@@ -1522,124 +1562,124 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
     );
   }
 
-  Widget _similarBarberShop() {
-    return _barberShopDesc!.similar_salons.length > 0
-        ? ListView.builder(
-            itemCount: _barberShopDesc!.similar_salons.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => BarberShopDescriptionScreen(
-                            _barberShopDesc!.similar_salons[index].vendor_id,
-                            a: widget.analytics,
-                            o: widget.observer)),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(left: 6, right: 6, bottom: 6),
-                  child: Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: global.baseUrlForImage +
-                              _barberShopDesc!
-                                  .similar_salons[index].vendor_logo!,
-                          imageBuilder: (context, imageProvider) => Container(
-                            width: 180,
-                            height: 80,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                    fit: BoxFit.cover, image: imageProvider)),
-                          ),
-                          placeholder: (context, url) =>
-                              Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
-                        SizedBox(
-                          width: 180,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: 7, right: 7, bottom: 5, top: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                      '${_barberShopDesc!.similar_salons[index].vendor_name}',
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .bodyLarge,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                        '${_barberShopDesc!.similar_salons[index].rating}',
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .bodyLarge),
-                                    Icon(Icons.star,
-                                        size: 13, color: Colors.yellow[600])
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 180,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 7),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.location_on_outlined,
-                                  size: 18,
-                                ),
-                                SizedBox(
-                                  width: 130,
-                                  child: Text(
-                                    '${_barberShopDesc!.similar_salons[index].vendor_loc}',
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .bodyMedium,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            })
-        : Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppLocalizations.of(context)!.txt_nothing_is_yet_to_see_here,
-                style: Theme.of(context).primaryTextTheme.titleMedium,
-              ),
-            ),
-          );
-  }
+  // Widget _similarBarberShop() {
+  //   return _barberShopDesc!.similar_salons.length > 0
+  //       ? ListView.builder(
+  //           itemCount: _barberShopDesc!.similar_salons.length,
+  //           shrinkWrap: true,
+  //           scrollDirection: Axis.horizontal,
+  //           itemBuilder: (BuildContext context, int index) {
+  //             return GestureDetector(
+  //               onTap: () {
+  //                 Navigator.of(context).push(
+  //                   MaterialPageRoute(
+  //                       builder: (context) => BarberShopDescriptionScreen(
+  //                           _barberShopDesc!.similar_salons[index].vendor_id,
+  //                           a: widget.analytics,
+  //                           o: widget.observer)),
+  //                 );
+  //               },
+  //               child: Padding(
+  //                 padding: EdgeInsets.only(left: 6, right: 6, bottom: 6),
+  //                 child: Card(
+  //                   child: Column(
+  //                     mainAxisAlignment: MainAxisAlignment.start,
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       CachedNetworkImage(
+  //                         imageUrl: global.baseUrlForImage +
+  //                             _barberShopDesc!
+  //                                 .similar_salons[index].vendor_logo!,
+  //                         imageBuilder: (context, imageProvider) => Container(
+  //                           width: 180,
+  //                           height: 80,
+  //                           decoration: BoxDecoration(
+  //                               borderRadius: BorderRadius.circular(10),
+  //                               image: DecorationImage(
+  //                                   fit: BoxFit.cover, image: imageProvider)),
+  //                         ),
+  //                         placeholder: (context, url) =>
+  //                             Center(child: CircularProgressIndicator()),
+  //                         errorWidget: (context, url, error) =>
+  //                             Icon(Icons.error),
+  //                       ),
+  //                       SizedBox(
+  //                         width: 180,
+  //                         child: Padding(
+  //                           padding: EdgeInsets.only(
+  //                               left: 7, right: 7, bottom: 5, top: 5),
+  //                           child: Row(
+  //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                             children: [
+  //                               Expanded(
+  //                                 child: Text(
+  //                                     '${_barberShopDesc!.similar_salons[index].vendor_name}',
+  //                                     style: Theme.of(context)
+  //                                         .primaryTextTheme
+  //                                         .bodyLarge,
+  //                                     maxLines: 1,
+  //                                     overflow: TextOverflow.ellipsis),
+  //                               ),
+  //                               Row(
+  //                                 mainAxisSize: MainAxisSize.min,
+  //                                 children: [
+  //                                   Text(
+  //                                       '${_barberShopDesc!.similar_salons[index].rating}',
+  //                                       style: Theme.of(context)
+  //                                           .primaryTextTheme
+  //                                           .bodyLarge),
+  //                                   Icon(Icons.star,
+  //                                       size: 13, color: Colors.yellow[600])
+  //                                 ],
+  //                               )
+  //                             ],
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       SizedBox(
+  //                         width: 180,
+  //                         child: Padding(
+  //                           padding: const EdgeInsets.only(left: 7),
+  //                           child: Row(
+  //                             mainAxisAlignment: MainAxisAlignment.start,
+  //                             crossAxisAlignment: CrossAxisAlignment.start,
+  //                             mainAxisSize: MainAxisSize.min,
+  //                             children: [
+  //                               Icon(
+  //                                 Icons.location_on_outlined,
+  //                                 size: 18,
+  //                               ),
+  //                               SizedBox(
+  //                                 width: 130,
+  //                                 child: Text(
+  //                                   '${_barberShopDesc!.similar_salons[index].vendor_loc}',
+  //                                   overflow: TextOverflow.ellipsis,
+  //                                   style: Theme.of(context)
+  //                                       .primaryTextTheme
+  //                                       .bodyMedium,
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             );
+  //           })
+  //       : Padding(
+  //           padding: const EdgeInsets.only(left: 8),
+  //           child: Align(
+  //             alignment: Alignment.centerLeft,
+  //             child: Text(
+  //               AppLocalizations.of(context)!.txt_nothing_is_yet_to_see_here,
+  //               style: Theme.of(context).primaryTextTheme.titleMedium,
+  //             ),
+  //           ),
+  //         );
+  // }
 
   void _tabControllerListener() {
     setState(() {

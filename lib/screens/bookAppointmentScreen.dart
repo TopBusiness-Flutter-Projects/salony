@@ -874,15 +874,32 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 initiallyExpanded: true,
                 backgroundColor: Colors.transparent,
                 collapsedBackgroundColor: Colors.transparent,
-                tilePadding: EdgeInsets.only(left: 16, right: 27),
+                tilePadding: EdgeInsets.only(left: 16, right: 5),
                 textColor: Color(0xFFFEDAA3A),
                 collapsedTextColor: Color(0xFFF543520),
                 iconColor: Color(0xFF565656),
                 collapsedIconColor: Color(0xFF565656),
                 childrenPadding: EdgeInsets.all(0),
-                title: Text(
-                    "${_bookingAppointment!.services[index].service_name}",
-                    style: Theme.of(context).primaryTextTheme.titleSmall),
+                title: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(global.baseUrlForImage +
+                          (_bookingAppointment!.services[index].service_image ??
+                              "")),
+                      onBackgroundImageError: (exception, stackTrace) {},
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Text(
+                            "${_bookingAppointment!.services[index].service_name}",
+                            maxLines: 1,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleSmall),
+                      ),
+                    ),
+                  ],
+                ),
                 children: [
                   ListView.builder(
                       shrinkWrap: true,
@@ -900,6 +917,19 @@ class _BookAppointmentScreenState extends BaseRouteState {
                               child: SizedBox(
                                 height: 65,
                                 child: ListTile(
+                                  leading: Image.network(
+                                    global.baseUrlForImage +
+                                        (_bookingAppointment!
+                                                .services[index]
+                                                .service_type[i]
+                                                .varient_image ??
+                                            ""),
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'assets/images/logo.png',
+                                      );
+                                    },
+                                  ),
                                   contentPadding: EdgeInsets.all(2),
                                   tileColor: Colors.white,
                                   shape: RoundedRectangleBorder(
