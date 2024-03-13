@@ -1,5 +1,3 @@
-
-
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/models/popularBarbersModel.dart';

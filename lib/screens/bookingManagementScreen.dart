@@ -623,42 +623,45 @@ class _BookingManagementScreenState extends BaseRouteState {
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: 5,
+            physics: const BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        height: 60,
-                        child: Card(margin: EdgeInsets.only(top: 5, bottom: 5)),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width - 220,
-                            height: 30,
-                            child: Card(
-                                margin: EdgeInsets.only(
-                                    top: 5, bottom: 5, left: 5)),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width - 120,
-                            height: 30,
-                            child: Card(
-                                margin: EdgeInsets.only(
-                                    top: 5, bottom: 5, left: 5)),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25,
-                  )
-                ],
+              return Container(
+                height: 100,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 40,
+                          height: 60,
+                          child:
+                              Card(margin: EdgeInsets.only(top: 5, bottom: 5)),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width - 220,
+                              height: 30,
+                              child: Card(
+                                  margin: EdgeInsets.only(
+                                      top: 5, bottom: 5, left: 5)),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width - 120,
+                              height: 30,
+                              child: Card(
+                                  margin: EdgeInsets.only(
+                                      top: 5, bottom: 5, left: 5)),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 25)
+                  ],
+                ),
               );
             }),
       ),

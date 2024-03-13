@@ -9,7 +9,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductsOfMainScreen extends BaseRoute {
@@ -75,41 +74,6 @@ class _ProductListScreenState extends BaseRouteState {
                     );
                   },
                   icon: Icon(Icons.search)),
-              // global.user?.id == null
-              //     ? SizedBox()
-              //     : _isDataLoaded
-              //         ? Container(
-              //             margin: EdgeInsets.all(5),
-              //             padding:EdgeInsets.symmetric(horizontal:  10),
-              //             child: badges.Badge(
-              //               badgeStyle: badges.BadgeStyle(
-              //                 padding: EdgeInsets.all(7),
-              //                 badgeColor: Theme.of(context).primaryColor,
-              //               ),
-              //               showBadge: true,
-              //               badgeContent: Text(
-              //                 '${global.user?.cart_count ?? 0}',
-              //                 style:
-              //                     TextStyle(color: Colors.white, fontSize: 15),
-              //               ),
-              //               child: GestureDetector(
-              //                 onTap: () {
-              //                   Navigator.of(context).push(MaterialPageRoute(
-              //                       builder: (context) => CartScreen(
-              //                             a: widget.analytics,
-              //                             o: widget.observer,
-              //                             screenId: 1,
-              //                           )));
-              //                 },
-              //                 child: Icon(
-              //                   Icons.shopping_cart_outlined,
-              //                   size: 25,
-              //                   color: Colors.black,
-              //                 ),
-              //               ),
-              //             ),
-              //           )
-              //         : SizedBox(),
             ],
           ),
           resizeToAvoidBottomInset: true,
@@ -126,7 +90,9 @@ class _ProductListScreenState extends BaseRouteState {
                         style: Theme.of(context).primaryTextTheme.titleSmall,
                       ),
                     )
-              : _shimmer()),
+              : Container(
+                  child: Center(child: CircularProgressIndicator()),
+                )),
     );
   }
 
@@ -657,10 +623,13 @@ class _ProductListScreenState extends BaseRouteState {
               highlightColor: Colors.grey[100]!,
               child: GridView.count(
                 crossAxisSpacing: 8,
+                childAspectRatio: 1 / 1,
                 crossAxisCount: 2,
                 children: List.generate(
                     8,
                     (index) => SizedBox(
+                          height: 100,
+                          width: 200,
                           child: Card(
                               margin:
                                   EdgeInsets.only(top: 5, bottom: 5, left: 5)),

@@ -29,7 +29,7 @@ class _AddRatingScreenState extends BaseRouteState {
     return sc(
       Scaffold(
         appBar: AppBar(
-          title: Text('Rate Your Experience'),
+          title: Text('قم بتقييم تجربتك'),
         ),
         body: SingleChildScrollView(
           child: Form(
@@ -43,7 +43,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Salon Name',
+                        'اسم الصالون',
                         style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
@@ -59,7 +59,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Barber Name',
+                        'اسم الموظف',
                         style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
@@ -75,7 +75,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Cart Id',
+                        'بطاقة تعريف',
                         style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
@@ -91,7 +91,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Total amount',
+                        'التكلفة الكلية',
                         style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
                       Text(
@@ -104,7 +104,7 @@ class _AddRatingScreenState extends BaseRouteState {
                 SizedBox(
                   height: 50,
                 ),
-                Text("Rate Your Salon",
+                Text("قيم صالونك",
                     style: Theme.of(context).primaryTextTheme.headline6),
                 SizedBox(
                   height: 10,
@@ -136,7 +136,7 @@ class _AddRatingScreenState extends BaseRouteState {
                   child: TextFormField(
                     validator: (text) {
                       if (text!.isEmpty || text == '') {
-                        return 'Write review';
+                        return 'اكتب تقيمك';
                       }
                       return null;
                     },
@@ -145,7 +145,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     focusNode: _fCommentShop,
                     style: Theme.of(context).primaryTextTheme.bodyText1,
                     decoration: InputDecoration(
-                      hintText: 'Comment',
+                      hintText: 'تعليقك',
                       contentPadding:
                           EdgeInsets.only(top: 10, left: 10, right: 10),
                     ),
@@ -154,7 +154,7 @@ class _AddRatingScreenState extends BaseRouteState {
                 SizedBox(
                   height: 50,
                 ),
-                Text("Rate Your Barber",
+                Text("قيم الموظف",
                     style: Theme.of(context).primaryTextTheme.headline6),
                 SizedBox(
                   height: 10,
@@ -186,7 +186,7 @@ class _AddRatingScreenState extends BaseRouteState {
                   child: TextFormField(
                     validator: (text) {
                       if (text!.isEmpty || text == '') {
-                        return 'Write review';
+                        return 'اكتب تقيمك';
                       }
                       return null;
                     },
@@ -195,7 +195,7 @@ class _AddRatingScreenState extends BaseRouteState {
                     focusNode: _fCommentStaff,
                     style: Theme.of(context).primaryTextTheme.bodyText1,
                     decoration: InputDecoration(
-                      hintText: 'Comment',
+                      hintText: 'تعليقك',
                       contentPadding:
                           EdgeInsets.only(top: 10, left: 10, right: 10),
                     ),
@@ -238,17 +238,15 @@ class _AddRatingScreenState extends BaseRouteState {
                         Navigator.of(context).pop();
                       } else if (_cCommentShop.text.isEmpty) {
                         showSnackBar(
-                            snackBarMessage:
-                                'Please write your review for salon');
+                            snackBarMessage: 'من فضلك اكتب رأيك عن الصالون');
                       } else if (_cCommentStaff.text.isEmpty) {
                         showSnackBar(
-                            snackBarMessage:
-                                'Please write your review for salon staff');
+                            snackBarMessage: 'يرجى كتابة رأيك لموظفي الصالون');
                       }
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Submit Rating'),
+                      child: Text('إرسال المراجعة'),
                     )),
             SizedBox(),
           ],
