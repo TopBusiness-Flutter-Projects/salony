@@ -507,24 +507,24 @@ class _SignInScreenState extends BaseRouteState {
                 global.user = result.recordList;
                 global.sp.setString(
                     "currentUser", json.encode(global.user!.toJson()));
-                await getCurrentPosition().then((_) async {
-                  if (global.lat != null && global.lng != null) {
-                    hideLoader();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => BottomNavigationWidget(
-                                a: widget.analytics,
-                                o: widget.observer,
-                              )),
-                    );
-                  } else {
-                    hideLoader();
-                    showSnackBar(
-                        key: _scaffoldKey,
-                        snackBarMessage: AppLocalizations.of(context)!
-                            .txt_please_enablet_location_permission_to_use_app);
-                  }
-                });
+                hideLoader();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => BottomNavigationWidget(
+                            a: widget.analytics,
+                            o: widget.observer,
+                          )),
+                );
+                // await getCurrentPosition().then((_) async {
+                //   if (global.lat != null && global.lng != null) {
+                //   } else {
+                //     hideLoader();
+                //     showSnackBar(
+                //         key: _scaffoldKey,
+                //         snackBarMessage: AppLocalizations.of(context)!
+                //             .txt_please_enablet_location_permission_to_use_app);
+                //   }
+                // });
               } else {
                 hideLoader();
                 showSnackBar(
