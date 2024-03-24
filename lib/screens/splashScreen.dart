@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
-
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/models/userModel.dart';
@@ -10,7 +9,6 @@ import 'package:app/screens/introScreen.dart';
 import 'package:app/widgets/bottomNavigationWidget.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../models/businessLayer/shared_prefrence.dart';
@@ -61,13 +59,6 @@ class _SplashScreenState extends BaseRouteState {
                       'assets/images/logo.png',
                       width: MediaQuery.of(context).size.width / 1.8,
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(top: 20),
-                    //   child: Text(
-                    //     AppLocalizations.of(context)!.lbl_gofresha,
-                    //     style: TextStyle(color: Colors.white, fontSize: 22),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -76,25 +67,6 @@ class _SplashScreenState extends BaseRouteState {
               padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
               child: Align(
                 alignment: Alignment.bottomCenter,
-                // child: RichText(
-                //     textAlign: TextAlign.center,
-                //     text: TextSpan(
-                //         style: TextStyle(color: Colors.white, fontSize: 18),
-                //         children: [
-                //           TextSpan(
-                //               text:
-                //                   AppLocalizations.of(context)!.txt_welcome_to),
-                //           TextSpan(
-                //             text: AppLocalizations.of(context)!.lbl_gofresha,
-                //             style: TextStyle(
-                //                 color: Theme.of(context).primaryColor,
-                //                 fontSize: 18),
-                //           ),
-                //           TextSpan(
-                //               text: AppLocalizations.of(context)!.txt_app,
-                //               style:
-                //                   TextStyle(color: Colors.white, fontSize: 18))
-                //         ])),
                 child: Image.asset('assets/images/top.png',
                     width: MediaQuery.of(context).size.width / 2.5),
               ),
@@ -144,20 +116,20 @@ class _SplashScreenState extends BaseRouteState {
           print('+++++++++++ :: $myCartCount');
 
           await getCurrentPosition().then((_) async {
-            if (global.lat != null && global.lng != null) {
-              setState(() {});
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => BottomNavigationWidget(
-                        a: widget.analytics,
-                        o: widget.observer,
-                      )));
-            } else {
-              hideLoader();
-              showSnackBar(
-                  key: _scaffoldKey,
-                  snackBarMessage:
-                      'Please enable location permission to use this App');
-            }
+            // if (global.lat != null && global.lng != null) {
+            setState(() {});
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BottomNavigationWidget(
+                      a: widget.analytics,
+                      o: widget.observer,
+                    )));
+            // } else {
+            //   hideLoader();
+            //   showSnackBar(
+            //       key: _scaffoldKey,
+            //       snackBarMessage:
+            //           'Please enable location permission to use this App');
+            // }
           });
         } else {
           await getCurrentPosition();

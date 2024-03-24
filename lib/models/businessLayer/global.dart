@@ -14,7 +14,7 @@ String baseUrl = 'https://salony.topbusiness.io/api/';
 String baseUrlForImage = 'https://salony.topbusiness.io/';
 Currency currency = new Currency();
 late String currentLocation;
-String googleAPIKey = "place your google key here.";
+String googleAPIKey = "AIzaSyDq0ZFr83uRDmH_kz457gYpk_Y2a200hyg";
 bool isRTL = false;
 String? languageCode;
 String? lat;

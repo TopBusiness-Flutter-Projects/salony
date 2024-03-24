@@ -571,22 +571,22 @@ class _OTPVerificationScreenState extends BaseRouteState {
                     "currentUser", json.encode(global.user!.toJson()));
 
                 await getCurrentPosition().then((_) async {
-                  if (global.lat != null && global.lng != null) {
-                    hideLoader();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => BottomNavigationWidget(
-                                a: widget.analytics,
-                                o: widget.observer,
-                              )),
-                    );
-                  } else {
-                    hideLoader();
-                    showSnackBar(
-                        key: _scaffoldKey,
-                        snackBarMessage:
-                            'Please enable location permission to use this App');
-                  }
+                  // if (global.lat != null && global.lng != null) {
+                  hideLoader();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => BottomNavigationWidget(
+                              a: widget.analytics,
+                              o: widget.observer,
+                            )),
+                  );
+                  // } else {
+                  //   hideLoader();
+                  //   showSnackBar(
+                  //       key: _scaffoldKey,
+                  //       snackBarMessage:
+                  //           'Please enable location permission to use this App');
+                  // }
                 });
               } else {
                 hideLoader();
@@ -610,20 +610,20 @@ class _OTPVerificationScreenState extends BaseRouteState {
                     "currentUser", json.encode(global.user!.toJson()));
 
                 await getCurrentPosition().then((_) async {
-                  if (global.lat != null && global.lng != null) {
-                    hideLoader();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => ExploreScreen(
-                              a: widget.analytics, o: widget.observer)),
-                    );
-                  } else {
-                    hideLoader();
-                    showSnackBar(
-                        key: _scaffoldKey,
-                        snackBarMessage:
-                            'Please enable location permission to use this App');
-                  }
+                  // if (global.lat != null && global.lng != null) {
+                  hideLoader();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => ExploreScreen(
+                            a: widget.analytics, o: widget.observer)),
+                  );
+                  // } else {
+                  //   hideLoader();
+                  //   showSnackBar(
+                  //       key: _scaffoldKey,
+                  //       snackBarMessage:
+                  //           'Please enable location permission to use this App');
+                  // }
                 });
               } else {
                 hideLoader();

@@ -68,7 +68,7 @@ class _IntroScreenState extends BaseRouteState {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            bottom:        MediaQuery.of(context).size.width/1.5),
+                            bottom: MediaQuery.of(context).size.width / 1.5),
                         child: Align(
                           alignment: Alignment.bottomCenter,
                           child: DotsIndicator(
@@ -105,8 +105,7 @@ class _IntroScreenState extends BaseRouteState {
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(30),
                                         topRight: Radius.circular(30))),
-                                height:
-                                    MediaQuery.of(context).size.width/1.5,
+                                height: MediaQuery.of(context).size.width / 1.5,
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   mainAxisAlignment:
@@ -135,8 +134,7 @@ class _IntroScreenState extends BaseRouteState {
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w100,
-                                            fontFamily: 'cairo'
-                                        ),
+                                            fontFamily: 'cairo'),
                                       ),
                                     ),
                                     index == 0 || index == 1
@@ -174,7 +172,8 @@ class _IntroScreenState extends BaseRouteState {
                                                     style: TextStyle(
                                                       fontSize: 18,
                                                       fontFamily: 'Cairo',
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                 ),
@@ -200,16 +199,16 @@ class _IntroScreenState extends BaseRouteState {
                                                               )),
                                                     );
                                                   },
-                                                  child: Text(
-                                                    'تخطي',
-                                                    style: TextStyle(
-                                                      color: Color(0xFF515151),
-                                                      fontSize: 15,
-                                                      fontFamily: 'Cairo',
-                                                      fontWeight: FontWeight.w600,
-                                                      height: 0.10,
-                                                    )
-                                                  ))
+                                                  child: Text('تخطي',
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xFF515151),
+                                                        fontSize: 15,
+                                                        fontFamily: 'Cairo',
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        height: 0.10,
+                                                      )))
                                             ],
                                           )
                                         : ElevatedButton(
@@ -233,14 +232,16 @@ class _IntroScreenState extends BaseRouteState {
                                               ),
                                             ),
                                           ),
-
                                     Padding(
                                       padding: const EdgeInsets.all(0),
                                       child: Align(
                                         alignment: Alignment.bottomCenter,
-
-                                        child: Image.asset('assets/images/top.png',
-                                            width: MediaQuery.of(context).size.width /3),
+                                        child: Image.asset(
+                                            'assets/images/top.png',
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3),
                                       ),
                                     )
                                   ],

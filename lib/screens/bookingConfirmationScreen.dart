@@ -98,13 +98,13 @@ class _BookingConfirmationScreenState extends BaseRouteState {
                       padding: const EdgeInsets.only(top: 10),
                       child: screenId == 1
                           ? Text(
-                              'Your order has been placed successfully, please pick your items from store ASAP',
+                              "لقد تم تقديم طلبك بنجاح، يرجى استلام العناصر الخاصة بك من المتجر في أسرع وقت ممكن",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .primaryTextTheme
                                   .titleMedium)
                           : Text(
-                              'Your booking has been placed successfully, you will receive a notification/sms about your booking status',
+                              "تم إجراء حجزك بنجاح، ستتلقى إشعارًا/رسالة نصية قصيرة حول حالة حجزك",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .primaryTextTheme

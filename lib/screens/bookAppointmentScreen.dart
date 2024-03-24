@@ -7,7 +7,6 @@ import 'package:app/models/serviceTypeModel.dart';
 import 'package:app/screens/paymentGatewaysScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
@@ -115,11 +114,10 @@ class _BookAppointmentScreenState extends BaseRouteState {
                             child: Stack(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 15),
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.width / 22),
                                   child: Align(
-                                    alignment: global.isRTL
-                                        ? Alignment.centerLeft
-                                        : Alignment.centerRight,
+                                    alignment: Alignment.center,
                                     child: Text(
                                       AppLocalizations.of(context)
                                               ?.txt_swipe_to_confirm_your_booking ??
@@ -299,7 +297,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                                   (i == 0 && step1Done) ||
                                                   (i == 1 && step2Done) ||
                                                   (i == 2 && step3Done)
-                                              ? Colors.red
+                                              ? Color(0xFFF36D86)
                                               : Colors.grey,
                                         ),
                                         i == 3
@@ -312,7 +310,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                                                 step2Done) ||
                                                             ((i == 2 - 1 &&
                                                                 step3Done))
-                                                        ? Colors.red
+                                                        ? Color(0xFFF36D86)
                                                         : Colors.black,
                                                 width: MediaQuery.of(context)
                                                         .size
@@ -416,48 +414,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
                   },
                   marginSelected:
                       EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                )
-          /*   FloatingActionButton.extended(
-                backgroundColor: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    in_door = (in_door == 0) ? 1 : 0;
-                    //! 1 > inDoor
-                    isInDoor = (in_door == 0) ? 'بالمنزل' : 'داخل الصالون';
-                  });
-                  print(in_door);
-                },
-                label: Row(
-                  children: [
-                    in_door == 1
-                        ? Image.asset(
-                            'assets/images/logo.png',
-                            width: MediaQuery.of(context).size.width / 8,
-                          )
-                        : Image.asset(
-                            'assets/images/salon_home.png',
-                            width: MediaQuery.of(context).size.width / 9,
-                          ),
-                    Container(
-                      color: Color(0xFFF36D86),
-                      // thickness: 2,
-                      // indent: 2,
-                      width: 2,
-                      height: 20,
-                      margin: EdgeInsets.all(5),
-                      // endIndent: 2,
-                    ),
-                    Text(
-                      isInDoor,
-                      style: TextStyle(
-                        color: Color(0xFFF36D86),
-                      ),
-                    ),
-                  ],
                 )),
-     
-     */
-          ),
     );
   }
 
@@ -735,20 +692,19 @@ class _BookAppointmentScreenState extends BaseRouteState {
                         width: 200,
                         child: Card(
                           shape: RoundedRectangleBorder(
-                            borderRadius: global.isRTL
-                                ? BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(30),
-                                    bottomRight: Radius.circular(30),
-                                    bottomLeft: Radius.circular(10),
-                                  )
-                                : BorderRadius.only(
-                                    topLeft: Radius.circular(30),
-                                    topRight: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
-                                    bottomLeft: Radius.circular(30),
-                                  ),
-                          ),
+                              borderRadius: global.isRTL
+                                  ? BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(30),
+                                      bottomRight: Radius.circular(30),
+                                      bottomLeft: Radius.circular(10),
+                                    )
+                                  : BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                      bottomLeft: Radius.circular(30),
+                                    )),
                           color: _bookingAppointment!.staff_id ==
                                   _bookingAppointment!.barber[index].staff_id
                               ? Color(0xFFF36D86)
@@ -1096,10 +1052,10 @@ class _BookAppointmentScreenState extends BaseRouteState {
         });
   }
 
+  TextEditingController coupunController = TextEditingController();
   _getCouponsList(String? cartId) async {
     try {
       print(".........$cartId");
-
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
         await apiHelper!.getCouponsList(cartId).then((result) {
@@ -1291,107 +1247,147 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                     : SizedBox()
                               ],
                             ),
+
+                            // Center(
+                            //     child: _couponsList!.length > 0
+                            //         ? ListView.separated(
+                            //             itemCount: _couponsList!.length,
+                            //             itemBuilder:
+                            //                 (BuildContext context, int index) {
+                            //               return ListTile(
+                            //                 title: Text(
+                            //                     '${_couponsList![index].coupon_name}'),
+                            //                 subtitle: Column(
+                            //                   crossAxisAlignment:
+                            //                       CrossAxisAlignment.start,
+                            //                   children: [
+                            //                     Text(
+                            //                       '${_couponsList![index].coupon_description}',
+                            //                       overflow:
+                            //                           TextOverflow.ellipsis,
+                            //                     ),
+                            //                     Text(AppLocalizations.of(
+                            //                                 context)!
+                            //                             .lbl_validity +
+                            //                         ' : ${DateFormat('dd MMM yy').format(_couponsList![index].start_date!)} - ${DateFormat('dd MMM yy').format(_couponsList![index].end_date!)}')
+                            //                   ],
+                            //                 ),
+                            //                 trailing: GestureDetector(
+                            //                   onTap: () async {
+                            // if (selectedCouponCode ==
+                            //     _couponsList![index]
+                            //         .coupon_code) {
+                            //   selectedCouponCode = null;
+                            // } else {
+                            //   selectedCouponCode =
+                            //       _couponsList![index]
+                            //           .coupon_code;
+                            //   await _applyRewardsAndCoupons(
+                            //       "coupon");
+                            // }
+                            // setState(() {});
+                            //                   },
+                            //                   child: selectedCouponCode ==
+                            //                           _couponsList![index]
+                            //                               .coupon_code
+                            //                       ? SizedBox(
+                            //                           height: 33,
+                            //                           child: Card(
+                            //                             shape:
+                            //                                 RoundedRectangleBorder(
+                            //                                     borderRadius:
+                            //                                         BorderRadius
+                            //                                             .circular(
+                            //                                                 5)),
+                            //                             color: Theme.of(context)
+                            //                                 .primaryColor,
+                            //                             child: Padding(
+                            //                               padding:
+                            //                                   const EdgeInsets
+                            //                                       .all(5),
+                            //                               child: Text(
+                            //                                   '${_couponsList![index].coupon_code}'),
+                            //                             ),
+                            //                           ),
+                            //                         )
+                            //                       : SizedBox(
+                            //                           height: 40,
+                            //                           child: FDottedLine(
+                            //                             color: Theme.of(context)
+                            //                                 .primaryColor,
+                            //                             dottedLength: 4,
+                            //                             space: 2,
+                            //                             corner:
+                            //                                 FDottedLineCorner
+                            //                                     .all(5),
+                            //                             child: Padding(
+                            //                               padding:
+                            //                                   const EdgeInsets
+                            //                                       .all(5),
+                            //                               child: Text(
+                            //                                   '${_couponsList![index].coupon_code}'),
+                            //                             ),
+                            //                           ),
+                            //                         ),
+                            //                 ),
+                            //               );
+                            //             },
+                            //             separatorBuilder:
+                            //                 (BuildContext context, int index) {
+                            //               return Divider(
+                            //                 indent: 15,
+                            //                 endIndent: 15,
+                            //                 color:
+                            //                     Theme.of(context).primaryColor,
+                            //               );
+                            //             },
+                            //           )
+                            //         : Text(
+                            //             AppLocalizations.of(context)!
+                            //                 .txt_no_coupons_available,
+                            //             style: Theme.of(context)
+                            //                 .primaryTextTheme
+                            //                 .titleSmall,
+                            //           )),
+                            // TODO i will make...coupunController
                             Center(
-                                child: _couponsList!.length > 0
-                                    ? ListView.separated(
-                                        itemCount: _couponsList!.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return ListTile(
-                                            title: Text(
-                                                '${_couponsList![index].coupon_name}'),
-                                            subtitle: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '${_couponsList![index].coupon_description}',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                                Text(AppLocalizations.of(
-                                                            context)!
-                                                        .lbl_validity +
-                                                    ' : ${DateFormat('dd MMM yy').format(_couponsList![index].start_date!)} - ${DateFormat('dd MMM yy').format(_couponsList![index].end_date!)}')
-                                              ],
-                                            ),
-                                            trailing: GestureDetector(
-                                              onTap: () async {
-                                                if (selectedCouponCode ==
-                                                    _couponsList![index]
-                                                        .coupon_code) {
-                                                  selectedCouponCode = null;
-                                                } else {
-                                                  selectedCouponCode =
-                                                      _couponsList![index]
-                                                          .coupon_code;
-                                                  await _applyRewardsAndCoupons(
-                                                      "coupon");
-                                                }
-                                                setState(() {});
-                                              },
-                                              child: selectedCouponCode ==
-                                                      _couponsList![index]
-                                                          .coupon_code
-                                                  ? SizedBox(
-                                                      height: 33,
-                                                      child: Card(
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5)),
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(5),
-                                                          child: Text(
-                                                              '${_couponsList![index].coupon_code}'),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  : SizedBox(
-                                                      height: 40,
-                                                      child: FDottedLine(
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                        dottedLength: 4,
-                                                        space: 2,
-                                                        corner:
-                                                            FDottedLineCorner
-                                                                .all(5),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(5),
-                                                          child: Text(
-                                                              '${_couponsList![index].coupon_code}'),
-                                                        ),
-                                                      ),
-                                                    ),
-                                            ),
-                                          );
-                                        },
-                                        separatorBuilder:
-                                            (BuildContext context, int index) {
-                                          return Divider(
-                                            indent: 15,
-                                            endIndent: 15,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          );
-                                        },
-                                      )
-                                    : Text(
-                                        AppLocalizations.of(context)!
-                                            .txt_no_coupons_available,
-                                        style: Theme.of(context)
-                                            .primaryTextTheme
-                                            .titleSmall,
-                                      )),
+                              child: ListView(
+                                shrinkWrap: true,
+                                children: [
+                                  TextFormField(
+                                    controller: coupunController,
+                                    decoration: InputDecoration(
+                                        hintText: "ادخل كود الكوبون",
+                                        border: InputBorder.none),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical:
+                                            MediaQuery.of(context).size.width *
+                                                0.05,
+                                        horizontal:
+                                            MediaQuery.of(context).size.width *
+                                                0.20),
+                                    child: MaterialButton(
+                                      color: Color(0xFFF36D86),
+                                      onPressed: () async {
+                                        if (selectedCouponCode ==
+                                            coupunController.text) {
+                                          selectedCouponCode = null;
+                                        } else {
+                                          selectedCouponCode =
+                                              coupunController.text;
+                                          await _applyRewardsAndCoupons(
+                                              "coupon");
+                                        }
+                                        setState(() {});
+                                      },
+                                      child: Text("تطبيق الكوبون"),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
                           ]),
                     ),
                   ),

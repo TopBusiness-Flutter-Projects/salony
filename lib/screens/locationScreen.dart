@@ -224,8 +224,8 @@ class _LocationScreenState extends BaseRouteState {
   @override
   void initState() {
     super.initState();
-    _lat = double.parse(global.lat!);
-    _lng = double.parse(global.lng!);
+    _lat = double.parse(global.lat ?? "0");
+    _lng = double.parse(global.lng ?? "0");
 
     _init();
   }
