@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:app/models/allBookingsModel.dart';
 import 'package:app/models/bannerModel.dart';
 import 'package:app/models/barberShopDescModel.dart';
@@ -23,7 +22,6 @@ import 'package:app/models/notificationModel.dart';
 import 'package:app/models/paymentGatewayModel.dart';
 import 'package:app/models/popularBarbersModel.dart';
 import 'package:app/models/privacyPolicyModel.dart';
-import 'package:app/models/productCartCheckoutModel.dart';
 import 'package:app/models/productDetailModel.dart';
 import 'package:app/models/productModel.dart';
 import 'package:app/models/productOrderHistoryModel.dart';
@@ -36,11 +34,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-
 import '../details_of_main.dart';
-import '../details_of_services.dart';
 import '../main_services.dart';
-import '../region_model.dart';
 
 class APIHelper {
   Future<dynamic> addSalonRating(

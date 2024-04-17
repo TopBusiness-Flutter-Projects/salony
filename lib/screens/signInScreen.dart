@@ -475,17 +475,6 @@ class _SignInScreenState extends BaseRouteState {
     // _init();
   }
 
-  // _init() {
-  //   try {
-  //     if (global.sp.getString('isRememberMeEmail') != null) {
-  //       _cPhone.text = global.sp.getString('isRememberMeEmail') ?? '';
-  //       _isRemember = true;
-  //     }
-  //   } catch (e) {
-  //     print("Exception - signInScreen.dart - _init():" + e.toString());
-  //   }
-  // }
-
   _loginWithEmail() async {
     try {
       CurrentUser _user = new CurrentUser();
