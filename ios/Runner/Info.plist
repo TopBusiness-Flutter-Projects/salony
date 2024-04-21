@@ -6,6 +6,8 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>salony</string>
+	<key>MinimumOSVersion</key>
+    <string>13.0</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -57,20 +59,10 @@
 	<string>$this app needs access to your calender to pick a date.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>$this app needs access to your camera for click picture and save.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open and in the background and We are using location to get nearby loaction.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location when in the background and We are using location to get nearby location.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open and We are using location to get nearby location.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>$this app needs access to your microphone for video.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>$this app needs access to your motion in video </string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Open gallery for image selection</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>$this app needs access to your speech recognition in video</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -95,5 +87,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>
