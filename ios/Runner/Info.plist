@@ -54,23 +54,23 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
-	<string>$this app needs access to your calender to pick a date.</string>
+	<string>$this app needs access to your calender to pick a date for services and products.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$this app needs access to your camera for click picture and save.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open and in the background and We are using location to get nearby loaction.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location when in the background and We are using location to get nearby location.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open and We are using location to get nearby location.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>$this app needs access to your microphone for video.</string>
+	<string>$this app needs access to your camera for click picture and save for services and products.</string>
+	<!-- <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs access to location when open and in the background and We are using location to get nearby loaction.</string> -->
+	<!-- <key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to location when in the background and We are using location to get nearby location.</string> -->
+	<!-- <key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location when open and We are using location to get nearby location.</string> -->
+	<!-- <key>NSMicrophoneUsageDescription</key>
+	<string>$this app needs access to your microphone for video.</string> -->
 	<key>NSMotionUsageDescription</key>
 	<string>$this app needs access to your motion in video </string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Open gallery for image selection</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>$this app needs access to your speech recognition in video</string>
+	<!-- <key>NSSpeechRecognitionUsageDescription</key>
+	<string>$this app needs access to your speech recognition in video</string> -->
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
