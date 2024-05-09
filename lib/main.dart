@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:app/Theme/nativeTheme.dart';
-
 import 'package:app/provider/local_provider.dart';
 import 'package:app/screens/splashScreen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';

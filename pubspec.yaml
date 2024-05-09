@@ -91,10 +91,13 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 flutter_icons:
-  android: "ic_launcher"
   ios: true
+  android: true
   remove_alpha_ios: true
+  background_color: "#FFFFFF"
   image_path: "assets/images/logo.png"
+  adaptive_icon_foreground: "assets/images/logo.png"
+  adaptive_icon_background: "#FFFFFF"
 #  image_path: "assets/roundicon.png"
 # The following section is specific to Flutter.
 flutter:

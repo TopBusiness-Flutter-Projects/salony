@@ -10,7 +10,6 @@ import 'package:app/widgets/bottomNavigationWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 
 // import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -53,6 +52,41 @@ class _SignInScreenState extends BaseRouteState {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 20),
+
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => BottomNavigationWidget(
+                                      a: widget.analytics,
+                                      o: widget.observer,
+                                    )),
+                          ); //!
+                        },
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  color: Color(0xFFF36D86),
+                                )),
+                            child: Text(
+                              'تخطي',
+                              style: TextStyle(
+                                color: Color(0xFF164863),
+                                fontSize: 18,
+                                fontFamily: 'Cairo',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
+                              ),
+                            )),
+                      ),
+                    ),
+
                     SizedBox(height: 20),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
