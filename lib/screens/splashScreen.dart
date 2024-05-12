@@ -115,7 +115,7 @@ class _SplashScreenState extends BaseRouteState {
           await getCartCount();
           print('+++++++++++ :: $myCartCount');
 
-          await getCurrentPosition().then((_) async {
+          // await getCurrentPosition().then((_) async {
             // if (global.lat != null && global.lng != null) {
             setState(() {});
             Navigator.of(context).push(MaterialPageRoute(
@@ -130,9 +130,9 @@ class _SplashScreenState extends BaseRouteState {
             //       snackBarMessage:
             //           'Please enable location permission to use this App');
             // }
-          });
+          // });
         } else {
-          await getCurrentPosition();
+          // await getCurrentPosition();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => IntroScreen(
                     a: widget.analytics,

@@ -7,8 +7,8 @@ import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:geocoding/geocoding.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Base extends StatefulWidget {
@@ -25,7 +25,7 @@ class Base extends StatefulWidget {
 class BaseState extends State<Base>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   bool bannerAdLoaded = false;
-  late Position _currentPosition;
+  // late Position _currentPosition;
 
   APIHelper? apiHelper;
   late BusinessRule br;
@@ -104,61 +104,61 @@ class BaseState extends State<Base>
     }
   }
 
-  getAddressFromLatLng() async {
-    try {
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-          _currentPosition.latitude, _currentPosition.longitude);
-
-      Placemark place = placemarks[0];
-
-      setState(() {
-        global.currentLocation = "${place.name}, ${place.locality} ";
-      });
-    } catch (e) {
-      print("Exception -  base.dart - getAddressFromLatLng():" + e.toString());
-    }
-  }
-
-  getCurrentLocation() async {
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-
-      global.lat = position.latitude.toString();
-      global.lng = position.longitude.toString();
-      _currentPosition = position;
-      await getAddressFromLatLng();
-      setState(() {});
-    } catch (e) {
-      print("Exception -  base.dart - getCurrentLocation():" + e.toString());
-    }
-  }
-
-  getCurrentPosition() async {
-    try {
-      if (Platform.isIOS) {
-        LocationPermission s = await Geolocator.checkPermission();
-        if (s == LocationPermission.denied ||
-            s == LocationPermission.deniedForever) {
-          s = await Geolocator.requestPermission();
-        }
-        if (s != LocationPermission.denied ||
-            s != LocationPermission.deniedForever) {
-          await getCurrentLocation();
-        }
-      } else {
-        PermissionStatus permissionStatus = await Permission.location.status;
-        if (permissionStatus.isDenied || permissionStatus.isPermanentlyDenied) {
-          permissionStatus = await Permission.location.request();
-        }
-        if (permissionStatus.isGranted) {
-          await getCurrentLocation();
-        }
-      }
-    } catch (e) {
-      print("Exception -  base.dart - getCurrentPosition():" + e.toString());
-    }
-  }
+  // getAddressFromLatLng() async {
+  //   try {
+  //     List<Placemark> placemarks = await placemarkFromCoordinates(
+  //         _currentPosition.latitude, _currentPosition.longitude);
+  //
+  //     Placemark place = placemarks[0];
+  //
+  //     setState(() {
+  //       global.currentLocation = "${place.name}, ${place.locality} ";
+  //     });
+  //   } catch (e) {
+  //     print("Exception -  base.dart - getAddressFromLatLng():" + e.toString());
+  //   }
+  // }
+  //
+  // getCurrentLocation() async {
+  //   try {
+  //     Position position = await Geolocator.getCurrentPosition(
+  //         desiredAccuracy: LocationAccuracy.best);
+  //
+  //     global.lat = position.latitude.toString();
+  //     global.lng = position.longitude.toString();
+  //     _currentPosition = position;
+  //     await getAddressFromLatLng();
+  //     setState(() {});
+  //   } catch (e) {
+  //     print("Exception -  base.dart - getCurrentLocation():" + e.toString());
+  //   }
+  // }
+  //
+  // getCurrentPosition() async {
+  //   try {
+  //     if (Platform.isIOS) {
+  //       LocationPermission s = await Geolocator.checkPermission();
+  //       if (s == LocationPermission.denied ||
+  //           s == LocationPermission.deniedForever) {
+  //         s = await Geolocator.requestPermission();
+  //       }
+  //       if (s != LocationPermission.denied ||
+  //           s != LocationPermission.deniedForever) {
+  //         await getCurrentLocation();
+  //       }
+  //     } else {
+  //       PermissionStatus permissionStatus = await Permission.location.status;
+  //       if (permissionStatus.isDenied || permissionStatus.isPermanentlyDenied) {
+  //         permissionStatus = await Permission.location.request();
+  //       }
+  //       if (permissionStatus.isGranted) {
+  //         await getCurrentLocation();
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print("Exception -  base.dart - getCurrentPosition():" + e.toString());
+  //   }
+  // }
 
   void hideLoader() {
     Navigator.pop(context);

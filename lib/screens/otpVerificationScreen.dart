@@ -570,7 +570,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                 global.sp.setString(
                     "currentUser", json.encode(global.user!.toJson()));
 
-                await getCurrentPosition().then((_) async {
+                // await getCurrentPosition().then((_) async {
                   // if (global.lat != null && global.lng != null) {
                   hideLoader();
                   Navigator.of(context).push(
@@ -587,7 +587,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                   //       snackBarMessage:
                   //           'Please enable location permission to use this App');
                   // }
-                });
+                // });
               } else {
                 hideLoader();
                 showSnackBar(
@@ -609,7 +609,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                 global.sp.setString(
                     "currentUser", json.encode(global.user!.toJson()));
 
-                await getCurrentPosition().then((_) async {
+                // await getCurrentPosition().then((_) async {
                   // if (global.lat != null && global.lng != null) {
                   hideLoader();
                   Navigator.of(context).push(
@@ -624,7 +624,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                   //       snackBarMessage:
                   //           'Please enable location permission to use this App');
                   // }
-                });
+                // });
               } else {
                 hideLoader();
                 showSnackBar(
