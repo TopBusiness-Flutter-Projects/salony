@@ -1,7 +1,6 @@
 import UIKit
 import Flutter
 
-
     
 
 @UIApplicationMain
@@ -10,7 +9,7 @@ import Flutter
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    GMSServices.provideAPIKey("AIzaSyAXnB5scgzIimTCjXVydCRAhAo6eguYN6U")
+//     GMSServices.provideAPIKey("AIzaSyAXnB5scgzIimTCjXVydCRAhAo6eguYN6U")
     GeneratedPluginRegistrant.register(with: self)
     if #available(iOS 10.0, *) {
     UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
