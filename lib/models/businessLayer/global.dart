@@ -58,17 +58,3 @@ Future<Map<String, String>> getApiHeaders(bool authorizationRequired) async {
   apiHeader.addAll({"Accept": "application/json"});
   return apiHeader;
 }
-
-// Future<String?> getDeviceId() async {
-//   String? deviceId;
-//   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-//
-//   if (Platform.isAndroid) {
-//     AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
-//     deviceId = androidDeviceInfo.androidId;
-//   } else if (Platform.isIOS) {
-//     IosDeviceInfo androidDeviceInfo = await deviceInfo.iosInfo;
-//     deviceId = androidDeviceInfo.identifierForVendor;
-//   }
-//   return deviceId;
-// }

@@ -4,6 +4,7 @@ import 'package:app/screens/bookAppointmentScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import '../models/details_of_main.dart';
@@ -454,9 +455,8 @@ class _ServiceDetailScreenState extends BaseRouteState {
             if (result.status == "1") {
               _servicesList = result.recordList;
             } else {
-              showSnackBar(
-                  key: _scaffoldKey,
-                  snackBarMessage: result.message.toString());
+              Fluttertoast.showToast(
+                  msg: result.message ?? 'يجب تسجيل دخول لعرض تفاصيل الخدمه');
             }
           }
         });

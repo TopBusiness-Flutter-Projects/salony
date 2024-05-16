@@ -95,17 +95,22 @@ class _FavouritesScreenState extends BaseRouteState {
             ],
           ),
           resizeToAvoidBottomInset: true,
-          body: _isDataLoaded
-              ? favoritesList != null && favoritesList!.fav_items.length > 0
-                  ? _productListWidget()
-                  : Center(
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .txt_nothing_is_yet_to_see_here,
-                        style: Theme.of(context).primaryTextTheme.titleSmall,
-                      ),
-                    )
-              : _shimmer())),
+          body: (global.user?.id == null)
+              ? Center(
+                  child: Text("لا يوجد منتاجات في المفضله"),
+                )
+              : _isDataLoaded
+                  ? favoritesList != null && favoritesList!.fav_items.length > 0
+                      ? _productListWidget()
+                      : Center(
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .txt_nothing_is_yet_to_see_here,
+                            style:
+                                Theme.of(context).primaryTextTheme.titleSmall,
+                          ),
+                        )
+                  : _shimmer())),
     );
   }
 
@@ -122,17 +127,17 @@ class _FavouritesScreenState extends BaseRouteState {
       });
     });
     super.initState();
-    if (global.user!.id == null) {
-      Future.delayed(Duration.zero, () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => SignInScreen(
-                    a: widget.analytics,
-                    o: widget.observer,
-                  )),
-        );
-      });
-    }
+    // if (global.user!.id == null) {
+    //   Future.delayed(Duration.zero, () {
+    //     Navigator.of(context).push(
+    //       MaterialPageRoute(
+    //           builder: (context) => SignInScreen(
+    //                 a: widget.analytics,
+    //                 o: widget.observer,
+    //               )),
+    //     );
+    //   });
+    // }
     _init();
   }
 
@@ -191,27 +196,37 @@ class _FavouritesScreenState extends BaseRouteState {
   }
 
   _getFavoriteList() async {
-    try {
-      bool isConnected = await br.checkConnectivity();
-      if (isConnected) {
-        await apiHelper!.getFavoriteList(global.user!.id).then((result) {
-          if (result != null) {
-            if (result.status == "1") {
-              favoritesList = result.recordList;
-              _isDataLoaded = true;
-            } else if (result.status == "0") {
-              favoritesList = null;
-              _isDataLoaded = true;
+    print("000000000000 SSFF ${global.user?.id == null} xx");
+
+    if (global.user?.id == null) {
+      print("000000000000 SS ${global.user?.id == null} xx");
+
+      favoritesList = null;
+    } else {
+      try {
+        bool isConnected = await br.checkConnectivity();
+        if (isConnected) {
+          print("000000000000 ${global.user!.id.toString()} xx");
+
+          await apiHelper!.getFavoriteList(global.user!.id).then((result) {
+            if (result != null) {
+              if (result.status == "1") {
+                favoritesList = result.recordList;
+                _isDataLoaded = true;
+              } else if (result.status == "0") {
+                favoritesList = null;
+                _isDataLoaded = true;
+              }
+              setState(() {});
             }
-            setState(() {});
-          }
-        });
-      } else {
-        showNetworkErrorSnackBar(_scaffoldKey);
+          });
+        } else {
+          showNetworkErrorSnackBar(_scaffoldKey);
+        }
+      } catch (e) {
+        print("Exception - favoritesScreen.dart - _getFavoriteList():" +
+            e.toString());
       }
-    } catch (e) {
-      print("Exception - favoritesScreen.dart - _getFavoriteList():" +
-          e.toString());
     }
   }
 

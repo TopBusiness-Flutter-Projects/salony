@@ -8,6 +8,7 @@ import 'package:app/screens/signInScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -151,23 +152,29 @@ class _ProductListScreenState extends BaseRouteState {
                         alignment: Alignment.topRight,
                         child: IconButton(
                             onPressed: () async {
-                              if (global.user?.id == null) {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => SignInScreen(
-                                            a: widget.analytics,
-                                            o: widget.observer,
-                                          )),
-                                );
+                              if (global.user!.id == null) {
+                                Fluttertoast.showToast(
+                                    msg:
+                                        'قم بتسجيل الدخول لتتمكن من الاضافة للمفضله');
                               } else {
-                                _isFav = await _addToFavorite(
-                                    _productList[index].id);
-                                if (_isFav ?? false) {
-                                  _productList[index].isFavourite =
-                                      !_productList[index].isFavourite!;
+                                if (global.user?.id == null) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => SignInScreen(
+                                              a: widget.analytics,
+                                              o: widget.observer,
+                                            )),
+                                  );
+                                } else {
+                                  _isFav = await _addToFavorite(
+                                      _productList[index].id);
+                                  if (_isFav ?? false) {
+                                    _productList[index].isFavourite =
+                                        !_productList[index].isFavourite!;
+                                  }
                                 }
+                                setState(() {});
                               }
-                              setState(() {});
                             },
                             icon: Icon(
                               _productList[index].isFavourite!
@@ -233,30 +240,35 @@ class _ProductListScreenState extends BaseRouteState {
                   ? GestureDetector(
                       onTap: () async {
                         if (global.user!.id == null) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => SignInScreen(
-                                      a: widget.analytics,
-                                      o: widget.observer,
-                                    )),
-                          );
+                          Fluttertoast.showToast(
+                              msg: 'قم بتسجيل الدخول لتتمكن من الاضافة للسله');
                         } else {
-                          showOnlyLoaderDialog();
+                          if (global.user!.id == null) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => SignInScreen(
+                                        a: widget.analytics,
+                                        o: widget.observer,
+                                      )),
+                            );
+                          } else {
+                            showOnlyLoaderDialog();
 
-                          int _qty = 1;
+                            int _qty = 1;
 
-                          bool isSuccess =
-                              await _addToCart(_qty, _productList[index].id);
-                          if (isSuccess) {
-                            _productList[index].cart_qty = 1;
-                            if (global.user != null &&
-                                global.user?.cart_count != null) {
-                              global.user?.cart_count =
-                                  global.user!.cart_count! + 1;
+                            bool isSuccess =
+                                await _addToCart(_qty, _productList[index].id);
+                            if (isSuccess) {
+                              _productList[index].cart_qty = 1;
+                              if (global.user != null &&
+                                  global.user?.cart_count != null) {
+                                global.user?.cart_count =
+                                    global.user!.cart_count! + 1;
+                              }
                             }
+                            hideLoader();
+                            setState(() {});
                           }
-                          hideLoader();
-                          setState(() {});
                         }
                       },
                       child: Padding(
