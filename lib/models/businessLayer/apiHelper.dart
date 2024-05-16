@@ -607,7 +607,6 @@ class APIHelper {
         headers: await global.getApiHeaders(true),
         body: json.encode({
           "user_id": user_id,
-          // "lang": global.languageCode,
         }),
       );
       print(
@@ -1010,7 +1009,7 @@ class APIHelper {
       }
       return getAPIResult(response, recordList);
     } catch (e) {
-      print("Exception - getNearByBarberShops(): " + e.toString());
+      print("Exception - getDetailsOfMainServices(): " + e.toString());
     }
   }
 

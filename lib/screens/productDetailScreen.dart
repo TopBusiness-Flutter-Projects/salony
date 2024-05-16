@@ -9,6 +9,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductDetailScreen extends BaseRoute {
@@ -224,22 +225,27 @@ class _ProductDetailScreenState extends BaseRouteState {
               children: [
                 ElevatedButton(
                     onPressed: () async {
-                      global.user!.id == null
-                          ? Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => SignInScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
-                                      )),
-                            )
-                          : isShowGoCartBtn!
-                              ? Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => CartScreen(
+                      if (global.user!.id == null) {
+                        Fluttertoast.showToast(
+                            msg: 'قم بتسجيل الدخول لتتمكن من الاضافة للسله');
+                      } else {
+                        global.user!.id == null
+                            ? Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => SignInScreen(
                                           a: widget.analytics,
-                                          o: widget.observer)),
-                                )
-                              : await _addToCart(1, _productDetail!.id);
+                                          o: widget.observer,
+                                        )),
+                              )
+                            : isShowGoCartBtn!
+                                ? Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => CartScreen(
+                                            a: widget.analytics,
+                                            o: widget.observer)),
+                                  )
+                                : await _addToCart(1, _productDetail!.id);
+                      }
                     },
                     child: Row(
                       children: [
