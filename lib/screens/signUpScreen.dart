@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../constansts.dart';
 import '../models/DistrictModel.dart';
 import '../models/city_model.dart';
 import '../models/region_model.dart';
@@ -527,11 +528,11 @@ class _SignUpScreenState extends BaseRouteState {
   }
 
   _sendOTP(String phoneNumber) async {
-    print('....phone....:+966$phoneNumber');
+    print('....phone....:$phoneCode$phoneNumber');
     try {
-      print('done....phone....:+966$phoneNumber');
+      print('done....phone....:$phoneCode$phoneNumber');
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+966$phoneNumber',
+        phoneNumber: '$phoneCode$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();
