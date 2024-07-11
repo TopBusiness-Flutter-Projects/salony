@@ -16,6 +16,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
+import '../constansts.dart';
+
 class OTPVerificationScreen extends BaseRoute {
   final int? screenId;
   final String? verificationId;
@@ -464,7 +466,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
     try {
       FirebaseAuth _auth = FirebaseAuth.instance;
       await _auth.verifyPhoneNumber(
-        phoneNumber: '+966$mobileNumber',
+        phoneNumber: '$phoneCode$mobileNumber',
         timeout: Duration(seconds: 60),
         verificationCompleted: (AuthCredential authCredential) async {
           setState(() {});
@@ -571,22 +573,22 @@ class _OTPVerificationScreenState extends BaseRouteState {
                     "currentUser", json.encode(global.user!.toJson()));
 
                 // await getCurrentPosition().then((_) async {
-                  // if (global.lat != null && global.lng != null) {
-                  hideLoader();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => BottomNavigationWidget(
-                              a: widget.analytics,
-                              o: widget.observer,
-                            )),
-                  );
-                  // } else {
-                  //   hideLoader();
-                  //   showSnackBar(
-                  //       key: _scaffoldKey,
-                  //       snackBarMessage:
-                  //           'Please enable location permission to use this App');
-                  // }
+                // if (global.lat != null && global.lng != null) {
+                hideLoader();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => BottomNavigationWidget(
+                            a: widget.analytics,
+                            o: widget.observer,
+                          )),
+                );
+                // } else {
+                //   hideLoader();
+                //   showSnackBar(
+                //       key: _scaffoldKey,
+                //       snackBarMessage:
+                //           'Please enable location permission to use this App');
+                // }
                 // });
               } else {
                 hideLoader();
@@ -610,20 +612,20 @@ class _OTPVerificationScreenState extends BaseRouteState {
                     "currentUser", json.encode(global.user!.toJson()));
 
                 // await getCurrentPosition().then((_) async {
-                  // if (global.lat != null && global.lng != null) {
-                  hideLoader();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => ExploreScreen(
-                            a: widget.analytics, o: widget.observer)),
-                  );
-                  // } else {
-                  //   hideLoader();
-                  //   showSnackBar(
-                  //       key: _scaffoldKey,
-                  //       snackBarMessage:
-                  //           'Please enable location permission to use this App');
-                  // }
+                // if (global.lat != null && global.lng != null) {
+                hideLoader();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => ExploreScreen(
+                          a: widget.analytics, o: widget.observer)),
+                );
+                // } else {
+                //   hideLoader();
+                //   showSnackBar(
+                //       key: _scaffoldKey,
+                //       snackBarMessage:
+                //           'Please enable location permission to use this App');
+                // }
                 // });
               } else {
                 hideLoader();

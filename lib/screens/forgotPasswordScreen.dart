@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../constansts.dart';
+
 class ForgotPasswordScreen extends BaseRoute {
   ForgotPasswordScreen({a, o}) : super(a: a, o: o, r: 'ForgotPasswordScreen');
   @override
@@ -84,11 +86,11 @@ class _ForgotPasswordScreenState extends BaseRouteState {
   }
 
   _sendOTP(String phoneNumber) async {
-    print('....phone....:+966$phoneNumber');
+    print('....phone....:+$phoneCode$phoneNumber');
     try {
-      print('done....phone....:+966$phoneNumber');
+      print('done....phone....:$phoneCode$phoneNumber');
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+966$phoneNumber',
+        phoneNumber: '$phoneCode$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();
