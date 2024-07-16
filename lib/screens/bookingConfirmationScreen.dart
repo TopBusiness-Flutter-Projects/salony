@@ -64,10 +64,12 @@ class _BookingConfirmationScreenState extends BaseRouteState {
                     ),
                   )),
             ),
-            body: Padding(
+            body: Container(
+                width: double.infinity,
+                height: double.infinity,
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 120),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
@@ -77,8 +79,8 @@ class _BookingConfirmationScreenState extends BaseRouteState {
                             image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: AssetImage('assets/greatekan3.png'))),
-                        width: 200,
-                        height: 200,
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: MediaQuery.of(context).size.width / 2,
                       ),
                     ),
                     Padding(

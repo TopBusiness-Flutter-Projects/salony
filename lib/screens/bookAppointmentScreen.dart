@@ -71,350 +71,345 @@ class _BookAppointmentScreenState extends BaseRouteState {
         return false;
       },
       child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text(
-              AppLocalizations.of(context)!.txt_book_an_appointment,
-              style: Theme.of(context).appBarTheme.titleTextStyle,
-            ),
-            leading: _currentIndex == 0
-                ? null
-                : IconButton(
-                    onPressed: () {
-                      _pageController!.animateToPage(_currentIndex - 1,
-                          duration: Duration(seconds: 1),
-                          curve: Curves.fastOutSlowIn);
-                      if (_currentIndex == 0) {
-                        step1Done = false;
-                      }
-                      if (_currentIndex == 1) {
-                        step2Done = false;
-                      }
-                      if (_currentIndex == 2) {
-                        step3Done = false;
-                      }
-
-                      setState(() {});
-                    },
-                    icon: Icon(Icons.arrow_back)),
-            automaticallyImplyLeading: _currentIndex == 0 ? true : false,
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text(
+            AppLocalizations.of(context)!.txt_book_an_appointment,
+            style: Theme.of(context).appBarTheme.titleTextStyle,
           ),
-          bottomNavigationBar: _isDataLoaded
-              ? BottomAppBar(
-                  color: Color(0xFF171D2C),
-                  child: SizedBox(
-                    height: _currentIndex == 3 ? 55 : 60,
-                    width: double.infinity,
-                    child: _currentIndex == 3
-                        ? Card(
-                            color: Color(0xFF3E424D),
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0)),
-                            child: Stack(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.width / 22),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      AppLocalizations.of(context)
-                                              ?.txt_swipe_to_confirm_your_booking ??
-                                          '',
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .titleMedium,
-                                    ),
-                                  ),
-                                ),
-                                Dismissible(
-                                  background: Card(
-                                    elevation: 0,
-                                    color: Color(0xFFF36D86),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0)),
-                                  ),
-                                  key: Key(_currentIndex.toString()),
-                                  onDismissed: (_) {},
-                                  confirmDismiss: (_) async {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PaymentGatewayScreen(
-                                                a: widget.analytics,
-                                                o: widget.observer,
-                                                bookNowDetails: _bookNowDetails,
-                                                screenId: 1,
-                                              )),
-                                    );
-                                    return true;
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                          decoration: BoxDecoration(
-                                              color: Color(0xFFF36D86),
-                                              borderRadius: BorderRadius.only(
-                                                  topRight: Radius.circular(10),
-                                                  bottomRight:
-                                                      Radius.circular(10))),
-                                          width: 60,
-                                          height: 55,
-                                          child: Icon(
-                                            MdiIcons.scissorsCutting,
-                                            color: Colors.white,
-                                            size: 20.0,
-                                          )),
-                                      SizedBox()
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListTile(
-                            tileColor: Colors.transparent,
-                            title: RichText(
-                                text: TextSpan(
+          leading: _currentIndex == 0
+              ? null
+              : IconButton(
+                  onPressed: () {
+                    _pageController!.animateToPage(_currentIndex - 1,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn);
+                    if (_currentIndex == 0) {
+                      step1Done = false;
+                    }
+                    if (_currentIndex == 1) {
+                      step2Done = false;
+                    }
+                    if (_currentIndex == 2) {
+                      step3Done = false;
+                    }
+
+                    setState(() {});
+                  },
+                  icon: Icon(Icons.arrow_back)),
+          automaticallyImplyLeading: _currentIndex == 0 ? true : false,
+        ),
+        bottomNavigationBar: _isDataLoaded
+            ? BottomAppBar(
+                color: Color(0xFF171D2C),
+                child: SizedBox(
+                  height: _currentIndex == 3 ? 55 : 60,
+                  width: double.infinity,
+                  child: _currentIndex == 3
+                      ? Card(
+                          color: Color(0xFF3E424D),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0)),
+                          child: Stack(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(
+                                    MediaQuery.of(context).size.width / 22),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                            ?.txt_swipe_to_confirm_your_booking ??
+                                        '',
                                     style: Theme.of(context)
                                         .primaryTextTheme
                                         .titleMedium,
-                                    children: [
-                                  TextSpan(
-                                      text: AppLocalizations.of(context)
-                                              ?.lbl_total_cost ??
-                                          ''),
-                                  TextSpan(
-                                      text:
-                                          '${global.currency.currency_sign ?? 'SAR'} ${_getTotalCost()}')
-                                ])),
-                            trailing: Container(
-                              width: 120,
-                              height: 35,
-                              child: TextButton(
-                                onPressed: () async {
-                                  if (_currentIndex == 3) {
-                                    return null;
-                                  } else {
-                                    if (_currentIndex == 0) {
-                                      if (_selectedServiceType.length == 0) {
-                                        showSnackBar(
-                                            key: _scaffoldKey,
-                                            snackBarMessage: AppLocalizations
-                                                    .of(context)!
-                                                .txt_please_select_atleast_one_service_to_procceed);
-                                      } else {
-                                        _pageController!.animateToPage(
-                                            _currentIndex + 1,
-                                            duration: Duration(seconds: 1),
-                                            curve: Curves.fastOutSlowIn);
-                                      }
-
-                                      step1Done = true;
-                                    }
-                                    if (_currentIndex == 1) {
-                                      if (selectedTimeSlot == '') {
-                                        showSnackBar(
-                                            key: _scaffoldKey,
-                                            snackBarMessage: AppLocalizations
-                                                    .of(context)!
-                                                .txt_please_select_timeslot_to_procceed);
-                                      } else {
-                                        _pageController!.animateToPage(
-                                            _currentIndex + 1,
-                                            duration: Duration(seconds: 1),
-                                            curve: Curves.fastOutSlowIn);
-
-                                        for (int i = 0;
-                                            i <
-                                                _bookingAppointment!
-                                                    .barber.length;
-                                            i++) {
-                                          if (_bookingAppointment!
-                                                  .barber[i].staff_id ==
-                                              _bookingAppointment!.staff_id) {
-                                            barberName = _bookingAppointment!
-                                                .barber[i].staff_name;
-                                          }
-                                        }
-                                        step2Done = true;
-                                      }
-                                    }
-                                    if (_currentIndex == 2) {
+                                  ),
+                                ),
+                              ),
+                              Dismissible(
+                                background: Card(
+                                  elevation: 0,
+                                  color: Color(0xFFF36D86),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0)),
+                                ),
+                                key: Key(_currentIndex.toString()),
+                                onDismissed: (_) {},
+                                confirmDismiss: (_) async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PaymentGatewayScreen(
+                                              a: widget.analytics,
+                                              o: widget.observer,
+                                              bookNowDetails: _bookNowDetails,
+                                              screenId: 1,
+                                            )),
+                                  );
+                                  return true;
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFF36D86),
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(10),
+                                                bottomRight:
+                                                    Radius.circular(10))),
+                                        width: 60,
+                                        height: 55,
+                                        child: Icon(
+                                          MdiIcons.scissorsCutting,
+                                          color: Colors.white,
+                                          size: 20.0,
+                                        )),
+                                    SizedBox()
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListTile(
+                          tileColor: Colors.transparent,
+                          title: RichText(
+                              text: TextSpan(
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .titleMedium,
+                                  children: [
+                                TextSpan(
+                                    text: AppLocalizations.of(context)
+                                            ?.lbl_total_cost ??
+                                        ''),
+                                TextSpan(
+                                    text:
+                                        '${global.currency.currency_sign ?? 'SAR'} ${_getTotalCost()}')
+                              ])),
+                          trailing: Container(
+                            width: 120,
+                            height: 35,
+                            child: TextButton(
+                              onPressed: () async {
+                                if (_currentIndex == 3) {
+                                  return null;
+                                } else {
+                                  if (_currentIndex == 0) {
+                                    if (_selectedServiceType.length == 0) {
+                                      showSnackBar(
+                                          key: _scaffoldKey,
+                                          snackBarMessage: AppLocalizations.of(
+                                                  context)!
+                                              .txt_please_select_atleast_one_service_to_procceed);
+                                    } else {
                                       _pageController!.animateToPage(
                                           _currentIndex + 1,
                                           duration: Duration(seconds: 1),
                                           curve: Curves.fastOutSlowIn);
-                                      step3Done = true;
-                                      await _bookNow(in_door: in_door);
                                     }
-                                    setState(() {});
+
+                                    step1Done = true;
                                   }
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                        AppLocalizations.of(context)!.lbl_next),
-                                  ],
-                                ),
+                                  if (_currentIndex == 1) {
+                                    if (selectedTimeSlot == '') {
+                                      showSnackBar(
+                                          key: _scaffoldKey,
+                                          snackBarMessage: AppLocalizations.of(
+                                                  context)!
+                                              .txt_please_select_timeslot_to_procceed);
+                                    } else {
+                                      _pageController!.animateToPage(
+                                          _currentIndex + 1,
+                                          duration: Duration(seconds: 1),
+                                          curve: Curves.fastOutSlowIn);
+
+                                      for (int i = 0;
+                                          i <
+                                              _bookingAppointment!
+                                                  .barber.length;
+                                          i++) {
+                                        if (_bookingAppointment!
+                                                .barber[i].staff_id ==
+                                            _bookingAppointment!.staff_id) {
+                                          barberName = _bookingAppointment!
+                                              .barber[i].staff_name;
+                                        }
+                                      }
+                                      step2Done = true;
+                                    }
+                                  }
+                                  if (_currentIndex == 2) {
+                                    _pageController!.animateToPage(
+                                        _currentIndex + 1,
+                                        duration: Duration(seconds: 1),
+                                        curve: Curves.fastOutSlowIn);
+                                    step3Done = true;
+                                    await _bookNow(in_door: in_door);
+                                  }
+                                  setState(() {});
+                                }
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(AppLocalizations.of(context)!.lbl_next),
+                                ],
                               ),
                             ),
                           ),
-                  ),
-                )
-              : null,
-          body: _isDataLoaded
-              ? (_bookingAppointment?.services.length ?? 0) > 0
-                  ? Column(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.75,
-                          height: 20,
-                          margin: EdgeInsets.only(
-                              left: 10, right: 10, bottom: 0, top: 10),
-                          child: Center(
-                            child: ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                controller: _scrollController,
-                                itemCount: _appointmentList.length,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (BuildContext context, int i) {
-                                  return Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.circle,
-                                          size: 15,
-                                          color: (i == _currentIndex) ||
-                                                  (i == 0 && step1Done) ||
-                                                  (i == 1 && step2Done) ||
-                                                  (i == 2 && step3Done)
-                                              ? Color(0xFFF36D86)
-                                              : Colors.grey,
-                                        ),
-                                        i == 3
-                                            ? SizedBox()
-                                            : Container(
-                                                height: 2,
-                                                color:
-                                                    (i == _currentIndex - 1) ||
-                                                            (i == 1 - 1 &&
-                                                                step2Done) ||
-                                                            ((i == 2 - 1 &&
-                                                                step3Done))
-                                                        ? Color(0xFFF36D86)
-                                                        : Colors.black,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.75 /
-                                                    4,
-                                                margin: EdgeInsets.all(0),
-                                              ),
-                                      ]);
-                                }),
-                          ),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 30,
-                          margin: EdgeInsets.only(bottom: 10),
-                          padding: EdgeInsets.all(0),
-                          child: Center(
-                            child: ListView.builder(
+                ),
+              )
+            : null,
+        body: _isDataLoaded
+            ? (_bookingAppointment?.services.length ?? 0) > 0
+                ? Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        height: 20,
+                        margin: EdgeInsets.only(
+                            left: 10, right: 10, bottom: 0, top: 10),
+                        child: Center(
+                          child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              controller: _scrollController,
+                              itemCount: _appointmentList.length,
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemCount: 4,
-                              itemBuilder: (BuildContext context, int j) {
-                                return Container(
-                                  alignment: Alignment.center,
-                                  width:
-                                      (MediaQuery.of(context).size.width) / 4.3,
-                                  child: Text('${_appointmentList[j]}',
-                                      style: TextStyle(
-                                          fontSize:
-                                              j == _currentIndex ? 10.5 : 9.5,
-                                          color: j == _currentIndex
-                                              ? Color(0xFF171D2C)
-                                              : Color(0xFF898A8D),
-                                          fontWeight: j == _currentIndex
-                                              ? FontWeight.w600
-                                              : FontWeight.w400)),
-                                );
-                              },
-                            ),
-                          ),
+                              itemBuilder: (BuildContext context, int i) {
+                                return Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle,
+                                        size: 15,
+                                        color: (i == _currentIndex) ||
+                                                (i == 0 && step1Done) ||
+                                                (i == 1 && step2Done) ||
+                                                (i == 2 && step3Done)
+                                            ? Color(0xFFF36D86)
+                                            : Colors.grey,
+                                      ),
+                                      i == 3
+                                          ? SizedBox()
+                                          : Container(
+                                              height: 2,
+                                              color: (i == _currentIndex - 1) ||
+                                                      (i == 1 - 1 &&
+                                                          step2Done) ||
+                                                      ((i == 2 - 1 &&
+                                                          step3Done))
+                                                  ? Color(0xFFF36D86)
+                                                  : Colors.black,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.75 /
+                                                  4,
+                                              margin: EdgeInsets.all(0),
+                                            ),
+                                    ]);
+                              }),
                         ),
-                        Expanded(
-                          child: PageView(
-                            physics: NeverScrollableScrollPhysics(),
-                            controller: _pageController,
-                            onPageChanged: (index) {
-                              _currentIndex = index;
-                              double currentIndex = _currentIndex.toDouble();
-                              _scrollController!.animateTo(currentIndex,
-                                  duration: Duration(seconds: 1),
-                                  curve: Curves.fastOutSlowIn);
-                              setState(() {});
-                            },
-                            children: [
-                              _chooseService(),
-                              _appointment(),
-                              _summary(),
-                              _payment(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  : Center(
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .txt_nothing_is_yet_to_see_here,
-                        style: Theme.of(context).primaryTextTheme.titleMedium,
                       ),
-                    )
-              : _shimmer(),
-          floatingActionButton: _currentIndex != 0
-              ? null
-              : FlutterToggleTab(
-                  borderRadius: 15,
-                  selectedIndex: in_door,
-                  selectedTextStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                  unSelectedTextStyle: TextStyle(
-                      color: Colors.white10,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 30,
+                        margin: EdgeInsets.only(bottom: 10),
+                        padding: EdgeInsets.all(0),
+                        child: Center(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 4,
+                            itemBuilder: (BuildContext context, int j) {
+                              return Container(
+                                alignment: Alignment.center,
+                                width:
+                                    (MediaQuery.of(context).size.width) / 4.3,
+                                child: Text('${_appointmentList[j]}',
+                                    style: TextStyle(
+                                        fontSize:
+                                            j == _currentIndex ? 10.5 : 9.5,
+                                        color: j == _currentIndex
+                                            ? Color(0xFF171D2C)
+                                            : Color(0xFF898A8D),
+                                        fontWeight: j == _currentIndex
+                                            ? FontWeight.w600
+                                            : FontWeight.w400)),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: PageView(
+                          physics: NeverScrollableScrollPhysics(),
+                          controller: _pageController,
+                          onPageChanged: (index) {
+                            _currentIndex = index;
+                            double currentIndex = _currentIndex.toDouble();
+                            _scrollController!.animateTo(currentIndex,
+                                duration: Duration(seconds: 1),
+                                curve: Curves.fastOutSlowIn);
+                            setState(() {});
+                          },
+                          children: [
+                            _chooseService(),
+                            _appointment(),
+                            _summary(),
+                            _payment(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: Text(
+                      AppLocalizations.of(context)!
+                          .txt_nothing_is_yet_to_see_here,
+                      style: Theme.of(context).primaryTextTheme.titleMedium,
+                    ),
+                  )
+            : _shimmer(),
+        floatingActionButton: _currentIndex != 0
+            ? null
+            : FlutterToggleTab(
+                // isShadowEnable: false,
 
-                  width: MediaQuery.of(context).size.width / 8,
+                borderRadius: 15,
+                height: MediaQuery.of(context).size.width / 12,
+                selectedIndex: in_door,
+                selectedTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
 
-                  labels: ['بالمنزل', 'بالصالون'],
-                  // icons: [
-                  //   FontAwesomeIcons.scissors,
-                  //   Icons.home,
-                  // ],
-                  selectedLabelIndex: (index) {
-                    setState(() {
-                      in_door = (in_door == 0) ? 1 : 0;
-                      //! 1 > inDoor
-                      // isInDoor = (in_door == 0) ? 'بالمنزل' : 'داخل الصالون';
-                    });
-                    print(in_door);
-                  },
-                  marginSelected:
-                      EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                )),
+                unSelectedTextStyle: TextStyle(
+                    color: Colors.white54,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400),
+                width: MediaQuery.of(context).size.width / 10,
+                labels: ['بالمنزل', 'بالصالون'],
+                selectedLabelIndex: (index) {
+                  setState(() {
+                    in_door = (in_door == 0) ? 1 : 0;
+                    //! 1 > inDoor
+                  });
+                  print(in_door);
+                },
+                marginSelected:
+                    EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              ),
+      ),
     );
   }
 
@@ -1083,6 +1078,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
+        print('.......${_bookingAppointment!.selected_date}');
         await apiHelper!
             .getTimeSLot(_bookingAppointment!.selected_date,
                 _bookingAppointment!.staff_id, _bookingAppointment!.vendor_id)
