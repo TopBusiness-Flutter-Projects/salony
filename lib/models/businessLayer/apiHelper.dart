@@ -993,6 +993,7 @@ class APIHelper {
 
   Future<dynamic> getDetailsOfMainServices(String sId) async {
     try {
+      print('..........${global.baseUrl}get_vendors_by_id?s_id=$sId');
       final response = await http.get(
         Uri.parse("${global.baseUrl}get_vendors_by_id?s_id=$sId"),
         headers: await global.getApiHeaders(true),
@@ -1116,11 +1117,15 @@ class APIHelper {
   Future<dynamic> getTimeSLot(
       String? selected_date, int? staff_id, int? vendor_id) async {
     try {
+      List<String> dateParts = selected_date!.replaceAll('-', '/').split('/');
+      String formattedDate = "${dateParts[2]}/${dateParts[1]}/${dateParts[0]}";
+      print(
+          '................. xx $staff_id xx $vendor_id  xx ${formattedDate}');
       final response = await http.post(
         Uri.parse("${global.baseUrl}timeslot"),
         headers: await global.getApiHeaders(true),
         body: json.encode({
-          "selected_date": selected_date,
+          "selected_date": formattedDate,
           "staff_id": staff_id,
           "vendor_id": vendor_id,
         }),

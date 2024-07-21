@@ -6,13 +6,13 @@ class BookAppointment {
   String? salon_name;
   String? owner;
   String? description;
-  int? type;
+  dynamic type;
   String? vendor_logo;
   String? vendor_loc;
-  int? vendor_id;
-  int? qty;
+  dynamic vendor_id;
+  dynamic qty;
   double? rating;
-  int? staff_id;
+  dynamic staff_id;
   String? selected_date;
   List<Service> services = [];
   List<TimeSlot>? time_slot = [];

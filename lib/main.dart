@@ -176,7 +176,7 @@ class MyAppState extends State<MyApp> {
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Barber',
+          title: 'Salony',
           navigatorObservers: <NavigatorObserver>[observer],
           theme: nativeTheme(),
           locale: provider.locale,
