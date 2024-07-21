@@ -416,8 +416,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
   @override
   void initState() {
     super.initState();
-    print('vendorId : $vendorId');
-
+    print('vendorId : xx $vendorId');
+    _getTimeSlot();
     _tabController = new TabController(length: 2, vsync: this);
     _scrollController =
         new ScrollController(initialScrollOffset: _currentIndex.toDouble());
@@ -1078,7 +1078,7 @@ class _BookAppointmentScreenState extends BaseRouteState {
     try {
       bool isConnected = await br.checkConnectivity();
       if (isConnected) {
-        print('.......${_bookingAppointment!.selected_date}');
+        print('.....xx..${_bookingAppointment!.selected_date}');
         await apiHelper!
             .getTimeSLot(_bookingAppointment!.selected_date,
                 _bookingAppointment!.staff_id, _bookingAppointment!.vendor_id)

@@ -993,6 +993,7 @@ class APIHelper {
 
   Future<dynamic> getDetailsOfMainServices(String sId) async {
     try {
+      print('..........${global.baseUrl}get_vendors_by_id?s_id=$sId');
       final response = await http.get(
         Uri.parse("${global.baseUrl}get_vendors_by_id?s_id=$sId"),
         headers: await global.getApiHeaders(true),
