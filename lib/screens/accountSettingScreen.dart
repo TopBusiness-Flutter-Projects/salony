@@ -1,20 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/businessRule.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
-import 'package:app/screens/profileScreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../models/DistrictModel.dart';
 import '../models/city_model.dart';
 import '../models/region_model.dart';
-import '../models/userModel.dart';
 import '../widgets/bottomNavigationWidget.dart';
 
 class AccountSettingScreen extends BaseRoute {
@@ -384,7 +380,7 @@ class _AccountSettingScreenState extends BaseRouteState {
                           fontSize: 16),
                     ),
                     Text(
-                      '${global.user!.region ?? ""} - ${global.user!.city ?? ""} - ${global.user!.area ?? ""}',
+                      "${global.user!.region ?? ""} - ${global.user!.city ?? ""} - ${global.user!.area ?? ""} ${global.user!.address == null ? '' : '(${global.user!.address ?? ""})'}",
                       maxLines: 1,
                       style: TextStyle(
                           fontFamily: 'cairo',

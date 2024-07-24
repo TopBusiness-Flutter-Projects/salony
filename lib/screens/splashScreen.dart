@@ -54,7 +54,11 @@ class _SplashScreenState extends BaseRouteState {
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width / 1.8,
+                    ),
                     Image.asset(
                       'assets/images/logo.png',
                       width: MediaQuery.of(context).size.width / 1.8,
@@ -116,20 +120,20 @@ class _SplashScreenState extends BaseRouteState {
           print('+++++++++++ :: $myCartCount');
 
           // await getCurrentPosition().then((_) async {
-            // if (global.lat != null && global.lng != null) {
-            setState(() {});
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => BottomNavigationWidget(
-                      a: widget.analytics,
-                      o: widget.observer,
-                    )));
-            // } else {
-            //   hideLoader();
-            //   showSnackBar(
-            //       key: _scaffoldKey,
-            //       snackBarMessage:
-            //           'Please enable location permission to use this App');
-            // }
+          // if (global.lat != null && global.lng != null) {
+          setState(() {});
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => BottomNavigationWidget(
+                    a: widget.analytics,
+                    o: widget.observer,
+                  )));
+          // } else {
+          //   hideLoader();
+          //   showSnackBar(
+          //       key: _scaffoldKey,
+          //       snackBarMessage:
+          //           'Please enable location permission to use this App');
+          // }
           // });
         } else {
           // await getCurrentPosition();

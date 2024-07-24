@@ -500,6 +500,7 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                 style: Theme.of(context).primaryTextTheme.titleMedium,
               ),
             ),
+
             Container(
               margin: EdgeInsets.only(left: 15, right: 15),
               decoration: BoxDecoration(
