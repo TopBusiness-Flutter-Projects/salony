@@ -27,8 +27,8 @@ class _BookingConfirmationScreenState extends BaseRouteState {
               .push(
                 MaterialPageRoute(
                     builder: (context) => BottomNavigationWidget(
-                          a: widget.analytics,
-                          o: widget.observer,
+                          // a: widget.analytics,
+                          // o: widget.observer,
                         )),
               )
               .then((value) => value as bool);
@@ -55,8 +55,8 @@ class _BookingConfirmationScreenState extends BaseRouteState {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => BottomNavigationWidget(
-                                    a: widget.analytics,
-                                    o: widget.observer,
+                                    // a: widget.analytics,
+                                    // o: widget.observer,
                                   )),
                         );
                       },

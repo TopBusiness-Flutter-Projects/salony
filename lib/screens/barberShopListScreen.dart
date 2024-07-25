@@ -58,8 +58,7 @@ class _BarberShopListScreenState extends BaseRouteState {
                                     builder: (context) =>
                                         BarberShopDescriptionScreen(
                                             _barberShopList[index].vendor_id,
-                                            a: widget.analytics,
-                                            o: widget.observer)),
+                                       )),
                               );
                             },
                             child: Card(

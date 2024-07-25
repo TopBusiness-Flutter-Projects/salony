@@ -470,8 +470,7 @@ class _SignUpScreenState extends BaseRouteState {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                         builder: (context) => SignInScreen(
-                                            a: widget.analytics,
-                                            o: widget.observer)),
+                                       )),
                                   );
                                 },
                                 child: Text(
@@ -546,8 +545,8 @@ class _SignUpScreenState extends BaseRouteState {
           Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => OTPVerificationScreen(
-                      a: widget.analytics,
-                      o: widget.observer,
+                      // a: widget.analytics,
+                      // o: widget.observer,
                       verificationId: verificationId,
                       phoneNumberOrEmail: phoneNumber,
                     )),

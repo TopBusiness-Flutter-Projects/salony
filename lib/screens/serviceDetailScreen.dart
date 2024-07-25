@@ -263,10 +263,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                     _barberShopList![
                                                                             index]
                                                                         .vendor_id,
-                                                                    a: widget
-                                                                        .analytics,
-                                                                    o: widget
-                                                                        .observer)),
+                                                               )),
                                                           );
                                                         },
                                                         child: Column(
@@ -368,10 +365,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                     _barberShopList![
                                                                             index]
                                                                         .vendor_id,
-                                                                    a: widget
-                                                                        .analytics,
-                                                                    o: widget
-                                                                        .observer)),
+                                                                )),
                                                           );
                                                         },
                                                         child: Text(

@@ -413,8 +413,8 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   SignInScreen(
-                                                    a: widget.analytics,
-                                                    o: widget.observer,
+                                                    // a: widget.analytics,
+                                                    // o: widget.observer,
                                                   )),
                                         )
                                       : Navigator.of(context).push(
@@ -422,8 +422,8 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                                               builder: (context) =>
                                                   BookAppointmentScreen(
                                                     vendorId,
-                                                    a: widget.analytics,
-                                                    o: widget.observer,
+                                                    // a: widget.analytics,
+                                                    // o: widget.observer,
                                                   )),
                                         );
                                 },
@@ -457,8 +457,8 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
           context: context,
           builder: (BuildContext context) {
             return OpenImageDialog(
-              a: widget.analytics,
-              o: widget.observer,
+              // a: widget.analytics,
+              // o: widget.observer,
               index: index,
               barberShopDesc: _barberShopDesc,
             );
@@ -500,6 +500,7 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                 style: Theme.of(context).primaryTextTheme.titleMedium,
               ),
             ),
+
             Container(
               margin: EdgeInsets.only(left: 15, right: 15),
               decoration: BoxDecoration(
@@ -704,8 +705,7 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                         MaterialPageRoute(
                             builder: (context) => BarberDetailScreen(
                                 _barberShopDesc!.barber[index].staff_id,
-                                a: widget.analytics,
-                                o: widget.observer)),
+                              )),
                       );
                     },
                     child: Card(
@@ -954,8 +954,7 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                         MaterialPageRoute(
                             builder: (context) => BarberDetailScreen(
                                 _barberShopDesc!.barber[index].staff_id,
-                                a: widget.analytics,
-                                o: widget.observer)),
+                            ))
                       );
                     },
                     child: Padding(
@@ -1024,8 +1023,8 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                     MaterialPageRoute(
                         builder: (context) => ProductDetailScreen(
                               _barberShopDesc!.products[index].id,
-                              a: widget.analytics,
-                              o: widget.observer,
+                              // a: widget.analytics,
+                              // o: widget.observer,
                               isShowGoCartBtn:
                                   _barberShopDesc!.products[index].cart_qty !=
                                               null &&
@@ -1323,8 +1322,8 @@ class _BarberShopDescriptionScreenState extends BaseRouteState {
                           builder: (context) => ServiceDetailScreen(
                                 serviceName: _barberShopDesc!
                                     .services[index].service_name,
-                                a: widget.analytics,
-                                o: widget.observer,
+                                // a: widget.analytics,
+                                // o: widget.observer,
                                 serviceImage: _barberShopDesc!
                                     .services[index].service_image,
                               )),

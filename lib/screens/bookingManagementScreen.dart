@@ -391,8 +391,7 @@ class _BookingManagementScreenState extends BaseRouteState {
                                                         AddRatingScreen(
                                                             _allBookingsList![
                                                                 index],
-                                                            a: widget.analytics,
-                                                            o: widget.observer),
+                                                         ),
                                                   ),
                                                 );
                                               },

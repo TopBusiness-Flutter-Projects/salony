@@ -104,8 +104,8 @@ class _ForgotPasswordScreenState extends BaseRouteState {
           Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => OTPVerificationScreen(
-                      a: widget.analytics,
-                      o: widget.observer,
+                      // a: widget.analytics,
+                      // o: widget.observer,
                       verificationId: verificationId,
                       phoneNumberOrEmail: phoneNumber,
                       screenId: 2,

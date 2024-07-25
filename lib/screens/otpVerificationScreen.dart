@@ -147,8 +147,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     TermsOfServices(
-                                                        a: widget.analytics,
-                                                        o: widget.observer)),
+                                                     )),
                                           );
                                         },
                                         child: Text('شروط الخدمة،',
@@ -165,8 +164,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     PrivacyAndPolicy(
-                                                        a: widget.analytics,
-                                                        o: widget.observer)),
+                                                     )),
                                           );
                                         },
                                         child: Text('  سياسة الخصوصية',
@@ -188,8 +186,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) => CookiesPolicy(
-                                                a: widget.analytics,
-                                                o: widget.observer)),
+                                            )),
                                       );
                                     },
                                     child: Text(
@@ -303,8 +300,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     TermsOfServices(
-                                                        a: widget.analytics,
-                                                        o: widget.observer)),
+                                                     )),
                                           );
                                         },
                                         child: Text('شروط الخدمة،',
@@ -321,8 +317,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     PrivacyAndPolicy(
-                                                        a: widget.analytics,
-                                                        o: widget.observer)),
+                                                    )),
                                           );
                                         },
                                         child: Text('  سياسة الخصوصية',
@@ -344,8 +339,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) => CookiesPolicy(
-                                                a: widget.analytics,
-                                                o: widget.observer)),
+                                              )),
                                       );
                                     },
                                     child: Text(
@@ -546,8 +540,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ResetPasswordScreen(
                 phoneNumberOrEmail,
-                a: widget.analytics,
-                o: widget.observer,
+                // a: widget.analytics,
+                // o: widget.observer,
               )));
     }).catchError((error) {
       hideLoader();
@@ -578,8 +572,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => BottomNavigationWidget(
-                            a: widget.analytics,
-                            o: widget.observer,
+                            // a: widget.analytics,
+                            // o: widget.observer,
                           )),
                 );
                 // } else {
@@ -617,7 +611,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => ExploreScreen(
-                          a: widget.analytics, o: widget.observer)),
+                         )),
                 );
                 // } else {
                 //   hideLoader();

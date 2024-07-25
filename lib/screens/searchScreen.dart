@@ -207,8 +207,7 @@ class _SearchScreenState extends BaseRouteState {
                         MaterialPageRoute(
                             builder: (context) => BarberShopDescriptionScreen(
                                 _barberShopList[index].vendor_id,
-                                a: widget.analytics,
-                                o: widget.observer)),
+                               )),
                       );
                     },
                     child: Padding(
@@ -311,8 +310,7 @@ class _SearchScreenState extends BaseRouteState {
                           MaterialPageRoute(
                               builder: (context) => BarberDetailScreen(
                                   _popularBarbersList[index].staff_id,
-                                  a: widget.analytics,
-                                  o: widget.observer)),
+                            )),
                         );
                       },
                       child: Card(
@@ -653,8 +651,8 @@ class _SearchScreenState extends BaseRouteState {
                         MaterialPageRoute(
                             builder: (context) => ProductDetailScreen(
                                   _productList[index].id,
-                                  a: widget.analytics,
-                                  o: widget.observer,
+                                  // a: widget.analytics,
+                                  // o: widget.observer,
                                   isShowGoCartBtn:
                                       _productList[index].cart_qty != null &&
                                               _productList[index].cart_qty! > 0
@@ -794,8 +792,8 @@ class _SearchScreenState extends BaseRouteState {
                         MaterialPageRoute(
                             builder: (context) => ServiceDetailScreen(
                                 serviceName: _serviceList[index].service_name,
-                                a: widget.analytics,
-                                o: widget.observer,
+                                // a: widget.analytics,
+                                // o: widget.observer,
                                 serviceImage:
                                     _serviceList[index].service_image)),
                       );

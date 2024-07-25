@@ -12,6 +12,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_number/mobile_number.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../constansts.dart';
+
 class AddPhoneScreen extends BaseRoute {
   AddPhoneScreen({a, o}) : super(a: a, o: o, r: 'AddPhoneScreen');
 
@@ -220,7 +222,7 @@ class _AddPhoneScreenState extends BaseRouteState {
   _sendOTP(String phoneNumber) async {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+92$phoneNumber',
+        phoneNumber: '$phoneCode$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();
@@ -234,8 +236,8 @@ class _AddPhoneScreenState extends BaseRouteState {
           Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => OTPVerificationScreen(
-                      a: widget.analytics,
-                      o: widget.observer,
+                      // a: widget.analytics,
+                      // o: widget.observer,
                       screenId: 1,
                       verificationId: verificationId,
                       phoneNumberOrEmail: phoneNumber,
