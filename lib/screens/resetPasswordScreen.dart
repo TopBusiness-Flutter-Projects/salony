@@ -126,8 +126,8 @@ class _ResetPasswordScreenState extends BaseRouteState {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => SignInScreen(
-                            a: widget.analytics,
-                            o: widget.observer,
+                            // a: widget.analytics,
+                            // o: widget.observer,
                           )),
                 );
                 Fluttertoast.showToast(

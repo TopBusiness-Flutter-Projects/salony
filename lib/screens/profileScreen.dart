@@ -136,8 +136,7 @@ class _ProfileScreenState extends BaseRouteState {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           AccountSettingScreen(
-                                              a: widget.analytics,
-                                              o: widget.observer)),
+                                           )),
                                 );
                               },
                               shape: Theme.of(context).cardTheme.shape,
@@ -164,8 +163,7 @@ class _ProfileScreenState extends BaseRouteState {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           ProductOrderHistoryScreen(
-                                              a: widget.analytics,
-                                              o: widget.observer)),
+                                             )),
                                 );
                               },
                               shape: Theme.of(context).cardTheme.shape,
@@ -193,8 +191,7 @@ class _ProfileScreenState extends BaseRouteState {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           BookingManagementScreen(
-                                              a: widget.analytics,
-                                              o: widget.observer)),
+                                            )),
                                 );
                               },
                               shape: Theme.of(context).cardTheme.shape,
@@ -248,8 +245,7 @@ class _ProfileScreenState extends BaseRouteState {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) => PricingAndOffers(
-                                          a: widget.analytics,
-                                          o: widget.observer)),
+                                        )),
                                 );
                               },
                               leading: Icon(FontAwesomeIcons.tag),
@@ -301,8 +297,8 @@ class _ProfileScreenState extends BaseRouteState {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) => TermsOfServices(
-                                            a: widget.analytics,
-                                            o: widget.observer,
+                                            // a: widget.analytics,
+                                            // o: widget.observer,
                                           )),
                                 );
                               },
@@ -559,7 +555,7 @@ class _ProfileScreenState extends BaseRouteState {
 
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SignInScreen(
-                              a: widget.analytics, o: widget.observer)));
+                         )));
                       global.user = new CurrentUser();
                     },
                   ),
@@ -603,7 +599,7 @@ class _ProfileScreenState extends BaseRouteState {
 
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SignInScreen(
-                              a: widget.analytics, o: widget.observer)));
+                       )));
                       global.user = new CurrentUser();
                     }
                   },
@@ -644,7 +640,7 @@ class _ProfileScreenState extends BaseRouteState {
 
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SignInScreen(
-                            a: widget.analytics, o: widget.observer)));
+                          )));
                     global.user = new CurrentUser();
                   },
                 ),

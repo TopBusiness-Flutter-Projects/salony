@@ -60,8 +60,8 @@ class _SignInScreenState extends BaseRouteState {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => BottomNavigationWidget(
-                                      a: widget.analytics,
-                                      o: widget.observer,
+                                      // a: widget.analytics,
+                                      // o: widget.observer,
                                     )),
                           ); //!
                         },
@@ -229,8 +229,7 @@ class _SignInScreenState extends BaseRouteState {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           ForgotPasswordScreen(
-                                              a: widget.analytics,
-                                              o: widget.observer)),
+                                          )),
                                 );
                               },
                               child: Text(
@@ -457,8 +456,7 @@ class _SignInScreenState extends BaseRouteState {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                         builder: (context) => SignUpScreen(
-                                            a: widget.analytics,
-                                            o: widget.observer)),
+                                          )),
                                   );
                                 },
                                 child: Text(
@@ -533,8 +531,8 @@ class _SignInScreenState extends BaseRouteState {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => BottomNavigationWidget(
-                            a: widget.analytics,
-                            o: widget.observer,
+                            // a: widget.analytics,
+                            // o: widget.observer,
                           )),
                 );
                 // await getCurrentPosition().then((_) async {

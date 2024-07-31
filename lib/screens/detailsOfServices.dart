@@ -214,10 +214,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                 _servicesList![
                                                                         index]
                                                                     .vendorId,
-                                                                a: widget
-                                                                    .analytics,
-                                                                o: widget
-                                                                    .observer)));
+                                                             )));
                                                   },
                                                   child: Container(
                                                     height:
@@ -300,10 +297,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                     _servicesList![
                                                                             index]
                                                                         .vendorId,
-                                                                    a: widget
-                                                                        .analytics,
-                                                                    o: widget
-                                                                        .observer)),
+                                                                  )),
                                                       );
                                                     },
                                                     child: Padding(
@@ -386,10 +380,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                     _servicesList![
                                                                             index]
                                                                         .vendorId,
-                                                                    a: widget
-                                                                        .analytics,
-                                                                    o: widget
-                                                                        .observer)),
+                                                               )),
                                                       );
                                                     },
                                                     child: Text(
@@ -425,8 +416,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                               MaterialPageRoute(
                                   builder: (context) => BookAppointmentScreen(
                                       selectedVendorId,
-                                      a: widget.analytics,
-                                      o: widget.observer)),
+                                   )),
                             );
                           },
                           child:

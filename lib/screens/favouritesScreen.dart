@@ -246,8 +246,8 @@ class _FavouritesScreenState extends BaseRouteState {
             MaterialPageRoute(
                 builder: (context) => ProductDetailScreen(
                       favoritesList!.fav_items[index].id,
-                      a: widget.analytics,
-                      o: widget.observer,
+                      // a: widget.analytics,
+                      // o: widget.observer,
                       isShowGoCartBtn:
                           favoritesList!.fav_items[index].cart_qty != null &&
                                   favoritesList!.fav_items[index].cart_qty! > 0

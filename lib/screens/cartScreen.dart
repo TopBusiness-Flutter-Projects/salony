@@ -408,8 +408,7 @@ class _CartScreenState extends BaseRouteState {
                                         builder: (context) =>
                                             PaymentGatewayScreen(
                                                 cartList: _cartList,
-                                                a: widget.analytics,
-                                                o: widget.observer)),
+                                              )),
                                   );
                                 },
                                 child: Text(
@@ -427,8 +426,7 @@ class _CartScreenState extends BaseRouteState {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               ProductListScreen(
-                                                  a: widget.analytics,
-                                                  o: widget.observer)),
+                                                 )),
                                     );
                                   },
                                   child: Text(

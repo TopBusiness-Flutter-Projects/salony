@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BaseRoute extends Base {
-  BaseRoute({a, o, r}) : super(routeName: r, analytics: a, observer: o);
+  BaseRoute({a, o, r}) : super(routeName: r);
 
   @override
   BaseRouteState createState() => BaseRouteState();
@@ -18,7 +18,7 @@ class BaseRouteState extends BaseState with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    widget.observer!.subscribe(this, ModalRoute.of(context)!);
+    // widget.observer!.subscribe(this, ModalRoute.of(context)!);
   }
 
   @override
@@ -35,7 +35,7 @@ class BaseRouteState extends BaseState with RouteAware {
 
   @override
   void dispose() {
-    widget.observer!.unsubscribe(this);
+    // widget.observer!.unsubscribe(this);
     super.dispose();
   }
 
@@ -51,16 +51,16 @@ class BaseRouteState extends BaseState with RouteAware {
   }
 
   Future<void> _sendAnalyticsEvent() async {
-    await widget.observer!.analytics.logEvent(
-      name: widget.routeName!,
-      parameters: <String, dynamic>{},
-    );
+    // await widget.observer!.analytics.logEvent(
+    //   name: widget.routeName!,
+    //   parameters: <String, dynamic>{},
+    // );
   }
 
   Future<void> _setCurrentScreen() async {
-    await widget.observer!.analytics.setCurrentScreen(
-      screenName: widget.routeName,
-      screenClassOverride: widget.routeName!,
-    );
+    // await widget.observer!.analytics.setCurrentScreen(
+    //   screenName: widget.routeName,
+    //   screenClassOverride: widget.routeName!,
+    // );
   }
 }

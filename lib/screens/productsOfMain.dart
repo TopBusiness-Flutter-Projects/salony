@@ -69,8 +69,8 @@ class _ProductListScreenState extends BaseRouteState {
                       MaterialPageRoute(
                           builder: (context) => SearchScreen(
                                 0,
-                                a: widget.analytics,
-                                o: widget.observer,
+                                // a: widget.analytics,
+                                // o: widget.observer,
                               )),
                     );
                   },
@@ -120,8 +120,8 @@ class _ProductListScreenState extends BaseRouteState {
             MaterialPageRoute(
                 builder: (context) => ProductDetailScreen(
                       _productList[index].id,
-                      a: widget.analytics,
-                      o: widget.observer,
+                      // a: widget.analytics,
+                      // o: widget.observer,
                       isShowGoCartBtn: _productList[index].cart_qty != null &&
                               (_productList[index].cart_qty ?? 0) > 0
                           ? true
@@ -161,8 +161,8 @@ class _ProductListScreenState extends BaseRouteState {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                         builder: (context) => SignInScreen(
-                                              a: widget.analytics,
-                                              o: widget.observer,
+                                              // a: widget.analytics,
+                                              // o: widget.observer,
                                             )),
                                   );
                                 } else {
@@ -247,8 +247,8 @@ class _ProductListScreenState extends BaseRouteState {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SignInScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
+                                        // a: widget.analytics,
+                                        // o: widget.observer,
                                       )),
                             );
                           } else {

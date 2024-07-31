@@ -11,6 +11,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../models/businessLayer/shared_prefrence.dart';
 
 class SplashScreen extends BaseRoute {
@@ -103,8 +104,10 @@ class _SplashScreenState extends BaseRouteState {
       // We execute this functions in parallel and store the results into configResults
       final List<dynamic> configResults = await Future.wait([
         _getMapBox(),
-        FirebaseMessaging.instance.getToken(),
+        // FirebaseMessaging.instance.getToken(),
         _getCurrency(),
+         getToke(),
+
         br.checkConnectivity()
       ]);
 
@@ -124,8 +127,8 @@ class _SplashScreenState extends BaseRouteState {
           setState(() {});
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => BottomNavigationWidget(
-                    a: widget.analytics,
-                    o: widget.observer,
+                    // a: widget.analytics,
+                    // o: widget.observer,
                   )));
           // } else {
           //   hideLoader();
@@ -135,19 +138,22 @@ class _SplashScreenState extends BaseRouteState {
           //           'Please enable location permission to use this App');
           // }
           // });
+          print('555555555555');
         } else {
+
+          print('/////////////');
           // await getCurrentPosition();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => IntroScreen(
-                    a: widget.analytics,
-                    o: widget.observer,
+                    // a: widget.analytics,
+                    // o: widget.observer,
                   )));
         }
       } else {
         showNetworkErrorSnackBar(_scaffoldKey);
       }
     } catch (e) {
-      print("Exception - splashScreen.dart - init():" + e.toString());
+      print("Exception - splashScreen.dart - init():" + (e.toString() ?? ''));
     }
   }
 
@@ -206,5 +212,18 @@ class _SplashScreenState extends BaseRouteState {
     } finally {
       setState(() {});
     }
+  }
+
+  getToke() async {
+    messaging.getToken().then((value) {
+      print('ssssssssssss$value');
+      global.appDeviceId = value;
+    }).onError((error, stackTrace) {
+      print('ssssssssssss${error.toString()}');
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(error.toString())));
+    });
+    // Handle the case when permission is not granted
   }
 }

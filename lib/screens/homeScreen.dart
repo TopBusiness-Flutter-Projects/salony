@@ -325,8 +325,8 @@ class _HomeScreenState extends BaseRouteState {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => ServiceListScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
+                                        // a: widget.analytics,
+                                        // o: widget.observer,
                                       )),
                             );
                           },
@@ -488,8 +488,8 @@ class _HomeScreenState extends BaseRouteState {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => ProductListScreen(
-                                        a: widget.analytics,
-                                        o: widget.observer,
+                                        // a: widget.analytics,
+                                        // o: widget.observer,
                                       )),
                             );
                           },
@@ -735,8 +735,8 @@ class _HomeScreenState extends BaseRouteState {
               MaterialPageRoute(
                   builder: (context) => BarberShopDescriptionScreen(
                         int.parse(_bannerList![i].vendor_id ?? '1'),
-                        a: widget.analytics,
-                        o: widget.observer,
+                        // a: widget.analytics,
+                        // o: widget.observer,
                       )),
             );
           },
@@ -880,8 +880,8 @@ class _HomeScreenState extends BaseRouteState {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => ProductsOfMainScreen(
                             mainId: _mainProductsList![index].id ?? 4,
-                            a: widget.analytics,
-                            o: widget.observer,
+                            // a: widget.analytics,
+                            // o: widget.observer,
                             serviceImage: _mainProductsList![index].image,
                             serviceName: _mainProductsList![index].name,
                           )));
@@ -1192,8 +1192,8 @@ class _HomeScreenState extends BaseRouteState {
                           builder: (context) => DetailsOfServiceScreen(
                               sId: _mainServiceList![index].id.toString(),
                               serviceName: _mainServiceList![index].name,
-                              a: widget.analytics,
-                              o: widget.observer,
+                              // a: widget.analytics,
+                              // o: widget.observer,
                               serviceImage: _mainServiceList![index].image)),
                     );
                   },

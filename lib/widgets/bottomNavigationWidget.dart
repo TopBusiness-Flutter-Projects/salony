@@ -137,19 +137,19 @@ class _BottomNavigationWidgetState extends BaseRouteState {
   }
 
   List<Widget> screens() => [
-        HomeScreen(a: widget.analytics, o: widget.observer),
+        HomeScreen(),
         // LocationScreen(
         //   a: widget.analytics,
         //   o: widget.observer,
         //   screenId: locationIndex,
         // ),
 
-        FavouritesScreen(a: widget.analytics, o: widget.observer),
+        FavouritesScreen(),
         CartScreen(
-          a: widget.analytics,
-          o: widget.observer,
+          // a: widget.analytics,
+          // o: widget.observer,
           screenId: 1,
         ),
-        ProfileScreen(a: widget.analytics, o: widget.observer)
+        ProfileScreen()
       ];
 }

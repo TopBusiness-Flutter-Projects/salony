@@ -192,10 +192,10 @@ class _IntroScreenState extends BaseRouteState {
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               SignInScreen(
-                                                                a: widget
-                                                                    .analytics,
-                                                                o: widget
-                                                                    .observer,
+                                                                // a: widget
+                                                                //     .analytics,
+                                                                // o: widget
+                                                                //     .observer,
                                                               )),
                                                     );
                                                   },
@@ -217,8 +217,8 @@ class _IntroScreenState extends BaseRouteState {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         SignInScreen(
-                                                          a: widget.analytics,
-                                                          o: widget.observer,
+                                                          // a: widget.analytics,
+                                                          // o: widget.observer,
                                                         )),
                                               );
                                             },

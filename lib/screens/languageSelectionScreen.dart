@@ -93,8 +93,8 @@ class _ChooseLanguageScreenState extends BaseRouteState {
       Navigator.of(context).push(
         MaterialPageRoute(
             builder: (context) => BottomNavigationWidget(
-                  a: widget.analytics,
-                  o: widget.observer,
+                  // a: widget.analytics,
+                  // o: widget.observer,
                 )),
       );
       final provider = Provider.of<LocaleProvider>(context, listen: false);

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:app/Theme/nativeTheme.dart';
 import 'package:app/provider/local_provider.dart';
 import 'package:app/screens/splashScreen.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
+import 'firebase_options.dart';
+
+
+FirebaseMessaging messaging = FirebaseMessaging.instance;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 AndroidNotificationChannel channel = const AndroidNotificationChannel(
   'high_importance_channel',
@@ -21,23 +25,30 @@ AndroidNotificationChannel channel = const AndroidNotificationChannel(
   importance: Importance.high,
 );
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  try {
-    FirebaseApp? app;
-    List<FirebaseApp> firebase = Firebase.apps;
-    for (FirebaseApp appd in firebase) {
-      if (appd.name == 'Salony') {
-        app = appd;
-        break;
-      }
-    }
-    if (app == null) {
-      await Firebase.initializeApp();
-    }
-  } catch (e) {
-    print('Exception - main.dart - _firebaseMessagingBackgroundHandler(): ' +
-        e.toString());
-  }
+  await Firebase.initializeApp();
+
+  print(
+      "Handling a background message: notificationn  ${message.notification.toString()}");
 }
+
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   try {
+//     FirebaseApp? app;
+//     List<FirebaseApp> firebase = Firebase.apps;
+//     for (FirebaseApp appd in firebase) {
+//       if (appd.name == 'Salony') {
+//         app = appd;
+//         break;
+//       }
+//     }
+//     if (app == null) {
+//       await Firebase.initializeApp();
+//     }
+//   } catch (e) {
+//     print('Exception - main.dart - _firebaseMessagingBackgroundHandler(): ' +
+//         e.toString());
+//   }
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +56,7 @@ void main() async {
 
   try {
     await Firebase.initializeApp(
-        // options: DefaultFirebaseOptions.currentPlatform,
+         options: DefaultFirebaseOptions.currentPlatform,
         );
   } catch (e) {
     print("Can't initialize Firebase: $e");
@@ -67,14 +78,21 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
+  // static FirebaseAnalytics analytics = FirebaseAnalyticsebaseAnalytics.instance;
+  // static FirebaseAnalyticsObserver observer =
+  //     FirebaseAnalyticsObserver(analytics: analytics);
   final String routeName = "main";
+  getToken() async {
+    String? token = await messaging.getToken();
+    print("token =  $token");
 
+    // Preferences.instance.setNotificationToken(value: token ?? '');
+    return token;
+  }
   @override
   void initState() {
     super.initState();
+    getToken();
     var initialzationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/notificationdemo');
     var initializationSettingsIOS = DarwinInitializationSettings();
@@ -82,6 +100,7 @@ class MyAppState extends State<MyApp> {
       android: initialzationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
+
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
@@ -177,7 +196,7 @@ class MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Salony',
-          navigatorObservers: <NavigatorObserver>[observer],
+          // navigatorObservers: <NavigatorObserver>[observer],
           theme: nativeTheme(),
           locale: provider.locale,
           supportedLocales: [
@@ -193,8 +212,8 @@ class MyAppState extends State<MyApp> {
             return Directionality(
                 textDirection: TextDirection.rtl,
                 child: SplashScreen(
-                  a: analytics,
-                  o: observer,
+                  // a: analytics,
+                  // o: observer,
                 ));
           }),
         );

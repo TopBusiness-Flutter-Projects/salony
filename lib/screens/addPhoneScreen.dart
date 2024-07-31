@@ -236,8 +236,8 @@ class _AddPhoneScreenState extends BaseRouteState {
           Navigator.of(context).push(
             MaterialPageRoute(
                 builder: (context) => OTPVerificationScreen(
-                      a: widget.analytics,
-                      o: widget.observer,
+                      // a: widget.analytics,
+                      // o: widget.observer,
                       screenId: 1,
                       verificationId: verificationId,
                       phoneNumberOrEmail: phoneNumber,

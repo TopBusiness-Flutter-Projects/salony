@@ -152,8 +152,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             PaymentGatewayScreen(
-                                              a: widget.analytics,
-                                              o: widget.observer,
+                                              // a: widget.analytics,
+                                              // o: widget.observer,
                                               bookNowDetails: _bookNowDetails,
                                               screenId: 1,
                                             )),

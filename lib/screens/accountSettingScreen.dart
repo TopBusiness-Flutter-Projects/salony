@@ -704,8 +704,7 @@ class _AccountSettingScreenState extends BaseRouteState {
                   MaterialPageRoute(
                       builder: (context) => BottomNavigationWidget(
                           screenId: 3,
-                          a: widget.analytics,
-                          o: widget.observer)));
+                       )));
             } else {
               showSnackBar(
                   key: _scaffoldKey, snackBarMessage: '${result.message}');

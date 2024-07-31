@@ -57,8 +57,8 @@ class _ProductOrderHistoryScreenState extends BaseRouteState {
                                   builder: (context) =>
                                       ProductOrderHistoryDetailScreen(
                                         _productOrderHistoryList![index],
-                                        a: widget.analytics,
-                                        o: widget.observer,
+                                        // a: widget.analytics,
+                                        // o: widget.observer,
                                       )),
                             );
                           },

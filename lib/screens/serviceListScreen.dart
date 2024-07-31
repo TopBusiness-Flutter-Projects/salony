@@ -45,8 +45,8 @@ class _ServiceListScreenState extends BaseRouteState {
                       MaterialPageRoute(
                           builder: (context) => SearchScreen(
                                 1,
-                                a: widget.analytics,
-                                o: widget.observer,
+                                // a: widget.analytics,
+                                // o: widget.observer,
                               )),
                     );
                   },
@@ -84,8 +84,8 @@ class _ServiceListScreenState extends BaseRouteState {
                                                   .toString(),
                                               serviceName:
                                                   _serviceList[index].name,
-                                              a: widget.analytics,
-                                              o: widget.observer,
+                                              // a: widget.analytics,
+                                              // o: widget.observer,
                                               serviceImage:
                                                   _serviceList[index].image)),
                                 );

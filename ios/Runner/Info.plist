@@ -43,6 +43,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>816190602687969</string>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+    <true/>
 	<key>FacebookClientToken</key>
 	<string>a05cf2dd5ee57f6b1d2d1f1b94d03367</string>
 	<key>FacebookDisplayName</key>

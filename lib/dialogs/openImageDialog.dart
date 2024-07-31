@@ -17,7 +17,7 @@ class OpenImageDialog extends Base {
 
   OpenImageDialog(
       {a, o, this.image, this.barberShopDesc, this.index, this.name})
-      : super(analytics: a, observer: o);
+      : super();
   @override
   OpenImageDialogState createState() => OpenImageDialogState(
       this.image, this.barberShopDesc, this.index, this.name);

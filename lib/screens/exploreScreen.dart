@@ -44,7 +44,7 @@ class _ExploreScreenState extends BaseRouteState {
                 child: TextButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => BottomNavigationWidget(a: widget.analytics, o: widget.observer)),
+                        MaterialPageRoute(builder: (context) => BottomNavigationWidget()),
                       );
                     },
                     child: Text('Let\'s explore'))),

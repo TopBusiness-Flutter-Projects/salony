@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:app/models/businessLayer/apiHelper.dart';
 import 'package:app/models/businessLayer/businessRule.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:geocoding/geocoding.dart';
@@ -12,11 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Base extends StatefulWidget {
-  final FirebaseAnalytics? analytics;
-  final FirebaseAnalyticsObserver? observer;
+  // final FirebaseAnalytics? analytics;
+  // final FirebaseAnalyticsObserver? observer;
   final String? routeName;
 
-  Base({this.analytics, this.observer, this.routeName});
+  Base({this.routeName});
 
   @override
   BaseState createState() => BaseState();

@@ -141,8 +141,8 @@ class _ProductListScreenState extends BaseRouteState {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ProductsOfMainScreen(
                     mainId: _mainProductsList[index].id ?? 4,
-                    a: widget.analytics,
-                    o: widget.observer,
+                    // a: widget.analytics,
+                    // o: widget.observer,
                     serviceImage: _mainProductsList[index].image,
                     serviceName: _mainProductsList[index].name,
                   )));

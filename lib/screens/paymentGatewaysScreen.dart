@@ -291,7 +291,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => BookingConfirmationScreen(
-                            a: widget.analytics, o: widget.observer)),
+                        )),
                   );
                 }
               }
@@ -306,7 +306,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => BookingConfirmationScreen(
-                            a: widget.analytics, o: widget.observer)),
+                          )),
                   );
                 }
               }
@@ -673,8 +673,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
               Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) => BookingConfirmationScreen(
-                          a: widget.analytics,
-                          o: widget.observer,
+                          // a: widget.analytics,
+                          // o: widget.observer,
                           screenId: 2,
                         )),
               );
@@ -816,7 +816,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => BookingConfirmationScreen(
-                          a: widget.analytics, o: widget.observer)),
+                  )),
                 );
               }
             }
@@ -831,7 +831,7 @@ class _PaymentGatewayScreenState extends BaseRouteState {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => BookingConfirmationScreen(
-                          a: widget.analytics, o: widget.observer)),
+                       )),
                 );
               }
             }
@@ -883,8 +883,8 @@ class _PaymentGatewayScreenState extends BaseRouteState {
               Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) => BookingConfirmationScreen(
-                          a: widget.analytics,
-                          o: widget.observer,
+                          // a: widget.analytics,
+                          // o: widget.observer,
                           screenId: 1,
                         )),
               );

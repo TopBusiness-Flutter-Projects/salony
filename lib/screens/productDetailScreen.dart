@@ -76,8 +76,8 @@ class _ProductDetailScreenState extends BaseRouteState {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       SignInScreen(
-                                                        a: widget.analytics,
-                                                        o: widget.observer,
+                                                        // a: widget.analytics,
+                                                        // o: widget.observer,
                                                       )),
                                             );
                                           } else {
@@ -140,8 +140,8 @@ class _ProductDetailScreenState extends BaseRouteState {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       SignInScreen(
-                                                        a: widget.analytics,
-                                                        o: widget.observer,
+                                                        // a: widget.analytics,
+                                                        // o: widget.observer,
                                                       )),
                                             );
                                           } else {
@@ -233,16 +233,15 @@ class _ProductDetailScreenState extends BaseRouteState {
                             ? Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) => SignInScreen(
-                                          a: widget.analytics,
-                                          o: widget.observer,
+                                          // a: widget.analytics,
+                                          // o: widget.observer,
                                         )),
                               )
                             : isShowGoCartBtn!
                                 ? Navigator.of(context).push(
                                     MaterialPageRoute(
                                         builder: (context) => CartScreen(
-                                            a: widget.analytics,
-                                            o: widget.observer)),
+                                        )),
                                   )
                                 : await _addToCart(1, _productDetail!.id);
                       }
@@ -291,7 +290,7 @@ class _ProductDetailScreenState extends BaseRouteState {
               Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) =>
-                        CartScreen(a: widget.analytics, o: widget.observer)),
+                        CartScreen()),
               );
               setState(() {});
             } else {}
