@@ -9,7 +9,8 @@ class GoogleMapModel {
       key_id = json['key_id'] != null ? int.parse('${json['key_id']}') : null;
       map_api_key = json['map_api_key'] != null ? json['map_api_key'] : null;
     } catch (e) {
-      print("Exception - googleMapModel.dart - GoogleMapModel.fromJson():" + e.toString());
+      print("Exception - googleMapModel.dart - GoogleMapModel.fromJson():" +
+          e.toString());
     }
   }
 

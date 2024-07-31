@@ -122,15 +122,25 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                     AppLocalizations.of(context)
                                             ?.txt_swipe_to_confirm_your_booking ??
                                         '',
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .titleMedium,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
                               Dismissible(
                                 background: Card(
                                   elevation: 0,
+                                  // child: Center(
+                                  //   child: Text(
+                                  //     AppLocalizations.of(context)
+                                  //             ?.txt_swipe_to_confirm_your_booking ??
+                                  //         '',
+                                  //     style: TextStyle(
+                                  //       color: Colors.white,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                   color: Color(0xFFF36D86),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(0)),
@@ -151,6 +161,8 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                   return true;
                                 },
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                         decoration: BoxDecoration(
@@ -166,7 +178,17 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                           color: Colors.white,
                                           size: 20.0,
                                         )),
-                                    SizedBox()
+                                    Center(
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                                ?.txt_swipe_to_confirm_your_booking ??
+                                            '',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(),
                                   ],
                                 ),
                               ),
