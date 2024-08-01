@@ -113,21 +113,21 @@ class _BookAppointmentScreenState extends BaseRouteState {
                               borderRadius: BorderRadius.circular(0)),
                           child: Stack(
                             children: [
-                              Padding(
-                                padding: EdgeInsets.all(
-                                    MediaQuery.of(context).size.width / 22),
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                            ?.txt_swipe_to_confirm_your_booking ??
-                                        '',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: EdgeInsets.all(
+                              //       MediaQuery.of(context).size.width / 22),
+                              //   child: Align(
+                              //     alignment: Alignment.center,
+                              //     child: Text(
+                              //       AppLocalizations.of(context)
+                              //               ?.txt_swipe_to_confirm_your_booking ??
+                              //           '',
+                              //       style: TextStyle(
+                              //         color: Colors.white,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               Dismissible(
                                 background: Card(
                                   elevation: 0,
@@ -173,10 +173,13 @@ class _BookAppointmentScreenState extends BaseRouteState {
                                                     Radius.circular(10))),
                                         width: 60,
                                         height: 55,
-                                        child: Icon(
-                                          MdiIcons.scissorsCutting,
-                                          color: Colors.white,
-                                          size: 20.0,
+                                        child: Transform.rotate(
+                                          angle: 0,
+                                          child: Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.white,
+                                            // size: 20.0,
+                                          ),
                                         )),
                                     Center(
                                       child: Text(

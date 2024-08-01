@@ -469,8 +469,7 @@ class _SignUpScreenState extends BaseRouteState {
                                   FocusScope.of(context).unfocus();
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                        builder: (context) => SignInScreen(
-                                       )),
+                                        builder: (context) => SignInScreen()),
                                   );
                                 },
                                 child: Text(

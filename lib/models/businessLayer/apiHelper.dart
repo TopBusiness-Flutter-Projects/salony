@@ -277,6 +277,7 @@ class APIHelper {
       } else {
         recordList = null;
       }
+
       return getAPIResult(response, recordList);
     } catch (e) {
       print("Exception - checkOut(): " + e.toString());
