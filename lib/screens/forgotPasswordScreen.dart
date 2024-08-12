@@ -89,6 +89,8 @@ class _ForgotPasswordScreenState extends BaseRouteState {
     print('....phone....:+$phoneCode$phoneNumber');
     try {
       print('done....phone....:$phoneCode$phoneNumber');
+      FirebaseAuth.instance.setSettings(forceRecaptchaFlow: true);
+
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '$phoneCode$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
