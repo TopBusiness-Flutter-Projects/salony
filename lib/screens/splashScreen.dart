@@ -106,7 +106,7 @@ class _SplashScreenState extends BaseRouteState {
         _getMapBox(),
         // FirebaseMessaging.instance.getToken(),
         _getCurrency(),
-         getToke(),
+        getToke(),
 
         br.checkConnectivity()
       ]);
@@ -127,8 +127,8 @@ class _SplashScreenState extends BaseRouteState {
           setState(() {});
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => BottomNavigationWidget(
-                    // a: widget.analytics,
-                    // o: widget.observer,
+                  // a: widget.analytics,
+                  // o: widget.observer,
                   )));
           // } else {
           //   hideLoader();
@@ -140,13 +140,12 @@ class _SplashScreenState extends BaseRouteState {
           // });
           print('555555555555');
         } else {
-
           print('/////////////');
           // await getCurrentPosition();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => IntroScreen(
-                    // a: widget.analytics,
-                    // o: widget.observer,
+                  // a: widget.analytics,
+                  // o: widget.observer,
                   )));
         }
       } else {
@@ -215,15 +214,8 @@ class _SplashScreenState extends BaseRouteState {
   }
 
   getToke() async {
-    messaging.getToken().then((value) {
-      print('ssssssssssss$value');
-      global.appDeviceId = value;
-    }).onError((error, stackTrace) {
-      print('ssssssssssss${error.toString()}');
-
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(error.toString())));
-    });
+    String? token = await messaging.getToken();
+    global.appDeviceId = token;
     // Handle the case when permission is not granted
   }
 }

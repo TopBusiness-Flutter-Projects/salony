@@ -12,9 +12,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:app/models/businessLayer/global.dart' as global;
 
 import 'firebase_options.dart';
-
 
 FirebaseMessaging messaging = FirebaseMessaging.instance;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -56,8 +56,8 @@ void main() async {
 
   try {
     await Firebase.initializeApp(
-         options: DefaultFirebaseOptions.currentPlatform,
-        );
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   } catch (e) {
     print("Can't initialize Firebase: $e");
   } finally {
@@ -85,10 +85,11 @@ class MyAppState extends State<MyApp> {
   getToken() async {
     String? token = await messaging.getToken();
     print("token =  $token");
-
+    global.appDeviceId = token;
     // Preferences.instance.setNotificationToken(value: token ?? '');
     return token;
   }
+
   @override
   void initState() {
     super.initState();
@@ -212,9 +213,9 @@ class MyAppState extends State<MyApp> {
             return Directionality(
                 textDirection: TextDirection.rtl,
                 child: SplashScreen(
-                  // a: analytics,
-                  // o: observer,
-                ));
+                    // a: analytics,
+                    // o: observer,
+                    ));
           }),
         );
       });
