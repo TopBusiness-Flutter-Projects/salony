@@ -9,6 +9,7 @@ import 'package:app/widgets/bottomNavigationWidget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -27,6 +28,7 @@ class _SignInScreenState extends BaseRouteState {
   FocusNode _fEmail = new FocusNode();
   FocusNode _fPassword = new FocusNode();
   bool _isRemember = false;
+  String? phoneCodeintl = '+20';
   bool _isPasswordVisible = false;
   // GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
   _SignInScreenState() : super();
@@ -60,8 +62,8 @@ class _SignInScreenState extends BaseRouteState {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => BottomNavigationWidget(
-                                      // a: widget.analytics,
-                                      // o: widget.observer,
+                                    // a: widget.analytics,
+                                    // o: widget.observer,
                                     )),
                           ); //!
                         },
@@ -154,34 +156,57 @@ class _SignInScreenState extends BaseRouteState {
                         ),
                       ),
                     ),
-                    Container(
-                        margin: EdgeInsets.only(top: 60),
-                        height: 50,
-                        child: TextFormField(
-                          textAlign: TextAlign.start,
-                          autofocus: false,
-                          cursorColor: Color(0xFFF36D86),
-                          enabled: true,
-                          style: TextStyle(
-                            color: Color(0xFFA6A6A6),
-                            fontSize: 16,
-                            fontFamily: 'Cairo',
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                          ),
-                          controller: _cPhone,
-                          focusNode: _fEmail,
-                          keyboardType: TextInputType.phone,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(
-                                _phoneNumberLength),
-                          ],
-                          onEditingComplete: () {
-                            _fPassword.requestFocus();
-                          },
-                          decoration: InputDecoration(hintText: 'رقم الجوال'),
-                        )),
+                    IntlPhoneField(
+                      decoration: InputDecoration(hintText: 'رقم الجوال'),
+                      controller: _cPhone,                        showCountryFlag: false,
+
+                      initialCountryCode: 'EG',
+                      onCountryChanged: (country) {
+                          phoneCodeintl = '+' + country.fullCountryCode;
+                        print("sssssssssssss$phoneCodeintl");
+
+                        print(phoneCodeintl);
+                      },
+                      onChanged: (phone) {
+                        print(phone.completeNumber);
+                      },
+                      textAlign: TextAlign.start,
+                      autofocus: false,
+                      cursorColor: Color(0xFFF36D86),
+                      enabled: true,
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.number,
+                      style: Theme.of(context).primaryTextTheme.headline6,
+                      focusNode: _fEmail,
+                    ),
+                    // Container(
+                    //     margin: EdgeInsets.only(top: 60),
+                    //     height: 50,
+                    //     child: TextFormField(
+                    //       textAlign: TextAlign.start,
+                    //       autofocus: false,
+                    //       cursorColor: Color(0xFFF36D86),
+                    //       enabled: true,
+                    //       style: TextStyle(
+                    //         color: Color(0xFFA6A6A6),
+                    //         fontSize: 16,
+                    //         fontFamily: 'Cairo',
+                    //         fontWeight: FontWeight.w400,
+                    //         height: 0,
+                    //       ),
+                    //       controller: _cPhone,
+                    //       focusNode: _fEmail,
+                    //       keyboardType: TextInputType.phone,
+                    //       inputFormatters: [
+                    //         FilteringTextInputFormatter.digitsOnly,
+                    //         LengthLimitingTextInputFormatter(
+                    //             _phoneNumberLength),
+                    //       ],
+                    //       onEditingComplete: () {
+                    //         _fPassword.requestFocus();
+                    //       },
+                    //       decoration: InputDecoration(hintText: 'رقم الجوال'),
+                    //     )),
                     Container(
                         height: 50,
                         margin: EdgeInsets.only(top: 15),
@@ -228,8 +253,7 @@ class _SignInScreenState extends BaseRouteState {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ForgotPasswordScreen(
-                                          )),
+                                          ForgotPasswordScreen()),
                                 );
                               },
                               child: Text(
@@ -455,8 +479,7 @@ class _SignInScreenState extends BaseRouteState {
                                   FocusScope.of(context).unfocus();
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                        builder: (context) => SignUpScreen(
-                                          )),
+                                        builder: (context) => SignUpScreen()),
                                   );
                                 },
                                 child: Text(
@@ -531,8 +554,8 @@ class _SignInScreenState extends BaseRouteState {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => BottomNavigationWidget(
-                            // a: widget.analytics,
-                            // o: widget.observer,
+                          // a: widget.analytics,
+                          // o: widget.observer,
                           )),
                 );
                 // await getCurrentPosition().then((_) async {

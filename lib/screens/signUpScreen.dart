@@ -4,17 +4,13 @@ import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/models/userModel.dart';
 import 'package:app/screens/otpVerificationScreen.dart';
 import 'package:app/screens/signInScreen.dart';
-import 'package:app/screens/termsOfServicesScreen.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../constansts.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import '../models/DistrictModel.dart';
 import '../models/city_model.dart';
 import '../models/region_model.dart';
@@ -140,28 +136,35 @@ class _SignUpScreenState extends BaseRouteState {
                           },
                           decoration: InputDecoration(hintText: 'اسم المستخدم'),
                         )),
+
                     Container(
-                        margin: EdgeInsets.only(top: 15),
-                        height: 50,
-                        child: TextFormField(
-                          textAlign: TextAlign.start,
-                          autofocus: false,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(
-                                _phoneNumberLength),
-                          ],
-                          keyboardType: TextInputType.number,
-                          cursorColor: Color(0xFFF36D86),
-                          enabled: true,
-                          style: TextStyle(fontFamily: 'cairo'),
-                          controller: _cMobile,
-                          focusNode: _fMobile,
-                          decoration: InputDecoration(hintText: 'رقم الجوال'),
-                          onEditingComplete: () {
-                            _fPassword.requestFocus();
-                          },
-                        )),
+                      margin: EdgeInsets.only(top: 15),
+                      // height: 50,
+                      child: IntlPhoneField(
+                        decoration: InputDecoration(hintText: 'رقم الجوال'),
+                        controller: _cMobile,
+                        initialCountryCode: 'EG',
+                        showCountryFlag: false,
+                        onCountryChanged: (country) {
+                          phoneCodeintl = '+' + country.fullCountryCode;
+                          print("sssssssssssss$phoneCodeintl");
+
+                          print("sssssssssssss$phoneCodeintl");
+                        },
+                        onChanged: (phone) {
+                          print(phone.completeNumber);
+                        },
+                        textAlign: TextAlign.start,
+                        autofocus: false,
+                        cursorColor: Color(0xFFF36D86),
+                        enabled: true,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.number,
+                        style: Theme.of(context).primaryTextTheme.headline6,
+                        focusNode: _fEmail,
+                      ),
+                    ),
+
                     //!
                     Container(
                       margin: EdgeInsets.only(top: 15), // color: Colors.red,
@@ -178,18 +181,14 @@ class _SignUpScreenState extends BaseRouteState {
                           ),
                           // Add more decoration..
                         ),
-                        hint: const Text(
+                        hint: const AutoSizeText(
                           'اختر منطقتك',
-                          style: TextStyle(fontSize: 14),
                         ),
                         items: regions
                             .map((item) => DropdownMenuItem<RegionModel>(
                                   value: item,
-                                  child: Text(
+                                  child: AutoSizeText(
                                     item.nameAr ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
                                   ),
                                 ))
                             .toList(),
@@ -249,7 +248,7 @@ class _SignUpScreenState extends BaseRouteState {
                           ),
                           // Add more decoration..
                         ),
-                        hint: const Text(
+                        hint: const AutoSizeText(
                           'اختر مدينتك',
                           style: TextStyle(fontSize: 14),
                         ),
@@ -257,7 +256,7 @@ class _SignUpScreenState extends BaseRouteState {
                         items: cities
                             .map((item) => DropdownMenuItem<CityModel>(
                                   value: item,
-                                  child: Text(
+                                  child: AutoSizeText(
                                     item.nameAr ?? '',
                                     style: const TextStyle(
                                       fontSize: 14,
@@ -324,7 +323,7 @@ class _SignUpScreenState extends BaseRouteState {
                                 ),
                                 // Add more decoration..
                               ),
-                              hint: const Text(
+                              hint: const AutoSizeText(
                                 'اختر الحي',
                                 style: TextStyle(fontSize: 14),
                               ),
@@ -443,7 +442,7 @@ class _SignUpScreenState extends BaseRouteState {
                               FocusScope.of(context).unfocus();
                               _signUp();
                             },
-                            child: Text(
+                            child: AutoSizeText(
                               'انشاء حساب',
                               style: TextStyle(fontFamily: 'cairo'),
                             ))),
@@ -454,7 +453,7 @@ class _SignUpScreenState extends BaseRouteState {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            AutoSizeText(
                               ' لديك حساب معنا ؟',
                               style: TextStyle(
                                 color: Colors.black,
@@ -472,11 +471,10 @@ class _SignUpScreenState extends BaseRouteState {
                                         builder: (context) => SignInScreen()),
                                   );
                                 },
-                                child: Text(
+                                child: AutoSizeText(
                                   ' تسجيل دخول ',
                                   style: TextStyle(
                                     color: Color(0xFFF36D86),
-                                    fontSize: 18,
                                     fontFamily: 'Cairo',
                                     fontWeight: FontWeight.w400,
                                     height: 0,
@@ -525,12 +523,13 @@ class _SignUpScreenState extends BaseRouteState {
     _cName.text = name != null ? name! : '';
   }
 
+  String? phoneCodeintl = '+20';
   _sendOTP(String phoneNumber) async {
-    print('....phone....:$phoneCode$phoneNumber');
+    print('....phone....:$phoneCodeintl$phoneNumber');
     try {
-      print('done....phone....:$phoneCode$phoneNumber');
+      print('done....phone....:$phoneCodeintl$phoneNumber');
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '$phoneCode$phoneNumber',
+        phoneNumber: '$phoneCodeintl$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();
@@ -548,6 +547,7 @@ class _SignUpScreenState extends BaseRouteState {
                       // o: widget.observer,
                       verificationId: verificationId,
                       phoneNumberOrEmail: phoneNumber,
+                      phoneCodeintl2: phoneCodeintl,
                     )),
           );
         },

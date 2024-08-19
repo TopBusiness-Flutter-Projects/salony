@@ -63,10 +63,6 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                         height: 50,
                         child: TextFormField(
                           textAlign: TextAlign.start,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(16),
-                          ],
                           keyboardType: TextInputType.number,
                           autofocus: false,
                           cursorColor: Color(0xFFF36D86),
@@ -205,10 +201,6 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                       20,
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly,
-                                      LengthLimitingTextInputFormatter(3),
-                                    ],
                                     keyboardType: TextInputType.number,
                                     autofocus: false,
                                     cursorColor: Color(0xFFF36D86),

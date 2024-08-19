@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:mobile_number/mobile_number.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../constansts.dart';
@@ -58,29 +59,62 @@ class _AddPhoneScreenState extends BaseRouteState {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 70.0),
-                  child: TextFormField(
-                    textAlign: TextAlign.start,
-                    autofocus: false,
-                    cursorColor: Color(0xFFF36D86),
-                    enabled: true,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(10),
+                  child: Row(
+                    children: [
+                      IntlPhoneField(
+                        decoration: InputDecoration(
+                          labelText: 'Phone Number',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(),
+                          ),
+                        ),
+                        controller: _cPhoneNumber,
+                        initialCountryCode: 'EG',
+                        showCountryFlag: false,
+                        onCountryChanged: (country) {
+                          phoneCodeintl = '+' + country.fullCountryCode;
+                          print("sssssssssssss$phoneCodeintl");
+
+                          print(phoneCodeintl);
+                        },
+                        onChanged: (phone) {
+                          print(phone.completeNumber);
+                        },
+                        textAlign: TextAlign.start,
+                        autofocus: false,
+                        cursorColor: Color(0xFFF36D86),
+                        enabled: true,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.number,
+                        style: Theme.of(context).primaryTextTheme.headline6,
+                        focusNode: _fPhoneNumber,
+                      ),
+                      // TextFormField(
+                      //   textAlign: TextAlign.start,
+                      //   autofocus: false,
+                      //   cursorColor: Color(0xFFF36D86),
+                      //   enabled: true,
+                      //   inputFormatters: [
+                      //     FilteringTextInputFormatter.digitsOnly,
+                      //     LengthLimitingTextInputFormatter(10),
+                      //   ],
+                      //   textInputAction: TextInputAction.done,
+                      //   keyboardType: TextInputType.number,
+                      //   style: Theme.of(context).primaryTextTheme.headline6,
+                      //   controller: _cPhoneNumber,
+                      //   focusNode: _fPhoneNumber,
+                      //   maxLength: 10,
+                      //   decoration: InputDecoration(
+                      //     hintText:
+                      //         AppLocalizations.of(context)!.lbl_phone_number,
+                      //     counterText: '',
+                      //     prefixIcon: Icon(Icons.email),
+                      //   ),
+                      //   onEditingComplete: () {
+                      //     FocusScope.of(context).unfocus();
+                      //   },
+                      // ),
                     ],
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.number,
-                    style: Theme.of(context).primaryTextTheme.headline6,
-                    controller: _cPhoneNumber,
-                    focusNode: _fPhoneNumber,
-                    maxLength: 10,
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.lbl_phone_number,
-                      counterText: '',
-                      prefixIcon: Icon(Icons.email),
-                    ),
-                    onEditingComplete: () {
-                      FocusScope.of(context).unfocus();
-                    },
                   ),
                 ),
                 Padding(
@@ -218,10 +252,11 @@ class _AddPhoneScreenState extends BaseRouteState {
     }
   }
 
+  String? phoneCodeintl = '+20';
   _sendOTP(String phoneNumber) async {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '$phoneCode$phoneNumber',
+        phoneNumber: '$phoneCodeintl$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();
@@ -237,7 +272,7 @@ class _AddPhoneScreenState extends BaseRouteState {
                 builder: (context) => OTPVerificationScreen(
                       // a: widget.analytics,
                       // o: widget.observer,
-                      screenId: 1,
+                      screenId: 1, phoneCodeintl2: phoneCodeintl,
                       verificationId: verificationId,
                       phoneNumberOrEmail: phoneNumber,
                     )),

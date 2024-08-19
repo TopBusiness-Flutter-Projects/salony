@@ -16,25 +16,31 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
-import '../constansts.dart';
-
 class OTPVerificationScreen extends BaseRoute {
   final int? screenId;
   final String? verificationId;
   final String? phoneNumberOrEmail;
-  OTPVerificationScreen(
-      {a, o, this.screenId, this.verificationId, this.phoneNumberOrEmail})
-      : super(a: a, o: o, r: 'OTPVerificationScreen');
+  final String? phoneCodeintl2;
+  OTPVerificationScreen({
+    a,
+    o,
+    this.screenId,
+    this.verificationId,
+    this.phoneNumberOrEmail,
+    required this.phoneCodeintl2,
+  }) : super(a: a, o: o, r: 'OTPVerificationScreen');
   @override
   _OTPVerificationScreenState createState() => new _OTPVerificationScreenState(
       screenId: screenId,
       verificationId: verificationId,
-      phoneNumberOrEmail: this.phoneNumberOrEmail);
+      phoneNumberOrEmail: this.phoneNumberOrEmail,
+      phoneCodeintl2: phoneCodeintl2);
 }
 
 class _OTPVerificationScreenState extends BaseRouteState {
   GlobalKey<ScaffoldState>? _scaffoldKey;
   String? phoneNumberOrEmail;
+  String? phoneCodeintl2;
   String? verificationId;
   int _seconds = 60;
   late Timer _countDown;
@@ -42,9 +48,12 @@ class _OTPVerificationScreenState extends BaseRouteState {
   String? status;
   int? screenId;
   late BusinessRule br;
-  _OTPVerificationScreenState(
-      {this.screenId, this.verificationId, this.phoneNumberOrEmail})
-      : super();
+  _OTPVerificationScreenState({
+    this.screenId,
+    this.verificationId,
+    this.phoneNumberOrEmail,
+    this.phoneCodeintl2,
+  }) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -146,8 +155,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    TermsOfServices(
-                                                     )),
+                                                    TermsOfServices()),
                                           );
                                         },
                                         child: Text('شروط الخدمة،',
@@ -163,8 +171,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    PrivacyAndPolicy(
-                                                     )),
+                                                    PrivacyAndPolicy()),
                                           );
                                         },
                                         child: Text('  سياسة الخصوصية',
@@ -185,8 +192,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                     onTap: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
-                                            builder: (context) => CookiesPolicy(
-                                            )),
+                                            builder: (context) =>
+                                                CookiesPolicy()),
                                       );
                                     },
                                     child: Text(
@@ -252,7 +259,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                           alignment: Alignment.centerRight,
                           child: GestureDetector(
                               onTap: () async {
-                                await _getOTP(phoneNumberOrEmail);
+                                await _getOTP(
+                                    phoneNumberOrEmail, phoneCodeintl2);
                               },
                               child: Text(
                                   _seconds != 0
@@ -299,8 +307,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    TermsOfServices(
-                                                     )),
+                                                    TermsOfServices()),
                                           );
                                         },
                                         child: Text('شروط الخدمة،',
@@ -316,8 +323,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    PrivacyAndPolicy(
-                                                    )),
+                                                    PrivacyAndPolicy()),
                                           );
                                         },
                                         child: Text('  سياسة الخصوصية',
@@ -338,8 +344,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                                     onTap: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
-                                            builder: (context) => CookiesPolicy(
-                                              )),
+                                            builder: (context) =>
+                                                CookiesPolicy()),
                                       );
                                     },
                                     child: Text(
@@ -456,11 +462,11 @@ class _OTPVerificationScreenState extends BaseRouteState {
     }
   }
 
-  Future _getOTP(String? mobileNumber) async {
+  Future _getOTP(String? mobileNumber, String? phoneCodeintl2) async {
     try {
       FirebaseAuth _auth = FirebaseAuth.instance;
       await _auth.verifyPhoneNumber(
-        phoneNumber: '$phoneCode$mobileNumber',
+        phoneNumber: '$phoneCodeintl2$mobileNumber',
         timeout: Duration(seconds: 60),
         verificationCompleted: (AuthCredential authCredential) async {
           setState(() {});
@@ -572,8 +578,8 @@ class _OTPVerificationScreenState extends BaseRouteState {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => BottomNavigationWidget(
-                            // a: widget.analytics,
-                            // o: widget.observer,
+                          // a: widget.analytics,
+                          // o: widget.observer,
                           )),
                 );
                 // } else {
@@ -609,9 +615,7 @@ class _OTPVerificationScreenState extends BaseRouteState {
                 // if (global.lat != null && global.lng != null) {
                 hideLoader();
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => ExploreScreen(
-                         )),
+                  MaterialPageRoute(builder: (context) => ExploreScreen()),
                 );
                 // } else {
                 //   hideLoader();

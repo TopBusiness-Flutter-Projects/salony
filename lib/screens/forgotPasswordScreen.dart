@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../constansts.dart';
 
@@ -48,21 +49,30 @@ class _ForgotPasswordScreenState extends BaseRouteState {
                       style: Theme.of(context).primaryTextTheme.displaySmall),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(top: 70),
-                    child: TextFormField(
-                      textAlign: TextAlign.start,
-                      autofocus: false,
-                      cursorColor: Color(0xFFF36D86),
-                      enabled: true,
-                      style: Theme.of(context).primaryTextTheme.titleLarge,
-                      controller: _cPhone,
-                      focusNode: _fPhone,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(hintText: 'أدخل رقم هاتفك'),
-                      onEditingComplete: () {
-                        FocusScope.of(context).unfocus();
-                      },
-                    )),
+                  padding: EdgeInsets.only(top: 70),
+                  child: IntlPhoneField(
+                    decoration: InputDecoration(hintText: 'رقم الجوال'),
+                    controller: _cPhone,
+                    initialCountryCode: 'EG',
+                    showCountryFlag: false,
+                    onCountryChanged: (country) {
+                      phoneCodeintl = '+' + country.fullCountryCode;
+                      print(phoneCodeintl);
+                      print("sssssssssssss$phoneCodeintl");
+                    },
+                    onChanged: (phone) {
+                      print(phone.completeNumber);
+                    },
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    cursorColor: Color(0xFFF36D86),
+                    enabled: true,
+                    textInputAction: TextInputAction.done,
+                    keyboardType: TextInputType.number,
+                    style: Theme.of(context).primaryTextTheme.headline6,
+                    focusNode: _fPhone,
+                  ),
+                ),
                 Container(
                     height: 50,
                     width: double.infinity,
@@ -85,14 +95,15 @@ class _ForgotPasswordScreenState extends BaseRouteState {
     super.initState();
   }
 
+  String? phoneCodeintl = '+20';
   _sendOTP(String phoneNumber) async {
-    print('....phone....:+$phoneCode$phoneNumber');
+    print('....phone....:+$phoneCodeintl$phoneNumber');
     try {
-      print('done....phone....:$phoneCode$phoneNumber');
+      print('done....phone....:$phoneCodeintl$phoneNumber');
       FirebaseAuth.instance.setSettings(forceRecaptchaFlow: true);
 
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '$phoneCode$phoneNumber',
+        phoneNumber: '$phoneCodeintl$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           hideLoader();
@@ -108,6 +119,7 @@ class _ForgotPasswordScreenState extends BaseRouteState {
                 builder: (context) => OTPVerificationScreen(
                       // a: widget.analytics,
                       // o: widget.observer,
+                      phoneCodeintl2: phoneCodeintl,
                       verificationId: verificationId,
                       phoneNumberOrEmail: phoneNumber,
                       screenId: 2,
