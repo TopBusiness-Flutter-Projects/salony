@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/models/userModel.dart';
 import 'package:app/screens/otpVerificationScreen.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mobile_number/mobile_number.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../constansts.dart';
 
 class AddPhoneScreen extends BaseRoute {
@@ -45,7 +44,7 @@ class _AddPhoneScreenState extends BaseRouteState {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Text(
+                AutoSizeText(
                   AppLocalizations.of(context)!.txt_connect_with_phone,
                   style: Theme.of(context).primaryTextTheme.caption,
                 ),

@@ -1,4 +1,5 @@
 import 'package:app/models/businessLayer/baseRoute.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -31,7 +32,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
         },
         child: sc(Scaffold(
             appBar: AppBar(
-              title: Text('Add Payment Method'),
+              title: AutoSizeText('Add Payment Method'),
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -51,7 +52,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           const EdgeInsets.only(top: 15, left: 10, right: 10),
                       child: Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: AutoSizeText(
                             'Card Number',
                             style:
                                 Theme.of(context).primaryTextTheme.titleMedium,
@@ -93,7 +94,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           const EdgeInsets.only(top: 15, left: 10, right: 10),
                       child: Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
+                          child: AutoSizeText(
                             'Card Holder Name',
                             style:
                                 Theme.of(context).primaryTextTheme.titleMedium,
@@ -139,7 +140,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                     top: 0, left: 0, right: 10),
                                 child: Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
+                                    child: AutoSizeText(
                                       'Expiry Date',
                                       style: Theme.of(context)
                                           .primaryTextTheme
@@ -190,7 +191,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                                     top: 0, left: 0, right: 10),
                                 child: Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
+                                    child: AutoSizeText(
                                       'Security Code',
                                       style: Theme.of(context)
                                           .primaryTextTheme
@@ -245,7 +246,7 @@ class _AddPaymentMethodScreenState extends BaseRouteState {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text('Save'))),
+                          child: AutoSizeText('Save'))),
                 ],
               ),
             ))));

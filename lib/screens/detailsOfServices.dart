@@ -1,6 +1,7 @@
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
 import 'package:app/screens/bookAppointmentScreen.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -122,7 +123,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                           ],
                                         ),
                                         ListTile(
-                                          title: Text('$serviceName',
+                                          title: AutoSizeText('$serviceName',
                                               style: TextStyle(
                                                 fontFamily: 'cairo',
                                                 fontSize: 18,
@@ -142,7 +143,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                 height:
                                     MediaQuery.of(context).size.height * 0.24,
                                 width: MediaQuery.of(context).size.width,
-                                child: Text(
+                                child: AutoSizeText(
                                     AppLocalizations.of(context)!.lbl_no_image),
                               ),
                             ),
@@ -208,13 +209,14 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                               children: [
                                                 InkWell(
                                                   onTap: () {
-                                                    Navigator.of(context).push(MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            BarberShopDescriptionScreen(
-                                                                _servicesList![
-                                                                        index]
-                                                                    .vendorId,
-                                                             )));
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                BarberShopDescriptionScreen(
+                                                                  _servicesList![
+                                                                          index]
+                                                                      .vendorId,
+                                                                )));
                                                   },
                                                   child: Container(
                                                     height:
@@ -275,7 +277,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                 BorderRadius
                                                                     .circular(
                                                                         10),
-                                                            child: Text(
+                                                            child: AutoSizeText(
                                                                 AppLocalizations.of(
                                                                         context)!
                                                                     .lbl_no_image),
@@ -294,10 +296,10 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                         MaterialPageRoute(
                                                             builder: (context) =>
                                                                 BarberShopDescriptionScreen(
-                                                                    _servicesList![
-                                                                            index]
-                                                                        .vendorId,
-                                                                  )),
+                                                                  _servicesList![
+                                                                          index]
+                                                                      .vendorId,
+                                                                )),
                                                       );
                                                     },
                                                     child: Padding(
@@ -309,7 +311,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Text(
+                                                          AutoSizeText(
                                                             '${_servicesList![index].vendorName ?? ''}',
                                                             maxLines: 2,
                                                             overflow:
@@ -318,7 +320,6 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
-                                                              fontSize: 16,
                                                               fontFamily:
                                                                   'Cairo',
                                                               fontWeight:
@@ -336,7 +337,8 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                     color: Color(
                                                                         0xFFF36D86)),
                                                                 Flexible(
-                                                                  child: Text(
+                                                                  child:
+                                                                      AutoSizeText(
                                                                     '${_servicesList![index].vendorLoc ?? ''}',
                                                                     maxLines: 2,
                                                                     overflow:
@@ -346,8 +348,6 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                                         TextStyle(
                                                                       color: Colors
                                                                           .black,
-                                                                      fontSize:
-                                                                          12,
                                                                       fontFamily:
                                                                           'Cairo',
                                                                       fontWeight:
@@ -377,13 +377,13 @@ class _ServiceDetailScreenState extends BaseRouteState {
                                                         MaterialPageRoute(
                                                             builder: (context) =>
                                                                 BookAppointmentScreen(
-                                                                    _servicesList![
-                                                                            index]
-                                                                        .vendorId,
-                                                               )),
+                                                                  _servicesList![
+                                                                          index]
+                                                                      .vendorId,
+                                                                )),
                                                       );
                                                     },
-                                                    child: Text(
+                                                    child: AutoSizeText(
                                                         AppLocalizations.of(
                                                                 context)!
                                                             .lbl_book_now)),
@@ -395,7 +395,7 @@ class _ServiceDetailScreenState extends BaseRouteState {
                             )
                           ])
                     : Center(
-                        child: Text(
+                        child: AutoSizeText(
                           AppLocalizations.of(context)!
                               .txt_nearby_shopw_will_shown_here,
                           style: Theme.of(context).primaryTextTheme.titleSmall,
@@ -415,12 +415,12 @@ class _ServiceDetailScreenState extends BaseRouteState {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => BookAppointmentScreen(
-                                      selectedVendorId,
-                                   )),
+                                        selectedVendorId,
+                                      )),
                             );
                           },
-                          child:
-                              Text(AppLocalizations.of(context)!.lbl_book_now)),
+                          child: AutoSizeText(
+                              AppLocalizations.of(context)!.lbl_book_now)),
                     ],
                   ),
                 )

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:app/models/barberShopDescModel.dart';
 import 'package:app/models/businessLayer/base.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
@@ -47,7 +48,7 @@ class OpenImageDialogState extends BaseState {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text(AppLocalizations.of(context)!.lbl_gallery),
+        title: AutoSizeText(AppLocalizations.of(context)!.lbl_gallery),
         leading: BackButton(
           onPressed: () {
             Navigator.of(context).pop();

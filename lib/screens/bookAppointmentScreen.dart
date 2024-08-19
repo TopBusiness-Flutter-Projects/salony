@@ -415,15 +415,16 @@ class _BookAppointmentScreenState extends BaseRouteState {
                 selectedIndex: in_door,
                 selectedTextStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    // fontSize: 18,
                     fontWeight: FontWeight.w600),
 
                 unSelectedTextStyle: TextStyle(
                     color: Colors.white54,
-                    fontSize: 14,
+                    // fontSize: 14,
                     fontWeight: FontWeight.w400),
                 width: MediaQuery.of(context).size.width / 10,
                 labels: ['بالمنزل', 'بالصالون'],
+
                 selectedLabelIndex: (index) {
                   setState(() {
                     in_door = (in_door == 0) ? 1 : 0;

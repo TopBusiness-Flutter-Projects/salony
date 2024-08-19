@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:app/models/businessLayer/apiHelper.dart';
 import 'package:app/models/businessLayer/businessRule.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
+import 'package:auto_size_text/auto_size_text.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -71,10 +72,10 @@ class BaseState extends State<Base>
             return Theme(
               data: ThemeData(dialogBackgroundColor: Colors.white),
               child: CupertinoAlertDialog(
-                title: Text(
+                title: AutoSizeText(
                   "Exit app",
                 ),
-                content: Text(
+                content: AutoSizeText(
                   "Are you sure you want to exit app?",
                 ),
                 actions: <Widget>[

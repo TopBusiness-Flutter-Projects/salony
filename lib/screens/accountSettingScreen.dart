@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app/models/businessLayer/baseRoute.dart';
 import 'package:app/models/businessLayer/businessRule.dart';
 import 'package:app/models/businessLayer/global.dart' as global;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,7 +47,7 @@ class _AccountSettingScreenState extends BaseRouteState {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('إعدادات الحساب'),
+          title: AutoSizeText('إعدادات الحساب'),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -703,8 +704,8 @@ class _AccountSettingScreenState extends BaseRouteState {
                   context,
                   MaterialPageRoute(
                       builder: (context) => BottomNavigationWidget(
-                          screenId: 3,
-                       )));
+                            screenId: 3,
+                          )));
             } else {
               showSnackBar(
                   key: _scaffoldKey, snackBarMessage: '${result.message}');
